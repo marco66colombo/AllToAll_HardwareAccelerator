@@ -3,11 +3,13 @@
 
 int main(){
 
-    int a = 0;
+    
 
     printf("Start simulation\n");
 
-    ROCC_INSTRUCTION_DSS(0, a, 1, 5, 0);
+    //which register to use as rd? (here 8)
+    ROCC_INSTRUCTION_DSS(0, 8, 1, 5, 0);
+    //how to see the content of reg 8?
 
     printf("End simulation, result is %d \n", a);
     printf("\nResult should be 2");
