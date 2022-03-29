@@ -1,7 +1,7 @@
-organization := "edu.berkeley.cs"
+organization := "polimi"
 
 version := "1.0"
 
-name := "yourproject"
+name := "hppsProject"
 
 scalaVersion := "2.12.4"
