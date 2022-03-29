@@ -1,4 +1,4 @@
-package HPPS_Project
+package hppsProject
 
 class WithCustomAccelerator extends Config((site, here, up) => {
     case BuildRoCC => Seq((p: Parameters) => {
