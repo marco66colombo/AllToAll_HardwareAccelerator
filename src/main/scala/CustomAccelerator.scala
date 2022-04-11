@@ -12,6 +12,9 @@ import freechips.rocketchip.rocket._
 import freechips.rocketchip.tilelink._
 import freechips.rocketchip.util.InOrderArbiter
 
+
+//interface of custom module
+
 class Instruction extends Bundle {
   val funct = Bits(7.W)
   val rs2 = Bits(5.W)
@@ -23,17 +26,18 @@ class Instruction extends Bundle {
   val opcode = Bits(7.W)
 }
 
-class Command(implicit p: Parameters) extends Bundle {
+//xLen put as 64.W
+class Command extends Bundle {
   val inst = new Instruction
-  val rs1 = Bits(xLen.W)
-  val rs2 = Bits(xLen.W)
+  val rs1 = Bits(64.W)
+  val rs2 = Bits(64.W)
   val status = new MStatus
 }
-class Respose(implicit p: Parameters) extends Bundle {
+class Response extends Bundle {
   val rd = Bits(5.W)
-  val data = Bits(xLen.W)
+  val data = Bits(64.W)
 }
-class AccerteratorModuleInterface extends Bundle {
+class AcceleratorModuleIO extends Bundle {
   val cmd = Flipped(Decoupled(new Command))
   val resp = Decoupled(new Response)
   //val mem = new HellaCacheIO
@@ -43,39 +47,31 @@ class AccerteratorModuleInterface extends Bundle {
 }
 
 
+
+//custom accelerator def
+
 class CustomAccelerator(opcodes: OpcodeSet) (implicit p: Parameters) extends LazyRoCC(opcodes) {
   override lazy val module = new CustomAcceleratorModule(this)
 }
 
-class CustomModule{
-  io = IO(new AccerteratorModuleInterface)
-  //devo salvare il valore del registro in scrittura nel processore (quando l'acceleratoere risponde) 
-  //perchè quando testo è possibile che si resetti a zero al clock successivo
-  io.cmd.ready := true.B
-  io.resp.valid := true.B 
-  io.resp.bits.rd := 3.U
-  io.resp.bits.data := cmd.bits.rs1 + 1.U 
-
-}
-
 
 class CustomAcceleratorModule(outer: CustomAccelerator) extends LazyRoCCModuleImp(outer) {
-  val cmd = Queue(io.cmd)
+  //val cmd = Queue(io.cmd)
   val customModule = new CustomModule
   
-  customModule.io.cmd.valid := cmd.valid
-  customModule.io.cmd.ready := cmd.ready
-  customModule.io.cmd.bits.inst.funct := cmd.bits.inst.funct
-  customModule.io.cmd.bits.inst.rs2 := cmd.bits.inst.rs2
-  customModule.io.cmd.bits.inst.rs1 := cmd.bits.inst.rs1
-  customModule.io.cmd.bits.inst.xd := cmd.bits.inst.xd
-  customModule.io.cmd.bits.inst.xs1 := cmd.bits.inst.xs1
-  customModule.io.cmd.bits.inst.xs2 := cmd.bits.inst.xs2
-  customModule.io.cmd.bits.inst.rd := cmd.bits.inst.rd
-  customModule.io.cmd.bits.inst.opcode := cmd.bits.inst.opcode
-  customModule.io.cmd.bits.rs1 := cmd.bits.rs1
-  customModule.io.cmd.bits.rs2 := cmd.bits.rs2
-  customModule.io.cmd.bits.status := cmd.bits.status
+  customModule.io.cmd.valid := io.cmd.valid
+  customModule.io.cmd.ready := io.cmd.ready
+  customModule.io.cmd.bits.inst.funct := io.cmd.bits.inst.funct
+  customModule.io.cmd.bits.inst.rs2 := io.cmd.bits.inst.rs2
+  customModule.io.cmd.bits.inst.rs1 := io.cmd.bits.inst.rs1
+  customModule.io.cmd.bits.inst.xd := io.cmd.bits.inst.xd
+  customModule.io.cmd.bits.inst.xs1 := io.cmd.bits.inst.xs1
+  customModule.io.cmd.bits.inst.xs2 := io.cmd.bits.inst.xs2
+  customModule.io.cmd.bits.inst.rd := io.cmd.bits.inst.rd
+  customModule.io.cmd.bits.inst.opcode := io.cmd.bits.inst.opcode
+  customModule.io.cmd.bits.rs1 := io.cmd.bits.rs1
+  customModule.io.cmd.bits.rs2 := io.cmd.bits.rs2
+  customModule.io.cmd.bits.status := io.cmd.bits.status
   customModule.io.resp.valid := io.resp.valid
   customModule.io.resp.ready := io.resp.ready
   customModule.io.resp.bits.rd := io.resp.bits.rd
@@ -85,6 +81,21 @@ class CustomAcceleratorModule(outer: CustomAccelerator) extends LazyRoCCModuleIm
   customModule.io.interrupt := io.interrupt
   customModule.io.exception := io.exception
 
+}
+
+
+//module with custom IO interface
+class CustomModule extends Module{
+  val io = IO(new AcceleratorModuleIO())
+  val cmd = Queue(io.cmd)
+  //devo salvare il valore del registro in scrittura nel processore (quando l'acceleratoere risponde) 
+  //perchè quando testo è possibile che si resetti a zero al clock successivo
+  io.cmd.ready := true.B
+  io.resp.valid := true.B 
+  io.resp.bits.rd := 3.U
+  io.resp.bits.data := cmd.bits.rs1 + 1.U 
+
+}
 
 /*
 
@@ -106,7 +117,3 @@ class CustomAcceleratorModule(outer: CustomAccelerator) extends LazyRoCCModuleIm
   io.resp.bits.rd := 3.U
   io.resp.bits.data := cmd.bits.rs1 + 1.U 
   */
-
-}
-
-
