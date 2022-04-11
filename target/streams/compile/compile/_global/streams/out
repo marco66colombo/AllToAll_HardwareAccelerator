@@ -1,0 +1,143 @@
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:23:18: not found: type RoCCInstruction[0m
+[0m[[0m[31merror[0m] [0m[0m  val inst = new RoCCInstruction[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:24:18: not found: value xLen[0m
+[0m[[0m[31merror[0m] [0m[0m  val rs1 = Bits(xLen.W)[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:25:18: not found: value xLen[0m
+[0m[[0m[31merror[0m] [0m[0m  val rs2 = Bits(xLen.W)[0m
+[0m[[0m[31merror[0m] [0m[0m                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:30:19: not found: value xLen[0m
+[0m[[0m[31merror[0m] [0m[0m  val data = Bits(xLen.W)[0m
+[0m[[0m[31merror[0m] [0m[0m                  ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:33:31: could not find implicit value for parameter p: freechips.rocketchip.config.Parameters[0m
+[0m[[0m[31merror[0m] [0m[0m  val cmd = Flipped(Decoupled(new Command))[0m
+[0m[[0m[31merror[0m] [0m[0m                              ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:34:28: not found: type Response[0m
+[0m[[0m[31merror[0m] [0m[0m  val resp = Decoupled(new Response)[0m
+[0m[[0m[31merror[0m] [0m[0m                           ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:42:78: not found: type LazyRoCC[0m
+[0m[[0m[31merror[0m] [0m[0mclass CustomAccelerator(opcodes: OpcodeSet) (implicit p: Parameters) extends LazyRoCC(opcodes) {[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                             ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:42:34: not found: type OpcodeSet[0m
+[0m[[0m[31merror[0m] [0m[0mclass CustomAccelerator(opcodes: OpcodeSet) (implicit p: Parameters) extends LazyRoCC(opcodes) {[0m
+[0m[[0m[31merror[0m] [0m[0m                                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:42:87: no arguments allowed for nullary constructor Object: ()Object[0m
+[0m[[0m[31merror[0m] [0m[0mclass CustomAccelerator(opcodes: OpcodeSet) (implicit p: Parameters) extends LazyRoCC(opcodes) {[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                                      ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:58:65: not found: type LazyRoCCModuleImp[0m
+[0m[[0m[31merror[0m] [0m[0mclass CustomAcceleratorModule(outer: CustomAccelerator) extends LazyRoCCModuleImp(outer) {[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:47:3: package scala.io is not a value[0m
+[0m[[0m[31merror[0m] [0m[0m  io = IO(new AccerteratorModuleInterface)[0m
+[0m[[0m[31merror[0m] [0m[0m  ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:50:6: object cmd is not a member of package io[0m
+[0m[[0m[31merror[0m] [0m[0m  io.cmd.ready := true.B[0m
+[0m[[0m[31merror[0m] [0m[0m     ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:51:6: object resp is not a member of package io[0m
+[0m[[0m[31merror[0m] [0m[0m  io.resp.valid := true.B [0m
+[0m[[0m[31merror[0m] [0m[0m     ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:52:6: object resp is not a member of package io[0m
+[0m[[0m[31merror[0m] [0m[0m  io.resp.bits.rd := 3.U[0m
+[0m[[0m[31merror[0m] [0m[0m     ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:53:6: object resp is not a member of package io[0m
+[0m[[0m[31merror[0m] [0m[0m  io.resp.bits.data := cmd.bits.rs1 + 1.U [0m
+[0m[[0m[31merror[0m] [0m[0m     ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:53:24: not found: value cmd[0m
+[0m[[0m[31merror[0m] [0m[0m  io.resp.bits.data := cmd.bits.rs1 + 1.U [0m
+[0m[[0m[31merror[0m] [0m[0m                       ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:58:83: no arguments allowed for nullary constructor Object: ()Object[0m
+[0m[[0m[31merror[0m] [0m[0mclass CustomAcceleratorModule(outer: CustomAccelerator) extends LazyRoCCModuleImp(outer) {[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                                  ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:59:22: object cmd is not a member of package io[0m
+[0m[[0m[31merror[0m] [0m[0mError occurred in an application involving default arguments.[0m
+[0m[[0m[31merror[0m] [0m[0m  val cmd = Queue(io.cmd)[0m
+[0m[[0m[31merror[0m] [0m[0m                     ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:62:16: value io is not a member of hppsProject.CustomModule[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.cmd.valid := cmd.valid[0m
+[0m[[0m[31merror[0m] [0m[0m               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:63:16: value io is not a member of hppsProject.CustomModule[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.cmd.ready := cmd.ready[0m
+[0m[[0m[31merror[0m] [0m[0m               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:64:16: value io is not a member of hppsProject.CustomModule[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.cmd.bits.inst.funct := cmd.bits.inst.funct[0m
+[0m[[0m[31merror[0m] [0m[0m               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:65:16: value io is not a member of hppsProject.CustomModule[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.cmd.bits.inst.rs2 := cmd.bits.inst.rs2[0m
+[0m[[0m[31merror[0m] [0m[0m               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:66:16: value io is not a member of hppsProject.CustomModule[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.cmd.bits.inst.rs1 := cmd.bits.inst.rs1[0m
+[0m[[0m[31merror[0m] [0m[0m               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:67:16: value io is not a member of hppsProject.CustomModule[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.cmd.bits.inst.xd := cmd.bits.inst.xd[0m
+[0m[[0m[31merror[0m] [0m[0m               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:68:16: value io is not a member of hppsProject.CustomModule[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.cmd.bits.inst.xs1 := cmd.bits.inst.xs1[0m
+[0m[[0m[31merror[0m] [0m[0m               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:69:16: value io is not a member of hppsProject.CustomModule[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.cmd.bits.inst.xs2 := cmd.bits.inst.xs2[0m
+[0m[[0m[31merror[0m] [0m[0m               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:70:16: value io is not a member of hppsProject.CustomModule[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.cmd.bits.inst.rd := cmd.bits.inst.rd[0m
+[0m[[0m[31merror[0m] [0m[0m               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:71:16: value io is not a member of hppsProject.CustomModule[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.cmd.bits.inst.opcode := cmd.bits.inst.opcode[0m
+[0m[[0m[31merror[0m] [0m[0m               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:72:16: value io is not a member of hppsProject.CustomModule[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.cmd.bits.rs1 := cmd.bits.rs1[0m
+[0m[[0m[31merror[0m] [0m[0m               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:73:16: value io is not a member of hppsProject.CustomModule[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.cmd.bits.rs2 := cmd.bits.rs2[0m
+[0m[[0m[31merror[0m] [0m[0m               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:74:16: value io is not a member of hppsProject.CustomModule[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.cmd.bits.status := cmd.bits.status[0m
+[0m[[0m[31merror[0m] [0m[0m               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:75:16: value io is not a member of hppsProject.CustomModule[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.resp.valid := io.resp.valid[0m
+[0m[[0m[31merror[0m] [0m[0m               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:75:36: object resp is not a member of package io[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.resp.valid := io.resp.valid[0m
+[0m[[0m[31merror[0m] [0m[0m                                   ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:76:16: value io is not a member of hppsProject.CustomModule[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.resp.ready := io.resp.ready[0m
+[0m[[0m[31merror[0m] [0m[0m               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:76:36: object resp is not a member of package io[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.resp.ready := io.resp.ready[0m
+[0m[[0m[31merror[0m] [0m[0m                                   ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:77:16: value io is not a member of hppsProject.CustomModule[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.resp.bits.rd := io.resp.bits.rd[0m
+[0m[[0m[31merror[0m] [0m[0m               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:77:38: object resp is not a member of package io[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.resp.bits.rd := io.resp.bits.rd[0m
+[0m[[0m[31merror[0m] [0m[0m                                     ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:78:16: value io is not a member of hppsProject.CustomModule[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.resp.bits.data := io.resp.bits.data[0m
+[0m[[0m[31merror[0m] [0m[0m               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:78:40: object resp is not a member of package io[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.resp.bits.data := io.resp.bits.data[0m
+[0m[[0m[31merror[0m] [0m[0m                                       ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:80:16: value io is not a member of hppsProject.CustomModule[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.busy := io.busy[0m
+[0m[[0m[31merror[0m] [0m[0m               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:80:30: object busy is not a member of package io[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.busy := io.busy[0m
+[0m[[0m[31merror[0m] [0m[0m                             ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:81:16: value io is not a member of hppsProject.CustomModule[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.interrupt := io.interrupt[0m
+[0m[[0m[31merror[0m] [0m[0m               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:81:35: object interrupt is not a member of package io[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.interrupt := io.interrupt[0m
+[0m[[0m[31merror[0m] [0m[0m                                  ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:82:16: value io is not a member of hppsProject.CustomModule[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.exception := io.exception[0m
+[0m[[0m[31merror[0m] [0m[0m               ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAccelerator.scala:82:35: object exception is not a member of package io[0m
+[0m[[0m[31merror[0m] [0m[0m  customModule.io.exception := io.exception[0m
+[0m[[0m[31merror[0m] [0m[0m                                  ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAcceleratorConfig.scala:12:10: not found: value BuildRoCC[0m
+[0m[[0m[31merror[0m] [0m[0m    case BuildRoCC => Seq((p: Parameters) => {[0m
+[0m[[0m[31merror[0m] [0m[0m         ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAcceleratorConfig.scala:13:69: not found: value OpcodeSet[0m
+[0m[[0m[31merror[0m] [0m[0m            val withCustom = LazyModule.apply(new CustomAccelerator(OpcodeSet.custom0)(p))[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                    ^[0m
+[0m[[0m[31merror[0m] [0m[0m47 errors found[0m
