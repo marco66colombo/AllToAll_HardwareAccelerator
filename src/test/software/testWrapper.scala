@@ -58,6 +58,7 @@ class LazyRoCCModuleImpWrapper() extends module {
 class TestModule() extends LazyRoCCModuleImpWrapper{
   val customModule = new CustomModule
 
+  //command input
   customModule.io.cmd.valid := io.cmd.valid
   customModule.io.cmd.ready := io.cmd.ready
   customModule.io.cmd.bits.inst.funct := io.cmd.bits.inst.funct
@@ -70,17 +71,26 @@ class TestModule() extends LazyRoCCModuleImpWrapper{
   customModule.io.cmd.bits.inst.opcode := io.cmd.bits.inst.opcode
   customModule.io.cmd.bits.rs1 := io.cmd.bits.rs1
   customModule.io.cmd.bits.rs2 := io.cmd.bits.rs2
-  customModule.io.cmd.bits.status := io.cmd.bits.status
-  customModule.io.resp.valid := io.resp.valid
-  customModule.io.resp.ready := io.resp.ready
-  customModule.io.resp.bits.rd := io.resp.bits.rd
-  customModule.io.resp.bits.data := io.resp.bits.data
-  customModule.io.busy := io.busy
-  customModule.io.interrupt := io.interrupt
+  //customModule.io.cmd.bits.status := io.cmd.bits.status
+
+
+  //response output
+  io.resp.valid := customModule.io.resp.valid
+  io.resp.ready := customModule.io.resp.ready
+  io.resp.bits.rd := customModule.io.resp.bits.rd
+  io.resp.bits.data := customModule.io.resp.bits.data
+  io.busy := customModule.io.busy
+
+  //interrupt output
+  io.interrupt := customModule.io.interrupt
+
+  //exception input
   customModule.io.exception := io.exception
 
+  TODO 
   //null value
   /*
+  io.cmd.bits.status := null
   io.ptw := null
   io.fpu_req := null
   io.fpu_resp := null
@@ -102,33 +112,20 @@ abstract class LazyRoCCWrapper(
 */
 
 
-
-/*
-  nella classe dell'acceleratore ho il mio module che ha l'interfaccia definita da me
-  e questo module è istanziato nell'acceleratore con la vera interfaccia rocc (perchè comunque deve funzionare veramente)
-  e collego l'interfaccia rocc a quella definita da me
-
-  nel test, non uso l'interfaccia rocc vera perchè ha gli implicit ma istanzio il mio module e faccio parlare 
-  il componente con l'interrfaccia definita da me
-  nel test devo creare lo scaffol che simula il processore e che quindi parla con la rocc interface
-
-*/
-
-
 class CustomModuleTester(c: TestModule) extends PeekPokeTester(c) {
 
-  poke(m.io.cmd_bits_rs1, 1.U)
-  poke(m.io.cmd_bits_rs2, 3.U)
-  poke(m.io.cmd_bits_inst_rd, 1.U)
-  poke(m.io.cmd_valid, false.B) 
+  poke(c.io.cmd.bits.rs1, 1.U)
+  poke(c.io.cmd.bits.rs2, 3.U)
+  poke(c.io.cmd.bits.inst.rd, 1.U)
+  poke(c.io.cmd.valid, true.B) 
   
   step(1)
 
-  // still idle state
-  expect(m.io.cmd_ready, true.B)
-  expect(m.io.resp_valid, false.B)
-  expect(m.io.interrupt, false.B)
-  expect(m.io.busy, false.B) 
+  expect(c.io.cmd.ready, true.B)
+  expect(c.io.resp.valid, true.B)
+  expect(c.io.resp.bits.data, 2.U)
+  expect(c.io.interrupt, false.B)
+  expect(c.io.busy, false.B) 
   
 }
 

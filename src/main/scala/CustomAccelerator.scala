@@ -13,7 +13,7 @@ import freechips.rocketchip.tilelink._
 import freechips.rocketchip.util.InOrderArbiter
 
 
-//interface of custom module
+//IO interface of custom module
 
 class Instruction extends Bundle {
   val funct = Bits(7.W)
@@ -31,7 +31,7 @@ class Command extends Bundle {
   val inst = new Instruction
   val rs1 = Bits(64.W)
   val rs2 = Bits(64.W)
-  val status = new MStatus
+  //val status = new MStatus
 }
 class Response extends Bundle {
   val rd = Bits(5.W)
@@ -59,6 +59,9 @@ class CustomAcceleratorModule(outer: CustomAccelerator) extends LazyRoCCModuleIm
   //val cmd = Queue(io.cmd)
   val customModule = new CustomModule
   
+  //connection of RoccInterface with AcceleratorModuleIO
+
+  //cmd input
   customModule.io.cmd.valid := io.cmd.valid
   customModule.io.cmd.ready := io.cmd.ready
   customModule.io.cmd.bits.inst.funct := io.cmd.bits.inst.funct
@@ -71,14 +74,21 @@ class CustomAcceleratorModule(outer: CustomAccelerator) extends LazyRoCCModuleIm
   customModule.io.cmd.bits.inst.opcode := io.cmd.bits.inst.opcode
   customModule.io.cmd.bits.rs1 := io.cmd.bits.rs1
   customModule.io.cmd.bits.rs2 := io.cmd.bits.rs2
-  customModule.io.cmd.bits.status := io.cmd.bits.status
-  customModule.io.resp.valid := io.resp.valid
-  customModule.io.resp.ready := io.resp.ready
-  customModule.io.resp.bits.rd := io.resp.bits.rd
-  customModule.io.resp.bits.data := io.resp.bits.data
-  //mem
-  customModule.io.busy := io.busy
-  customModule.io.interrupt := io.interrupt
+  //customModule.io.cmd.bits.status := io.cmd.bits.status
+
+  //resp output
+  io.resp.valid := customModule.io.resp.valid
+  io.resp.ready := customModule.io.resp.ready 
+  io.resp.bits.rd := customModule.io.resp.bits.rd 
+  io.resp.bits.data := customModule.io.resp.bits.data
+
+  //mem ??
+
+  //output
+  io.busy := customModule.io.busy
+  io.interrupt := customModule.io.interrupt
+
+  //input
   customModule.io.exception := io.exception
 
 }
@@ -88,11 +98,16 @@ class CustomAcceleratorModule(outer: CustomAccelerator) extends LazyRoCCModuleIm
 class CustomModule extends Module{
   val io = IO(new AcceleratorModuleIO())
   val cmd = Queue(io.cmd)
+
+  TODO
   //devo salvare il valore del registro in scrittura nel processore (quando l'acceleratoere risponde) 
   //perchè quando testo è possibile che si resetti a zero al clock successivo
+  val rd_address = Reg(Bits(5.W))
+  rd_address := io.cmd.bits.inst.rd
+
   io.cmd.ready := true.B
   io.resp.valid := true.B 
-  io.resp.bits.rd := 3.U
+  //io.resp.bits.rd := 3.U
   io.resp.bits.data := cmd.bits.rs1 + 1.U 
 
 }
