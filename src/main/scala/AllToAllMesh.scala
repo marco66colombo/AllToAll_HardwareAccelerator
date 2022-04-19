@@ -76,7 +76,7 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
             vector(i).down.in := vector(i+n).up.out
 
 
-        }else if(upRighttCorner(i)){
+        }else if(upRightCorner(i)){
             vector(i).right.out := 0.U(64.W)
             vector(i).right.in := 0.U(64.W)
             vector(i).up.out := 0.U(64.W)

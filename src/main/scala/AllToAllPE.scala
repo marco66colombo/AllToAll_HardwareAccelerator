@@ -36,7 +36,7 @@ class InputOutputPEdata extends Bundle{
 //Single Processing ELement 
 class AllToAllPE(cacheSize: Int) extends Module{
   
-  io = IO(new AllToAllPEIO)
+  val io = IO(new AllToAllPEIO())
 
   val cacheRegister = Reg(Vec(cacheSize, UInt(64.W)))
 

@@ -1,19 +1,4 @@
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllAccelerator.scala:80:19: not found: value customModule[0m
-[0m[[0m[31merror[0m] [0m[0m  io.cmd.ready := customModule.io.cmd.ready[0m
-[0m[[0m[31merror[0m] [0m[0m                  ^[0m
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllAccelerator.scala:81:20: not found: value customModule[0m
-[0m[[0m[31merror[0m] [0m[0m  io.resp.valid := customModule.io.resp.valid [0m
-[0m[[0m[31merror[0m] [0m[0m                   ^[0m
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllAccelerator.scala:82:22: not found: value customModule[0m
-[0m[[0m[31merror[0m] [0m[0m  io.resp.bits.rd := customModule.io.resp.bits.rd [0m
-[0m[[0m[31merror[0m] [0m[0m                     ^[0m
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllAccelerator.scala:83:24: not found: value customModule[0m
-[0m[[0m[31merror[0m] [0m[0m  io.resp.bits.data := customModule.io.resp.bits.data[0m
-[0m[[0m[31merror[0m] [0m[0m                       ^[0m
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllAccelerator.scala:88:14: not found: value customModule[0m
-[0m[[0m[31merror[0m] [0m[0m  io.busy := customModule.io.busy[0m
-[0m[[0m[31merror[0m] [0m[0m             ^[0m
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllAccelerator.scala:89:19: not found: value customModule[0m
-[0m[[0m[31merror[0m] [0m[0m  io.interrupt := customModule.io.interrupt[0m
-[0m[[0m[31merror[0m] [0m[0m                  ^[0m
-[0m[[0m[31merror[0m] [0m[0m6 errors found[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllMesh.scala:43:34: not found: value AllToAllPE[0m
+[0m[[0m[31merror[0m] [0m[0m    val vector = Vec(n*n, Module(AllToAllPE(cacheSize)).io)[0m
+[0m[[0m[31merror[0m] [0m[0m                                 ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m

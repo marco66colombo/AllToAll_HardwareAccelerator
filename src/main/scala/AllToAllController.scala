@@ -28,7 +28,7 @@ class ControllerIO extends Bundle{
 //controller which manages interactions between AllTOAllModule and the AllToAllMesh instantiated in it
 class AllToAllController extends Module{
 
-  io = IO(new ControllerIO)
+  val io = IO(new ControllerIO())
 
   /*
     FSM 
@@ -37,18 +37,18 @@ class AllToAllController extends Module{
     done_exchange: exchange between PE in mesh is terminated, notify the processor
   */
 
-  val idle :: exchange :: done_exchange :: Nil = Enum(3){UInt()}
-  val state = Reg(resetVal = idle) 
+  val idle :: exchange :: done_exchange :: Nil = Enum(3)
+  val state = RegInit(idle) 
   
   /*
     manage processor.resp.bits.rd (destination register)
     if idle just put in output the input value
     if not idle put in output the saved value
   */
-  io.processor.resp.bits.rd := Mux( state === idle, io.cmd.bits.inst.rd, rd_address)
+  io.processor.resp.bits.rd := Mux( state === idle, io.processor.cmd.bits.inst.rd, rd_address)
   val rd_address = Reg(Bits(5.W))
   when(state === idle){
-    rd_address := io.cmd.bits.inst.rd
+    rd_address := io.processor.cmd.bits.inst.rd
   }
 
   io.processor.cmd.ready := (state === idle)
@@ -61,7 +61,8 @@ class AllToAllController extends Module{
   val presp = io.processor.resp 
 
   val goto_excange = pcmd.valid
-  val goto_done_exchange = 
+  //it should be set by the end of computation of the mesh
+  val goto_done_exchange = true.B
 
   when(state === idle){
     //accelerator not busy -> free
@@ -102,11 +103,11 @@ class AllToAllController extends Module{
   }.otherwise{ 
   //in this case there is an error
   // val error := true.B ?? makes sense?
-  io.ready := false.B 
-  rocc.busy := false.B
-  rocc.cmd.ready := false.B 
-  rocc.resp.valid := false.B 
-  state := idle
+
+    io.processor.busy := false.B 
+    pcmd.ready := true.B 
+    presp.valid := false.B 
+    state := idle
   }
 
 /*
