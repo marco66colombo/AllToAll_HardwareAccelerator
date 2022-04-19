@@ -14,7 +14,6 @@ import freechips.rocketchip.util.InOrderArbiter
 
 
 
-
 //custom accelerator def
 
 class AllToAllAccelerator(opcodes: OpcodeSet) (implicit p: Parameters) extends LazyRoCC(opcodes) {
@@ -24,7 +23,7 @@ class AllToAllAccelerator(opcodes: OpcodeSet) (implicit p: Parameters) extends L
 
 class AllToAllAcceleratorModule(outer: AllToAllAccelerator) extends LazyRoCCModuleImp(outer) {
   
-  val aTaModule = Module(new AllToAllModule)
+  val aTaModule = Module(new AllToAllModule(2,8))
   
   //connection of RoccInterface with AcceleratorModuleIO
 
@@ -63,73 +62,28 @@ class AllToAllAcceleratorModule(outer: AllToAllAccelerator) extends LazyRoCCModu
 
 
 
-
 //module with custom IO interface
-class AllToAllModule extends Module{
-  val io = IO(new AcceleratorModuleIO())
-  val cmd = io.cmd
-  val aTaPE = Module(new AllToAllPE())
-  val controller = Module(new AllToAllController())
+class AllToAllModule(n: Int, cacheSize: Int) extends Module{
 
-  io <> controller.io
+  val io = IO(new AcceleratorModuleIO())
+
+  val cmd = io.cmd
+
+  val controller = Module(new AllToAllController())
+  val mesh = Module(new AllToAllMesh(n, cacheSize))
+
+  //aTaPE is temporary, it will be replaced by the actual mesh
+  //val aTaPE = Module(new AllToAllPE())
+  
+
+  //SI PUO' FARE COSI' ??????
+  //connect part of interface of controller (dedicated to communicate with processor) with actual processor
+  io <> controller.io.processor
+
+  //connect part of interface of controller (dedicated to communicate with AllToAllMesh) with mesh interface
+  controller.io.mesh <> mesh.io
 
  
-  // FSM 
-  // if state is idle, it means there is no op waiting to do anything, otherwise 
-  //this value has to be stored till the next one will be required to be stored(next idle state)
-  io.resp.bits.rd := Mux( state === idle, io.cmd.bits.inst.rd, rd_address)
-  io.cmd.ready := (state === idle)
-
-  //io.rocc.resp.bits.data := io.resp.data
-  //io.rocc.resp.valid := state === give_result
-
-   //TODO
-  //devo salvare il valore del registro in scrittura nel processore (quando l'acceleratoere risponde) 
-  //perchè quando testo è possibile che si resetti a zero al clock successivo
-  val rd_address = Reg(Bits(5.W))
-  rd_address := io.cmd.bits.inst.rd
-    
-  val idle :: exchange :: done_exchange :: Nil = Enum(3)
-
-  val state = Reg(Bits(2.W))
-  val goto_excange = !(io.busy) && io.cmd.ready && io.cmd.valid
-  
-  state := idle
-
-    when(state === idle){
-    io.cmd.busy := false.B 
-    io.cmd.ready := true.B 
-    io.resp.valid := false.B
-    io.busy := false.B 
-    when(goto_excange){
-      state := exchange
-    }.otherwise{
-      state := idle
-    }
-  }.elsewhen(state === exchange){
-    io.busy := true.B 
-    rocc.busy := true.B
-    rocc.cmd.ready := false.B 
-    rocc.resp.valid := false.B
-    when(done){
-        state := give_result
-    }.otherwise{
-        state := exec
-    }
-    
-  }.elsewhen(state === give_result){
-    io.ready := false.B 
-    rocc.busy := true.B
-    rocc.cmd.ready := false.B 
-    rocc.resp.valid := true.B
-    state := idle
-  }.otherwise{ // shouldn't happen
-  io.ready := false.B 
-  rocc.busy := false.B
-  rocc.cmd.ready := false.B 
-  rocc.resp.valid := false.B 
-  state := idle
-  }
 
 
   //resp output
@@ -141,6 +95,8 @@ class AllToAllModule extends Module{
   //output
   io.busy := false.B
   io.interrupt := false.B
+
+  */
 }
 
 /*

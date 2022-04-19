@@ -13,87 +13,95 @@ import freechips.rocketchip.tilelink._
 import freechips.rocketchip.util.InOrderArbiter
 
 
-
+//IO interface for AllToAllController
 class ControllerIO extends Bundle{
 
+    //part of interface dedicated to communicate with processor
     val processor = new AcceleratorModuleIO
     
     //Flipped since all output of MeshIo here are input and vice versa
+    //part of interface dedicated to communicate with AllToAllMesh
     val mesh = Flipped(new MeshIO)
 }
 
-class MeshIO extends Bundle{
-    val cmd = Flipped(Decoupled(new MeshCommand))
-    val resp = Decoupled(new MeshResponse)
-    val busy = Output(Bool())
-}
 
-class MeshCommand extends Bundle{
-
-}
-
-class MeshResponse extends Bundle{
-
-}
-
-//controller which manages interactions between AllTOAllModule and the AllToAllPE instantiated in it
+//controller which manages interactions between AllTOAllModule and the AllToAllMesh instantiated in it
 class AllToAllController extends Module{
-  io = IO(new AcceleratorModuleIO)
 
-  // FSM 
-  io.resp.bits.rd := Mux( state === idle, io.cmd.bits.inst.rd, rd_address)
+  io = IO(new ControllerIO)
+
+  /*
+    FSM 
+    idle : controller ready to receive a request
+    exchange: mesh of PE are exchanging data each other
+    done_exchange: exchange between PE in mesh is terminated, notify the processor
+  */
+
+  val idle :: exchange :: done_exchange :: Nil = Enum(3){UInt()}
+  val state = Reg(resetVal = idle) 
+  
+  /*
+    manage processor.resp.bits.rd (destination register)
+    if idle just put in output the input value
+    if not idle put in output the saved value
+  */
+  io.processor.resp.bits.rd := Mux( state === idle, io.cmd.bits.inst.rd, rd_address)
   val rd_address = Reg(Bits(5.W))
   when(state === idle){
     rd_address := io.cmd.bits.inst.rd
   }
-  io.cmd.ready := (state === idle)
+
+  io.processor.cmd.ready := (state === idle)
 
   //io.rocc.resp.bits.data := io.resp.data
   //io.rocc.resp.valid := state === give_result
 
-  /*
-   //TODO
-  //devo salvare il valore del registro in scrittura nel processore (quando l'acceleratoere risponde) 
-  //perchè quando testo è possibile che si resetti a zero al clock successivo
-  val rd_address = Reg(Bits(5.W))
-  rd_address := io.cmd.bits.inst.rd
-  */
+
+  val pcmd = io.processor.cmd
+  val presp = io.processor.resp 
+
+  val goto_excange = pcmd.valid
+  val goto_done_exchange = 
+
+  when(state === idle){
+    //accelerator not busy -> free
+    io.processor.busy := false.B 
+    //ready to receive a command
+    pcmd.ready := true.B 
+    //response is not valid now
+    presp.valid := false.B
     
-  val idle :: exchange :: done_exchange :: Nil = Enum(3)
-
-  val state = Reg(Bits(2.W))
-  val goto_excange = !(io.busy) && io.cmd.ready && io.cmd.valid
-  
-  state := idle
-
-    when(state === idle){
-    io.cmd.busy := false.B 
-    io.cmd.ready := true.B 
-    io.resp.valid := false.B
-    io.busy := false.B 
     when(goto_excange){
       state := exchange
     }.otherwise{
       state := idle
     }
   }.elsewhen(state === exchange){
-    io.busy := true.B 
-    rocc.busy := true.B
-    rocc.cmd.ready := false.B 
-    rocc.resp.valid := false.B
-    when(done){
-        state := give_result
+    //accelerator busy
+    io.processor.busy := true.B 
+    //not ready to receive a command
+    pcmd.ready := false.B 
+    //response is not valid now
+    presp.valid := false.B
+
+    when(goto_done_exchange){
+        state := done_exchange
     }.otherwise{
-        state := exec
+        state := exchange
     }
-    
-  }.elsewhen(state === give_result){
-    io.ready := false.B 
-    rocc.busy := true.B
-    rocc.cmd.ready := false.B 
-    rocc.resp.valid := true.B
+  }.elsewhen(state === done_exchange){
+    //accelerator busy
+    io.processor.busy := true.B 
+    //not ready to receive a command
+    pcmd.ready := false.B
+    //response is valid since computation has ended 
+    presp.valid := true.B
+
+    //always goto idle
     state := idle
-  }.otherwise{ // shouldn't happen
+  }.otherwise{ 
+  //in this case there is an error
+  // val error := true.B ?? makes sense?
   io.ready := false.B 
   rocc.busy := false.B
   rocc.cmd.ready := false.B 
@@ -101,7 +109,7 @@ class AllToAllController extends Module{
   state := idle
   }
 
-
+/*
   //resp output
   io.cmd.ready := true.B
   io.resp.valid := true.B
@@ -111,5 +119,6 @@ class AllToAllController extends Module{
   //output
   io.busy := false.B
   io.interrupt := false.B
+*/
 
 }
