@@ -1,5 +1,19 @@
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/CustomAcceleratorConfig.scala:19:5: not enough arguments for constructor CustomAccelerator: (opcodes: freechips.rocketchip.tile.OpcodeSet)(implicit p: freechips.rocketchip.config.Parameters)hppsProject.CustomAccelerator.[0m
-[0m[[0m[31merror[0m] [0m[0mUnspecified value parameter opcodes.[0m
-[0m[[0m[31merror[0m] [0m[0m    new CustomAccelerator ++[0m
-[0m[[0m[31merror[0m] [0m[0m    ^[0m
-[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllAccelerator.scala:80:19: not found: value customModule[0m
+[0m[[0m[31merror[0m] [0m[0m  io.cmd.ready := customModule.io.cmd.ready[0m
+[0m[[0m[31merror[0m] [0m[0m                  ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllAccelerator.scala:81:20: not found: value customModule[0m
+[0m[[0m[31merror[0m] [0m[0m  io.resp.valid := customModule.io.resp.valid [0m
+[0m[[0m[31merror[0m] [0m[0m                   ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllAccelerator.scala:82:22: not found: value customModule[0m
+[0m[[0m[31merror[0m] [0m[0m  io.resp.bits.rd := customModule.io.resp.bits.rd [0m
+[0m[[0m[31merror[0m] [0m[0m                     ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllAccelerator.scala:83:24: not found: value customModule[0m
+[0m[[0m[31merror[0m] [0m[0m  io.resp.bits.data := customModule.io.resp.bits.data[0m
+[0m[[0m[31merror[0m] [0m[0m                       ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllAccelerator.scala:88:14: not found: value customModule[0m
+[0m[[0m[31merror[0m] [0m[0m  io.busy := customModule.io.busy[0m
+[0m[[0m[31merror[0m] [0m[0m             ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllAccelerator.scala:89:19: not found: value customModule[0m
+[0m[[0m[31merror[0m] [0m[0m  io.interrupt := customModule.io.interrupt[0m
+[0m[[0m[31merror[0m] [0m[0m                  ^[0m
+[0m[[0m[31merror[0m] [0m[0m6 errors found[0m
