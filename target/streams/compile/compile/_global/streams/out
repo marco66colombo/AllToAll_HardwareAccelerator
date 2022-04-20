@@ -1,4 +1,4 @@
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllMesh.scala:43:34: not found: value AllToAllPE[0m
-[0m[[0m[31merror[0m] [0m[0m    val vector = Vec(n*n, Module(AllToAllPE(cacheSize)).io)[0m
-[0m[[0m[31merror[0m] [0m[0m                                 ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllAccelerator.scala:84:33: value cmd is not a member of hppsProject.ControllerIO[0m
+[0m[[0m[31merror[0m] [0m[0m  io.cmd.ready := controller.io.cmd.ready[0m
+[0m[[0m[31merror[0m] [0m[0m                                ^[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m

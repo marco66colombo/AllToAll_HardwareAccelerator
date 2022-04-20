@@ -40,4 +40,14 @@ class AllToAllPE(cacheSize: Int) extends Module{
 
   val cacheRegister = Reg(Vec(cacheSize, UInt(64.W)))
 
+  val memPE = Mem(128, UInt(32.W)) 
+
+  //to load -> write data in rs2 in memory at address rs1
+  val wen = false.B //eg depending on opcode understand that it is a store
+  val writeAddr = io.rs1
+  val dataIn = io.rs2
+  when (wen) { 
+    memPE(writeAddr) := dataIn 
+  } 
+
 }

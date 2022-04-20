@@ -9,7 +9,7 @@ import hppsProject._
 
 
 class AllToAll() extends LazyRoCCModuleImpWrapper{
-  val aTaModule = Module(new AllToAllModule)
+  val aTaModule = Module(new AllToAllModule(2,4))
 
   //command input
   aTaModule.io.cmd.valid := io.cmd.valid
@@ -34,6 +34,7 @@ class AllToAll() extends LazyRoCCModuleImpWrapper{
 
   //interrupt output
   io.interrupt := aTaModule.io.interrupt
+  io.busy := aTaModule.io.busy
 
   //exception input
   aTaModule.io.exception := io.exception
@@ -49,8 +50,25 @@ class AllToAll() extends LazyRoCCModuleImpWrapper{
 }
 
 
-class AllToAllModuleTester(c: TestModule) extends PeekPokeTester(c) {
+class AllToAllModuleTester(c: AllToAll) extends PeekPokeTester(c) {
 
+  poke(c.io.cmd.bits.rs1, 1.U)
+  poke(c.io.cmd.bits.rs2, 3.U)
+  poke(c.io.cmd.bits.inst.rd, 1.U)
+  poke(c.io.cmd.valid, false.B) 
+
+  step(1)
+
+  //idle
+  expect(c.io.cmd.ready, true.B)
+  expect(c.io.resp.valid, false.B)
+  expect(c.io.resp.bits.data, 0.U)
+  expect(c.io.interrupt, false.B)
+  expect(c.io.busy, false.B) 
+
+  step(1)
+  
+  
   poke(c.io.cmd.bits.rs1, 1.U)
   poke(c.io.cmd.bits.rs2, 3.U)
   poke(c.io.cmd.bits.inst.rd, 1.U)
@@ -58,21 +76,32 @@ class AllToAllModuleTester(c: TestModule) extends PeekPokeTester(c) {
   
   step(1)
 
-  expect(c.io.cmd.ready, true.B)
-  expect(c.io.resp.valid, true.B)
-  expect(c.io.resp.bits.data, 2.U)
+  //exchange
+  expect(c.io.cmd.ready, false.B)
+  expect(c.io.resp.valid, false.B)
+  expect(c.io.resp.bits.data, 0.U)
   expect(c.io.interrupt, false.B)
-  expect(c.io.busy, false.B) 
-  
+  expect(c.io.busy, true.B) 
+
+  step(1)
+
+  //done_exchange
+  expect(c.io.busy, true.B) 
+
+  step(1)
+ 
+  //back to idle
+  expect(c.io.busy, false.B)
+   
 }
 
 class AllToAllTest extends ChiselFlatSpec {
 
   val testerArgs = Array("")
 
-  behavior of "DoAddTests"
-  it should "add" in {
-    chisel3.iotesters.Driver.execute( testerArgs, () => new AllToAllTestModule()) {
+  behavior of "controllerFSMTest"
+  it should "changeState" in {
+    chisel3.iotesters.Driver.execute( testerArgs, () => new AllToAll()) {
       c => new AllToAllModuleTester(c)
     } should be (true)
   }

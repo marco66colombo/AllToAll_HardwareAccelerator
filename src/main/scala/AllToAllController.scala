@@ -17,11 +17,11 @@ import freechips.rocketchip.util.InOrderArbiter
 class ControllerIO extends Bundle{
 
     //part of interface dedicated to communicate with processor
-    val processor = new AcceleratorModuleIO
+    val processor = new AcceleratorModuleIO()
     
     //Flipped since all output of MeshIo here are input and vice versa
     //part of interface dedicated to communicate with AllToAllMesh
-    val mesh = Flipped(new MeshIO)
+    //val mesh = Flipped(new MeshIO)
 }
 
 
@@ -39,6 +39,7 @@ class AllToAllController extends Module{
 
   val idle :: exchange :: done_exchange :: Nil = Enum(3)
   val state = RegInit(idle) 
+  val rd_address = Reg(Bits(5.W))
   
   /*
     manage processor.resp.bits.rd (destination register)
@@ -46,15 +47,15 @@ class AllToAllController extends Module{
     if not idle put in output the saved value
   */
   io.processor.resp.bits.rd := Mux( state === idle, io.processor.cmd.bits.inst.rd, rd_address)
-  val rd_address = Reg(Bits(5.W))
+  
   when(state === idle){
     rd_address := io.processor.cmd.bits.inst.rd
   }
 
   io.processor.cmd.ready := (state === idle)
 
-  //io.rocc.resp.bits.data := io.resp.data
-  //io.rocc.resp.valid := state === give_result
+  io.processor.interrupt := false.B
+  io.processor.resp.bits.data := 0.U(64.W)
 
 
   val pcmd = io.processor.cmd

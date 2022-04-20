@@ -25,6 +25,9 @@ class AllToAllAcceleratorModule(outer: AllToAllAccelerator) extends LazyRoCCModu
   
   val aTaModule = Module(new AllToAllModule(2,8))
   
+
+  
+
   //connection of RoccInterface with AcceleratorModuleIO
 
   //cmd input
@@ -47,6 +50,7 @@ class AllToAllAcceleratorModule(outer: AllToAllAccelerator) extends LazyRoCCModu
   io.resp.valid := aTaModule.io.resp.valid 
   io.resp.bits.rd := aTaModule.io.resp.bits.rd 
   io.resp.bits.data := aTaModule.io.resp.bits.data
+  
 
   
   //output
@@ -67,10 +71,8 @@ class AllToAllModule(n: Int, cacheSize: Int) extends Module{
 
   val io = IO(new AcceleratorModuleIO())
 
-  val cmd = io.cmd
-
   val controller = Module(new AllToAllController())
-  val mesh = Module(new AllToAllMesh(n, cacheSize))
+  //val mesh = Module(new AllToAllMesh(n, cacheSize))
 
   //aTaPE is temporary, it will be replaced by the actual mesh
   //val aTaPE = Module(new AllToAllPE())
@@ -79,9 +81,9 @@ class AllToAllModule(n: Int, cacheSize: Int) extends Module{
   //SI PUO' FARE COSI' ??????
   //connect part of interface of controller (dedicated to communicate with processor) with actual processor
   io <> controller.io.processor
-
+  
   //connect part of interface of controller (dedicated to communicate with AllToAllMesh) with mesh interface
-  controller.io.mesh <> mesh.io
+  //controller.io.mesh <> mesh.io
 
  
 
@@ -98,24 +100,3 @@ class AllToAllModule(n: Int, cacheSize: Int) extends Module{
 
   */
 }
-
-/*
-
-  // The parts of the command are as follows
-  // inst - the parts of the instruction itself
-  //   opcode
-  //   rd - destination register number
-  //   rs1 - first source register number
-  //   rs2 - second source register number
-  //   funct
-  //   xd - is the destination register being used?
-  //   xs1 - is the first source register being used?
-  //   xs2 - is the second source register being used?
-  // rs1 - the value of source register 1
-  // rs2 - the value of source register 2
-
-  cmd.ready := true.B
-  io.resp.valid := true.B 
-  io.resp.bits.rd := 3.U
-  io.resp.bits.data := cmd.bits.rs1 + 1.U 
-  */

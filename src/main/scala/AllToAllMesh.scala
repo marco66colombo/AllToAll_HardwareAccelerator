@@ -40,7 +40,7 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
 
     val io = IO(new MeshIO)
 
-    val vector = Vec(n*n, Module(AllToAllPE(cacheSize)).io)
+   /* val vector = Vec(n*n, Module(AllToAllPE(cacheSize)).io)
 
    
     def upLeftCorner(i: Int): Boolean = (i == 0)
@@ -165,9 +165,10 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
             vector(i).down.in := vector(i+n).up.out
 
         }
+        
     }
 
-  
+    */
 
 
 }
