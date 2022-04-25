@@ -1,31 +1,4 @@
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/test/scala/AllToAllTest.scala:78:21: value poke is not a member of chisel3.UInt[0m
-[0m[[0m[31merror[0m] [0m[0m  c.io.cmd.bits.rs1.poke(1.U)[0m
-[0m[[0m[31merror[0m] [0m[0m                    ^[0m
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/test/scala/AllToAllTest.scala:79:21: value poke is not a member of chisel3.UInt[0m
-[0m[[0m[31merror[0m] [0m[0m  c.io.cmd.bits.rs2.poke(3.U)[0m
-[0m[[0m[31merror[0m] [0m[0m                    ^[0m
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/test/scala/AllToAllTest.scala:80:25: value poke is not a member of chisel3.UInt[0m
-[0m[[0m[31merror[0m] [0m[0m  c.io.cmd.bits.inst.rd.poke(1.U)[0m
-[0m[[0m[31merror[0m] [0m[0m                        ^[0m
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/test/scala/AllToAllTest.scala:81:18: value poke is not a member of chisel3.Bool[0m
-[0m[[0m[31merror[0m] [0m[0m  c.io.cmd.valid.poke(true.B) [0m
-[0m[[0m[31merror[0m] [0m[0m                 ^[0m
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/test/scala/AllToAllTest.scala:83:11: value step is not a member of chisel3.Clock[0m
-[0m[[0m[31merror[0m] [0m[0m  c.clock.step(1)[0m
-[0m[[0m[31merror[0m] [0m[0m          ^[0m
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/test/scala/AllToAllTest.scala:85:18: value expect is not a member of chisel3.Bool[0m
-[0m[[0m[31merror[0m] [0m[0m  c.io.cmd.ready.expect(true.B)[0m
-[0m[[0m[31merror[0m] [0m[0m                 ^[0m
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/test/scala/AllToAllTest.scala:86:19: value expect is not a member of chisel3.Bool[0m
-[0m[[0m[31merror[0m] [0m[0m  c.io.resp.valid.expect(false.B)[0m
-[0m[[0m[31merror[0m] [0m[0m                  ^[0m
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/test/scala/AllToAllTest.scala:87:23: value expect is not a member of chisel3.UInt[0m
-[0m[[0m[31merror[0m] [0m[0m  c.io.resp.bits.data.expect(0.U)[0m
-[0m[[0m[31merror[0m] [0m[0m                      ^[0m
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/test/scala/AllToAllTest.scala:88:18: value expect is not a member of chisel3.Bool[0m
-[0m[[0m[31merror[0m] [0m[0m  c.io.interrupt.expect(false.B)[0m
-[0m[[0m[31merror[0m] [0m[0m                 ^[0m
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/test/scala/AllToAllTest.scala:89:13: value expect is not a member of chisel3.Bool[0m
-[0m[[0m[31merror[0m] [0m[0m  c.io.busy.expect(true.B) [0m
-[0m[[0m[31merror[0m] [0m[0m            ^[0m
-[0m[[0m[31merror[0m] [0m[0m10 errors found[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/test/scala/AllToAllTest.scala:129:12: value mesh is not a member of hppsProject.AllToAll[0m
+[0m[[0m[31merror[0m] [0m[0m  expect(c.mesh.vector(0).memPE(0.U),0.U)[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m

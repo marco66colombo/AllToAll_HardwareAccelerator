@@ -21,7 +21,7 @@ class ControllerIO extends Bundle{
     
     //Flipped since all output of MeshIo here are input and vice versa
     //part of interface dedicated to communicate with AllToAllMesh
-    //val mesh = Flipped(new MeshIO)
+    val mesh = Flipped(new MeshIO)
 }
 
 
@@ -30,6 +30,7 @@ class AllToAllController extends Module{
 
   val io = IO(new ControllerIO())
 
+  
   /*
     FSM 
     idle : controller ready to receive a request
@@ -37,7 +38,9 @@ class AllToAllController extends Module{
     done_exchange: exchange between PE in mesh is terminated, notify the processor
   */
 
-  val idle :: exchange :: done_exchange :: Nil = Enum(3)
+  val loadSignal = (io.processor.cmd.bits.inst.opcode === "b0001011".U)
+
+  val idle :: exchange :: load :: done_exchange :: Nil = Enum(4)
   val state = RegInit(idle) 
   val rd_address = Reg(Bits(5.W))
   
@@ -72,9 +75,17 @@ class AllToAllController extends Module{
     pcmd.ready := true.B 
     //response is not valid now
     presp.valid := false.B
+    //reset to false load of mesh
+    io.mesh.cmd.load := false.B
+    io.mesh.cmd.store := false.B
+    io.mesh.cmd.doAllToAll := false.B
+    io.mesh.cmd.rs1 := 0.U(64.W)
+    io.mesh.cmd.rs2 := 0.U(64.W)
     
     when(goto_excange){
       state := exchange
+    }.elsewhen(loadSignal){
+      state := load
     }.otherwise{
       state := idle
     }
@@ -85,6 +96,13 @@ class AllToAllController extends Module{
     pcmd.ready := false.B 
     //response is not valid now
     presp.valid := false.B
+
+    io.mesh.cmd.load := false.B
+    io.mesh.cmd.store := false.B
+    //should be true
+    io.mesh.cmd.doAllToAll := false.B
+    io.mesh.cmd.rs1 := 0.U(64.W)
+    io.mesh.cmd.rs2 := 0.U(64.W)
 
     when(goto_done_exchange){
         state := done_exchange
@@ -99,8 +117,30 @@ class AllToAllController extends Module{
     //response is valid since computation has ended 
     presp.valid := true.B
 
+    io.mesh.cmd.load := false.B
+    io.mesh.cmd.store := false.B
+    io.mesh.cmd.doAllToAll := false.B
+    io.mesh.cmd.rs1 := 0.U(64.W)
+    io.mesh.cmd.rs2 := 0.U(64.W)
+
     //always goto idle
     state := idle
+  }.elsewhen(state === load){
+    //accelerator busy
+    io.processor.busy := true.B 
+    //not ready to receive a command
+    pcmd.ready := false.B 
+    //response is not valid now
+    presp.valid := false.B
+
+    io.mesh.cmd.load := true.B
+    io.mesh.cmd.store := false.B
+    io.mesh.cmd.doAllToAll := false.B
+    io.mesh.cmd.rs1 := 0.U(64.W)
+    io.mesh.cmd.rs2 := 0.U(64.W)
+
+    state := idle
+
   }.otherwise{ 
   //in this case there is an error
   // val error := true.B ?? makes sense?
@@ -109,18 +149,12 @@ class AllToAllController extends Module{
     pcmd.ready := true.B 
     presp.valid := false.B 
     state := idle
+    io.mesh.cmd.load := false.B
+    io.mesh.cmd.store := false.B
+    io.mesh.cmd.doAllToAll := false.B
+    io.mesh.cmd.rs1 := 0.U(64.W)
+    io.mesh.cmd.rs2 := 0.U(64.W)
   }
 
-/*
-  //resp output
-  io.cmd.ready := true.B
-  io.resp.valid := true.B
-  io.resp.bits.rd := 1.U
-  io.resp.bits.data := cmd.bits.rs1 + 1.U
-
-  //output
-  io.busy := false.B
-  io.interrupt := false.B
-*/
 
 }

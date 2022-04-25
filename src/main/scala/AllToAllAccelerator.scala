@@ -25,9 +25,6 @@ class AllToAllAcceleratorModule(outer: AllToAllAccelerator) extends LazyRoCCModu
   
   val aTaModule = Module(new AllToAllModule(2,8))
   
-
-  
-
   //connection of RoccInterface with AcceleratorModuleIO
 
   //cmd input
@@ -72,18 +69,23 @@ class AllToAllModule(n: Int, cacheSize: Int) extends Module{
   val io = IO(new AcceleratorModuleIO())
 
   val controller = Module(new AllToAllController())
-  //val mesh = Module(new AllToAllMesh(n, cacheSize))
+  val mesh = Module(new AllToAllMesh(n, cacheSize))
 
   //aTaPE is temporary, it will be replaced by the actual mesh
   //val aTaPE = Module(new AllToAllPE())
   
-
-  //SI PUO' FARE COSI' ??????
   //connect part of interface of controller (dedicated to communicate with processor) with actual processor
   io <> controller.io.processor
   
   //connect part of interface of controller (dedicated to communicate with AllToAllMesh) with mesh interface
   //controller.io.mesh <> mesh.io
+  mesh.io.cmd.load := controller.io.mesh.cmd.load
+  mesh.io.cmd.store := controller.io.mesh.cmd.store
+  mesh.io.cmd.doAllToAll := controller.io.mesh.cmd.doAllToAll
+  mesh.io.cmd.rs1 := controller.io.mesh.cmd.rs1
+  mesh.io.cmd.rs2 := controller.io.mesh.cmd.rs2
+  controller.io.mesh.resp.data := mesh.io.resp.data
+
 
  
 
@@ -100,3 +102,13 @@ class AllToAllModule(n: Int, cacheSize: Int) extends Module{
 
   */
 }
+
+/*
+object OpcodeSet {
+  def custom0 = new OpcodeSet(Seq("b0001011".U)) //store 
+  def custom1 = new OpcodeSet(Seq("b0101011".U)) //load
+  def custom2 = new OpcodeSet(Seq("b1011011".U)) //alltoall
+  def custom3 = new OpcodeSet(Seq("b1111011".U))
+  def all = custom0 | custom1 | custom2 | custom3
+}
+*/

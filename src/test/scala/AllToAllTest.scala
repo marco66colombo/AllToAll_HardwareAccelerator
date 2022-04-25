@@ -9,7 +9,8 @@ import hppsProject._
 
 
 class AllToAll() extends LazyRoCCModuleImpWrapper{
-  val aTaModule = Module(new AllToAllModule(2,4))
+  //cachesize must be n^2 with this implementation
+  val aTaModule = Module(new AllToAllModule(3,9))
 
   //command input
   aTaModule.io.cmd.valid := io.cmd.valid
@@ -95,6 +96,53 @@ class AllToAllModuleTester(c: AllToAll) extends PeekPokeTester(c) {
    
 }
 
+class TestLoad(c: AllToAll) extends PeekPokeTester(c) {
+
+  poke(c.io.cmd.bits.rs1, 1.U)
+  poke(c.io.cmd.bits.rs2, 3.U)
+  poke(c.io.cmd.bits.inst.rd, 1.U)
+  poke(c.io.cmd.valid, false.B)
+  
+
+  step(1)
+
+  //idle
+  expect(c.io.cmd.ready, true.B)
+  expect(c.io.resp.valid, false.B)
+  expect(c.io.resp.bits.data, 0.U)
+  expect(c.io.interrupt, false.B)
+  expect(c.io.busy, false.B) 
+
+  step(1)
+  //load state 
+  poke(c.io.cmd.bits.rs1, 1.U)
+  poke(c.io.cmd.bits.rs2, 3.U)
+  poke(c.io.cmd.bits.inst.rd, 1.U)
+  poke(c.io.cmd.valid, false.B) 
+  poke(c.io.cmd.bits.inst.opcode,"b0001011".U) 
+  
+  step(1)
+
+  //load
+  expect(c.io.busy, true.B)
+  //expect(c.aTaModule.mesh.vector(0).memPE(0.U),0.U)
+
+  poke(c.io.cmd.bits.rs1, 1.U)
+  poke(c.io.cmd.bits.rs2, 3.U)
+  poke(c.io.cmd.bits.inst.rd, 1.U)
+  poke(c.io.cmd.valid, false.B) 
+  poke(c.io.cmd.bits.inst.opcode,"b0000011".U) 
+
+  step(1)
+
+  //idle
+  expect(c.io.busy, false.B)
+
+
+
+ 
+}
+
 class AllToAllTest extends ChiselFlatSpec {
 
   val testerArgs = Array("")
@@ -103,6 +151,13 @@ class AllToAllTest extends ChiselFlatSpec {
   it should "changeState" in {
     chisel3.iotesters.Driver.execute( testerArgs, () => new AllToAll()) {
       c => new AllToAllModuleTester(c)
+    } should be (true)
+  }
+
+  behavior of "testLoad"
+  it should "load" in {
+    chisel3.iotesters.Driver.execute( testerArgs, () => new AllToAll()) {
+      c => new TestLoad(c)
     } should be (true)
   }
 

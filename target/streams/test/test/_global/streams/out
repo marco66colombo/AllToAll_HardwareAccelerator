@@ -1,14 +1,16 @@
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllTest, org.scalatest.tools.Framework$$anon$1@4e307e79, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllTest, org.scalatest.tools.Framework$$anon$1@7c73719e, false, [SuiteSelector])[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mAllToAllTest:[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mcontrollerFSMTest[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- should changeState[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mtestLoad[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should load[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0mSummary for ScalaCheck not available.[0m
 [0m[[0m[0minfo[0m] [0m[0mScalaTest[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 4 seconds, 76 milliseconds.[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 1[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 11 seconds, 240 milliseconds.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 2[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 1, aborted 0[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 1, failed 0, canceled 0, ignored 0, pending 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 2, failed 0, canceled 0, ignored 0, pending 0[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mAll tests passed.[0m[0m
-[0m[[0m[0minfo[0m] [0m[0mPassed: Total 1, Failed 0, Errors 0, Passed 1[0m
+[0m[[0m[0minfo[0m] [0m[0mPassed: Total 2, Failed 0, Errors 0, Passed 2[0m
 [0m[[0m[0mdebug[0m] [0m[0mPassed tests:[0m
 [0m[[0m[0mdebug[0m] [0m[0m	hppsProject.AllToAllTest[0m
