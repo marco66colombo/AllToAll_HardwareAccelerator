@@ -73,7 +73,8 @@ class AllToAllModuleTester(c: AllToAll) extends PeekPokeTester(c) {
   poke(c.io.cmd.bits.rs1, 1.U)
   poke(c.io.cmd.bits.rs2, 3.U)
   poke(c.io.cmd.bits.inst.rd, 1.U)
-  poke(c.io.cmd.valid, true.B) 
+  poke(c.io.cmd.valid, true.B)
+  poke(c.io.cmd.bits.inst.opcode,"b0101011".U) 
   
   step(1)
 
@@ -118,7 +119,7 @@ class TestLoad(c: AllToAll) extends PeekPokeTester(c) {
   poke(c.io.cmd.bits.rs1, 1.U)
   poke(c.io.cmd.bits.rs2, 3.U)
   poke(c.io.cmd.bits.inst.rd, 1.U)
-  poke(c.io.cmd.valid, false.B) 
+  poke(c.io.cmd.valid, true.B) 
   poke(c.io.cmd.bits.inst.opcode,"b0001011".U) 
   
   step(1)

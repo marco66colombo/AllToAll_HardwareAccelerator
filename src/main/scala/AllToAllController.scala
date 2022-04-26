@@ -64,11 +64,11 @@ class AllToAllController extends Module{
   /*
     transitions values
   */
-  val goto_excange = pcmd.valid
+  val goto_excange = pcmd.valid && (io.processor.cmd.bits.inst.opcode === "b0101011".U)
   //it should be set by the end of computation of the mesh
   //val goto_done_exchange = true.B
   val goto_done_exchange = !(io.mesh.busy)
-  val loadSignal = (io.processor.cmd.bits.inst.opcode === "b0001011".U)
+  val loadSignal = pcmd.valid && (io.processor.cmd.bits.inst.opcode === "b0001011".U)
 
   when(state === idle){
     //accelerator not busy -> free
