@@ -78,13 +78,17 @@ class AllToAllModule(n: Int, cacheSize: Int) extends Module{
   io <> controller.io.processor
   
   //connect part of interface of controller (dedicated to communicate with AllToAllMesh) with mesh interface
-  //controller.io.mesh <> mesh.io
+  
+  //controller -> mesh
   mesh.io.cmd.load := controller.io.mesh.cmd.load
   mesh.io.cmd.store := controller.io.mesh.cmd.store
   mesh.io.cmd.doAllToAll := controller.io.mesh.cmd.doAllToAll
   mesh.io.cmd.rs1 := controller.io.mesh.cmd.rs1
   mesh.io.cmd.rs2 := controller.io.mesh.cmd.rs2
+  
+  //mesh -> controller
   controller.io.mesh.resp.data := mesh.io.resp.data
+  controller.io.mesh.busy := mesh.io.busy
 
 
  

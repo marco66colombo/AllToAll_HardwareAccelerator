@@ -1,7 +1,4 @@
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllMesh.scala:177:26: value down is not a member of hppsProject.AllToAllPEIO[0m
-[0m[[0m[31merror[0m] [0m[0m            vector(i).io.down.in := zero64[0m
-[0m[[0m[31merror[0m] [0m[0m                         ^[0m
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllMesh.scala:198:26: value down is not a member of hppsProject.AllToAllPEIO[0m
-[0m[[0m[31merror[0m] [0m[0m            vector(i).io.down.in := zero64[0m
-[0m[[0m[31merror[0m] [0m[0m                         ^[0m
-[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllMesh.scala:135:5: not found: value mesh[0m
+[0m[[0m[31merror[0m] [0m[0m    mesh.io.busy := computeBusy[0m
+[0m[[0m[31merror[0m] [0m[0m    ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m

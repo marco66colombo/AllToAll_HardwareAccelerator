@@ -37,9 +37,6 @@ class AllToAllController extends Module{
     exchange: mesh of PE are exchanging data each other
     done_exchange: exchange between PE in mesh is terminated, notify the processor
   */
-
-  val loadSignal = (io.processor.cmd.bits.inst.opcode === "b0001011".U)
-
   val idle :: exchange :: load :: done_exchange :: Nil = Enum(4)
   val state = RegInit(idle) 
   val rd_address = Reg(Bits(5.W))
@@ -64,9 +61,14 @@ class AllToAllController extends Module{
   val pcmd = io.processor.cmd
   val presp = io.processor.resp 
 
+  /*
+    transitions values
+  */
   val goto_excange = pcmd.valid
   //it should be set by the end of computation of the mesh
-  val goto_done_exchange = true.B
+  //val goto_done_exchange = true.B
+  val goto_done_exchange = !(io.mesh.busy)
+  val loadSignal = (io.processor.cmd.bits.inst.opcode === "b0001011".U)
 
   when(state === idle){
     //accelerator not busy -> free
@@ -75,7 +77,8 @@ class AllToAllController extends Module{
     pcmd.ready := true.B 
     //response is not valid now
     presp.valid := false.B
-    //reset to false load of mesh
+
+    //signals to the mesh (reset state)
     io.mesh.cmd.load := false.B
     io.mesh.cmd.store := false.B
     io.mesh.cmd.doAllToAll := false.B
@@ -97,6 +100,7 @@ class AllToAllController extends Module{
     //response is not valid now
     presp.valid := false.B
 
+    //signals to the mesh
     io.mesh.cmd.load := false.B
     io.mesh.cmd.store := false.B
     //should be true
@@ -133,12 +137,15 @@ class AllToAllController extends Module{
     //response is not valid now
     presp.valid := false.B
 
+    //signals to the mesh
+    //load true
     io.mesh.cmd.load := true.B
     io.mesh.cmd.store := false.B
     io.mesh.cmd.doAllToAll := false.B
     io.mesh.cmd.rs1 := 0.U(64.W)
     io.mesh.cmd.rs2 := 0.U(64.W)
 
+    //always go to idle
     state := idle
 
   }.otherwise{ 

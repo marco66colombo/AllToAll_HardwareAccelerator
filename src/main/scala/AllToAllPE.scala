@@ -14,7 +14,8 @@ import freechips.rocketchip.util.InOrderArbiter
 
 class AllToAllPEIO extends Bundle{
 
-    //val busy = Output(Bool())
+    //when busy = true -> computation of PE not terminated yet
+    val busy = Output(Bool())
     
     //communiction between PE and controller
     val load = Input(Bool())
@@ -107,6 +108,8 @@ class AllToAllPE(n : Int, cacheSize: Int, id : Int) extends Module{
   assert(n<=256)
   val number_PE = Reg(UInt(16.W))
   number_PE := id.U(16.W)
+
+  io.busy := false.B
 
   when(io.load){
      for(i<-0 to (n*n)-1){

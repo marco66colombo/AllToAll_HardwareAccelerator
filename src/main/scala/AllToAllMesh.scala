@@ -16,7 +16,7 @@ import freechips.rocketchip.util.InOrderArbiter
 class MeshIO extends Bundle{
     val cmd = new MeshCommand
     val resp = new MeshResponse
-    //val busy = Output(Bool())
+    val busy = Output(Bool())
 }
 
 class MeshCommand extends Bundle{
@@ -108,9 +108,9 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
         
     }
     val vector = vector1
-   
-    
 
+
+    //connect all PEs with the controller on a common bus
     for(i<-0 to (n*n)-1){
 
         //vector(i).setNumberPE(i)
@@ -129,6 +129,10 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
 
     }
 
+    //io.busy is the or of all busy signals of the PEs in the mesh
+    io.busy := vector.map(_.io.busy).reduce(_ || _)
+
+    //connect each PE with each other
     for(i<-0 to (n*n)-1){
         if(upLeftCorner(i)){
             
