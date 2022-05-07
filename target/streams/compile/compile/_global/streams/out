@@ -1,4 +1,16 @@
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllMesh.scala:135:5: not found: value mesh[0m
-[0m[[0m[31merror[0m] [0m[0m    mesh.io.busy := computeBusy[0m
-[0m[[0m[31merror[0m] [0m[0m    ^[0m
-[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllController.scala:114:29: value instr is not a member of hppsProject.Command[0m
+[0m[[0m[31merror[0m] [0m[0m    rd_address := pcmd.bits.instr.rd[0m
+[0m[[0m[31merror[0m] [0m[0m                            ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllController.scala:144:29: value instr is not a member of hppsProject.Command[0m
+[0m[[0m[31merror[0m] [0m[0m    rd_address := pcmd.bits.instr.rd[0m
+[0m[[0m[31merror[0m] [0m[0m                            ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllController.scala:159:29: value instr is not a member of hppsProject.Command[0m
+[0m[[0m[31merror[0m] [0m[0m    rd_address := pcmd.bits.instr.rd[0m
+[0m[[0m[31merror[0m] [0m[0m                            ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllController.scala:189:29: value instr is not a member of hppsProject.Command[0m
+[0m[[0m[31merror[0m] [0m[0m    rd_address := pcmd.bits.instr.rd[0m
+[0m[[0m[31merror[0m] [0m[0m                            ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllController.scala:204:29: value instr is not a member of hppsProject.Command[0m
+[0m[[0m[31merror[0m] [0m[0m    rd_address := pcmd.bits.instr.rd[0m
+[0m[[0m[31merror[0m] [0m[0m                            ^[0m
+[0m[[0m[31merror[0m] [0m[0m5 errors found[0m

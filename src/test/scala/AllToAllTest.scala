@@ -88,7 +88,8 @@ class AllToAllModuleTester(c: AllToAll) extends PeekPokeTester(c) {
   step(1)
 
   //done_exchange
-  expect(c.io.busy, true.B) 
+  expect(c.io.busy, true.B)
+  
 
   step(1)
  

@@ -13,28 +13,30 @@ import freechips.rocketchip.tilelink._
 import freechips.rocketchip.util.InOrderArbiter
 
 
-class MeshIO extends Bundle{
-    val cmd = new MeshCommand
-    val resp = new MeshResponse
-    val busy = Output(Bool())
-}
-
 class MeshCommand extends Bundle{
     //control signals
-    val load = Input(Bool())
-    val store = Input(Bool())
-    val doAllToAll = Input(Bool())
+    val load = Bool()
+    val store = Bool()
+    val doAllToAll = Bool()
 
 //communiction between PE and controller
-    val rs1 = Input(Bits(64.W))
-    val rs2 = Input(Bits(64.W))
+    val rs1 = Bits(64.W)
+    val rs2 = Bits(64.W)
 }
 
 class MeshResponse extends Bundle{
 
     //communiction between PE and controller
-    val data = Output(Bits(64.W))
+    val data = Bits(64.W)
 }
+
+class MeshIO extends Bundle{
+    val cmd = Flipped(Decoupled(new MeshCommand))
+    val resp = Decoupled(new MeshResponse)
+    val busy = Output(Bool())
+}
+
+
 
 /*
     AllToAllMesh respresents the mesh coposed of processing units
@@ -48,6 +50,9 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
     //val vector = Seq.fill(n*n)(Module(new AllToAllPE(n,cacheSize)))
 
     val zero64 =  0.U(64.W)
+
+    //val myVec = Vec(n) { UInt(width = 32) }
+    
 
     var vector1 = Seq[AllToAllPE]()
     /*
@@ -78,32 +83,39 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
     def left(i: Int): Boolean = (!upLeftCorner(i) && !bottomLeftCorner(i) && (i%n == 0))
     def right(i: Int): Boolean = (!upRightCorner(i) && !bottomRightCorner(i) && (i%n == (n-1)))
 
+    def x_coord(i: Int): Int = (i%n)
+    def y_coord(i: Int): Int = ((n-1)-(i/n))
+
+    var x,y = 0
+
     for(i<-0 to (n*n)-1){
+        x = x_coord(i)
+        y = y_coord(i)
         if(upLeftCorner(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEupLeftCorner(n,cacheSize,i))
+            vector1 = vector1 :+  Module(new AllToAllPEupLeftCorner(n,cacheSize,x,y))
 
         }else if(upRightCorner(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEupRightCorner(n,cacheSize,i))
+            vector1 = vector1 :+  Module(new AllToAllPEupRightCorner(n,cacheSize,x,y))
             
         }else if(bottomLeftCorner(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEbottomLeftCorner(n,cacheSize,i))
+            vector1 = vector1 :+  Module(new AllToAllPEbottomLeftCorner(n,cacheSize,x,y))
             
         }else if(bottomRightCorner(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEbottomRightCorner(n,cacheSize,i))
+            vector1 = vector1 :+  Module(new AllToAllPEbottomRightCorner(n,cacheSize,x,y))
         }else if(up(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEup(n,cacheSize,i))
+            vector1 = vector1 :+  Module(new AllToAllPEup(n,cacheSize,x,y))
             
         }else if(bottom(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEbottom(n,cacheSize,i))
+            vector1 = vector1 :+  Module(new AllToAllPEbottom(n,cacheSize,x,y))
             
         }else if(left(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEleft(n,cacheSize,i))
+            vector1 = vector1 :+  Module(new AllToAllPEleft(n,cacheSize,x,y))
             
         }else if(right(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEright(n,cacheSize,i))
+            vector1 = vector1 :+  Module(new AllToAllPEright(n,cacheSize,x,y))
             
         }else{ //elements not on the borders
-            vector1 = vector1 :+  Module(new AllToAllPEmiddle(n,cacheSize,i))
+            vector1 = vector1 :+  Module(new AllToAllPEmiddle(n,cacheSize,x,y))
         }
         
     }
@@ -111,26 +123,51 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
 
 
     //connect all PEs with the controller on a common bus
+    //Mesh -> PE
     for(i<-0 to (n*n)-1){
 
-        //vector(i).setNumberPE(i)
-        //vector(i).number_PE := i.U(32.W)
-
         //input
-        vector(i).io.load := io.cmd.load
-        vector(i).io.store := io.cmd.store
-        vector(i).io.doAllToAll := io.cmd.doAllToAll
+        vector(i).io.cmd.valid := io.cmd.valid
+        vector(i).io.cmd.bits.load := io.cmd.bits.load
+        vector(i).io.cmd.bits.store := io.cmd.bits.store
+        vector(i).io.cmd.bits.doAllToAll := io.cmd.bits.doAllToAll
 
-        vector(i).io.rs1 := io.cmd.rs1
-        vector(i).io.rs2 := io.cmd.rs2
+        vector(i).io.cmd.bits.rs1 := io.cmd.bits.rs1
+        vector(i).io.cmd.bits.rs2 := io.cmd.bits.rs2
 
-        //output
-        io.resp.data := vector(i).io.data
+        vector(i).io.resp.ready := io.resp.ready
 
     }
 
-    //io.busy is the or of all busy signals of the PEs in the mesh
+    //PE -> Mesh
     io.busy := vector.map(_.io.busy).reduce(_ || _)
+    io.cmd.ready := vector.map(_.io.cmd.ready).reduce(_ && _)
+    io.resp.valid := vector.map(_.io.resp.valid).reduce(_ && _)
+
+
+    //compute number of PE starting from rs2
+    def n_from_xy(i: UInt): UInt = {
+        val x = i(15,0)
+        val y = i(31,16)
+        ((n.U-1.U-y)*n.U+x)
+    }
+
+    //can be a problem since division?
+    val nPE = n_from_xy(io.cmd.bits.rs2)
+
+
+    var myVec1 = Seq((nPE === 0.U) -> (vector(0).io.resp.bits.data))
+     
+    for(i<-1 to (n*n)-1){
+        myVec1 :+ ((nPE === i.U) -> (vector(i).io.resp.bits.data))
+    }
+
+    val myVec = myVec1
+
+    //io.resp.bits.data corresponds to the data conained in PE which has indexes x,y
+    io.resp.bits.data := PriorityMux(myVec)
+
+
 
     //connect each PE with each other
     for(i<-0 to (n*n)-1){

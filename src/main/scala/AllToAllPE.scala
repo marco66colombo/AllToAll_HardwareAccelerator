@@ -12,11 +12,30 @@ import freechips.rocketchip.rocket._
 import freechips.rocketchip.tilelink._
 import freechips.rocketchip.util.InOrderArbiter
 
+
+class PECommand extends Bundle{
+    //control signals
+    val load = Bool()
+    val store = Bool()
+    val doAllToAll = Bool()
+
+//communiction between PE and controller
+    val rs1 = Bits(64.W)
+    val rs2 = Bits(64.W)
+}
+
+class PEResponse extends Bundle{
+
+    //communiction between PE and controller
+    val data = Bits(64.W)
+}
+
 class AllToAllPEIO extends Bundle{
 
     //when busy = true -> computation of PE not terminated yet
     val busy = Output(Bool())
     
+    /*
     //communiction between PE and controller
     val load = Input(Bool())
     val store = Input(Bool())
@@ -24,11 +43,16 @@ class AllToAllPEIO extends Bundle{
     val rs1 = Input(Bits(64.W))
     val rs2 = Input(Bits(64.W))
     val data = Output(Bits(64.W))
+    */
+
+    val cmd = Flipped(Decoupled(new PECommand))
+    val resp = Decoupled(new PEResponse)
     val left = new InputOutputPEdata
     val right = new InputOutputPEdata
     val up = new InputOutputPEdata
     val bottom = new InputOutputPEdata
 }
+
 
 /*
 class AllToAllPEIOcorner extends AllToAllPEIO{
@@ -100,17 +124,130 @@ class InputOutputPEdata extends Bundle{
     val in = Input(Bits(64.W))
 }
 
-class AllToAllPE(n : Int, cacheSize: Int, id : Int) extends Module{
+class AllToAllPE(n : Int, cacheSize: Int, x : Int, y : Int) extends Module{
   val io = IO(new AllToAllPEIO())
   val memPE = Mem(cacheSize, UInt(64.W)) 
 
   //It represents the number of the PE -> at most 2^16 PE -> n of mesh max 2^8 = 256
-  assert(n<=256)
-  val number_PE = Reg(UInt(16.W))
-  number_PE := id.U(16.W)
+  val x_coord = Reg(UInt(16.W))
+  val y_coord = Reg(UInt(16.W))
+  x_coord := x.U(16.W)
+  y_coord := y.U(16.W)
 
+  /*
   io.busy := false.B
+  io.cmd.ready := false.B
+  io.resp.valid := false.B
+  */
 
+  val idle :: action :: action_resp :: do_load :: do_store :: Nil = Enum(5)
+  val state = RegInit(idle) 
+  val resp_signal = RegInit(false.B)
+  val resp_value = Reg(Bits(64.W))
+  val x_value = io.cmd.bits.rs2(15,0)
+  val y_value = io.cmd.bits.rs2(31,16)
+  val memIndex = io.cmd.bits.rs2(63,32)
+  
+
+  val is_this_PE = x_value === x_coord && y_value === y_coord
+  val load_signal = io.cmd.valid && io.cmd.bits.load 
+  val store_signal = io.cmd.valid && io.cmd.bits.store 
+  val allToAll_signal = io.cmd.valid && io.cmd.bits.doAllToAll 
+
+  when(state === idle){
+    io.busy := false.B
+    io.cmd.ready := true.B
+    io.resp.valid := false.B
+    io.resp.bits.data := 0.U(64.W)
+    resp_signal := false.B
+
+    when(load_signal){
+      state := do_load
+    }.elsewhen(store_signal){
+      state := do_store
+    }.elsewhen(allToAll_signal){
+      state := action
+    }.otherwise{
+      state := idle
+    }
+
+  }.elsewhen(state === do_load){
+    io.busy := false.B
+    io.cmd.ready := true.B
+    io.resp.valid := resp_signal
+    io.resp.bits.data := resp_value
+    resp_signal := true.B
+
+    when(is_this_PE){
+      memPE(memIndex) := io.cmd.bits.rs1
+    }
+    resp_value := 0.U(64.W)
+
+    when(load_signal){
+      state := do_load
+    }.elsewhen(store_signal){
+      state := do_store
+    }.elsewhen(allToAll_signal){
+      state := action
+    }.otherwise{
+      state := idle
+    }
+
+  }.elsewhen(state === do_store){
+
+    io.busy := false.B
+    io.cmd.ready := true.B
+    io.resp.valid := resp_signal
+    io.resp.bits.data := resp_value
+    resp_signal := true.B
+
+    when(is_this_PE){
+      resp_value := memPE(memIndex)
+    }
+
+    when(load_signal){
+      state := do_load
+    }.elsewhen(store_signal){
+      state := do_store
+    }.elsewhen(allToAll_signal){
+      state := action
+    }.otherwise{
+      state := idle
+    }
+
+  }.elsewhen(state === action){
+    io.busy := true.B
+    io.cmd.ready := false.B
+    io.resp.valid := resp_signal
+    io.resp.bits.data := resp_value
+    //funziona sse aggiorna il reg dopo aver letto il valore
+    resp_signal := false.B
+
+    state := action_resp
+  }.elsewhen(state === action_resp){
+    io.busy := true.B
+    io.cmd.ready := false.B
+    io.resp.valid := true.B
+    io.resp.bits.data := resp_value
+    //funziona sse aggiorna il reg dopo aver letto il valore
+    resp_signal := false.B
+
+    state := idle
+  }.otherwise{
+    io.busy := false.B
+    io.cmd.ready := false.B
+    io.resp.valid := false.B
+    io.resp.bits.data := "b10101010101010101010101010101010".U(64.W)
+  }
+  /*
+  when(io.cmd.bits.load){
+     for(i<-0 to (n*n)-1){
+      memPE(i.U) := computeLoadValue(i)
+     }
+  }
+  */
+
+  /*
   when(io.load){
      for(i<-0 to (n*n)-1){
       memPE(i.U) := computeLoadValue(i)
@@ -123,6 +260,7 @@ class AllToAllPE(n : Int, cacheSize: Int, id : Int) extends Module{
     val memLine = Cat(msb32,number_PE)
     memLine
   }
+  */
 
 }
 
@@ -156,7 +294,7 @@ class AllTOAllPEmiddle(n : Int, cacheSize: Int, id : Int) extends AllToAllPE{
   
 }
 */
-class AllToAllPEupLeftCorner(n : Int, cacheSize: Int, id : Int) extends AllToAllPE(n,cacheSize,id){
+class AllToAllPEupLeftCorner(n : Int, cacheSize: Int, x : Int, y : Int) extends AllToAllPE(n,cacheSize,x,y){
   
   //io.left.in :=  0.U(64.W)
   io.left.out :=  0.U(64.W)
@@ -166,11 +304,9 @@ class AllToAllPEupLeftCorner(n : Int, cacheSize: Int, id : Int) extends AllToAll
   io.right.out := 0.U(64.W)
   io.bottom.out := 0.U(64.W)
  
-  io.data := 0.U(64.W)
-
 }
 
-class AllToAllPEupRightCorner(n : Int, cacheSize: Int, id : Int) extends AllToAllPE(n,cacheSize,id){
+class AllToAllPEupRightCorner(n : Int, cacheSize: Int, x : Int, y : Int) extends AllToAllPE(n,cacheSize,x,y){
   
   //io.right.in :=  0.U(64.W)
   io.right.out :=  0.U(64.W)
@@ -179,12 +315,10 @@ class AllToAllPEupRightCorner(n : Int, cacheSize: Int, id : Int) extends AllToAl
 
   io.left.out := 0.U(64.W)
   io.bottom.out := 0.U(64.W)
- 
-  io.data := 0.U(64.W)
 
 }
 
-class AllToAllPEbottomLeftCorner(n : Int, cacheSize: Int, id : Int) extends AllToAllPE(n,cacheSize,id){
+class AllToAllPEbottomLeftCorner(n : Int, cacheSize: Int, x : Int, y : Int) extends AllToAllPE(n,cacheSize,x,y){
   
   //io.left.in :=  0.U(64.W)
   io.left.out :=  0.U(64.W)
@@ -195,10 +329,9 @@ class AllToAllPEbottomLeftCorner(n : Int, cacheSize: Int, id : Int) extends AllT
   io.right.out := 0.U(64.W)
   io.up.out := 0.U(64.W)
  
-  io.data := 0.U(64.W)
 
 }
-class AllToAllPEbottomRightCorner(n : Int, cacheSize: Int, id : Int) extends AllToAllPE(n,cacheSize,id){
+class AllToAllPEbottomRightCorner(n : Int, cacheSize: Int, x : Int, y : Int) extends AllToAllPE(n,cacheSize,x,y){
   
   //io.right.in :=  0.U(64.W)
   io.right.out :=  0.U(64.W)
@@ -209,10 +342,9 @@ class AllToAllPEbottomRightCorner(n : Int, cacheSize: Int, id : Int) extends All
   io.right.out := 0.U(64.W)
   io.up.out := 0.U(64.W)
   
-  io.data := 0.U(64.W)
 
 }
-class AllToAllPEup(n : Int, cacheSize: Int, id : Int) extends AllToAllPE(n,cacheSize,id){
+class AllToAllPEup(n : Int, cacheSize: Int, x : Int, y : Int) extends AllToAllPE(n,cacheSize,x,y){
  
   //io.up.in :=  0.U(64.W)
   io.up.out :=  0.U(64.W)
@@ -221,10 +353,8 @@ class AllToAllPEup(n : Int, cacheSize: Int, id : Int) extends AllToAllPE(n,cache
   io.right.out := 0.U(64.W)
   io.bottom.out := 0.U(64.W)
  
-  io.data := 0.U(64.W)
-
 }
-class AllToAllPEbottom(n : Int, cacheSize: Int, id : Int) extends AllToAllPE(n,cacheSize,id){
+class AllToAllPEbottom(n : Int, cacheSize: Int, x : Int, y : Int) extends AllToAllPE(n,cacheSize,x,y){
   
   //io.bottom.in :=  0.U(64.W)
   io.bottom.out :=  0.U(64.W)
@@ -233,10 +363,9 @@ class AllToAllPEbottom(n : Int, cacheSize: Int, id : Int) extends AllToAllPE(n,c
   io.right.out := 0.U(64.W)
   io.up.out := 0.U(64.W)
  
-  io.data := 0.U(64.W)
 
 }
-class AllToAllPEleft(n : Int, cacheSize: Int, id : Int) extends AllToAllPE(n,cacheSize,id){
+class AllToAllPEleft(n : Int, cacheSize: Int, x : Int, y : Int) extends AllToAllPE(n,cacheSize,x,y){
   
   
   //io.left.in :=  0.U(64.W)
@@ -246,10 +375,9 @@ class AllToAllPEleft(n : Int, cacheSize: Int, id : Int) extends AllToAllPE(n,cac
   io.up.out := 0.U(64.W)
   io.bottom.out := 0.U(64.W)
 
-  io.data := 0.U(64.W)
 
 }
-class AllToAllPEright(n : Int, cacheSize: Int, id : Int) extends AllToAllPE(n,cacheSize,id){
+class AllToAllPEright(n : Int, cacheSize: Int, x : Int, y : Int) extends AllToAllPE(n,cacheSize,x,y){
 
   //io.right.in :=  0.U(64.W)
   io.right.out :=  0.U(64.W)
@@ -258,18 +386,15 @@ class AllToAllPEright(n : Int, cacheSize: Int, id : Int) extends AllToAllPE(n,ca
   io.up.out := 0.U(64.W)
   io.bottom.out := 0.U(64.W)
  
-  io.data := 0.U(64.W)
 
 }
-class AllToAllPEmiddle(n : Int, cacheSize: Int, id : Int) extends AllToAllPE(n,cacheSize,id){
+class AllToAllPEmiddle(n : Int, cacheSize: Int, x : Int, y : Int) extends AllToAllPE(n,cacheSize,x,y){
  
   io.left.out := 0.U(64.W)
   io.right.out := 0.U(64.W)
   io.up.out := 0.U(64.W)
   io.bottom.out := 0.U(64.W)
  
-  io.data := 0.U(64.W)
-
 }
 
 /*

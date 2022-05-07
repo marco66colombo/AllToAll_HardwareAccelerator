@@ -80,14 +80,18 @@ class AllToAllModule(n: Int, cacheSize: Int) extends Module{
   //connect part of interface of controller (dedicated to communicate with AllToAllMesh) with mesh interface
   
   //controller -> mesh
-  mesh.io.cmd.load := controller.io.mesh.cmd.load
-  mesh.io.cmd.store := controller.io.mesh.cmd.store
-  mesh.io.cmd.doAllToAll := controller.io.mesh.cmd.doAllToAll
-  mesh.io.cmd.rs1 := controller.io.mesh.cmd.rs1
-  mesh.io.cmd.rs2 := controller.io.mesh.cmd.rs2
+  mesh.io.cmd.valid := controller.io.mesh.cmd.valid
+  mesh.io.cmd.bits.load := controller.io.mesh.cmd.bits.load
+  mesh.io.cmd.bits.store := controller.io.mesh.cmd.bits.store
+  mesh.io.cmd.bits.doAllToAll := controller.io.mesh.cmd.bits.doAllToAll
+  mesh.io.cmd.bits.rs1 := controller.io.mesh.cmd.bits.rs1
+  mesh.io.cmd.bits.rs2 := controller.io.mesh.cmd.bits.rs2
+  mesh.io.resp.ready := controller.io.mesh.resp.ready
   
   //mesh -> controller
-  controller.io.mesh.resp.data := mesh.io.resp.data
+  controller.io.mesh.cmd.ready := mesh.io.cmd.ready
+  controller.io.mesh.resp.valid := mesh.io.resp.valid
+  controller.io.mesh.resp.bits.data := mesh.io.resp.bits.data
   controller.io.mesh.busy := mesh.io.busy
 
 
@@ -109,9 +113,9 @@ class AllToAllModule(n: Int, cacheSize: Int) extends Module{
 
 /*
 object OpcodeSet {
-  def custom0 = new OpcodeSet(Seq("b0001011".U)) //store 
-  def custom1 = new OpcodeSet(Seq("b0101011".U)) //load
-  def custom2 = new OpcodeSet(Seq("b1011011".U)) //alltoall
+  def custom0 = new OpcodeSet(Seq("b0001011".U)) //load 
+  def custom1 = new OpcodeSet(Seq("b0101011".U)) //alltoall
+  def custom2 = new OpcodeSet(Seq("b1011011".U)) 
   def custom3 = new OpcodeSet(Seq("b1111011".U))
   def all = custom0 | custom1 | custom2 | custom3
 }
