@@ -19,7 +19,7 @@ class MeshCommand extends Bundle{
     val store = Bool()
     val doAllToAll = Bool()
 
-//communiction between PE and controller
+    //communiction between PE and controller
     val rs1 = Bits(64.W)
     val rs2 = Bits(64.W)
 }
@@ -41,18 +41,14 @@ class MeshIO extends Bundle{
 /*
     AllToAllMesh respresents the mesh coposed of processing units
     n : is the dimension of the square matrix of PE
+    cacheSize : is the number of lines of the memory of each PE
 */
 class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
 
     val io = IO(new MeshIO)
 
-    //val vector = Vec(n*n, Module(AllToAllPE(cacheSize)).io)
-    //val vector = Seq.fill(n*n)(Module(new AllToAllPE(n,cacheSize)))
-
     val zero64 =  0.U(64.W)
 
-    //val myVec = Vec(n) { UInt(width = 32) }
-    
 
     var vector1 = Seq[AllToAllPE]()
     /*
@@ -88,9 +84,12 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
 
     var x,y = 0
 
+    //create the PEs of the mesh and assigning them the coordinates (x,y)
     for(i<-0 to (n*n)-1){
+
         x = x_coord(i)
         y = y_coord(i)
+
         if(upLeftCorner(i)){
             vector1 = vector1 :+  Module(new AllToAllPEupLeftCorner(n,cacheSize,x,y))
 
@@ -122,7 +121,7 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
     val vector = vector1
 
 
-    //connect all PEs with the controller on a common bus
+    //connect all PEs with the controller on a common data bus
     //Mesh -> PE
     for(i<-0 to (n*n)-1){
 
@@ -144,7 +143,11 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
     io.cmd.ready := vector.map(_.io.cmd.ready).reduce(_ && _)
     io.resp.valid := vector.map(_.io.resp.valid).reduce(_ && _)
 
+    /*
+        MUX that puts on io.resp.bits.data the data of the correct PE
+    */
 
+    /*
     //compute number of PE starting from rs2
     def n_from_xy(i: UInt): UInt = {
         val x = i(15,0)
@@ -154,7 +157,6 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
 
     //can be a problem since division?
     val nPE = n_from_xy(io.cmd.bits.rs2)
-
 
     var myVec1 = Seq((nPE === 0.U) -> (vector(0).io.resp.bits.data))
      
@@ -166,124 +168,108 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
 
     //io.resp.bits.data corresponds to the data conained in PE which has indexes x,y
     io.resp.bits.data := PriorityMux(myVec)
+    */
 
+    //var myVec1 = Seq((vector(0).io.resp.bits.write_enable === true.B) -> (vector(0).io.resp.bits.data))
+    /*
+    var myVec2 = Seq(vector(0).io.resp.bits.data)
+    var myVec1 = Seq(vector(0).io.resp.bits.write_enable)
+    for(i<- 1 to (n*n)-1){
+        myVec1 :+ (vector(i).io.resp.bits.write_enable)
+        myVec2 :+ (vector(i).io.resp.bits.data)
+    } */
 
+ 
+    /*   
+    for(i<-1 to (n*n)-1){
+        myVec1 :+ ((vector(i).io.resp.bits.write_enable === true.B) -> (vector(i).io.resp.bits.data))
+    }*/
+
+    //val myVec3 = myVec1
+    //val myVec4 = myVec2
+
+    val myVec3 = Seq(vector(0).io.resp.bits.write_enable,vector(1).io.resp.bits.write_enable,vector(2).io.resp.bits.write_enable,vector(3).io.resp.bits.write_enable,vector(4).io.resp.bits.write_enable,vector(5).io.resp.bits.write_enable,vector(6).io.resp.bits.write_enable,vector(7).io.resp.bits.write_enable,vector(8).io.resp.bits.write_enable)
+    val myVec4 = Seq(vector(0).io.resp.bits.data,vector(1).io.resp.bits.data,vector(2).io.resp.bits.data,vector(3).io.resp.bits.data,vector(4).io.resp.bits.data,vector(5).io.resp.bits.data,vector(6).io.resp.bits.data,vector(7).io.resp.bits.data,vector(8).io.resp.bits.data)
+    io.resp.bits.data := PriorityMux(myVec3,myVec4)
+    
 
     //connect each PE with each other
     for(i<-0 to (n*n)-1){
+
         if(upLeftCorner(i)){
-            
-            //vector(i).io.left.out := 0.U(64.W)  
+         
             vector(i).io.left.in := zero64
-            //vector(i).io.up.out := 0.U(64.W)
             vector(i).io.up.in := zero64
             
-
-            //vector(i).right.out := 0.U(64.W)
             vector(i).io.right.in := vector(i+1).io.left.out
-            //vector(i).down.out := 0.U(64.W)
             vector(i).io.bottom.in := vector(i+n).io.up.out
-
 
         }else if(upRightCorner(i)){
             
-            //vector(i).io.right.out := 0.U(64.W)
             vector(i).io.right.in := zero64
-            //vector(i).io.up.out := 0.U(64.W)
             vector(i).io.up.in := zero64
             
-
-            //vector(i).left.out := 0.U(64.W)
             vector(i).io.left.in := vector(i-1).io.right.out
-            //vector(i).down.out := 0.U(64.W)
             vector(i).io.bottom.in := vector(i+n).io.up.out
             
         }else if(bottomLeftCorner(i)){
             
-            //vector(i).io.left.out := 0.U(64.W)
             vector(i).io.left.in := zero64
-            //vector(i).io.down.out := 0.U(64.W)
             vector(i).io.bottom.in := zero64
             
-
-            //vector(i).right.out := 0.U(64.W)
             vector(i).io.right.in := vector(i+1).io.left.out
-            //vector(i).up.out := 0.U(64.W)
             vector(i).io.up.in := vector(i-n).io.bottom.out
             
         }else if(bottomRightCorner(i)){
             
-            //vector(i).io.right.out := 0.U(64.W)
             vector(i).io.right.in := zero64
-            //vector(i).io.down.out := 0.U(64.W)
             vector(i).io.bottom.in := zero64
             
-
-            //vector(i).left.out := 0.U(64.W)
             vector(i).io.left.in := vector(i-1).io.right.out
-            //vector(i).up.out := 0.U(64.W)
             vector(i).io.up.in := vector(i-n).io.bottom.out
             
         }else if(up(i)){
-            //vector(i).io.up.out := 0.U(64.W)
+            
             vector(i).io.up.in := zero64
 
-            //vector(i).left.out := 0.U(64.W)
             vector(i).io.left.in := vector(i-1).io.right.out
-            //vector(i).right.out := 0.U(64.W)
             vector(i).io.right.in := vector(i+1).io.left.out
-            //vector(i).down.out := 0.U(64.W)
             vector(i).io.bottom.in := vector(i+n).io.up.out
             
         }else if(bottom(i)){
-            //vector(i).io.down.out := 0.U(64.W)
+         
             vector(i).io.bottom.in := zero64
 
-            //vector(i).left.out := 0.U(64.W)
             vector(i).io.left.in := vector(i-1).io.right.out
-            //vector(i).right.out := 0.U(64.W)
             vector(i).io.right.in := vector(i+1).io.left.out
-            //vector(i).up.out := 0.U(64.W)
             vector(i).io.up.in := vector(i-n).io.bottom.out
             
         }else if(left(i)){
-            //vector(i).io.left.out := 0.U(64.W)
+
             vector(i).io.left.in := zero64
 
-            //vector(i).right.out := 0.U(64.W)
             vector(i).io.right.in := vector(i+1).io.left.out
-            //vector(i).up.out := 0.U(64.W)
             vector(i).io.up.in := vector(i-n).io.bottom.out
-            //vector(i).down.out := 0.U(64.W)
             vector(i).io.bottom.in := vector(i+n).io.up.out
             
         }else if(right(i)){
-            //vector(i).io.right.out := 0.U(64.W)
+           
             vector(i).io.right.in := zero64
 
-            //vector(i).left.out := 0.U(64.W)
             vector(i).io.left.in := vector(i-1).io.right.out
-            //vector(i).up.out := 0.U(64.W)
             vector(i).io.up.in := vector(i-n).io.bottom.out
-            //vector(i).down.out := 0.U(64.W)
             vector(i).io.bottom.in := vector(i+n).io.up.out
             
         }else{ //elements not on the borders
 
-            //vector(i).left.out := 0.U(64.W)
             vector(i).io.left.in := vector(i-1).io.right.out
-            //vector(i).right.out := 0.U(64.W)
             vector(i).io.right.in := vector(i+1).io.left.out
-            //vector(i).up.out := 0.U(64.W)
             vector(i).io.up.in := vector(i-n).io.bottom.out
-            //vector(i).down.out := 0.U(64.W)
             vector(i).io.bottom.in := vector(i+n).io.up.out
 
         }
         
     }
-
-
 
 
 }

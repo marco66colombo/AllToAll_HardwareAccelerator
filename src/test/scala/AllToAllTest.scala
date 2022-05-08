@@ -10,7 +10,7 @@ import hppsProject._
 
 class AllToAll() extends LazyRoCCModuleImpWrapper{
   //cachesize must be n^2 with this implementation
-  val aTaModule = Module(new AllToAllModule(3,9))
+  val aTaModule = Module(new AllToAllModule(3,32))
 
   //command input
   aTaModule.io.cmd.valid := io.cmd.valid
@@ -52,58 +52,86 @@ class AllToAll() extends LazyRoCCModuleImpWrapper{
 
 
 class AllToAllModuleTester(c: AllToAll) extends PeekPokeTester(c) {
-
-  poke(c.io.cmd.bits.rs1, 1.U)
-  poke(c.io.cmd.bits.rs2, 3.U)
-  poke(c.io.cmd.bits.inst.rd, 1.U)
+  
   poke(c.io.cmd.valid, false.B) 
+  poke(c.io.cmd.bits.inst.funct, "b0000001".U)
+  poke(c.io.cmd.bits.inst.opcode, "b0001011".U)
+  poke(c.io.cmd.bits.inst.rd, 1.U)
+  poke(c.io.cmd.bits.rs1, 23.U)
+  poke(c.io.cmd.bits.rs2, 31.U)
+  
 
   step(1)
 
   //idle
   expect(c.io.cmd.ready, true.B)
   expect(c.io.resp.valid, false.B)
+  //because keeps the delay of the resp
+  expect(c.io.resp.bits.rd,0.U)
+  expect(c.io.resp.bits.data, 0.U)
+  expect(c.io.interrupt, false.B)
+  expect(c.io.busy, false.B) 
+  
+
+  poke(c.io.cmd.valid, true.B) 
+  //load
+  poke(c.io.cmd.bits.inst.funct, "b0000001".U)
+  poke(c.io.cmd.bits.inst.opcode, "b0001011".U)
+  poke(c.io.cmd.bits.inst.rd, 3.U)
+  poke(c.io.cmd.bits.rs1, 24.U)
+  poke(c.io.cmd.bits.rs2,  "b00000000000000000000000000000001_0000000000000001_0000000000000010".U)
+  
+  step(1)
+
+  expect(c.io.cmd.ready, true.B)
+  expect(c.io.resp.valid, false.B)
+  //the rd should change the cycle after, when load resp is sent
+  expect(c.io.resp.bits.rd,1.U)
+  expect(c.io.resp.bits.data, 0.U)
+  expect(c.io.interrupt, false.B)
+  expect(c.io.busy, false.B) 
+  
+  poke(c.io.cmd.valid, false.B) 
+  poke(c.io.cmd.bits.inst.funct, "b0000001".U)
+  poke(c.io.cmd.bits.inst.opcode, "b0001011".U)
+  poke(c.io.cmd.bits.inst.rd, 4.U)
+  poke(c.io.cmd.bits.rs1, 24.U)
+  poke(c.io.cmd.bits.rs2,  "b00000000000000000000000000000011_0000000000010001_0000000100000010".U)
+
+  step(1)
+
+  expect(c.io.cmd.ready, true.B)
+  expect(c.io.resp.valid, true.B)
+  expect(c.io.resp.bits.rd,3.U)
+  expect(c.io.resp.bits.data, 32.U)
+  expect(c.io.interrupt, false.B)
+  expect(c.io.busy, false.B) 
+
+  poke(c.io.cmd.valid, false.B) 
+
+  step(1)
+
+  expect(c.io.cmd.ready, true.B)
+  expect(c.io.resp.valid, false.B)
+  expect(c.io.resp.bits.rd,4.U)
   expect(c.io.resp.bits.data, 0.U)
   expect(c.io.interrupt, false.B)
   expect(c.io.busy, false.B) 
 
-  step(1)
-  
-  
-  poke(c.io.cmd.bits.rs1, 1.U)
-  poke(c.io.cmd.bits.rs2, 3.U)
-  poke(c.io.cmd.bits.inst.rd, 1.U)
-  poke(c.io.cmd.valid, true.B)
-  poke(c.io.cmd.bits.inst.opcode,"b0101011".U) 
-  
-  step(1)
 
-  //exchange
-  expect(c.io.cmd.ready, false.B)
-  expect(c.io.resp.valid, false.B)
-  expect(c.io.resp.bits.data, 0.U)
-  expect(c.io.interrupt, false.B)
-  expect(c.io.busy, true.B) 
 
-  step(1)
 
-  //done_exchange
-  expect(c.io.busy, true.B)
-  
-
-  step(1)
- 
-  //back to idle
-  expect(c.io.busy, false.B)
    
 }
 
-class TestLoad(c: AllToAll) extends PeekPokeTester(c) {
+class testATALoadStore(c: AllToAll) extends PeekPokeTester(c) {
 
-  poke(c.io.cmd.bits.rs1, 1.U)
-  poke(c.io.cmd.bits.rs2, 3.U)
+  poke(c.io.cmd.valid, false.B) 
+  poke(c.io.cmd.bits.inst.funct, "b0000001".U)
+  poke(c.io.cmd.bits.inst.opcode, "b0001011".U)
   poke(c.io.cmd.bits.inst.rd, 1.U)
-  poke(c.io.cmd.valid, false.B)
+  poke(c.io.cmd.bits.rs1, 23.U)
+  poke(c.io.cmd.bits.rs2,3.U)
   
 
   step(1)
@@ -111,35 +139,68 @@ class TestLoad(c: AllToAll) extends PeekPokeTester(c) {
   //idle
   expect(c.io.cmd.ready, true.B)
   expect(c.io.resp.valid, false.B)
+  //because keeps the delay of the resp
+  expect(c.io.resp.bits.rd,0.U)
   expect(c.io.resp.bits.data, 0.U)
   expect(c.io.interrupt, false.B)
   expect(c.io.busy, false.B) 
+  
 
-  step(1)
-  //load state 
-  poke(c.io.cmd.bits.rs1, 1.U)
-  poke(c.io.cmd.bits.rs2, 3.U)
-  poke(c.io.cmd.bits.inst.rd, 1.U)
   poke(c.io.cmd.valid, true.B) 
-  poke(c.io.cmd.bits.inst.opcode,"b0001011".U) 
+  //load
+  poke(c.io.cmd.bits.inst.funct, "b0000001".U)
+  poke(c.io.cmd.bits.inst.opcode, "b0001011".U)
+  poke(c.io.cmd.bits.inst.rd, 3.U)
+  poke(c.io.cmd.bits.rs1, 24.U)
+  poke(c.io.cmd.bits.rs2,  "b00000000000000000000000000000001_0000000000000001_0000000000000010".U)
   
   step(1)
 
-  //load
-  expect(c.io.busy, true.B)
-  //expect(c.aTaModule.mesh.vector(0).memPE(0.U),0.U)
-
-  poke(c.io.cmd.bits.rs1, 1.U)
-  poke(c.io.cmd.bits.rs2, 3.U)
-  poke(c.io.cmd.bits.inst.rd, 1.U)
-  poke(c.io.cmd.valid, false.B) 
-  poke(c.io.cmd.bits.inst.opcode,"b0000011".U) 
+  expect(c.io.cmd.ready, true.B)
+  expect(c.io.resp.valid, false.B)
+  //the rd should change the cycle after, when load resp is sent
+  expect(c.io.resp.bits.rd,1.U)
+  expect(c.io.resp.bits.data, 0.U)
+  expect(c.io.interrupt, false.B)
+  expect(c.io.busy, false.B) 
+  
+  poke(c.io.cmd.valid, true.B) 
+  //store
+  poke(c.io.cmd.bits.inst.funct, "b0000010".U)
+  poke(c.io.cmd.bits.inst.opcode, "b0001011".U)
+  poke(c.io.cmd.bits.inst.rd, 5.U)
+  poke(c.io.cmd.bits.rs1, 41.U)
+  poke(c.io.cmd.bits.rs2,  "b00000000000000000000000000000001_0000000000000001_0000000000000010".U)
 
   step(1)
 
-  //idle
-  expect(c.io.busy, false.B)
+  expect(c.io.cmd.ready, true.B)
+  expect(c.io.resp.valid, true.B)
+  expect(c.io.resp.bits.rd,3.U)
+  expect(c.io.resp.bits.data, 32.U)
+  expect(c.io.interrupt, false.B)
+  expect(c.io.busy, false.B) 
 
+  poke(c.io.cmd.valid, false.B) 
+
+  step(1)
+
+  expect(c.io.cmd.ready, true.B)
+  expect(c.io.resp.valid, true.B)
+  expect(c.io.resp.bits.rd,5.U)
+  expect(c.io.resp.bits.data, 24.U)
+  expect(c.io.interrupt, false.B)
+  expect(c.io.busy, false.B) 
+
+  poke(c.io.cmd.valid, false.B) 
+
+  step(1)
+  expect(c.io.cmd.ready, true.B)
+  expect(c.io.resp.valid, false.B)
+  expect(c.io.resp.bits.rd,5.U)
+  expect(c.io.resp.bits.data, 0.U)
+  expect(c.io.interrupt, false.B)
+  expect(c.io.busy, false.B)
 
 
  
@@ -159,7 +220,7 @@ class AllToAllTest extends ChiselFlatSpec {
   behavior of "testLoad"
   it should "load" in {
     chisel3.iotesters.Driver.execute( testerArgs, () => new AllToAll()) {
-      c => new TestLoad(c)
+      c => new testATALoadStore(c)
     } should be (true)
   }
 

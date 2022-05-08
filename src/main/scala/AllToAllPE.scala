@@ -28,6 +28,7 @@ class PEResponse extends Bundle{
 
     //communiction between PE and controller
     val data = Bits(64.W)
+    val write_enable = Bool()
 }
 
 class AllToAllPEIO extends Bundle{
@@ -125,31 +126,43 @@ class InputOutputPEdata extends Bundle{
 }
 
 class AllToAllPE(n : Int, cacheSize: Int, x : Int, y : Int) extends Module{
+
   val io = IO(new AllToAllPEIO())
+
+  //memory
   val memPE = Mem(cacheSize, UInt(64.W)) 
 
   //It represents the number of the PE -> at most 2^16 PE -> n of mesh max 2^8 = 256
-  val x_coord = Reg(UInt(16.W))
-  val y_coord = Reg(UInt(16.W))
-  x_coord := x.U(16.W)
-  y_coord := y.U(16.W)
+  val x_coord = RegInit(UInt(16.W),x.U)
+  val y_coord = RegInit(UInt(16.W),y.U)
+  
+  //store rs1 and rs2 values and keep for all the cycle
+  val rs1 = Reg(Bits(64.W))
+  val rs2 = Reg(Bits(64.W))
 
+  rs1 := io.cmd.bits.rs1
+  rs2 := io.cmd.bits.rs2
+
+  //notify when the response is ready
+  val w_en = Reg(Bool())
+  io.resp.bits.write_enable := w_en
+
+  //states
+  val idle :: action :: action_resp :: do_load :: do_store :: Nil = Enum(5)
+
+  val state = RegInit(idle) 
+  val resp_signal = RegInit(Bool(),false.B)
+  val resp_value = RegInit(Bits(64.W),0.U)
+  
+  val x_value = rs2(15,0)
+  val y_value = rs2(31,16)
+  val memIndex = rs2(63,32)
+  
   /*
-  io.busy := false.B
-  io.cmd.ready := false.B
-  io.resp.valid := false.B
+    transitions values
   */
 
-  val idle :: action :: action_resp :: do_load :: do_store :: Nil = Enum(5)
-  val state = RegInit(idle) 
-  val resp_signal = RegInit(false.B)
-  val resp_value = Reg(Bits(64.W))
-  val x_value = io.cmd.bits.rs2(15,0)
-  val y_value = io.cmd.bits.rs2(31,16)
-  val memIndex = io.cmd.bits.rs2(63,32)
-  
-
-  val is_this_PE = x_value === x_coord && y_value === y_coord
+  val is_this_PE = (x_value === x_coord) && (y_value === y_coord)
   val load_signal = io.cmd.valid && io.cmd.bits.load 
   val store_signal = io.cmd.valid && io.cmd.bits.store 
   val allToAll_signal = io.cmd.valid && io.cmd.bits.doAllToAll 
@@ -157,9 +170,11 @@ class AllToAllPE(n : Int, cacheSize: Int, x : Int, y : Int) extends Module{
   when(state === idle){
     io.busy := false.B
     io.cmd.ready := true.B
-    io.resp.valid := false.B
-    io.resp.bits.data := 0.U(64.W)
+    io.resp.valid := resp_signal
+    io.resp.bits.data := resp_value
+    resp_value := 0.U
     resp_signal := false.B
+    w_en := false.B
 
     when(load_signal){
       state := do_load
@@ -179,9 +194,12 @@ class AllToAllPE(n : Int, cacheSize: Int, x : Int, y : Int) extends Module{
     resp_signal := true.B
 
     when(is_this_PE){
-      memPE(memIndex) := io.cmd.bits.rs1
+      memPE(memIndex) := rs1
+      w_en := true.B
+    }.otherwise{
+      w_en := false.B
     }
-    resp_value := 0.U(64.W)
+    resp_value := 32.U(64.W)
 
     when(load_signal){
       state := do_load
@@ -203,6 +221,9 @@ class AllToAllPE(n : Int, cacheSize: Int, x : Int, y : Int) extends Module{
 
     when(is_this_PE){
       resp_value := memPE(memIndex)
+      w_en := true.B
+    }.otherwise{
+      w_en := false.B
     }
 
     when(load_signal){
@@ -220,8 +241,11 @@ class AllToAllPE(n : Int, cacheSize: Int, x : Int, y : Int) extends Module{
     io.cmd.ready := false.B
     io.resp.valid := resp_signal
     io.resp.bits.data := resp_value
+
     //funziona sse aggiorna il reg dopo aver letto il valore
     resp_signal := false.B
+    //during action PEs don't need to write resp.data
+    w_en := false.B
 
     state := action_resp
   }.elsewhen(state === action_resp){
@@ -239,28 +263,12 @@ class AllToAllPE(n : Int, cacheSize: Int, x : Int, y : Int) extends Module{
     io.resp.valid := false.B
     io.resp.bits.data := "b10101010101010101010101010101010".U(64.W)
   }
-  /*
-  when(io.cmd.bits.load){
-     for(i<-0 to (n*n)-1){
-      memPE(i.U) := computeLoadValue(i)
-     }
-  }
-  */
 
-  /*
-  when(io.load){
-     for(i<-0 to (n*n)-1){
-      memPE(i.U) := computeLoadValue(i)
-     }
-  }
-
-  
-  def computeLoadValue(i : Int) : UInt = {
-    val msb32 = i.U(48.W)
-    val memLine = Cat(msb32,number_PE)
-    memLine
-  }
-  */
+  io.left.out := 0.U(64.W)
+  io.right.out := 0.U(64.W)
+  io.up.out := 0.U(64.W)
+  io.bottom.out := 0.U(64.W)
+ 
 
 }
 

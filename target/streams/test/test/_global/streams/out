@@ -1,19 +1,43 @@
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllTest, org.scalatest.tools.Framework$$anon$1@3eb3245b, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllPETest, org.scalatest.tools.Framework$$anon$1@2ffef167, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllControllerTest, org.scalatest.tools.Framework$$anon$1@2ffef167, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllTest, org.scalatest.tools.Framework$$anon$1@2ffef167, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllMeshTest, org.scalatest.tools.Framework$$anon$1@2ffef167, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mAllToAllControllerTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mcontrollerFSMtest[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should changeState[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mcontrollerFSMtestmultipleCmd[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should changeState[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mAllToAllPETest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mpeFSMTest[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should changeState[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mpeFSMTest[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should multipleLoad[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mpeFSMTest[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should store+resp[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mpeFSMTest[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should load+store+load+store[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mAllToAllTest:[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mcontrollerFSMTest[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[31m- should changeState *** FAILED ***[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[31m  false was not true (AllToAllTest.scala:154)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should changeState[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mtestLoad[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[31m- should load *** FAILED ***[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[31m  false was not true (AllToAllTest.scala:161)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should load[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mAllToAllMeshTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mmeshFunctionality[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should changeState[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mmeshLoadStore[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should changeState[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mmeshLoadStoreDifferentPE[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should changeState[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0mSummary for ScalaCheck not available.[0m
 [0m[[0m[0minfo[0m] [0m[0mScalaTest[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 8 seconds, 455 milliseconds.[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 2[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 1, aborted 0[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 0, failed 2, canceled 0, ignored 0, pending 0[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[31m*** 2 TESTS FAILED ***[0m[0m
-[0m[[0m[31merror[0m] [0m[0mFailed: Total 2, Failed 2, Errors 0, Passed 0[0m
-[0m[[0m[31merror[0m] [0m[0mFailed tests:[0m
-[0m[[0m[31merror[0m] [0m[0m	hppsProject.AllToAllTest[0m
-[0m[[0m[31merror[0m] [0m[0m(Test / [31mtest[0m) sbt.TestsFailedException: Tests unsuccessful[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 10 seconds, 914 milliseconds.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 11[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 4, aborted 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 11, failed 0, canceled 0, ignored 0, pending 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mAll tests passed.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0mPassed: Total 11, Failed 0, Errors 0, Passed 11[0m
+[0m[[0m[0mdebug[0m] [0m[0mPassed tests:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	hppsProject.AllToAllMeshTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	hppsProject.AllToAllTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	hppsProject.AllToAllControllerTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	hppsProject.AllToAllPETest[0m
