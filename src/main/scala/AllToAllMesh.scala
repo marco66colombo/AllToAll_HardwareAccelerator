@@ -48,6 +48,7 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
     val io = IO(new MeshIO)
 
     val zero64 =  0.U(64.W)
+    val zero16 =  0.U(16.W)
 
 
     var vector1 = Seq[AllToAllPE]()
@@ -197,76 +198,374 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
     for(i<-0 to (n*n)-1){
 
         if(upLeftCorner(i)){
-         
+
+            vector(i).io.left.in.valid := false.B
+            vector(i).io.left.in.bits.data := zero64
+            vector(i).io.left.in.bits.x_0 := zero16
+            vector(i).io.left.in.bits.y_0 := zero16
+            vector(i).io.left.in.bits.x_dest := zero16
+            vector(i).io.left.in.bits.y_dest := zero16
+            vector(i).io.left.out.ready :=  false.B
+
+            vector(i).io.right.in.valid := vector(i+1).io.left.out.valid
+            vector(i).io.right.in.bits.data := vector(i+1).io.left.out.bits.data
+            vector(i).io.right.in.bits.x_0 := vector(i+1).io.left.out.bits.x_0
+            vector(i).io.right.in.bits.y_0 := vector(i+1).io.left.out.bits.y_0
+            vector(i).io.right.in.bits.x_dest := vector(i+1).io.left.out.bits.x_dest
+            vector(i).io.right.in.bits.y_dest := vector(i+1).io.left.out.bits.y_dest
+            vector(i).io.right.out.ready :=  vector(i+1).io.left.in.ready
+
+            vector(i).io.up.in.valid := false.B
+            vector(i).io.up.in.bits.data := zero64
+            vector(i).io.up.in.bits.x_0 := zero16
+            vector(i).io.up.in.bits.y_0 := zero16
+            vector(i).io.up.in.bits.x_dest := zero16
+            vector(i).io.up.in.bits.y_dest := zero16
+            vector(i).io.up.out.ready :=  false.B
+
+            vector(i).io.bottom.in.valid := vector(i+n).io.up.out.valid
+            vector(i).io.bottom.in.bits.data := vector(i+n).io.up.out.bits.data
+            vector(i).io.bottom.in.bits.x_0 := vector(i+n).io.up.out.bits.x_0
+            vector(i).io.bottom.in.bits.y_0 := vector(i+n).io.up.out.bits.y_0
+            vector(i).io.bottom.in.bits.x_dest := vector(i+n).io.up.out.bits.x_dest
+            vector(i).io.bottom.in.bits.y_dest := vector(i+n).io.up.out.bits.y_dest
+            vector(i).io.bottom.out.ready :=  vector(i+n).io.up.in.ready
+            /*
             vector(i).io.left.in := zero64
             vector(i).io.up.in := zero64
             
             vector(i).io.right.in := vector(i+1).io.left.out
             vector(i).io.bottom.in := vector(i+n).io.up.out
-
+            */
         }else if(upRightCorner(i)){
+
+            vector(i).io.left.in.valid := vector(i-1).io.right.out.valid
+            vector(i).io.left.in.bits.data := vector(i-1).io.right.out.bits.data
+            vector(i).io.left.in.bits.x_0 := vector(i-1).io.right.out.bits.x_0
+            vector(i).io.left.in.bits.y_0 := vector(i-1).io.right.out.bits.y_0
+            vector(i).io.left.in.bits.x_dest := vector(i-1).io.right.out.bits.x_dest
+            vector(i).io.left.in.bits.y_dest := vector(i-1).io.right.out.bits.y_dest
+            vector(i).io.left.out.ready :=  vector(i-1).io.right.in.ready
+
+            vector(i).io.right.in.valid := false.B
+            vector(i).io.right.in.bits.data := zero64
+            vector(i).io.right.in.bits.x_0 := zero16
+            vector(i).io.right.in.bits.y_0 := zero16
+            vector(i).io.right.in.bits.x_dest := zero16
+            vector(i).io.right.in.bits.y_dest := zero16
+            vector(i).io.right.out.ready :=  false.B
+
+            vector(i).io.up.in.valid := false.B
+            vector(i).io.up.in.bits.data := zero64
+            vector(i).io.up.in.bits.x_0 := zero16
+            vector(i).io.up.in.bits.y_0 := zero16
+            vector(i).io.up.in.bits.x_dest := zero16
+            vector(i).io.up.in.bits.y_dest := zero16
+            vector(i).io.up.out.ready :=  false.B
+
+            vector(i).io.bottom.in.valid := vector(i+n).io.up.out.valid
+            vector(i).io.bottom.in.bits.data := vector(i+n).io.up.out.bits.data
+            vector(i).io.bottom.in.bits.x_0 := vector(i+n).io.up.out.bits.x_0
+            vector(i).io.bottom.in.bits.y_0 := vector(i+n).io.up.out.bits.y_0
+            vector(i).io.bottom.in.bits.x_dest := vector(i+n).io.up.out.bits.x_dest
+            vector(i).io.bottom.in.bits.y_dest := vector(i+n).io.up.out.bits.y_dest
+            vector(i).io.bottom.out.ready :=  vector(i+n).io.up.in.ready
             
+            /*
             vector(i).io.right.in := zero64
             vector(i).io.up.in := zero64
             
             vector(i).io.left.in := vector(i-1).io.right.out
             vector(i).io.bottom.in := vector(i+n).io.up.out
+            */
             
         }else if(bottomLeftCorner(i)){
+
+            vector(i).io.left.in.valid := false.B
+            vector(i).io.left.in.bits.data := zero64
+            vector(i).io.left.in.bits.x_0 := zero16
+            vector(i).io.left.in.bits.y_0 := zero16
+            vector(i).io.left.in.bits.x_dest := zero16
+            vector(i).io.left.in.bits.y_dest := zero16
+            vector(i).io.left.out.ready :=  false.B
+
+            vector(i).io.right.in.valid := vector(i+1).io.left.out.valid
+            vector(i).io.right.in.bits.data := vector(i+1).io.left.out.bits.data
+            vector(i).io.right.in.bits.x_0 := vector(i+1).io.left.out.bits.x_0
+            vector(i).io.right.in.bits.y_0 := vector(i+1).io.left.out.bits.y_0
+            vector(i).io.right.in.bits.x_dest := vector(i+1).io.left.out.bits.x_dest
+            vector(i).io.right.in.bits.y_dest := vector(i+1).io.left.out.bits.y_dest
+            vector(i).io.right.out.ready :=  vector(i+1).io.left.in.ready
+
+            vector(i).io.up.in.valid := vector(i-n).io.bottom.out.valid
+            vector(i).io.up.in.bits.data := vector(i-n).io.bottom.out.bits.data
+            vector(i).io.up.in.bits.x_0 := vector(i-n).io.bottom.out.bits.x_0
+            vector(i).io.up.in.bits.y_0 := vector(i-n).io.bottom.out.bits.y_0
+            vector(i).io.up.in.bits.x_dest := vector(i-n).io.bottom.out.bits.x_dest
+            vector(i).io.up.in.bits.y_dest := vector(i-n).io.bottom.out.bits.y_dest
+            vector(i).io.up.out.ready :=  vector(i-n).io.bottom.in.ready
+
+            vector(i).io.bottom.in.valid := false.B
+            vector(i).io.bottom.in.bits.data := zero64
+            vector(i).io.bottom.in.bits.x_0 := zero16
+            vector(i).io.bottom.in.bits.y_0 := zero16
+            vector(i).io.bottom.in.bits.x_dest := zero16
+            vector(i).io.bottom.in.bits.y_dest := zero16
+            vector(i).io.bottom.out.ready := false.B
+            /*
             
             vector(i).io.left.in := zero64
             vector(i).io.bottom.in := zero64
             
             vector(i).io.right.in := vector(i+1).io.left.out
             vector(i).io.up.in := vector(i-n).io.bottom.out
+            */
             
         }else if(bottomRightCorner(i)){
-            
+            vector(i).io.left.in.valid := vector(i-1).io.right.out.valid
+            vector(i).io.left.in.bits.data := vector(i-1).io.right.out.bits.data
+            vector(i).io.left.in.bits.x_0 := vector(i-1).io.right.out.bits.x_0
+            vector(i).io.left.in.bits.y_0 := vector(i-1).io.right.out.bits.y_0
+            vector(i).io.left.in.bits.x_dest := vector(i-1).io.right.out.bits.x_dest
+            vector(i).io.left.in.bits.y_dest := vector(i-1).io.right.out.bits.y_dest
+            vector(i).io.left.out.ready :=  vector(i-1).io.right.in.ready
+
+            vector(i).io.right.in.valid := false.B
+            vector(i).io.right.in.bits.data := zero64
+            vector(i).io.right.in.bits.x_0 := zero16
+            vector(i).io.right.in.bits.y_0 := zero16
+            vector(i).io.right.in.bits.x_dest := zero16
+            vector(i).io.right.in.bits.y_dest := zero16
+            vector(i).io.right.out.ready :=  false.B
+
+            vector(i).io.up.in.valid := vector(i-n).io.bottom.out.valid
+            vector(i).io.up.in.bits.data := vector(i-n).io.bottom.out.bits.data
+            vector(i).io.up.in.bits.x_0 := vector(i-n).io.bottom.out.bits.x_0
+            vector(i).io.up.in.bits.y_0 := vector(i-n).io.bottom.out.bits.y_0
+            vector(i).io.up.in.bits.x_dest := vector(i-n).io.bottom.out.bits.x_dest
+            vector(i).io.up.in.bits.y_dest := vector(i-n).io.bottom.out.bits.y_dest
+            vector(i).io.up.out.ready :=  vector(i-n).io.bottom.in.ready
+
+            vector(i).io.bottom.in.valid := false.B
+            vector(i).io.bottom.in.bits.data := zero64
+            vector(i).io.bottom.in.bits.x_0 := zero16
+            vector(i).io.bottom.in.bits.y_0 := zero16
+            vector(i).io.bottom.in.bits.x_dest := zero16
+            vector(i).io.bottom.in.bits.y_dest := zero16
+            vector(i).io.bottom.out.ready := false.B
+
+            /*
             vector(i).io.right.in := zero64
             vector(i).io.bottom.in := zero64
             
             vector(i).io.left.in := vector(i-1).io.right.out
             vector(i).io.up.in := vector(i-n).io.bottom.out
+            */
             
         }else if(up(i)){
             
+            vector(i).io.left.in.valid := vector(i-1).io.right.out.valid
+            vector(i).io.left.in.bits.data := vector(i-1).io.right.out.bits.data
+            vector(i).io.left.in.bits.x_0 := vector(i-1).io.right.out.bits.x_0
+            vector(i).io.left.in.bits.y_0 := vector(i-1).io.right.out.bits.y_0
+            vector(i).io.left.in.bits.x_dest := vector(i-1).io.right.out.bits.x_dest
+            vector(i).io.left.in.bits.y_dest := vector(i-1).io.right.out.bits.y_dest
+            vector(i).io.left.out.ready :=  vector(i-1).io.right.in.ready
+
+            vector(i).io.right.in.valid := vector(i+1).io.left.out.valid
+            vector(i).io.right.in.bits.data := vector(i+1).io.left.out.bits.data
+            vector(i).io.right.in.bits.x_0 := vector(i+1).io.left.out.bits.x_0
+            vector(i).io.right.in.bits.y_0 := vector(i+1).io.left.out.bits.y_0
+            vector(i).io.right.in.bits.x_dest := vector(i+1).io.left.out.bits.x_dest
+            vector(i).io.right.in.bits.y_dest := vector(i+1).io.left.out.bits.y_dest
+            vector(i).io.right.out.ready :=  vector(i+1).io.left.in.ready
+
+            vector(i).io.up.in.valid := false.B
+            vector(i).io.up.in.bits.data := zero64
+            vector(i).io.up.in.bits.x_0 := zero16
+            vector(i).io.up.in.bits.y_0 := zero16
+            vector(i).io.up.in.bits.x_dest := zero16
+            vector(i).io.up.in.bits.y_dest := zero16
+            vector(i).io.up.out.ready :=  false.B
+
+            vector(i).io.bottom.in.valid := vector(i+n).io.up.out.valid
+            vector(i).io.bottom.in.bits.data := vector(i+n).io.up.out.bits.data
+            vector(i).io.bottom.in.bits.x_0 := vector(i+n).io.up.out.bits.x_0
+            vector(i).io.bottom.in.bits.y_0 := vector(i+n).io.up.out.bits.y_0
+            vector(i).io.bottom.in.bits.x_dest := vector(i+n).io.up.out.bits.x_dest
+            vector(i).io.bottom.in.bits.y_dest := vector(i+n).io.up.out.bits.y_dest
+            vector(i).io.bottom.out.ready :=  vector(i+n).io.up.in.ready
+            /*
             vector(i).io.up.in := zero64
 
             vector(i).io.left.in := vector(i-1).io.right.out
             vector(i).io.right.in := vector(i+1).io.left.out
             vector(i).io.bottom.in := vector(i+n).io.up.out
+            */
             
         }else if(bottom(i)){
+            vector(i).io.left.in.valid := vector(i-1).io.right.out.valid
+            vector(i).io.left.in.bits.data := vector(i-1).io.right.out.bits.data
+            vector(i).io.left.in.bits.x_0 := vector(i-1).io.right.out.bits.x_0
+            vector(i).io.left.in.bits.y_0 := vector(i-1).io.right.out.bits.y_0
+            vector(i).io.left.in.bits.x_dest := vector(i-1).io.right.out.bits.x_dest
+            vector(i).io.left.in.bits.y_dest := vector(i-1).io.right.out.bits.y_dest
+            vector(i).io.left.out.ready :=  vector(i-1).io.right.in.ready
+
+            vector(i).io.right.in.valid := vector(i+1).io.left.out.valid
+            vector(i).io.right.in.bits.data := vector(i+1).io.left.out.bits.data
+            vector(i).io.right.in.bits.x_0 := vector(i+1).io.left.out.bits.x_0
+            vector(i).io.right.in.bits.y_0 := vector(i+1).io.left.out.bits.y_0
+            vector(i).io.right.in.bits.x_dest := vector(i+1).io.left.out.bits.x_dest
+            vector(i).io.right.in.bits.y_dest := vector(i+1).io.left.out.bits.y_dest
+            vector(i).io.right.out.ready :=  vector(i+1).io.left.in.ready
+
+            vector(i).io.up.in.valid := vector(i-n).io.bottom.out.valid
+            vector(i).io.up.in.bits.data := vector(i-n).io.bottom.out.bits.data
+            vector(i).io.up.in.bits.x_0 := vector(i-n).io.bottom.out.bits.x_0
+            vector(i).io.up.in.bits.y_0 := vector(i-n).io.bottom.out.bits.y_0
+            vector(i).io.up.in.bits.x_dest := vector(i-n).io.bottom.out.bits.x_dest
+            vector(i).io.up.in.bits.y_dest := vector(i-n).io.bottom.out.bits.y_dest
+            vector(i).io.up.out.ready :=  vector(i-n).io.bottom.in.ready
+
+            vector(i).io.bottom.in.valid := false.B
+            vector(i).io.bottom.in.bits.data := zero64
+            vector(i).io.bottom.in.bits.x_0 := zero16
+            vector(i).io.bottom.in.bits.y_0 := zero16
+            vector(i).io.bottom.in.bits.x_dest := zero16
+            vector(i).io.bottom.in.bits.y_dest := zero16
+            vector(i).io.bottom.out.ready := false.B
          
+            /*
             vector(i).io.bottom.in := zero64
 
             vector(i).io.left.in := vector(i-1).io.right.out
             vector(i).io.right.in := vector(i+1).io.left.out
             vector(i).io.up.in := vector(i-n).io.bottom.out
+            */
             
         }else if(left(i)){
+            vector(i).io.left.in.valid := false.B
+            vector(i).io.left.in.bits.data := zero64
+            vector(i).io.left.in.bits.x_0 := zero16
+            vector(i).io.left.in.bits.y_0 := zero16
+            vector(i).io.left.in.bits.x_dest := zero16
+            vector(i).io.left.in.bits.y_dest := zero16
+            vector(i).io.left.out.ready :=  false.B
 
+            vector(i).io.right.in.valid := vector(i+1).io.left.out.valid
+            vector(i).io.right.in.bits.data := vector(i+1).io.left.out.bits.data
+            vector(i).io.right.in.bits.x_0 := vector(i+1).io.left.out.bits.x_0
+            vector(i).io.right.in.bits.y_0 := vector(i+1).io.left.out.bits.y_0
+            vector(i).io.right.in.bits.x_dest := vector(i+1).io.left.out.bits.x_dest
+            vector(i).io.right.in.bits.y_dest := vector(i+1).io.left.out.bits.y_dest
+            vector(i).io.right.out.ready :=  vector(i+1).io.left.in.ready
+
+            vector(i).io.up.in.valid := vector(i-n).io.bottom.out.valid
+            vector(i).io.up.in.bits.data := vector(i-n).io.bottom.out.bits.data
+            vector(i).io.up.in.bits.x_0 := vector(i-n).io.bottom.out.bits.x_0
+            vector(i).io.up.in.bits.y_0 := vector(i-n).io.bottom.out.bits.y_0
+            vector(i).io.up.in.bits.x_dest := vector(i-n).io.bottom.out.bits.x_dest
+            vector(i).io.up.in.bits.y_dest := vector(i-n).io.bottom.out.bits.y_dest
+            vector(i).io.up.out.ready :=  vector(i-n).io.bottom.in.ready
+
+            vector(i).io.bottom.in.valid := vector(i+n).io.up.out.valid
+            vector(i).io.bottom.in.bits.data := vector(i+n).io.up.out.bits.data
+            vector(i).io.bottom.in.bits.x_0 := vector(i+n).io.up.out.bits.x_0
+            vector(i).io.bottom.in.bits.y_0 := vector(i+n).io.up.out.bits.y_0
+            vector(i).io.bottom.in.bits.x_dest := vector(i+n).io.up.out.bits.x_dest
+            vector(i).io.bottom.in.bits.y_dest := vector(i+n).io.up.out.bits.y_dest
+            vector(i).io.bottom.out.ready :=  vector(i+n).io.up.in.ready
+
+            /*
             vector(i).io.left.in := zero64
 
             vector(i).io.right.in := vector(i+1).io.left.out
             vector(i).io.up.in := vector(i-n).io.bottom.out
             vector(i).io.bottom.in := vector(i+n).io.up.out
+            */
             
         }else if(right(i)){
+            vector(i).io.left.in.valid := vector(i-1).io.right.out.valid
+            vector(i).io.left.in.bits.data := vector(i-1).io.right.out.bits.data
+            vector(i).io.left.in.bits.x_0 := vector(i-1).io.right.out.bits.x_0
+            vector(i).io.left.in.bits.y_0 := vector(i-1).io.right.out.bits.y_0
+            vector(i).io.left.in.bits.x_dest := vector(i-1).io.right.out.bits.x_dest
+            vector(i).io.left.in.bits.y_dest := vector(i-1).io.right.out.bits.y_dest
+            vector(i).io.left.out.ready :=  vector(i-1).io.right.in.ready
+
+            vector(i).io.right.in.valid := false.B
+            vector(i).io.right.in.bits.data := zero64
+            vector(i).io.right.in.bits.x_0 := zero16
+            vector(i).io.right.in.bits.y_0 := zero16
+            vector(i).io.right.in.bits.x_dest := zero16
+            vector(i).io.right.in.bits.y_dest := zero16
+            vector(i).io.right.out.ready :=  false.B
+
+            vector(i).io.up.in.valid := vector(i-n).io.bottom.out.valid
+            vector(i).io.up.in.bits.data := vector(i-n).io.bottom.out.bits.data
+            vector(i).io.up.in.bits.x_0 := vector(i-n).io.bottom.out.bits.x_0
+            vector(i).io.up.in.bits.y_0 := vector(i-n).io.bottom.out.bits.y_0
+            vector(i).io.up.in.bits.x_dest := vector(i-n).io.bottom.out.bits.x_dest
+            vector(i).io.up.in.bits.y_dest := vector(i-n).io.bottom.out.bits.y_dest
+            vector(i).io.up.out.ready :=  vector(i-n).io.bottom.in.ready
+
+            vector(i).io.bottom.in.valid := vector(i+n).io.up.out.valid
+            vector(i).io.bottom.in.bits.data := vector(i+n).io.up.out.bits.data
+            vector(i).io.bottom.in.bits.x_0 := vector(i+n).io.up.out.bits.x_0
+            vector(i).io.bottom.in.bits.y_0 := vector(i+n).io.up.out.bits.y_0
+            vector(i).io.bottom.in.bits.x_dest := vector(i+n).io.up.out.bits.x_dest
+            vector(i).io.bottom.in.bits.y_dest := vector(i+n).io.up.out.bits.y_dest
+            vector(i).io.bottom.out.ready :=  vector(i+n).io.up.in.ready
            
+            /*
             vector(i).io.right.in := zero64
 
             vector(i).io.left.in := vector(i-1).io.right.out
             vector(i).io.up.in := vector(i-n).io.bottom.out
             vector(i).io.bottom.in := vector(i+n).io.up.out
+            */
             
         }else{ //elements not on the borders
 
+            vector(i).io.left.in.valid := vector(i-1).io.right.out.valid
+            vector(i).io.left.in.bits.data := vector(i-1).io.right.out.bits.data
+            vector(i).io.left.in.bits.x_0 := vector(i-1).io.right.out.bits.x_0
+            vector(i).io.left.in.bits.y_0 := vector(i-1).io.right.out.bits.y_0
+            vector(i).io.left.in.bits.x_dest := vector(i-1).io.right.out.bits.x_dest
+            vector(i).io.left.in.bits.y_dest := vector(i-1).io.right.out.bits.y_dest
+            vector(i).io.left.out.ready :=  vector(i-1).io.right.in.ready
+
+            vector(i).io.right.in.valid := vector(i+1).io.left.out.valid
+            vector(i).io.right.in.bits.data := vector(i+1).io.left.out.bits.data
+            vector(i).io.right.in.bits.x_0 := vector(i+1).io.left.out.bits.x_0
+            vector(i).io.right.in.bits.y_0 := vector(i+1).io.left.out.bits.y_0
+            vector(i).io.right.in.bits.x_dest := vector(i+1).io.left.out.bits.x_dest
+            vector(i).io.right.in.bits.y_dest := vector(i+1).io.left.out.bits.y_dest
+            vector(i).io.right.out.ready :=  vector(i+1).io.left.in.ready
+
+            vector(i).io.up.in.valid := vector(i-n).io.bottom.out.valid
+            vector(i).io.up.in.bits.data := vector(i-n).io.bottom.out.bits.data
+            vector(i).io.up.in.bits.x_0 := vector(i-n).io.bottom.out.bits.x_0
+            vector(i).io.up.in.bits.y_0 := vector(i-n).io.bottom.out.bits.y_0
+            vector(i).io.up.in.bits.x_dest := vector(i-n).io.bottom.out.bits.x_dest
+            vector(i).io.up.in.bits.y_dest := vector(i-n).io.bottom.out.bits.y_dest
+            vector(i).io.up.out.ready :=  vector(i-n).io.bottom.in.ready
+
+            vector(i).io.bottom.in.valid := vector(i+n).io.up.out.valid
+            vector(i).io.bottom.in.bits.data := vector(i+n).io.up.out.bits.data
+            vector(i).io.bottom.in.bits.x_0 := vector(i+n).io.up.out.bits.x_0
+            vector(i).io.bottom.in.bits.y_0 := vector(i+n).io.up.out.bits.y_0
+            vector(i).io.bottom.in.bits.x_dest := vector(i+n).io.up.out.bits.x_dest
+            vector(i).io.bottom.in.bits.y_dest := vector(i+n).io.up.out.bits.y_dest
+            vector(i).io.bottom.out.ready :=  vector(i+n).io.up.in.ready
+
+            /*
             vector(i).io.left.in := vector(i-1).io.right.out
             vector(i).io.right.in := vector(i+1).io.left.out
             vector(i).io.up.in := vector(i-n).io.bottom.out
             vector(i).io.bottom.in := vector(i+n).io.up.out
-
+            */
         }
         
     }

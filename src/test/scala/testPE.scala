@@ -17,6 +17,8 @@ class AllToAllPEModuleTester(c: AllToAllPE) extends PeekPokeTester(c) {
 
   poke(c.io.cmd.valid, false.B) 
 
+  poke(c.io.resp.ready, true.B)
+
   step(1)
 
   //idle
@@ -77,6 +79,8 @@ class testPEmultipleLoad(c: AllToAllPE) extends PeekPokeTester(c) {
   poke(c.io.cmd.bits.rs2, 3.U)
 
   poke(c.io.cmd.valid, false.B) 
+
+  poke(c.io.resp.ready, true.B)
 
   step(1)
 
@@ -162,6 +166,8 @@ class testPEstore(c: AllToAllPE) extends PeekPokeTester(c) {
 
   poke(c.io.cmd.valid, false.B) 
 
+  poke(c.io.resp.ready, true.B)
+
   step(1)
 
   //idle
@@ -242,6 +248,8 @@ class testPEmixLoadStore(c: AllToAllPE) extends PeekPokeTester(c) {
   poke(c.io.cmd.bits.rs2, 3.U)
 
   poke(c.io.cmd.valid, false.B) 
+
+  poke(c.io.resp.ready, true.B)
 
   step(1)
 

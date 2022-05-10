@@ -1,7 +1,7 @@
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllPETest, org.scalatest.tools.Framework$$anon$1@2ffef167, false, [SuiteSelector])[0m
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllControllerTest, org.scalatest.tools.Framework$$anon$1@2ffef167, false, [SuiteSelector])[0m
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllTest, org.scalatest.tools.Framework$$anon$1@2ffef167, false, [SuiteSelector])[0m
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllMeshTest, org.scalatest.tools.Framework$$anon$1@2ffef167, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllMeshTest, org.scalatest.tools.Framework$$anon$1@210d8bd7, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllControllerTest, org.scalatest.tools.Framework$$anon$1@210d8bd7, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllPETest, org.scalatest.tools.Framework$$anon$1@210d8bd7, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllTest, org.scalatest.tools.Framework$$anon$1@210d8bd7, false, [SuiteSelector])[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mAllToAllControllerTest:[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mcontrollerFSMtest[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- should changeState[0m[0m
@@ -30,7 +30,7 @@
 [0m[[0m[0minfo[0m] [0m[0m[32m- should changeState[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0mSummary for ScalaCheck not available.[0m
 [0m[[0m[0minfo[0m] [0m[0mScalaTest[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 10 seconds, 914 milliseconds.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 12 seconds, 661 milliseconds.[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 11[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 4, aborted 0[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 11, failed 0, canceled 0, ignored 0, pending 0[0m[0m

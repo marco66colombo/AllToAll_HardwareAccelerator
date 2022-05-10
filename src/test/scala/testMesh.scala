@@ -12,6 +12,7 @@ import hppsProject._
 //idle -> load -> no cmd -> no cmd
 class AllToAllMeshTester(c: AllToAllMesh) extends PeekPokeTester(c) {
 
+    poke(c.io.resp.ready, true.B)
 
     step(1)
 
@@ -42,6 +43,7 @@ class AllToAllMeshTester(c: AllToAllMesh) extends PeekPokeTester(c) {
 //load and then store the same value
 class testLoadStore(c: AllToAllMesh) extends PeekPokeTester(c) {
 
+    poke(c.io.resp.ready, true.B)
 
     step(1)
 
@@ -85,7 +87,7 @@ class testLoadStore(c: AllToAllMesh) extends PeekPokeTester(c) {
 
 //load and then store the same value
 class testLoadStoreDifferenPE(c: AllToAllMesh) extends PeekPokeTester(c) {
-
+    poke(c.io.resp.ready, true.B)
 
     step(1)
 

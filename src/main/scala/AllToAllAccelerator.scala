@@ -94,21 +94,6 @@ class AllToAllModule(n: Int, cacheSize: Int) extends Module{
   controller.io.mesh.resp.bits.data := mesh.io.resp.bits.data
   controller.io.mesh.busy := mesh.io.busy
 
-
- 
-
-/*
-  //resp output
-  io.cmd.ready := true.B
-  io.resp.valid := true.B
-  io.resp.bits.rd := 1.U
-  io.resp.bits.data := cmd.bits.rs1 + 1.U
-
-  //output
-  io.busy := false.B
-  io.interrupt := false.B
-
-  */
 }
 
 /*

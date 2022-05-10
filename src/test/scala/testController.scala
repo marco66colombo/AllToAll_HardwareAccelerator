@@ -13,6 +13,10 @@ import hppsProject._
 class AllToAllControllerTester(c: AllToAllController) extends PeekPokeTester(c) {
    val processor = c.io.processor
    val mesh = c.io.mesh
+   poke(processor.resp.ready, true.B)
+
+   step(1)
+
    expect(processor.busy, false.B)
    expect(processor.cmd.ready, true.B)
    expect(mesh.cmd.valid, false.B)
@@ -73,6 +77,10 @@ class AllToAllControllerTester(c: AllToAllController) extends PeekPokeTester(c) 
 class test2loads(c: AllToAllController) extends PeekPokeTester(c) {
    val processor = c.io.processor
    val mesh = c.io.mesh
+
+   poke(processor.resp.ready, true.B)
+
+   step(1)
    
    //still idle
    expect(processor.busy, false.B)

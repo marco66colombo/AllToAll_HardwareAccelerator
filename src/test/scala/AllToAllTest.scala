@@ -59,6 +59,7 @@ class AllToAllModuleTester(c: AllToAll) extends PeekPokeTester(c) {
   poke(c.io.cmd.bits.inst.rd, 1.U)
   poke(c.io.cmd.bits.rs1, 23.U)
   poke(c.io.cmd.bits.rs2, 31.U)
+  poke(c.io.resp.ready, true.B)
   
 
   step(1)
@@ -132,6 +133,7 @@ class testATALoadStore(c: AllToAll) extends PeekPokeTester(c) {
   poke(c.io.cmd.bits.inst.rd, 1.U)
   poke(c.io.cmd.bits.rs1, 23.U)
   poke(c.io.cmd.bits.rs2,3.U)
+  poke(c.io.resp.ready, true.B)
   
 
   step(1)

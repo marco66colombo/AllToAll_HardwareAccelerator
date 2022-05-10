@@ -1,2 +1,32 @@
 [0m[[0m[0mdebug[0m] [0m[0mCreated transactional ClassFileManager with tempDir = /root/chipyard/generators/hppsProject/target/scala-2.12/test-classes.bak[0m
+[0m[[0m[0mdebug[0m] [0m[0mAbout to delete class files:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	testPEmultipleLoad.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	testLoadStore.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	AllToAllMeshTester.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	testLoadStoreDifferenPE.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	AllToAllMeshTest.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	testPEstore.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	testPEmixLoadStore.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	AllToAllPETest.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	AllToAllPEModuleTester.class[0m
+[0m[[0m[0mdebug[0m] [0m[0mWe backup class files:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	testPEmultipleLoad.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	testLoadStore.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	AllToAllMeshTester.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	testLoadStoreDifferenPE.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	AllToAllMeshTest.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	testPEstore.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	testPEmixLoadStore.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	AllToAllPETest.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	AllToAllPEModuleTester.class[0m
+[0m[[0m[0mdebug[0m] [0m[0mRegistering generated classes:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	testPEmultipleLoad.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	testLoadStore.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	AllToAllMeshTester.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	testLoadStoreDifferenPE.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	AllToAllMeshTest.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	testPEstore.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	testPEmixLoadStore.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	AllToAllPETest.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	AllToAllPEModuleTester.class[0m
 [0m[[0m[0mdebug[0m] [0m[0mRemoving the temporary directory used for backing up class files: /root/chipyard/generators/hppsProject/target/scala-2.12/test-classes.bak[0m
