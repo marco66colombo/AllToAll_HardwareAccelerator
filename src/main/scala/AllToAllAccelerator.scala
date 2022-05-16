@@ -23,7 +23,7 @@ class AllToAllAccelerator(opcodes: OpcodeSet) (implicit p: Parameters) extends L
 
 class AllToAllAcceleratorModule(outer: AllToAllAccelerator) extends LazyRoCCModuleImp(outer) {
   
-  val aTaModule = Module(new AllToAllModule(2,8))
+  val aTaModule = Module(new AllToAllModule(3,32,81))
   
   //connection of RoccInterface with AcceleratorModuleIO
 
@@ -64,12 +64,12 @@ class AllToAllAcceleratorModule(outer: AllToAllAccelerator) extends LazyRoCCModu
 
 
 //module with custom IO interface
-class AllToAllModule(n: Int, cacheSize: Int) extends Module{
+class AllToAllModule(n: Int, cacheSize: Int, queueSize: Int) extends Module{
 
   val io = IO(new AcceleratorModuleIO())
 
   val controller = Module(new AllToAllController())
-  val mesh = Module(new AllToAllMesh(n, cacheSize))
+  val mesh = Module(new AllToAllMesh(n, cacheSize, queueSize))
 
   //aTaPE is temporary, it will be replaced by the actual mesh
   //val aTaPE = Module(new AllToAllPE())

@@ -10,7 +10,7 @@ import hppsProject._
 
 class AllToAll() extends LazyRoCCModuleImpWrapper{
   //cachesize must be n^2 with this implementation
-  val aTaModule = Module(new AllToAllModule(3,32))
+  val aTaModule = Module(new AllToAllModule(3,32,81))
 
   //command input
   aTaModule.io.cmd.valid := io.cmd.valid
@@ -52,7 +52,7 @@ class AllToAll() extends LazyRoCCModuleImpWrapper{
 
 
 class AllToAllModuleTester(c: AllToAll) extends PeekPokeTester(c) {
-  
+  /*
   poke(c.io.cmd.valid, false.B) 
   poke(c.io.cmd.bits.inst.funct, "b0000001".U)
   poke(c.io.cmd.bits.inst.opcode, "b0001011".U)
@@ -122,11 +122,11 @@ class AllToAllModuleTester(c: AllToAll) extends PeekPokeTester(c) {
 
 
 
-   
+  */ 
 }
 
 class testATALoadStore(c: AllToAll) extends PeekPokeTester(c) {
-
+/*
   poke(c.io.cmd.valid, false.B) 
   poke(c.io.cmd.bits.inst.funct, "b0000001".U)
   poke(c.io.cmd.bits.inst.opcode, "b0001011".U)
@@ -205,7 +205,7 @@ class testATALoadStore(c: AllToAll) extends PeekPokeTester(c) {
   expect(c.io.busy, false.B)
 
 
- 
+ */
 }
 
 class AllToAllTest extends ChiselFlatSpec {

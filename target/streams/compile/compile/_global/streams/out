@@ -1,5 +1,21 @@
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllPE.scala:257:5: value eslewhen is not a member of chisel3.WhenContext[0m
-[0m[[0m[31merror[0m] [0m[0mpossible cause: maybe a semicolon is missing before `value eslewhen'?[0m
-[0m[[0m[31merror[0m] [0m[0m  }.eslewhen(state === stall_state){[0m
-[0m[[0m[31merror[0m] [0m[0m    ^[0m
-[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllPE.scala:37:26: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : Int[0m
+[0m[[0m[31merror[0m] [0m[0m required: chisel3.internal.firrtl.Width[0m
+[0m[[0m[31merror[0m] [0m[0m  val x_0 = Bits(width = indexWidth)[0m
+[0m[[0m[31merror[0m] [0m[0m                         ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllPE.scala:38:26: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : Int[0m
+[0m[[0m[31merror[0m] [0m[0m required: chisel3.internal.firrtl.Width[0m
+[0m[[0m[31merror[0m] [0m[0m  val y_0 = Bits(width = indexWidth)[0m
+[0m[[0m[31merror[0m] [0m[0m                         ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllPE.scala:39:29: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : Int[0m
+[0m[[0m[31merror[0m] [0m[0m required: chisel3.internal.firrtl.Width[0m
+[0m[[0m[31merror[0m] [0m[0m  val x_dest = Bits(width = indexWidth)[0m
+[0m[[0m[31merror[0m] [0m[0m                            ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/AllToAllPE.scala:40:29: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : Int[0m
+[0m[[0m[31merror[0m] [0m[0m required: chisel3.internal.firrtl.Width[0m
+[0m[[0m[31merror[0m] [0m[0m  val y_dest = Bits(width = indexWidth)[0m
+[0m[[0m[31merror[0m] [0m[0m                            ^[0m
+[0m[[0m[31merror[0m] [0m[0mfour errors found[0m

@@ -43,12 +43,12 @@ class MeshIO extends Bundle{
     n : is the dimension of the square matrix of PE
     cacheSize : is the number of lines of the memory of each PE
 */
-class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
+class AllToAllMesh(n : Int, cacheSize : Int, queueSize: Int) extends Module{
 
     val io = IO(new MeshIO)
 
     val zero64 =  0.U(64.W)
-    val zero16 =  0.U(16.W)
+    val zeroValue =  0.U
 
 
     var vector1 = Seq[AllToAllPE]()
@@ -92,30 +92,30 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
         y = y_coord(i)
 
         if(upLeftCorner(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEupLeftCorner(n,cacheSize,x,y))
+            vector1 = vector1 :+  Module(new AllToAllPEupLeftCorner(n,cacheSize,queueSize,x,y))
 
         }else if(upRightCorner(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEupRightCorner(n,cacheSize,x,y))
+            vector1 = vector1 :+  Module(new AllToAllPEupRightCorner(n,cacheSize,queueSize,x,y))
             
         }else if(bottomLeftCorner(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEbottomLeftCorner(n,cacheSize,x,y))
+            vector1 = vector1 :+  Module(new AllToAllPEbottomLeftCorner(n,cacheSize,queueSize,x,y))
             
         }else if(bottomRightCorner(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEbottomRightCorner(n,cacheSize,x,y))
+            vector1 = vector1 :+  Module(new AllToAllPEbottomRightCorner(n,cacheSize,queueSize,x,y))
         }else if(up(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEup(n,cacheSize,x,y))
+            vector1 = vector1 :+  Module(new AllToAllPEup(n,cacheSize,queueSize,x,y))
             
         }else if(bottom(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEbottom(n,cacheSize,x,y))
+            vector1 = vector1 :+  Module(new AllToAllPEbottom(n,cacheSize,queueSize,x,y))
             
         }else if(left(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEleft(n,cacheSize,x,y))
+            vector1 = vector1 :+  Module(new AllToAllPEleft(n,cacheSize,queueSize,x,y))
             
         }else if(right(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEright(n,cacheSize,x,y))
+            vector1 = vector1 :+  Module(new AllToAllPEright(n,cacheSize,queueSize,x,y))
             
         }else{ //elements not on the borders
-            vector1 = vector1 :+  Module(new AllToAllPEmiddle(n,cacheSize,x,y))
+            vector1 = vector1 :+  Module(new AllToAllPEmiddle(n,cacheSize,queueSize,x,y))
         }
         
     }
@@ -137,6 +137,9 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
 
         vector(i).io.resp.ready := io.resp.ready
 
+        //when all PE are not busy -> alltoall is terminated
+        vector(i).io.end_AllToAll := !io.busy
+
     }
 
     //PE -> Mesh
@@ -147,50 +150,9 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
     /*
         MUX that puts on io.resp.bits.data the data of the correct PE
     */
+    val myVec3 = vector.map{ _.io.resp.bits.write_enable }
+    val myVec4 = vector.map{ _.io.resp.bits.data }
 
-    /*
-    //compute number of PE starting from rs2
-    def n_from_xy(i: UInt): UInt = {
-        val x = i(15,0)
-        val y = i(31,16)
-        ((n.U-1.U-y)*n.U+x)
-    }
-
-    //can be a problem since division?
-    val nPE = n_from_xy(io.cmd.bits.rs2)
-
-    var myVec1 = Seq((nPE === 0.U) -> (vector(0).io.resp.bits.data))
-     
-    for(i<-1 to (n*n)-1){
-        myVec1 :+ ((nPE === i.U) -> (vector(i).io.resp.bits.data))
-    }
-
-    val myVec = myVec1
-
-    //io.resp.bits.data corresponds to the data conained in PE which has indexes x,y
-    io.resp.bits.data := PriorityMux(myVec)
-    */
-
-    //var myVec1 = Seq((vector(0).io.resp.bits.write_enable === true.B) -> (vector(0).io.resp.bits.data))
-    /*
-    var myVec2 = Seq(vector(0).io.resp.bits.data)
-    var myVec1 = Seq(vector(0).io.resp.bits.write_enable)
-    for(i<- 1 to (n*n)-1){
-        myVec1 :+ (vector(i).io.resp.bits.write_enable)
-        myVec2 :+ (vector(i).io.resp.bits.data)
-    } */
-
- 
-    /*   
-    for(i<-1 to (n*n)-1){
-        myVec1 :+ ((vector(i).io.resp.bits.write_enable === true.B) -> (vector(i).io.resp.bits.data))
-    }*/
-
-    //val myVec3 = myVec1
-    //val myVec4 = myVec2
-
-    val myVec3 = Seq(vector(0).io.resp.bits.write_enable,vector(1).io.resp.bits.write_enable,vector(2).io.resp.bits.write_enable,vector(3).io.resp.bits.write_enable,vector(4).io.resp.bits.write_enable,vector(5).io.resp.bits.write_enable,vector(6).io.resp.bits.write_enable,vector(7).io.resp.bits.write_enable,vector(8).io.resp.bits.write_enable)
-    val myVec4 = Seq(vector(0).io.resp.bits.data,vector(1).io.resp.bits.data,vector(2).io.resp.bits.data,vector(3).io.resp.bits.data,vector(4).io.resp.bits.data,vector(5).io.resp.bits.data,vector(6).io.resp.bits.data,vector(7).io.resp.bits.data,vector(8).io.resp.bits.data)
     io.resp.bits.data := PriorityMux(myVec3,myVec4)
     
 
@@ -201,10 +163,10 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
 
             vector(i).io.left.in.valid := false.B
             vector(i).io.left.in.bits.data := zero64
-            vector(i).io.left.in.bits.x_0 := zero16
-            vector(i).io.left.in.bits.y_0 := zero16
-            vector(i).io.left.in.bits.x_dest := zero16
-            vector(i).io.left.in.bits.y_dest := zero16
+            vector(i).io.left.in.bits.x_0 := zeroValue
+            vector(i).io.left.in.bits.y_0 := zeroValue
+            vector(i).io.left.in.bits.x_dest := zeroValue
+            vector(i).io.left.in.bits.y_dest := zeroValue
             vector(i).io.left.out.ready :=  false.B
 
             vector(i).io.right.in.valid := vector(i+1).io.left.out.valid
@@ -217,10 +179,10 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
 
             vector(i).io.up.in.valid := false.B
             vector(i).io.up.in.bits.data := zero64
-            vector(i).io.up.in.bits.x_0 := zero16
-            vector(i).io.up.in.bits.y_0 := zero16
-            vector(i).io.up.in.bits.x_dest := zero16
-            vector(i).io.up.in.bits.y_dest := zero16
+            vector(i).io.up.in.bits.x_0 := zeroValue
+            vector(i).io.up.in.bits.y_0 := zeroValue
+            vector(i).io.up.in.bits.x_dest := zeroValue
+            vector(i).io.up.in.bits.y_dest := zeroValue
             vector(i).io.up.out.ready :=  false.B
 
             vector(i).io.bottom.in.valid := vector(i+n).io.up.out.valid
@@ -230,13 +192,7 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
             vector(i).io.bottom.in.bits.x_dest := vector(i+n).io.up.out.bits.x_dest
             vector(i).io.bottom.in.bits.y_dest := vector(i+n).io.up.out.bits.y_dest
             vector(i).io.bottom.out.ready :=  vector(i+n).io.up.in.ready
-            /*
-            vector(i).io.left.in := zero64
-            vector(i).io.up.in := zero64
-            
-            vector(i).io.right.in := vector(i+1).io.left.out
-            vector(i).io.bottom.in := vector(i+n).io.up.out
-            */
+
         }else if(upRightCorner(i)){
 
             vector(i).io.left.in.valid := vector(i-1).io.right.out.valid
@@ -249,18 +205,18 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
 
             vector(i).io.right.in.valid := false.B
             vector(i).io.right.in.bits.data := zero64
-            vector(i).io.right.in.bits.x_0 := zero16
-            vector(i).io.right.in.bits.y_0 := zero16
-            vector(i).io.right.in.bits.x_dest := zero16
-            vector(i).io.right.in.bits.y_dest := zero16
+            vector(i).io.right.in.bits.x_0 := zeroValue
+            vector(i).io.right.in.bits.y_0 := zeroValue
+            vector(i).io.right.in.bits.x_dest := zeroValue
+            vector(i).io.right.in.bits.y_dest := zeroValue
             vector(i).io.right.out.ready :=  false.B
 
             vector(i).io.up.in.valid := false.B
             vector(i).io.up.in.bits.data := zero64
-            vector(i).io.up.in.bits.x_0 := zero16
-            vector(i).io.up.in.bits.y_0 := zero16
-            vector(i).io.up.in.bits.x_dest := zero16
-            vector(i).io.up.in.bits.y_dest := zero16
+            vector(i).io.up.in.bits.x_0 := zeroValue
+            vector(i).io.up.in.bits.y_0 := zeroValue
+            vector(i).io.up.in.bits.x_dest := zeroValue
+            vector(i).io.up.in.bits.y_dest := zeroValue
             vector(i).io.up.out.ready :=  false.B
 
             vector(i).io.bottom.in.valid := vector(i+n).io.up.out.valid
@@ -271,22 +227,14 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
             vector(i).io.bottom.in.bits.y_dest := vector(i+n).io.up.out.bits.y_dest
             vector(i).io.bottom.out.ready :=  vector(i+n).io.up.in.ready
             
-            /*
-            vector(i).io.right.in := zero64
-            vector(i).io.up.in := zero64
-            
-            vector(i).io.left.in := vector(i-1).io.right.out
-            vector(i).io.bottom.in := vector(i+n).io.up.out
-            */
-            
         }else if(bottomLeftCorner(i)){
 
             vector(i).io.left.in.valid := false.B
             vector(i).io.left.in.bits.data := zero64
-            vector(i).io.left.in.bits.x_0 := zero16
-            vector(i).io.left.in.bits.y_0 := zero16
-            vector(i).io.left.in.bits.x_dest := zero16
-            vector(i).io.left.in.bits.y_dest := zero16
+            vector(i).io.left.in.bits.x_0 := zeroValue
+            vector(i).io.left.in.bits.y_0 := zeroValue
+            vector(i).io.left.in.bits.x_dest := zeroValue
+            vector(i).io.left.in.bits.y_dest := zeroValue
             vector(i).io.left.out.ready :=  false.B
 
             vector(i).io.right.in.valid := vector(i+1).io.left.out.valid
@@ -307,19 +255,11 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
 
             vector(i).io.bottom.in.valid := false.B
             vector(i).io.bottom.in.bits.data := zero64
-            vector(i).io.bottom.in.bits.x_0 := zero16
-            vector(i).io.bottom.in.bits.y_0 := zero16
-            vector(i).io.bottom.in.bits.x_dest := zero16
-            vector(i).io.bottom.in.bits.y_dest := zero16
+            vector(i).io.bottom.in.bits.x_0 := zeroValue
+            vector(i).io.bottom.in.bits.y_0 := zeroValue
+            vector(i).io.bottom.in.bits.x_dest := zeroValue
+            vector(i).io.bottom.in.bits.y_dest := zeroValue
             vector(i).io.bottom.out.ready := false.B
-            /*
-            
-            vector(i).io.left.in := zero64
-            vector(i).io.bottom.in := zero64
-            
-            vector(i).io.right.in := vector(i+1).io.left.out
-            vector(i).io.up.in := vector(i-n).io.bottom.out
-            */
             
         }else if(bottomRightCorner(i)){
             vector(i).io.left.in.valid := vector(i-1).io.right.out.valid
@@ -332,10 +272,10 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
 
             vector(i).io.right.in.valid := false.B
             vector(i).io.right.in.bits.data := zero64
-            vector(i).io.right.in.bits.x_0 := zero16
-            vector(i).io.right.in.bits.y_0 := zero16
-            vector(i).io.right.in.bits.x_dest := zero16
-            vector(i).io.right.in.bits.y_dest := zero16
+            vector(i).io.right.in.bits.x_0 := zeroValue
+            vector(i).io.right.in.bits.y_0 := zeroValue
+            vector(i).io.right.in.bits.x_dest := zeroValue
+            vector(i).io.right.in.bits.y_dest := zeroValue
             vector(i).io.right.out.ready :=  false.B
 
             vector(i).io.up.in.valid := vector(i-n).io.bottom.out.valid
@@ -348,19 +288,11 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
 
             vector(i).io.bottom.in.valid := false.B
             vector(i).io.bottom.in.bits.data := zero64
-            vector(i).io.bottom.in.bits.x_0 := zero16
-            vector(i).io.bottom.in.bits.y_0 := zero16
-            vector(i).io.bottom.in.bits.x_dest := zero16
-            vector(i).io.bottom.in.bits.y_dest := zero16
+            vector(i).io.bottom.in.bits.x_0 := zeroValue
+            vector(i).io.bottom.in.bits.y_0 := zeroValue
+            vector(i).io.bottom.in.bits.x_dest := zeroValue
+            vector(i).io.bottom.in.bits.y_dest := zeroValue
             vector(i).io.bottom.out.ready := false.B
-
-            /*
-            vector(i).io.right.in := zero64
-            vector(i).io.bottom.in := zero64
-            
-            vector(i).io.left.in := vector(i-1).io.right.out
-            vector(i).io.up.in := vector(i-n).io.bottom.out
-            */
             
         }else if(up(i)){
             
@@ -382,10 +314,10 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
 
             vector(i).io.up.in.valid := false.B
             vector(i).io.up.in.bits.data := zero64
-            vector(i).io.up.in.bits.x_0 := zero16
-            vector(i).io.up.in.bits.y_0 := zero16
-            vector(i).io.up.in.bits.x_dest := zero16
-            vector(i).io.up.in.bits.y_dest := zero16
+            vector(i).io.up.in.bits.x_0 := zeroValue
+            vector(i).io.up.in.bits.y_0 := zeroValue
+            vector(i).io.up.in.bits.x_dest := zeroValue
+            vector(i).io.up.in.bits.y_dest := zeroValue
             vector(i).io.up.out.ready :=  false.B
 
             vector(i).io.bottom.in.valid := vector(i+n).io.up.out.valid
@@ -395,13 +327,6 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
             vector(i).io.bottom.in.bits.x_dest := vector(i+n).io.up.out.bits.x_dest
             vector(i).io.bottom.in.bits.y_dest := vector(i+n).io.up.out.bits.y_dest
             vector(i).io.bottom.out.ready :=  vector(i+n).io.up.in.ready
-            /*
-            vector(i).io.up.in := zero64
-
-            vector(i).io.left.in := vector(i-1).io.right.out
-            vector(i).io.right.in := vector(i+1).io.left.out
-            vector(i).io.bottom.in := vector(i+n).io.up.out
-            */
             
         }else if(bottom(i)){
             vector(i).io.left.in.valid := vector(i-1).io.right.out.valid
@@ -430,27 +355,19 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
 
             vector(i).io.bottom.in.valid := false.B
             vector(i).io.bottom.in.bits.data := zero64
-            vector(i).io.bottom.in.bits.x_0 := zero16
-            vector(i).io.bottom.in.bits.y_0 := zero16
-            vector(i).io.bottom.in.bits.x_dest := zero16
-            vector(i).io.bottom.in.bits.y_dest := zero16
+            vector(i).io.bottom.in.bits.x_0 := zeroValue
+            vector(i).io.bottom.in.bits.y_0 := zeroValue
+            vector(i).io.bottom.in.bits.x_dest := zeroValue
+            vector(i).io.bottom.in.bits.y_dest := zeroValue
             vector(i).io.bottom.out.ready := false.B
-         
-            /*
-            vector(i).io.bottom.in := zero64
-
-            vector(i).io.left.in := vector(i-1).io.right.out
-            vector(i).io.right.in := vector(i+1).io.left.out
-            vector(i).io.up.in := vector(i-n).io.bottom.out
-            */
             
         }else if(left(i)){
             vector(i).io.left.in.valid := false.B
             vector(i).io.left.in.bits.data := zero64
-            vector(i).io.left.in.bits.x_0 := zero16
-            vector(i).io.left.in.bits.y_0 := zero16
-            vector(i).io.left.in.bits.x_dest := zero16
-            vector(i).io.left.in.bits.y_dest := zero16
+            vector(i).io.left.in.bits.x_0 := zeroValue
+            vector(i).io.left.in.bits.y_0 := zeroValue
+            vector(i).io.left.in.bits.x_dest := zeroValue
+            vector(i).io.left.in.bits.y_dest := zeroValue
             vector(i).io.left.out.ready :=  false.B
 
             vector(i).io.right.in.valid := vector(i+1).io.left.out.valid
@@ -476,14 +393,6 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
             vector(i).io.bottom.in.bits.x_dest := vector(i+n).io.up.out.bits.x_dest
             vector(i).io.bottom.in.bits.y_dest := vector(i+n).io.up.out.bits.y_dest
             vector(i).io.bottom.out.ready :=  vector(i+n).io.up.in.ready
-
-            /*
-            vector(i).io.left.in := zero64
-
-            vector(i).io.right.in := vector(i+1).io.left.out
-            vector(i).io.up.in := vector(i-n).io.bottom.out
-            vector(i).io.bottom.in := vector(i+n).io.up.out
-            */
             
         }else if(right(i)){
             vector(i).io.left.in.valid := vector(i-1).io.right.out.valid
@@ -496,10 +405,10 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
 
             vector(i).io.right.in.valid := false.B
             vector(i).io.right.in.bits.data := zero64
-            vector(i).io.right.in.bits.x_0 := zero16
-            vector(i).io.right.in.bits.y_0 := zero16
-            vector(i).io.right.in.bits.x_dest := zero16
-            vector(i).io.right.in.bits.y_dest := zero16
+            vector(i).io.right.in.bits.x_0 := zeroValue
+            vector(i).io.right.in.bits.y_0 := zeroValue
+            vector(i).io.right.in.bits.x_dest := zeroValue
+            vector(i).io.right.in.bits.y_dest := zeroValue
             vector(i).io.right.out.ready :=  false.B
 
             vector(i).io.up.in.valid := vector(i-n).io.bottom.out.valid
@@ -517,14 +426,6 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
             vector(i).io.bottom.in.bits.x_dest := vector(i+n).io.up.out.bits.x_dest
             vector(i).io.bottom.in.bits.y_dest := vector(i+n).io.up.out.bits.y_dest
             vector(i).io.bottom.out.ready :=  vector(i+n).io.up.in.ready
-           
-            /*
-            vector(i).io.right.in := zero64
-
-            vector(i).io.left.in := vector(i-1).io.right.out
-            vector(i).io.up.in := vector(i-n).io.bottom.out
-            vector(i).io.bottom.in := vector(i+n).io.up.out
-            */
             
         }else{ //elements not on the borders
 
@@ -559,13 +460,6 @@ class AllToAllMesh(n : Int, cacheSize : Int) extends Module{
             vector(i).io.bottom.in.bits.x_dest := vector(i+n).io.up.out.bits.x_dest
             vector(i).io.bottom.in.bits.y_dest := vector(i+n).io.up.out.bits.y_dest
             vector(i).io.bottom.out.ready :=  vector(i+n).io.up.in.ready
-
-            /*
-            vector(i).io.left.in := vector(i-1).io.right.out
-            vector(i).io.right.in := vector(i+1).io.left.out
-            vector(i).io.up.in := vector(i-n).io.bottom.out
-            vector(i).io.bottom.in := vector(i+n).io.up.out
-            */
         }
         
     }
