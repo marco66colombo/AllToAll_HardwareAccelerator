@@ -1,0 +1,34 @@
+[
+  {
+    "class":"firrtl.stage.FirrtlFileAnnotation",
+    "file":"test_run_dir/hppsProject.AllToAllMeshTest299511662/AllToAllMesh.lo.fir"
+  },
+  {
+    "class":"firrtl.transforms.CombinationalPath",
+    "sink":"~AllToAllMesh|AllToAllMesh>io_busy",
+    "sources":[
+      "~AllToAllMesh|AllToAllMesh>io_resp_ready"
+    ]
+  },
+  {
+    "class":"firrtl.transforms.CombinationalPath",
+    "sink":"~AllToAllMesh|AllToAllMesh>io_cmd_ready",
+    "sources":[
+      "~AllToAllMesh|AllToAllMesh>io_resp_ready"
+    ]
+  },
+  {
+    "class":"firrtl.EmitCircuitAnnotation",
+    "emitter":"firrtl.LowFirrtlEmitter"
+  },
+  {
+    "class":"logger.LogLevelAnnotation",
+    "globalLogLevel":{
+      
+    }
+  },
+  {
+    "class":"firrtl.transforms.BlackBoxTargetDirAnno",
+    "targetDir":"test_run_dir/hppsProject.AllToAllMeshTest299511662"
+  }
+]

@@ -1,0 +1,36 @@
+[
+  {
+    "class":"firrtl.stage.FirrtlFileAnnotation",
+    "file":"test_run_dir/hppsProject.AllToAllPETest327061121/AllToAllPE.lo.fir"
+  },
+  {
+    "class":"firrtl.transforms.CombinationalPath",
+    "sink":"~AllToAllPE|AllToAllPE>io_busy",
+    "sources":[
+      "~AllToAllPE|AllToAllPE>io_resp_valid",
+      "~AllToAllPE|AllToAllPE>io_resp_ready"
+    ]
+  },
+  {
+    "class":"firrtl.transforms.CombinationalPath",
+    "sink":"~AllToAllPE|AllToAllPE>io_cmd_ready",
+    "sources":[
+      "~AllToAllPE|AllToAllPE>io_resp_valid",
+      "~AllToAllPE|AllToAllPE>io_resp_ready"
+    ]
+  },
+  {
+    "class":"firrtl.EmitCircuitAnnotation",
+    "emitter":"firrtl.LowFirrtlEmitter"
+  },
+  {
+    "class":"logger.LogLevelAnnotation",
+    "globalLogLevel":{
+      
+    }
+  },
+  {
+    "class":"firrtl.transforms.BlackBoxTargetDirAnno",
+    "targetDir":"test_run_dir/hppsProject.AllToAllPETest327061121"
+  }
+]

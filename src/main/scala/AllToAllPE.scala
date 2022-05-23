@@ -74,16 +74,26 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
   //It represents the number of the PE -> at most 2^16 PE -> n of mesh max 2^8 = 256
   val x_coord = RegInit(UInt(log2Up(n).W),x.U)
   val y_coord = RegInit(UInt(log2Up(n).W),y.U)
+  val offset = RegInit((n*n).U)
+  val index_write_this_PE = RegInit((x + y*n + n*n).U)
   
   //store rs1 and rs2 values and keep for all the cycle
   val rs1 = Reg(Bits(64.W))
   val rs2 = Reg(Bits(64.W))
 
-  
   rs1 := io.cmd.bits.rs1
   rs2 := io.cmd.bits.rs2
-  
 
+  val read_index = Module(new IndexCalculator(n,log2Up(n)))
+  val read_value = RegInit(Bits(64.W),0.U)
+  val read_x = Reg(Bits(log2Up(n).W))
+  val read_y = Reg(Bits(log2Up(n).W))
+  val is_this_PE_generation = (read_x === x_coord) && (read_y === y_coord)
+
+  def compute_x_coord(i: UInt): UInt = (i % n.U)
+  //def compute_y_coord(i: UInt): UInt = ((n-1).U - (i / n.U))
+  def compute_y_coord(i: UInt): UInt = (i / n.U)
+    
   //notify when the response is ready
   val w_en = RegInit(Bool(),false.B)
 
@@ -131,6 +141,9 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     io.resp.bits.write_enable := false.B
     w_en := false.B
 
+    read_index.io.enable := true.B
+    read_index.io.reset := true.B
+
     when(load_signal){
       state := do_load
     }.elsewhen(store_signal){
@@ -147,6 +160,9 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     io.resp.valid := true.B
     io.resp.bits.data := 32.U
     resp_value := 32.U
+
+    read_index.io.enable := true.B
+    read_index.io.reset := true.B
 
     when(is_this_PE){
       memPE(memIndex) := rs1
@@ -185,6 +201,8 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
 
     io.resp.bits.write_enable := false.B
 
+    read_index.io.enable := false.B
+
     state := store_resp
 
   }.elsewhen(state === store_resp){
@@ -194,6 +212,9 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     io.resp.valid := true.B
     io.resp.bits.data := resp_value
     io.resp.bits.write_enable := w_en
+
+    read_index.io.enable := true.B
+    read_index.io.reset := true.B
     
     when(load_signal && !stall_resp){
       state := do_load
@@ -215,6 +236,8 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     io.resp.bits.data := resp_value
 
     io.resp.bits.write_enable := w_en
+
+    read_index.io.enable := false.B
     
     when(stall_resp){
       state := stall_state
@@ -231,6 +254,12 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     w_en := false.B
     io.resp.bits.write_enable := false.B
 
+    //manage values to be pushed in the queues
+    read_index.io.enable := true.B
+    read_value := memPE(read_index.io.index)
+    read_x := compute_x_coord(read_index.io.index)
+    read_y := compute_x_coord(read_index.io.index)
+    
     state := action_resp
 
   }.elsewhen(state === wait_action_resp){
@@ -240,6 +269,12 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     io.resp.valid := false.B
     io.resp.bits.data := resp_value
     io.resp.bits.write_enable := false.B
+    
+    //enable input queues
+    io.left.in.ready := true.B
+    io.right.in.ready := true.B
+    io.up.in.ready := true.B
+    io.bottom.in.ready := true.B
     
     when (io.end_AllToAll){
       state := action_resp
@@ -253,6 +288,7 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     io.resp.valid := true.B
     io.resp.bits.data := 0.U
     io.resp.bits.write_enable := false.B
+    read_index.io.enable := false.B
 
     state := idle
 
@@ -263,10 +299,11 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     io.resp.valid := false.B
     io.resp.bits.data := "b10101010101010101010101010101010".U(64.W)
     io.resp.bits.write_enable := true.B
+    read_index.io.enable := false.B
   }
 
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   //FSM for managing of AllToAll
 
@@ -282,20 +319,38 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     }.otherwise{
       stateAction := idle
     }
-  }.elsewhen(stateAction === action){
+  }.elsewhen(stateAction === action){//cycle to push data into queues
 
-    //here enable all queues to read input and write to output
-    when(io.end_AllToAll){//end_AllToAll is true only when all PEs have finished
+    when(/*codainoutputaccettareadvalue*/true.B || is_this_PE_generation){
+      read_x := compute_x_coord(read_index.io.index)
+      read_y := compute_x_coord(read_index.io.index)
+      read_value := memPE(read_index.io.index)
+      read_index.io.enable := true.B
+    }.otherwise{
+      read_index.io.enable := false.B
+    }
+
+    when(is_this_PE_generation){
+      //read_index.io.index has as current value the value at which data were read + 1 
+      // -> index at which data were read = read_indez.io.index - 1
+      memPE(index_write_this_PE) := read_value
+    }
+
+    when(read_index.io.last_index){
       stateAction := idle
     }.otherwise{
       stateAction := action
     }
+
   }.otherwise{
+
     //error
   }
 
+  
+ 
   //temporary initialization of values since no actual logic is implemented yet
-
+/*
   io.left.out.bits.data := 0.U(64.W)
   io.left.out.bits.x_0 := 0.U
   io.left.out.bits.y_0 := 0.U
@@ -327,17 +382,7 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
   io.bottom.out.bits.y_dest := 0.U
   io.bottom.out.valid := false.B
   io.bottom.in.ready := false.B 
-  
-  //output queues
-  //val left_out = Queue(io.left.out, queueSize)
-  //val right_out = Queue(io.right.out, queueSize)
-  //val up_out = Queue(io.up.out, queueSize)
-  //val bottom_out = Queue(io.bottom.out, queueSize)
-
-  //left_out.valid := io.left.out.valid
-  //right_out.valid := io.right.out.valid
-  //up_out.valid := io.up.out.valid
-  //bottom_out.valid := io.bottom.out.valid
+*/  
 
   //input queues
   val left_in = Queue(io.left.in, queueSize)
@@ -345,103 +390,158 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
   val up_in = Queue(io.up.in, queueSize)
   val bottom_in = Queue(io.bottom.in, queueSize)
 
-  left_in.ready := io.left.in.ready
-  right_in.ready := io.right.in.ready
-  up_in.ready := io.up.in.ready
-  bottom_in.ready := io.bottom.in.ready
+  
+
+  /* facendo Queue(io.left.in) ho gia collegato la flipped decoupled che entra nel pE con quella della coda, non serve mettere cose a mano
+  io.left.in.ready := left_in.ready
+  io.right.in.ready := right_in.ready
+  io.up.in.read := up_in.ready
+  io.bottom.in.ready := bottom_in.ready
+  */
+  //DEVO SETTARE IL READY, CHE è IL READY DELL'ARBITER
+
+
+  //dispatchers -> given value of input queue says where to forward the message
+  val left_dispatcher = Module(new Dispatcher(log2Up(n)))
+  val right_dispatcher = Module(new Dispatcher(log2Up(n)))
+  val up_dispatcher = Module(new Dispatcher(log2Up(n)))
+  val bottom_dispatcher = Module(new Dispatcher(log2Up(n)))
+
+  //given the data read from memory says where to forward the message
+  val generation_dispatcher = Module(new GenerationDispatcher(log2Up(n)))
+
+  //connect dispatchers input to the input queues
+  left_dispatcher.io.x_0 := left_in.bits.x_0
+  left_dispatcher.io.y_0 := left_in.bits.y_0
+  left_dispatcher.io.x_dest := left_in.bits.x_dest
+  left_dispatcher.io.y_dest := left_in.bits.y_dest
+  left_dispatcher.io.x_PE := x_coord
+  left_dispatcher.io.y_PE := y_coord
+
+  right_dispatcher.io.x_0 := right_in.bits.x_0
+  right_dispatcher.io.y_0 := right_in.bits.y_0
+  right_dispatcher.io.x_dest := right_in.bits.x_dest
+  right_dispatcher.io.y_dest := right_in.bits.y_dest
+  right_dispatcher.io.x_PE := x_coord
+  right_dispatcher.io.y_PE := y_coord
+
+  up_dispatcher.io.x_0 := up_in.bits.x_0
+  up_dispatcher.io.y_0 := up_in.bits.y_0
+  up_dispatcher.io.x_dest := up_in.bits.x_dest
+  up_dispatcher.io.y_dest := up_in.bits.y_dest
+  up_dispatcher.io.x_PE := x_coord
+  up_dispatcher.io.y_PE := y_coord
+
+  bottom_dispatcher.io.x_0 := bottom_in.bits.x_0
+  bottom_dispatcher.io.y_0 := bottom_in.bits.y_0
+  bottom_dispatcher.io.x_dest := bottom_in.bits.x_dest
+  bottom_dispatcher.io.y_dest := bottom_in.bits.y_dest
+  bottom_dispatcher.io.x_PE := x_coord
+  bottom_dispatcher.io.y_PE := y_coord
+
+  generation_dispatcher.io.x_PE := x_coord
+  generation_dispatcher.io.y_PE := y_coord
+  generation_dispatcher.io.x_dest := read_x
+  generation_dispatcher.io.y_dest := read_y
+
+  val write_index = 
+
+  //write into mem at index + n
+  when(left_dispatcher.io.this_PE){
+    memPE(left_in.bits.x_0 + left_in.bits.y_0 * n.U + offset) := left_in.bits.data
+  }
+
+  when(right_dispatcher.io.this_PE){
+    memPE(right_in.bits.x_0 + right_in.bits.y_0 * n.U + offset) := right_in.bits.data
+  }
+
+  when(up_dispatcher.io.this_PE){
+    memPE(up_in.bits.x_0 + up_in.bits.y_0 * n.U + offset) := up_in.bits.data
+  }
+
+  when(bottom_dispatcher.io.this_PE){
+    memPE(bottom_in.bits.x_0 + bottom_in.bits.y_0 * n.U + offset) := bottom_in.bits.data
+  }
+
+
 
 
   //round robin arbiters for output queues inputs
-  //5 input ports because the 5th is the port used by the PE to write data from its own memory
-  //val left_out_arbiter = Module(new RRArbiter(InputOutputPEdata(log2Up(n),5)))
-  //val right_out_arbiter = Module(new RRArbiter(InputOutputPEdata(log2Up(n),5)))
-  //val up_out_arbiter = Module(new RRArbiter(InputOutputPEdata(log2Up(n),5)))
-  //val bottom_out_arbiter = Module(new RRArbiter(InputOutputPEdata(log2Up(n),5)))
-  
+  //4 input ports because the 4th is the port used by the PE to write data from its own memory, the other 3 are the potrs used by the input queues
+  val left_out_arbiter = Module(new RRArbiter(OutputPE(log2Up(n)),4))
+  val right_out_arbiter = Module(new RRArbiter(OutputPE(log2Up(n)),4))
+  val up_out_arbiter = Module(new RRArbiter(OutputPE(log2Up(n)),4))
+  val bottom_out_arbiter =Module(new RRArbiter(OutputPE(log2Up(n)),4))
+
+  //output queues
+  val left_out = Queue(left_out_arbiter.io.out, queueSize)
+  val right_out = Queue(right_out_arbiter.io.out, queueSize)
+  val up_out = Queue(up_out_arbiter.io.out, queueSize)
+  val bottom_out = Queue(bottom_out_arbiter.io.out, queueSize)
 
 
-def functU(i: SInt): SInt = {
-  //if(i>0.S)
-  //  1.S
-  //else
-    0.S
-}
+  //connect output queues to the uptput of the PE
+  io.left.out <> left_out
+  io.right.out <> right_out
+  io.up.out <> up_out
+  io.bottom.out <> bottom_out
 
-def functI(i: SInt): SInt = {
-  //if(i>0)
-  //  1.S
-  //else
-    -1.S
-}
+  //connect input of the arbiter with output of the dispatcher
+  //overrwrite the valid bit -> SI PUO FARE???
+  //arbiter.io.in(0) il connected with the data generated by the PE
+  left_out_arbiter.io.in(0).valid := generation_dispatcher.io.left
+  left_out_arbiter.io.in(0).bits.data := read_value
+  left_out_arbiter.io.in(0).bits.x_0 := x_coord
+  left_out_arbiter.io.in(0).bits.y_0 := y_coord
+  left_out_arbiter.io.in(0).bits.x_dest := read_x
+  left_out_arbiter.io.in(0).bits.y_dest := read_y
+  left_out_arbiter.io.in(1) <> right_in
+  left_out_arbiter.io.in(1).valid := right_dispatcher.io.left
+  left_out_arbiter.io.in(2) <> up_in
+  left_out_arbiter.io.in(2).valid := up_dispatcher.io.left
+  left_out_arbiter.io.in(3) <> bottom_in
+  left_out_arbiter.io.in(3).valid := bottom_dispatcher.io.left
 
-// x = x_0 and y != y_0
-def neighborSameX1x(x_0 : SInt, y_0 : SInt): SInt = {
-  val x = x_coord.zext - x_0 
-  val y = y_coord.zext - y_0
-  x + (y - y_0 + functU(functI(y - y_0)))%2.S
-}
+  right_out_arbiter.io.in(0).valid := generation_dispatcher.io.right
+  right_out_arbiter.io.in(0).bits.data := read_value
+  right_out_arbiter.io.in(0).bits.x_0 := x_coord
+  right_out_arbiter.io.in(0).bits.y_0 := y_coord
+  right_out_arbiter.io.in(0).bits.x_dest := read_x
+  right_out_arbiter.io.in(0).bits.y_dest := read_y 
+  right_out_arbiter.io.in(1) <> left_in
+  right_out_arbiter.io.in(1).valid := left_dispatcher.io.right
+  right_out_arbiter.io.in(2) <> up_in
+  right_out_arbiter.io.in(2).valid := up_dispatcher.io.right
+  right_out_arbiter.io.in(3) <> bottom_in
+  right_out_arbiter.io.in(3).valid := bottom_dispatcher.io.right
 
-def neighborSameX1y(y_0 : SInt): SInt = {
-  val y = y_coord.zext - y_0
-  y + functI(y - y_0) * (y - y_0 + 1.S - functU(functI(y - y_0)))%2.S
-}
+  up_out_arbiter.io.in(0).valid := generation_dispatcher.io.up
+  up_out_arbiter.io.in(0).bits.data := read_value
+  up_out_arbiter.io.in(0).bits.x_0 := x_coord
+  up_out_arbiter.io.in(0).bits.y_0 := y_coord
+  up_out_arbiter.io.in(0).bits.x_dest := read_x
+  up_out_arbiter.io.in(0).bits.y_dest := read_y
+  up_out_arbiter.io.in(1) <> left_in
+  up_out_arbiter.io.in(1).valid := left_dispatcher.io.up
+  up_out_arbiter.io.in(2) <> right_in
+  up_out_arbiter.io.in(2).valid := right_dispatcher.io.up
+  up_out_arbiter.io.in(3) <> bottom_in
+  up_out_arbiter.io.in(3).valid := bottom_dispatcher.io.up
 
-def neighborSameX2x(x_0 : SInt, y_0 : SInt): SInt = {
-  val x = x_coord.zext - x_0
-  val y = y_coord.zext - y_0 
-  x - (y - y_0 + functU(-functI(y - y_0)))%2.S
-}
+  bottom_out_arbiter.io.in(0).valid := generation_dispatcher.io.bottom
+  bottom_out_arbiter.io.in(0).bits.data := read_value
+  bottom_out_arbiter.io.in(0).bits.x_0 := x_coord
+  bottom_out_arbiter.io.in(0).bits.y_0 := y_coord
+  bottom_out_arbiter.io.in(0).bits.x_dest := read_x
+  bottom_out_arbiter.io.in(0).bits.y_dest := read_y
+  bottom_out_arbiter.io.in(1) <> left_in
+  bottom_out_arbiter.io.in(1).valid := left_dispatcher.io.bottom
+  bottom_out_arbiter.io.in(2) <> right_in
+  bottom_out_arbiter.io.in(2).valid := right_dispatcher.io.bottom
+  bottom_out_arbiter.io.in(3) <> up_in
+  bottom_out_arbiter.io.in(3).valid := bottom_dispatcher.io.bottom
 
-def neighborSameX2y(y_0 : SInt): SInt = {
-  val y = y_coord.zext - y_0 
-  y + functI(y - y_0) * (y - y_0 + 1.S - functU(-functI(y - y_0)))%2.S
-}
-
-// x != x_0 and y = y_0
-
-def neighborSameY1x(x_0 : SInt): SInt = {
-  val x = x_coord.zext - x_0 
-  x + functI(x - x_0) * (x - x_0 + functU(functI(x - x_0)))%2.S
-}
-
-def neighborSameY1y(x_0 : SInt, y_0 : SInt): SInt = {
-  val x = x_coord.zext - x_0
-  val y = y_coord.zext - y_0
-  y + (x - x_0 + 1.S - functU(functI(x - x_0)))%2.S
-}
-
-def neighborSameY2x(x_0 : SInt): SInt = {
-  val x = x_coord.zext - x_0
-  x + functI(x - x_0) * (x - x_0 + functU(-functI(x - x_0)))%2.S
-}
-
-def neighborSameY2y(x_0 : SInt, y_0 : SInt): SInt = {
-  val x = x_coord.zext - x_0
-  val y = y_coord.zext - y_0
-  y - (x - x_0 + 1.S - functU(-functI(x - x_0)))%2.S
-}
-
-
-// x != x_0 and y != y_0
-
-def neighbor3x(x_0 : SInt, y_0 : SInt): SInt = {
-  val x = x_coord.zext - x_0
-  val y = y_coord.zext - y_0
-  x + functI(x - x_0) * ((x-x_0) + (y-y_0) + functU(functI(x-x_0)*functI(y-y_0)))%2.S
-}
-
-def neighbor3y(x_0 : SInt, y_0 : SInt): SInt = {
-  val x = x_coord.zext - x_0
-  val y = y_coord.zext - y_0 
-  y + functI(y - y_0) * ((x-x_0) + (y-y_0) + 1.S - functU(functI(x-x_0)*functI(y-y_0)))%2.S
-
-}
-
-
-
-
-
-
+ 
 
   
 }

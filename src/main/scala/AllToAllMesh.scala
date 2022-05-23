@@ -70,6 +70,8 @@ class AllToAllMesh(n : Int, cacheSize : Int, queueSize: Int) extends Module{
         }
     }
     */
+
+    /*
     def upLeftCorner(i: Int): Boolean = (i == 0)
     def upRightCorner(i: Int): Boolean = (i == (n-1))
     def bottomLeftCorner(i: Int): Boolean = (i == ((n*n)-n))
@@ -79,9 +81,21 @@ class AllToAllMesh(n : Int, cacheSize : Int, queueSize: Int) extends Module{
     def bottom(i: Int): Boolean = (i > ((n*n)-n) && i < ((n*n)-1))
     def left(i: Int): Boolean = (!upLeftCorner(i) && !bottomLeftCorner(i) && (i%n == 0))
     def right(i: Int): Boolean = (!upRightCorner(i) && !bottomRightCorner(i) && (i%n == (n-1)))
+    */
+
+    def upLeftCorner(i: Int): Boolean = (i == ((n*n)-n))
+    def upRightCorner(i: Int): Boolean = (i == ((n*n)-1))
+    def bottomLeftCorner(i: Int): Boolean = (i == 0)
+    def bottomRightCorner(i: Int): Boolean = (i == (n-1))
+
+    def up(i: Int): Boolean = (i > ((n*n)-n) && i < ((n*n)-1))
+    def bottom(i: Int): Boolean = ( i > 0 && i < n-1)
+    def left(i: Int): Boolean = (!upLeftCorner(i) && !bottomLeftCorner(i) && (i%n == 0))
+    def right(i: Int): Boolean = (!upRightCorner(i) && !bottomRightCorner(i) && (i%n == (n-1)))
 
     def x_coord(i: Int): Int = (i%n)
-    def y_coord(i: Int): Int = ((n-1)-(i/n))
+    //def y_coord(i: Int): Int = ((n-1)-(i/n))
+    def y_coord(i: Int): Int = (i/n)
 
     var x,y = 0
 
