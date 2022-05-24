@@ -1,9 +1,9 @@
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllPETest, org.scalatest.tools.Framework$$anon$1@20b051db, false, [SuiteSelector])[0m
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllControllerTest, org.scalatest.tools.Framework$$anon$1@20b051db, false, [SuiteSelector])[0m
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.IndexCalculatorTest, org.scalatest.tools.Framework$$anon$1@20b051db, false, [SuiteSelector])[0m
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllTest, org.scalatest.tools.Framework$$anon$1@20b051db, false, [SuiteSelector])[0m
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.DispatcherTest, org.scalatest.tools.Framework$$anon$1@20b051db, false, [SuiteSelector])[0m
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllMeshTest, org.scalatest.tools.Framework$$anon$1@20b051db, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllPETest, org.scalatest.tools.Framework$$anon$1@42739cf9, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllControllerTest, org.scalatest.tools.Framework$$anon$1@42739cf9, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.IndexCalculatorTest, org.scalatest.tools.Framework$$anon$1@42739cf9, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllTest, org.scalatest.tools.Framework$$anon$1@42739cf9, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllMeshTest, org.scalatest.tools.Framework$$anon$1@42739cf9, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.DispatcherTest, org.scalatest.tools.Framework$$anon$1@42739cf9, false, [SuiteSelector])[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mIndexCalculatorTest:[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mindexCalculator[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- should resetAndCount[0m[0m
@@ -12,24 +12,6 @@
 [0m[[0m[0minfo[0m] [0m[0m[32m- should changeState[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mcontrollerFSMtestmultipleCmd[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- should changeState[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32mAllToAllTest:[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32mcontrollerFSMTest[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should changeState[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32mtestLoad[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should load[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32mAllToAllPETest:[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32mpeFSMTest[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should changeState[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32mpeFSMTest[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should multipleLoad[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32mpeFSMTest[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should store+resp[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32mpeFSMTest[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should load+store+load+store[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32mstallResp[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should load+store+stall[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32mstallResp[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should load+stall[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mDispatcherTest:[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mdispatcherQ1[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- should correctlyDispatch[0m[0m
@@ -45,6 +27,24 @@
 [0m[[0m[0minfo[0m] [0m[0m[32m- should correctlyDispatch[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mGenerationDispatcher[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- should correctlyDispatchGeneratedData[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mAllToAllPETest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mpeFSMTest[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should changeState[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mpeFSMTest[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should multipleLoad[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mpeFSMTest[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should store+resp[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mpeFSMTest[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should load+store+load+store[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mstallResp[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should load+store+stall[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mstallResp[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should load+stall[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mAllToAllTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mcontrollerFSMTest[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should changeState[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mtestLoad[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should load[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mAllToAllMeshTest:[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mmeshFunctionality[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- should changeState[0m[0m
@@ -54,7 +54,7 @@
 [0m[[0m[0minfo[0m] [0m[0m[32m- should changeState[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0mSummary for ScalaCheck not available.[0m
 [0m[[0m[0minfo[0m] [0m[0mScalaTest[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 17 seconds, 279 milliseconds.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 43 seconds, 502 milliseconds.[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 21[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 6, aborted 0[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 21, failed 0, canceled 0, ignored 0, pending 0[0m[0m

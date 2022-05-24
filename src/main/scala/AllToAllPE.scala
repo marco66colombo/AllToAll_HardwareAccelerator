@@ -85,6 +85,10 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
   rs2 := io.cmd.bits.rs2
 
   val read_index = Module(new IndexCalculator(n,log2Up(n)))
+  val signal_enable_counter = Wire(Bool())
+  val signal_reset_counter = Wire(Bool())
+  signal_enable_counter := false.B
+  signal_reset_counter := false.B
   val read_value = RegInit(Bits(64.W),0.U)
   val read_x = Reg(Bits(log2Up(n).W))
   val read_y = Reg(Bits(log2Up(n).W))
@@ -120,7 +124,7 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
   //need to respond but cannot
   val stall_resp = !io.resp.ready && io.resp.valid
   val start_AllToAll = state === action
-
+/*
   val leftBusy = Wire(Bool())
   val rightBusy = Wire(Bool())
   val upBusy = Wire(Bool())
@@ -131,6 +135,11 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
   rightBusy := false.B
   upBusy := false.B
   bottomBusy := false.B
+*/
+  val leftBusy = false.B //!(left_out.io.count === 0.U && left_in.io.count === 0.U)
+  val rightBusy = false.B//!(right_out.io.count === 0.U && right_in.io.count === 0.U)
+  val upBusy = false.B//!(up_out.io.count === 0.U && up_in.io.count === 0.U)
+  val bottomBusy = false.B//!(bottom_out.io.count === 0.U && bottom_in.io.count === 0.U)
 
   when(state === idle){
     io.busy := false.B
@@ -202,6 +211,7 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     io.resp.bits.write_enable := false.B
 
     read_index.io.enable := false.B
+    read_index.io.reset := false.B
 
     state := store_resp
 
@@ -238,6 +248,7 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     io.resp.bits.write_enable := w_en
 
     read_index.io.enable := false.B
+    read_index.io.reset := false.B
     
     when(stall_resp){
       state := stall_state
@@ -256,6 +267,7 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
 
     //manage values to be pushed in the queues
     read_index.io.enable := true.B
+    read_index.io.reset := false.B
     read_value := memPE(read_index.io.index)
     read_x := compute_x_coord(read_index.io.index)
     read_y := compute_x_coord(read_index.io.index)
@@ -275,6 +287,9 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     io.right.in.ready := true.B
     io.up.in.ready := true.B
     io.bottom.in.ready := true.B
+
+    read_index.io.enable := signal_enable_counter
+    read_index.io.reset := signal_reset_counter
     
     when (io.end_AllToAll){
       state := action_resp
@@ -287,8 +302,10 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     io.cmd.ready := false.B
     io.resp.valid := true.B
     io.resp.bits.data := 0.U
-    io.resp.bits.write_enable := false.B
+    //priority mux will take the first PE, not a problem since data of response are not used
+    io.resp.bits.write_enable := true.B
     read_index.io.enable := false.B
+    read_index.io.reset := false.B
 
     state := idle
 
@@ -300,6 +317,7 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     io.resp.bits.data := "b10101010101010101010101010101010".U(64.W)
     io.resp.bits.write_enable := true.B
     read_index.io.enable := false.B
+    read_index.io.reset := false.B
   }
 
 
@@ -311,8 +329,10 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
   val stateAction = RegInit(idle) 
 
 
-
   when(stateAction === idle){
+
+    signal_enable_counter := false.B
+    signal_reset_counter := false.B
 
     when(start_AllToAll){
       stateAction := action
@@ -326,17 +346,20 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
       read_y := compute_x_coord(read_index.io.index)
       read_value := memPE(read_index.io.index)
       read_index.io.enable := true.B
+      signal_enable_counter := true.B
     }.otherwise{
       read_index.io.enable := false.B
+      signal_enable_counter := false.B
     }
 
     when(is_this_PE_generation){
-      //read_index.io.index has as current value the value at which data were read + 1 
-      // -> index at which data were read = read_indez.io.index - 1
+
       memPE(index_write_this_PE) := read_value
     }
 
-    when(read_index.io.last_index){
+    signal_reset_counter := false.B
+
+    when(read_index.io.last_index && true.B/*codainoutputaccettareadvalue*/){
       stateAction := idle
     }.otherwise{
       stateAction := action
@@ -344,6 +367,8 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
 
   }.otherwise{
 
+    signal_enable_counter := false.B
+    signal_reset_counter := false.B
     //error
   }
 
@@ -390,16 +415,12 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
   val up_in = Queue(io.up.in, queueSize)
   val bottom_in = Queue(io.bottom.in, queueSize)
 
-  
-
-  /* facendo Queue(io.left.in) ho gia collegato la flipped decoupled che entra nel pE con quella della coda, non serve mettere cose a mano
-  io.left.in.ready := left_in.ready
-  io.right.in.ready := right_in.ready
-  io.up.in.read := up_in.ready
-  io.bottom.in.ready := bottom_in.ready
-  */
-  //DEVO SETTARE IL READY, CHE è IL READY DELL'ARBITER
-
+/*
+  val left_in = Module(new Queue(io.left.in, queueSize))
+  val right_in = Module(new Queue(io.right.in, queueSize))
+  val up_in = Module(new Queue(io.up.in, queueSize))
+  val bottom_in =Module(new Queue(io.bottom.in, queueSize))
+ */ 
 
   //dispatchers -> given value of input queue says where to forward the message
   val left_dispatcher = Module(new Dispatcher(log2Up(n)))
@@ -444,9 +465,8 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
   generation_dispatcher.io.x_dest := read_x
   generation_dispatcher.io.y_dest := read_y
 
-  val write_index = 
 
-  //write into mem at index + n
+  //write into mem at index + n*n
   when(left_dispatcher.io.this_PE){
     memPE(left_in.bits.x_0 + left_in.bits.y_0 * n.U + offset) := left_in.bits.data
   }
@@ -468,10 +488,11 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
 
   //round robin arbiters for output queues inputs
   //4 input ports because the 4th is the port used by the PE to write data from its own memory, the other 3 are the potrs used by the input queues
-  val left_out_arbiter = Module(new RRArbiter(OutputPE(log2Up(n)),4))
-  val right_out_arbiter = Module(new RRArbiter(OutputPE(log2Up(n)),4))
-  val up_out_arbiter = Module(new RRArbiter(OutputPE(log2Up(n)),4))
-  val bottom_out_arbiter =Module(new RRArbiter(OutputPE(log2Up(n)),4))
+  //COME FARE QUI?????
+  val left_out_arbiter = Module(new RRArbiter(new OutputPE(log2Up(n)),4))
+  val right_out_arbiter = Module(new RRArbiter(new OutputPE(log2Up(n)),4))
+  val up_out_arbiter = Module(new RRArbiter(new OutputPE(log2Up(n)),4))
+  val bottom_out_arbiter =Module(new RRArbiter(new OutputPE(log2Up(n)),4))
 
   //output queues
   val left_out = Queue(left_out_arbiter.io.out, queueSize)
