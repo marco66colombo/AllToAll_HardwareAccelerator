@@ -71,9 +71,6 @@ class AllToAllModule(n: Int, cacheSize: Int, queueSize: Int) extends Module{
   val controller = Module(new AllToAllController())
   val mesh = Module(new AllToAllMesh(n, cacheSize, queueSize))
 
-  //aTaPE is temporary, it will be replaced by the actual mesh
-  //val aTaPE = Module(new AllToAllPE())
-  
   //connect part of interface of controller (dedicated to communicate with processor) with actual processor
   io <> controller.io.processor
   
@@ -95,13 +92,3 @@ class AllToAllModule(n: Int, cacheSize: Int, queueSize: Int) extends Module{
   controller.io.mesh.busy := mesh.io.busy
 
 }
-
-/*
-object OpcodeSet {
-  def custom0 = new OpcodeSet(Seq("b0001011".U)) //load 
-  def custom1 = new OpcodeSet(Seq("b0101011".U)) //alltoall
-  def custom2 = new OpcodeSet(Seq("b1011011".U)) 
-  def custom3 = new OpcodeSet(Seq("b1111011".U))
-  def all = custom0 | custom1 | custom2 | custom3
-}
-*/

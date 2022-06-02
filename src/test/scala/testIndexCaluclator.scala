@@ -7,9 +7,6 @@ import org.scalatest._
 import hppsProject._
 
 
-
-
-//idle -> load -> no cmd -> no cmd
 class IndexCalculatorTester(c: IndexCalculator) extends PeekPokeTester(c) {
 
 
@@ -58,6 +55,114 @@ class IndexCalculatorTester(c: IndexCalculator) extends PeekPokeTester(c) {
 }
 
 
+class IndexCalculatorV1Tester(c: IndexCalculatorV1) extends PeekPokeTester(c) {
+
+
+    poke(c.io.reset, true.B)
+    poke(c.io.enable, true.B)
+    poke(c.io.dim_N, 1.U)
+
+    step(1)
+
+    expect(c.io.index0, 0.U)
+    expect(c.io.index1, 1.U)
+    expect(c.io.index2, 2.U)
+    expect(c.io.index3, 3.U)
+
+    expect(c.io.valid0, true.B)
+    expect(c.io.valid1, true.B)
+    expect(c.io.valid2, true.B)
+    expect(c.io.valid3, true.B)
+
+    expect(c.io.x_dest_0, 0.U)
+    expect(c.io.x_dest_1, 1.U)
+    expect(c.io.x_dest_2, 2.U)
+    expect(c.io.x_dest_3, 0.U)
+
+    expect(c.io.y_dest_0, 0.U)
+    expect(c.io.y_dest_1, 0.U)
+    expect(c.io.y_dest_2, 0.U)
+    expect(c.io.y_dest_3, 1.U)
+
+    expect(c.io.pos_0, 0.U)
+    expect(c.io.pos_1, 0.U)
+    expect(c.io.pos_2, 0.U)
+    expect(c.io.pos_3, 0.U)
+
+    expect(c.io.last_iteration, false.B)
+
+    poke(c.io.reset, false.B)
+    poke(c.io.enable, true.B)
+
+    step(1)
+
+    expect(c.io.index0, 4.U)
+    expect(c.io.index1, 5.U)
+    expect(c.io.index2, 6.U)
+    expect(c.io.index3, 7.U)
+
+    expect(c.io.valid0, true.B)
+    expect(c.io.valid1, true.B)
+    expect(c.io.valid2, true.B)
+    expect(c.io.valid3, true.B)
+
+    expect(c.io.x_dest_0, 1.U)
+    expect(c.io.x_dest_1, 2.U)
+    expect(c.io.x_dest_2, 0.U)
+    expect(c.io.x_dest_3, 1.U)
+
+    expect(c.io.y_dest_0, 1.U)
+    expect(c.io.y_dest_1, 1.U)
+    expect(c.io.y_dest_2, 2.U)
+    expect(c.io.y_dest_3, 2.U)
+
+    expect(c.io.pos_0, 0.U)
+    expect(c.io.pos_1, 0.U)
+    expect(c.io.pos_2, 0.U)
+    expect(c.io.pos_3, 0.U)
+
+    expect(c.io.last_iteration, false.B)
+
+    poke(c.io.reset, false.B)
+    poke(c.io.enable, true.B)
+
+    step(1)
+
+    expect(c.io.index0, 8.U)
+    expect(c.io.index1, 9.U)
+    expect(c.io.index2, 10.U)
+    expect(c.io.index3, 11.U)
+
+    expect(c.io.valid0, true.B)
+    expect(c.io.valid1, false.B)
+    expect(c.io.valid2, false.B)
+    expect(c.io.valid3, false.B)
+
+    expect(c.io.x_dest_0, 2.U)
+   
+    expect(c.io.y_dest_0, 2.U)
+    
+
+    expect(c.io.pos_0, 0.U)
+    expect(c.io.pos_1, 0.U)
+    expect(c.io.pos_2, 0.U)
+    expect(c.io.pos_3, 0.U)
+
+    expect(c.io.last_iteration, false.B)
+
+    poke(c.io.reset, false.B)
+    poke(c.io.enable, true.B)
+
+    step(1)
+
+    expect(c.io.last_iteration, true.B)
+
+
+
+}
+
+
+
 
 
 
@@ -69,6 +174,14 @@ class IndexCalculatorTest extends ChiselFlatSpec {
   it should "resetAndCount" in {
     chisel3.iotesters.Driver.execute( testerArgs, () => new IndexCalculator(3,8)) {
       c => new IndexCalculatorTester(c)
+    } should be (true)
+  }
+
+
+  behavior of "indexCalculatorV1"
+  it should "resetAndCount" in {
+    chisel3.iotesters.Driver.execute( testerArgs, () => new IndexCalculatorV1(3,9,3)) {
+      c => new IndexCalculatorV1Tester(c)
     } should be (true)
   }
 

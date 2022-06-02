@@ -198,15 +198,7 @@ class AllToAllMesh(n : Int, cacheSize : Int, queueSize: Int) extends Module{
             vector(i).io.up.in.bits.x_dest := zeroValue
             vector(i).io.up.in.bits.y_dest := zeroValue
             vector(i).io.up.out.ready :=  false.B
-            /*
-            vector(i).io.bottom.in.valid := vector(i+n).io.up.out.valid
-            vector(i).io.bottom.in.bits.data := vector(i+n).io.up.out.bits.data
-            vector(i).io.bottom.in.bits.x_0 := vector(i+n).io.up.out.bits.x_0
-            vector(i).io.bottom.in.bits.y_0 := vector(i+n).io.up.out.bits.y_0
-            vector(i).io.bottom.in.bits.x_dest := vector(i+n).io.up.out.bits.x_dest
-            vector(i).io.bottom.in.bits.y_dest := vector(i+n).io.up.out.bits.y_dest
-            vector(i).io.bottom.out.ready :=  vector(i+n).io.up.in.ready
-            */
+        
             vector(i).io.bottom.in.valid := vector(i-n).io.up.out.valid
             vector(i).io.bottom.in.bits.data := vector(i-n).io.up.out.bits.data
             vector(i).io.bottom.in.bits.x_0 := vector(i-n).io.up.out.bits.x_0
@@ -241,15 +233,6 @@ class AllToAllMesh(n : Int, cacheSize : Int, queueSize: Int) extends Module{
             vector(i).io.up.in.bits.y_dest := zeroValue
             vector(i).io.up.out.ready :=  false.B
             
-            /*
-            vector(i).io.bottom.in.valid := vector(i+n).io.up.out.valid
-            vector(i).io.bottom.in.bits.data := vector(i+n).io.up.out.bits.data
-            vector(i).io.bottom.in.bits.x_0 := vector(i+n).io.up.out.bits.x_0
-            vector(i).io.bottom.in.bits.y_0 := vector(i+n).io.up.out.bits.y_0
-            vector(i).io.bottom.in.bits.x_dest := vector(i+n).io.up.out.bits.x_dest
-            vector(i).io.bottom.in.bits.y_dest := vector(i+n).io.up.out.bits.y_dest
-            vector(i).io.bottom.out.ready :=  vector(i+n).io.up.in.ready
-            */
             vector(i).io.bottom.in.valid := vector(i-n).io.up.out.valid
             vector(i).io.bottom.in.bits.data := vector(i-n).io.up.out.bits.data
             vector(i).io.bottom.in.bits.x_0 := vector(i-n).io.up.out.bits.x_0
@@ -276,15 +259,6 @@ class AllToAllMesh(n : Int, cacheSize : Int, queueSize: Int) extends Module{
             vector(i).io.right.in.bits.y_dest := vector(i+1).io.left.out.bits.y_dest
             vector(i).io.right.out.ready :=  vector(i+1).io.left.in.ready
 
-            /*
-            vector(i).io.up.in.valid := vector(i-n).io.bottom.out.valid
-            vector(i).io.up.in.bits.data := vector(i-n).io.bottom.out.bits.data
-            vector(i).io.up.in.bits.x_0 := vector(i-n).io.bottom.out.bits.x_0
-            vector(i).io.up.in.bits.y_0 := vector(i-n).io.bottom.out.bits.y_0
-            vector(i).io.up.in.bits.x_dest := vector(i-n).io.bottom.out.bits.x_dest
-            vector(i).io.up.in.bits.y_dest := vector(i-n).io.bottom.out.bits.y_dest
-            vector(i).io.up.out.ready :=  vector(i-n).io.bottom.in.ready
-            */
             vector(i).io.up.in.valid := vector(i+n).io.bottom.out.valid
             vector(i).io.up.in.bits.data := vector(i+n).io.bottom.out.bits.data
             vector(i).io.up.in.bits.x_0 := vector(i+n).io.bottom.out.bits.x_0
@@ -317,15 +291,7 @@ class AllToAllMesh(n : Int, cacheSize : Int, queueSize: Int) extends Module{
             vector(i).io.right.in.bits.x_dest := zeroValue
             vector(i).io.right.in.bits.y_dest := zeroValue
             vector(i).io.right.out.ready :=  false.B
-            /*
-            vector(i).io.up.in.valid := vector(i-n).io.bottom.out.valid
-            vector(i).io.up.in.bits.data := vector(i-n).io.bottom.out.bits.data
-            vector(i).io.up.in.bits.x_0 := vector(i-n).io.bottom.out.bits.x_0
-            vector(i).io.up.in.bits.y_0 := vector(i-n).io.bottom.out.bits.y_0
-            vector(i).io.up.in.bits.x_dest := vector(i-n).io.bottom.out.bits.x_dest
-            vector(i).io.up.in.bits.y_dest := vector(i-n).io.bottom.out.bits.y_dest
-            vector(i).io.up.out.ready :=  vector(i-n).io.bottom.in.ready
-            */ 
+        
             vector(i).io.up.in.valid := vector(i+n).io.bottom.out.valid
             vector(i).io.up.in.bits.data := vector(i+n).io.bottom.out.bits.data
             vector(i).io.up.in.bits.x_0 := vector(i+n).io.bottom.out.bits.x_0
@@ -368,15 +334,6 @@ class AllToAllMesh(n : Int, cacheSize : Int, queueSize: Int) extends Module{
             vector(i).io.up.in.bits.y_dest := zeroValue
             vector(i).io.up.out.ready :=  false.B
 
-            /*
-            vector(i).io.bottom.in.valid := vector(i+n).io.up.out.valid
-            vector(i).io.bottom.in.bits.data := vector(i+n).io.up.out.bits.data
-            vector(i).io.bottom.in.bits.x_0 := vector(i+n).io.up.out.bits.x_0
-            vector(i).io.bottom.in.bits.y_0 := vector(i+n).io.up.out.bits.y_0
-            vector(i).io.bottom.in.bits.x_dest := vector(i+n).io.up.out.bits.x_dest
-            vector(i).io.bottom.in.bits.y_dest := vector(i+n).io.up.out.bits.y_dest
-            vector(i).io.bottom.out.ready :=  vector(i+n).io.up.in.ready
-            */
             vector(i).io.bottom.in.valid := vector(i-n).io.up.out.valid
             vector(i).io.bottom.in.bits.data := vector(i-n).io.up.out.bits.data
             vector(i).io.bottom.in.bits.x_0 := vector(i-n).io.up.out.bits.x_0
@@ -402,15 +359,6 @@ class AllToAllMesh(n : Int, cacheSize : Int, queueSize: Int) extends Module{
             vector(i).io.right.in.bits.y_dest := vector(i+1).io.left.out.bits.y_dest
             vector(i).io.right.out.ready :=  vector(i+1).io.left.in.ready
 
-            /*
-            vector(i).io.up.in.valid := vector(i-n).io.bottom.out.valid
-            vector(i).io.up.in.bits.data := vector(i-n).io.bottom.out.bits.data
-            vector(i).io.up.in.bits.x_0 := vector(i-n).io.bottom.out.bits.x_0
-            vector(i).io.up.in.bits.y_0 := vector(i-n).io.bottom.out.bits.y_0
-            vector(i).io.up.in.bits.x_dest := vector(i-n).io.bottom.out.bits.x_dest
-            vector(i).io.up.in.bits.y_dest := vector(i-n).io.bottom.out.bits.y_dest
-            vector(i).io.up.out.ready :=  vector(i-n).io.bottom.in.ready
-            */
             vector(i).io.up.in.valid := vector(i+n).io.bottom.out.valid
             vector(i).io.up.in.bits.data := vector(i+n).io.bottom.out.bits.data
             vector(i).io.up.in.bits.x_0 := vector(i+n).io.bottom.out.bits.x_0
@@ -443,24 +391,6 @@ class AllToAllMesh(n : Int, cacheSize : Int, queueSize: Int) extends Module{
             vector(i).io.right.in.bits.x_dest := vector(i+1).io.left.out.bits.x_dest
             vector(i).io.right.in.bits.y_dest := vector(i+1).io.left.out.bits.y_dest
             vector(i).io.right.out.ready :=  vector(i+1).io.left.in.ready
-
-            /*
-            vector(i).io.up.in.valid := vector(i-n).io.bottom.out.valid
-            vector(i).io.up.in.bits.data := vector(i-n).io.bottom.out.bits.data
-            vector(i).io.up.in.bits.x_0 := vector(i-n).io.bottom.out.bits.x_0
-            vector(i).io.up.in.bits.y_0 := vector(i-n).io.bottom.out.bits.y_0
-            vector(i).io.up.in.bits.x_dest := vector(i-n).io.bottom.out.bits.x_dest
-            vector(i).io.up.in.bits.y_dest := vector(i-n).io.bottom.out.bits.y_dest
-            vector(i).io.up.out.ready :=  vector(i-n).io.bottom.in.ready
-
-            vector(i).io.bottom.in.valid := vector(i+n).io.up.out.valid
-            vector(i).io.bottom.in.bits.data := vector(i+n).io.up.out.bits.data
-            vector(i).io.bottom.in.bits.x_0 := vector(i+n).io.up.out.bits.x_0
-            vector(i).io.bottom.in.bits.y_0 := vector(i+n).io.up.out.bits.y_0
-            vector(i).io.bottom.in.bits.x_dest := vector(i+n).io.up.out.bits.x_dest
-            vector(i).io.bottom.in.bits.y_dest := vector(i+n).io.up.out.bits.y_dest
-            vector(i).io.bottom.out.ready :=  vector(i+n).io.up.in.ready
-            */
 
             vector(i).io.up.in.valid := vector(i+n).io.bottom.out.valid
             vector(i).io.up.in.bits.data := vector(i+n).io.bottom.out.bits.data
@@ -495,23 +425,6 @@ class AllToAllMesh(n : Int, cacheSize : Int, queueSize: Int) extends Module{
             vector(i).io.right.in.bits.y_dest := zeroValue
             vector(i).io.right.out.ready :=  false.B
 
-            /*
-            vector(i).io.up.in.valid := vector(i-n).io.bottom.out.valid
-            vector(i).io.up.in.bits.data := vector(i-n).io.bottom.out.bits.data
-            vector(i).io.up.in.bits.x_0 := vector(i-n).io.bottom.out.bits.x_0
-            vector(i).io.up.in.bits.y_0 := vector(i-n).io.bottom.out.bits.y_0
-            vector(i).io.up.in.bits.x_dest := vector(i-n).io.bottom.out.bits.x_dest
-            vector(i).io.up.in.bits.y_dest := vector(i-n).io.bottom.out.bits.y_dest
-            vector(i).io.up.out.ready :=  vector(i-n).io.bottom.in.ready
-
-            vector(i).io.bottom.in.valid := vector(i+n).io.up.out.valid
-            vector(i).io.bottom.in.bits.data := vector(i+n).io.up.out.bits.data
-            vector(i).io.bottom.in.bits.x_0 := vector(i+n).io.up.out.bits.x_0
-            vector(i).io.bottom.in.bits.y_0 := vector(i+n).io.up.out.bits.y_0
-            vector(i).io.bottom.in.bits.x_dest := vector(i+n).io.up.out.bits.x_dest
-            vector(i).io.bottom.in.bits.y_dest := vector(i+n).io.up.out.bits.y_dest
-            vector(i).io.bottom.out.ready :=  vector(i+n).io.up.in.ready
-            */
             vector(i).io.up.in.valid := vector(i+n).io.bottom.out.valid
             vector(i).io.up.in.bits.data := vector(i+n).io.bottom.out.bits.data
             vector(i).io.up.in.bits.x_0 := vector(i+n).io.bottom.out.bits.x_0
@@ -546,23 +459,6 @@ class AllToAllMesh(n : Int, cacheSize : Int, queueSize: Int) extends Module{
             vector(i).io.right.in.bits.y_dest := vector(i+1).io.left.out.bits.y_dest
             vector(i).io.right.out.ready :=  vector(i+1).io.left.in.ready
 
-            /*
-            vector(i).io.up.in.valid := vector(i-n).io.bottom.out.valid
-            vector(i).io.up.in.bits.data := vector(i-n).io.bottom.out.bits.data
-            vector(i).io.up.in.bits.x_0 := vector(i-n).io.bottom.out.bits.x_0
-            vector(i).io.up.in.bits.y_0 := vector(i-n).io.bottom.out.bits.y_0
-            vector(i).io.up.in.bits.x_dest := vector(i-n).io.bottom.out.bits.x_dest
-            vector(i).io.up.in.bits.y_dest := vector(i-n).io.bottom.out.bits.y_dest
-            vector(i).io.up.out.ready :=  vector(i-n).io.bottom.in.ready
-
-            vector(i).io.bottom.in.valid := vector(i+n).io.up.out.valid
-            vector(i).io.bottom.in.bits.data := vector(i+n).io.up.out.bits.data
-            vector(i).io.bottom.in.bits.x_0 := vector(i+n).io.up.out.bits.x_0
-            vector(i).io.bottom.in.bits.y_0 := vector(i+n).io.up.out.bits.y_0
-            vector(i).io.bottom.in.bits.x_dest := vector(i+n).io.up.out.bits.x_dest
-            vector(i).io.bottom.in.bits.y_dest := vector(i+n).io.up.out.bits.y_dest
-            vector(i).io.bottom.out.ready :=  vector(i+n).io.up.in.ready
-            */
             vector(i).io.up.in.valid := vector(i+n).io.bottom.out.valid
             vector(i).io.up.in.bits.data := vector(i+n).io.bottom.out.bits.data
             vector(i).io.up.in.bits.x_0 := vector(i+n).io.bottom.out.bits.x_0

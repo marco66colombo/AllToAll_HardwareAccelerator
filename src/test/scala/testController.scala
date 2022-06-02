@@ -8,8 +8,6 @@ import hppsProject._
 
 
 
-
-//idle -> load -> no cmd -> no cmd
 class AllToAllControllerTester(c: AllToAllController) extends PeekPokeTester(c) {
    val processor = c.io.processor
    val mesh = c.io.mesh
@@ -50,7 +48,7 @@ class AllToAllControllerTester(c: AllToAllController) extends PeekPokeTester(c) 
    expect(mesh.cmd.bits.load, true.B)
    expect(mesh.cmd.bits.store, false.B)
    expect(mesh.cmd.bits.doAllToAll, false.B)
-   expect(mesh.resp.ready, false.B)
+   expect(mesh.resp.ready, true.B)
    expect(mesh.cmd.bits.rs1, 24.U)
    expect(mesh.cmd.bits.rs2, 27.U)
 
@@ -63,7 +61,7 @@ class AllToAllControllerTester(c: AllToAllController) extends PeekPokeTester(c) 
 
    step(1)
 
-   //idle + response
+   //idle
    expect(processor.busy, false.B)
    expect(processor.cmd.ready, true.B)
    expect(mesh.cmd.valid, false.B)
