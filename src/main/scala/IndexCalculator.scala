@@ -81,9 +81,10 @@ class IndexCalculatorV1(n: Int, n_PE: Int, val indexWidth: Int) extends Module{
     }) 
 
     
-    val dim_N = Reg(Bits(16.W))
+    val dim_N = Reg(Bits(8.W))
 
-    val counter_PE = Reg(UInt((indexWidth*2 + 1).W))
+    //val counter_PE = Reg(UInt((indexWidth*2 + 1).W))
+    val counter_PE = Reg(UInt((32).W))
     val counter_offset = Reg(UInt(16.W))
 
     //reset the state of the counter

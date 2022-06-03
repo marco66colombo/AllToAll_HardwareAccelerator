@@ -262,6 +262,22 @@ class DispatcherTesterQ4(c: Dispatcher) extends PeekPokeTester(c) {
         expect(c.io.bottom, true.B)
         expect(c.io.this_PE, false.B)
 
+        step(1)
+
+        println("prova1")
+        poke(c.io.x_PE, 2.U)
+        poke(c.io.y_PE, 1.U)
+        poke(c.io.x_0, 2.U)
+        poke(c.io.y_0, 2.U)
+        poke(c.io.x_dest, 2.U)
+        poke(c.io.y_dest, 0.U)
+
+        expect(c.io.left, false.B)
+        expect(c.io.right, false.B)
+        expect(c.io.up, false.B)
+        expect(c.io.bottom, true.B)
+        expect(c.io.this_PE, false.B)
+
 
 }
 

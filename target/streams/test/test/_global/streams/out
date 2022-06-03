@@ -1,16 +1,18 @@
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllTest, org.scalatest.tools.Framework$$anon$1@777dba4d, false, [SuiteSelector])[0m
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllMeshTest, org.scalatest.tools.Framework$$anon$1@777dba4d, false, [SuiteSelector])[0m
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.UtilityTest, org.scalatest.tools.Framework$$anon$1@777dba4d, false, [SuiteSelector])[0m
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllControllerTest, org.scalatest.tools.Framework$$anon$1@777dba4d, false, [SuiteSelector])[0m
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllPETest, org.scalatest.tools.Framework$$anon$1@777dba4d, false, [SuiteSelector])[0m
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.DispatcherTest, org.scalatest.tools.Framework$$anon$1@777dba4d, false, [SuiteSelector])[0m
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.IndexCalculatorTest, org.scalatest.tools.Framework$$anon$1@777dba4d, false, [SuiteSelector])[0m
-[0m[[0m[0minfo[0m] [0m[0m[32mIndexCalculatorTest:[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32mindexCalculator[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should resetAndCount[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllControllerTest, org.scalatest.tools.Framework$$anon$1@63df356c, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllTest, org.scalatest.tools.Framework$$anon$1@63df356c, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.UtilityTest, org.scalatest.tools.Framework$$anon$1@63df356c, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.IndexCalculatorTest, org.scalatest.tools.Framework$$anon$1@63df356c, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllMeshTest, org.scalatest.tools.Framework$$anon$1@63df356c, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllPETest, org.scalatest.tools.Framework$$anon$1@63df356c, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.DispatcherTest, org.scalatest.tools.Framework$$anon$1@63df356c, false, [SuiteSelector])[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mUtilityTest:[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mutility[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- should mux correctly[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mIndexCalculatorTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mindexCalculator[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should resetAndCount[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mindexCalculatorV1[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should resetAndCount[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mAllToAllControllerTest:[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mcontrollerFSMtest[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- should changeState[0m[0m
@@ -31,6 +33,134 @@
 [0m[[0m[0minfo[0m] [0m[0m[32m- should correctlyDispatch[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mGenerationDispatcher[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- should correctlyDispatchGeneratedData[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mAllToAllMeshTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mmeshFunctionality[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m- should changeState *** FAILED ***[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  firrtl.passes.PassExceptions: firrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.x_dest <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 109:41] : [module AllToAllMesh]  Reference vector_6 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_6.io.right.out.ready <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.y_dest <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.y_0 <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.data <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.x_0 <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.valid <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.PassException: 7 errors detected![0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  ...[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mmeshLoadStore[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m- should changeState *** FAILED ***[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  firrtl.passes.PassExceptions: firrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.x_dest <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 109:41] : [module AllToAllMesh]  Reference vector_6 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_6.io.right.out.ready <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.y_dest <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.y_0 <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.data <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.x_0 <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.valid <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.PassException: 7 errors detected![0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  ...[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mmeshLoadStoreDifferentPE[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m- should changeState *** FAILED ***[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  firrtl.passes.PassExceptions: firrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.x_dest <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 109:41] : [module AllToAllMesh]  Reference vector_6 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_6.io.right.out.ready <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.y_dest <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.y_0 <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.data <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.x_0 <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.valid <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.PassException: 7 errors detected![0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  ...[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mAllToAllTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mcontrollerFSMTest[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m- should changeState *** FAILED ***[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  firrtl.passes.PassExceptions: firrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.x_dest <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 109:41] : [module AllToAllMesh]  Reference vector_6 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_6.io.right.out.ready <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.y_dest <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.y_0 <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.data <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.x_0 <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.valid <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.PassException: 7 errors detected![0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  ...[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mtestLoad[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m- should load *** FAILED ***[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  firrtl.passes.PassExceptions: firrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.x_dest <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 109:41] : [module AllToAllMesh]  Reference vector_6 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_6.io.right.out.ready <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.y_dest <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.y_0 <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.data <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.x_0 <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.valid <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.PassException: 7 errors detected![0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  ...[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mtestStallResp[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m- should stallResp *** FAILED ***[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  firrtl.passes.PassExceptions: firrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.x_dest <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 109:41] : [module AllToAllMesh]  Reference vector_6 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_6.io.right.out.ready <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.y_dest <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.y_0 <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.data <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.x_0 <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.valid <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.PassException: 7 errors detected![0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  ...[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mreal_first_test[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m- should real first test *** FAILED ***[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  firrtl.passes.PassExceptions: firrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.x_dest <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 109:41] : [module AllToAllMesh]  Reference vector_6 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_6.io.right.out.ready <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.y_dest <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.y_0 <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.data <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.bits.x_0 <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.CheckInitialization$RefNotInitializedException:  @[AllToAllMesh.scala 120:41] : [module AllToAllMesh]  Reference vector_7 is not fully initialized.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m   : vector_7.io.left.in.valid <= VOID[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31mfirrtl.passes.PassException: 7 errors detected![0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  ...[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mAllToAllPETest:[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mpeFSMTest[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- should changeState[0m[0m
@@ -44,33 +174,15 @@
 [0m[[0m[0minfo[0m] [0m[0m[32m- should load+store+stall[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mstallResp[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- should load+stall[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32mAllToAllMeshTest:[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32mmeshFunctionality[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should changeState[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32mmeshLoadStore[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should changeState[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32mmeshLoadStoreDifferentPE[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should changeState[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32mAllToAllTest:[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32mcontrollerFSMTest[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should changeState[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32mtestLoad[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should load[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32mtestStallResp[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should stallResp[0m[0m
-[0m[[0m[0mdebug[0m] [0m[0mSummary for ScalaCheck not available.[0m
-[0m[[0m[0minfo[0m] [0m[0mScalaTest[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 54 seconds, 687 milliseconds.[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 23[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 7, aborted 0[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 23, failed 0, canceled 0, ignored 0, pending 0[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32mAll tests passed.[0m[0m
-[0m[[0m[0minfo[0m] [0m[0mPassed: Total 23, Failed 0, Errors 0, Passed 23[0m
-[0m[[0m[0mdebug[0m] [0m[0mPassed tests:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	hppsProject.AllToAllControllerTest[0m
-[0m[[0m[0mdebug[0m] [0m[0m	hppsProject.AllToAllMeshTest[0m
-[0m[[0m[0mdebug[0m] [0m[0m	hppsProject.UtilityTest[0m
-[0m[[0m[0mdebug[0m] [0m[0m	hppsProject.AllToAllPETest[0m
-[0m[[0m[0mdebug[0m] [0m[0m	hppsProject.AllToAllTest[0m
-[0m[[0m[0mdebug[0m] [0m[0m	hppsProject.IndexCalculatorTest[0m
-[0m[[0m[0mdebug[0m] [0m[0m	hppsProject.DispatcherTest[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mallToAll[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should first attempt[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mallToAll_get_and_save[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should get and save[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mallToAll_get_and_farward[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should get and farward[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mallToAll_get_and_farward2[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should get and farward[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mallToAll_create_and_farward[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should create and farward[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mallToAll_push_all[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should ata push all[0m[0m
