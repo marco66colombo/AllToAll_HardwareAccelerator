@@ -647,8 +647,11 @@ step(1)
   //do all to all
 
   poke(c.io.cmd.valid, true.B)
-  poke(c.io.cmd.bits.inst.funct, "b0000000".U)
-  poke(c.io.cmd.bits.inst.opcode, "b0101011".U)
+  //poke(c.io.cmd.bits.inst.funct, "b0000000".U)
+  //poke(c.io.cmd.bits.inst.opcode, "b0101011".U)
+
+  poke(c.io.cmd.bits.inst.funct, "b0000011".U)
+  poke(c.io.cmd.bits.inst.opcode, "b0001011".U)
   poke(c.io.cmd.bits.rs1, 1.U)
 
   step(1)
@@ -1706,14 +1709,61 @@ step(1)*/
   //do all to all
 
   poke(c.io.cmd.valid, true.B)
-  poke(c.io.cmd.bits.inst.funct, "b0000000".U)
-  poke(c.io.cmd.bits.inst.opcode, "b0101011".U)
+  //poke(c.io.cmd.bits.inst.funct, "b0000000".U)
+  //poke(c.io.cmd.bits.inst.opcode, "b0101011".U)
+
+  poke(c.io.cmd.bits.inst.funct, "b0000011".U)
+  poke(c.io.cmd.bits.inst.opcode, "b0001011".U)
   poke(c.io.cmd.bits.rs1, 1.U)
 
   step(1)
   poke(c.io.cmd.valid, false.B)
+  expect(c.io.cmd.ready, false.B)
+  expect(c.io.busy, true.B)
 
-  step(2000)
+  step(1)
+
+  expect(c.io.cmd.ready, false.B)
+  expect(c.io.busy, true.B)
+  step(1)
+  
+  expect(c.io.cmd.ready, false.B)
+  expect(c.io.busy, true.B)
+  step(1)
+
+  expect(c.io.cmd.ready, false.B)
+  expect(c.io.busy, true.B)
+
+   step(1)
+
+  expect(c.io.cmd.ready, false.B)
+  expect(c.io.busy, true.B)
+   step(1)
+
+  expect(c.io.cmd.ready, false.B)
+  expect(c.io.busy, true.B)
+
+  println("\nE' davvero busy")
+
+  poke(c.io.resp.ready, false.B)
+
+  step(100)
+
+  expect(c.io.resp.valid, true.B)
+  expect(c.io.cmd.ready, false.B)
+  expect(c.io.busy, true.B)
+  poke(c.io.resp.ready, true.B)
+
+  step(1)
+
+  expect(c.io.cmd.ready, true.B)
+  expect(c.io.resp.valid, false.B)
+  expect(c.io.resp.bits.data, 0.U)
+  expect(c.io.interrupt, false.B)
+  expect(c.io.busy, false.B) 
+  println("\nprimo idle dopo resp")
+
+  step(1)
 
   //idle
   expect(c.io.cmd.ready, true.B)
@@ -2455,6 +2505,7 @@ poke(c.io.cmd.bits.rs2,  73014575106L.U)
 step(1)
 poke(c.io.cmd.valid, false.B)
 step(1)
+println("\nlast expect")
 expect(c.io.resp.valid, true.B)
 expect(c.io.resp.bits.data, 8L.U)
 poke(c.io.cmd.valid, false.B)

@@ -23,7 +23,7 @@ class AllToAllAccelerator(opcodes: OpcodeSet) (implicit p: Parameters) extends L
 
 class AllToAllAcceleratorModule(outer: AllToAllAccelerator) extends LazyRoCCModuleImp(outer) {
   
-  val aTaModule = Module(new AllToAllModule(3,32,81))
+  val aTaModule = Module(new AllToAllModule(3,200,81))
   
   //connection of RoccInterface with AcceleratorModuleIO
 

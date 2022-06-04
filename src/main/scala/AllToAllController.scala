@@ -67,11 +67,12 @@ class AllToAllController extends Module{
     transitions values
   */
   //action opcode is "b0101011"
-  val action_signal = pcmd.valid && (pcmd.bits.inst.opcode === "b0101011".U)
+  //val action_signal = pcmd.valid && pcmd.ready && (pcmd.bits.inst.opcode === "b0101011".U)
+  val action_signal = pcmd.valid && pcmd.ready && (pcmd.bits.inst.opcode === "b0001011".U) && (pcmd.bits.inst.funct === "b0000011".U)
   val done_action_signal = !(io.mesh.busy)
 
   //mem command opcode is "b0001011"
-  val mem_cmd = pcmd.valid && (pcmd.bits.inst.opcode === "b0001011".U)
+  val mem_cmd = pcmd.valid && pcmd.ready && (pcmd.bits.inst.opcode === "b0001011".U)
   //mem command is load when funct = "b0000001"
   val load_signal = pcmd.bits.inst.funct === "b0000001".U
   //mem command is store when funct = "b0000010"
@@ -210,7 +211,12 @@ class AllToAllController extends Module{
     io.mesh.resp.ready := true.B
     io.processor.resp.bits.rd := rd_address
     presp.valid := true.B
-    state := idle
+
+    when(!presp.ready){
+      state := action_resp
+    }.otherwise{
+      state:= idle
+    }
 
   }.otherwise{
     

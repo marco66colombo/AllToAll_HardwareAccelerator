@@ -426,6 +426,11 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
 
     dim_N := io.cmd.bits.rs1(15,0)
 
+    io.left.in.ready := false.B
+    io.right.in.ready := false.B
+    io.up.in.ready := false.B
+    io.bottom.in.ready := false.B
+
     when(load_signal){
       state := do_load
     }.elsewhen(store_signal){
@@ -453,6 +458,11 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     }
    
     dim_N := io.cmd.bits.rs1(15,0)
+
+    io.left.in.ready := false.B
+    io.right.in.ready := false.B
+    io.up.in.ready := false.B
+    io.bottom.in.ready := false.B
 
     when(load_signal && !stall_resp){
       state := do_load
@@ -482,6 +492,11 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
 
     io.resp.bits.write_enable := false.B
 
+    io.left.in.ready := false.B
+    io.right.in.ready := false.B
+    io.up.in.ready := false.B
+    io.bottom.in.ready := false.B
+
     state := store_resp
 
   }.elsewhen(state === store_resp){
@@ -493,6 +508,11 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     io.resp.bits.write_enable := w_en
 
     dim_N := io.cmd.bits.rs1(15,0)
+
+    io.left.in.ready := false.B
+    io.right.in.ready := false.B
+    io.up.in.ready := false.B
+    io.bottom.in.ready := false.B
     
     when(load_signal && !stall_resp){
       state := do_load
@@ -514,6 +534,11 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     io.resp.bits.data := resp_value
 
     io.resp.bits.write_enable := w_en
+
+    io.left.in.ready := false.B
+    io.right.in.ready := false.B
+    io.up.in.ready := false.B
+    io.bottom.in.ready := false.B
     
     when(stall_resp){
       state := stall_state
@@ -544,7 +569,7 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     io.cmd.ready := false.B
     io.resp.valid := false.B
     //io.resp.bits.data := resp_value
-    io.resp.bits.data := 30.U
+    io.resp.bits.data := 31.U
 
     io.resp.bits.write_enable := false.B
     
