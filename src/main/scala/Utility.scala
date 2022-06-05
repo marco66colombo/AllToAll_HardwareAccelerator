@@ -19,6 +19,7 @@ class InputMux(val indexWidth : Int) extends Bundle{
     val y_0 = UInt(indexWidth.W)
     val x_dest = UInt(indexWidth.W)
     val y_dest = UInt(indexWidth.W)
+    val pos = UInt(16.W)
 }
 
 class OutputMux(val indexWidth : Int) extends Bundle{
@@ -56,6 +57,7 @@ class MyPriorityMux(val indexWidth : Int) extends Module{
   no_valid_input.bits.y_0 := 0.U
   no_valid_input.bits.x_dest := 0.U
   no_valid_input.bits.y_dest := 0.U
+  no_valid_input.bits.pos := 0.U
 
 
   first.selected := "b0001".U

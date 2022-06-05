@@ -41,14 +41,14 @@ int main(){
     int rd[d];
 
     //manage rs1 values
-    uint32_t leastSignificantWord;
-    uint32_t mostSignificantWord;
+    uint64_t leastSignificantWord;
+    uint64_t mostSignificantWord;
     uint64_t load_value_rs1;
 
     //manage rs2 values
-    uint16_t x_PE;
-    uint16_t y_PE;
-    uint32_t indexMem;
+    uint64_t x_PE;
+    uint64_t y_PE;
+    uint64_t indexMem;
     uint64_t load_value_rs2;
 
     //populate load rs1,rs2 values
@@ -137,167 +137,8 @@ int main(){
         }
     }
 
-
-/*
-    for(int i=0; i<p; i++){
-        for(int j=0; j<p; j++){
-            //populate rs1 with expected values after the AllToAll
-            mostSignificantWord = i;
-            leastSignificantWord = j;
-            load_value_rs1 = (uint64_t) mostSignificantWord << 32 | leastSignificantWord;
-            rs1[(i*p)+j] = (unsigned long int) load_value_rs1;
-
-            //populate rs2 with expected values after the AllToAll
-            x_PE = x_coord(i);
-            y_PE = y_coord(i);
-            //result of AllToAll are stored p positions (N*N) -> different memory space between data before and after AllToAll
-            indexMem = j + p;
-            load_value_rs2 = (uint64_t) indexMem << 32 | y_PE << 16 | x_PE;
-            rs2[(i*p)+j] = (unsigned long int) load_value_rs2;
-        }
-    }
-*/
-
-/*
-    for(int i=0; i<p; i++){
-        for(int j=0; j<p; j++){
-            mostSignificantWord = i;
-            leastSignificantWord = j;
-            load_value_rs1 = (uint64_t) mostSignificantWord << 32 | leastSignificantWord;
-            printf("\nresult_%u is: load response %u, expected %u", (i*p)+j, rd[(i*p)+j], rs1[(i*p)+j]);
-        }
-    }
-*/
-
-    
-
     printf("\nEnd simulation");
 
 
     return 0;
 }
-///////////////////////////////////////////
-/*
-    //populate load rs1,rs2 values
-    for(unsigned int i=0; i<p; i++){
-        mostSignificantWord = i;
-
-        for(unsigned int j=0; j<p; j++){
-            leastSignificantWord = (uint32_t)j;
-            load_value_rs1 = (uint64_t) mostSignificantWord << 32 | leastSignificantWord;
-            x_PE = x_coord(i);
-            y_PE = y_coord(i);
-            indexMem = j;
-            load_value_rs2 = (uint64_t) indexMem << 32 | y_PE << 16 | x_PE;
-            rs1[(i*p)+j] =  load_value_rs1;
-            rs2[(i*p)+j] = load_value_rs2;
-            rd[(i*p)+j] = 0;
-        }
-    }
-
-    FILE *f;
-    f = fopen("testPrintLoad.txt", "w");
-
-
-    for(int i=0; i<p; i++){
-        for(int j=0; j<p; j++){
-            fprintf(f,   //"\npoke(c.io.cmd.valid, true.B)"
-              //"\npoke(c.io.cmd.bits.inst.funct, \"b0000001\".U)"
-              //"\npoke(c.io.cmd.bits.inst.opcode, \"b0001011\".U)"
-              //"\npoke(c.io.cmd.bits.inst.rd, 3.U)"
-              "\npoke(c.io.cmd.bits.rs1, %" PRIu64 "L.U)"
-              "\npoke(c.io.cmd.bits.rs2,  %" PRIu64 "L.U)"
-              "\nstep(1)",
-              rs1[(i*p)+j],rs2[(i*p)+j]);
-        }
-
-    }
-
-    fclose(f);
-
-
-
-
-/////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //creo valori di rs2 da cui fare store
-    for(unsigned int i=0; i<p; i++){
-
-        for(unsigned int j=0; j<p; j++){
-            //populate rs2 with expected values after the AllToAll
-            x_PE = x_coord(i);
-            y_PE = y_coord(i);
-            //result of AllToAll are stored p positions (N*N) -> different memory space between data before and after AllToAll
-            indexMem = j + p;
-            load_value_rs2 = (uint64_t) indexMem << 32 | y_PE << 16 | x_PE;
-            rs2[(i*p)+j] =  load_value_rs2;
-        }
-    }
-
-    // I VALORI CHE LEGGO, PER OGNI PE, SARANNO N-PE (QUINDI AUMENTA SEQUENZIALMENTE) - INDIRIZZO DOVE ERANO SALVATI I DATI (== NUMERO DELLA PE)
-    for(unsigned int i=0; i<p; i++){
-        leastSignificantWord = i;
-        for(unsigned int j=0; j<p; j++){
-            //populate rs1 with expected values after the AllToAll
-            mostSignificantWord = j;
-            load_value_rs1 = (uint64_t) mostSignificantWord << 32 | leastSignificantWord;
-            rs1[(i*p)+j] = load_value_rs1;
-        }
-    }
-
-    FILE *f1;
-    f1 = fopen("testPrintStore.txt", "w");
-
-
-    for(int i=0; i<p; i++){
-        for(int j=0; j<p; j++){
-            fprintf(f1,     //"\nexpect(c.io.cmd.ready, true.B)"
-                            //"\nexpect(c.io.resp.valid, false.B)"
-                            //"\nexpect(c.io.resp.bits.data, 0.U)"
-                            //"\nexpect(c.io.busy, false.B)"
-
-                            "\npoke(c.io.cmd.valid, true.B)"
-                            //"\npoke(c.io.cmd.bits.inst.funct, \"b0000010\".U)"
-                            //"\npoke(c.io.cmd.bits.inst.opcode, \"b0001011\".U)"
-                            "\npoke(c.io.cmd.bits.rs2,  %" PRIu64 "L.U)"
-
-                            "\nstep(1)"
-
-                            //"\nexpect(c.io.cmd.ready, false.B)"
-                            //"\nexpect(c.io.resp.valid, false.B)"
-                            //"\nexpect(c.io.resp.bits.data, 33.U)"
-                            //"\nexpect(c.io.busy, true.B)"
-                            "\npoke(c.io.cmd.valid, false.B)"
-
-                            "\nstep(1)"
-
-                            //"\nexpect(c.io.cmd.ready, true.B)"
-                            "\nexpect(c.io.resp.valid, true.B)"
-                            "\nexpect(c.io.resp.bits.data, %" PRIu64 "L.U)"
-                            //"\nexpect(c.io.busy, false.B) "
-                            "\npoke(c.io.cmd.valid, false.B)"
-
-                            "\nstep(1)",
-
-                    rs2[(i*p)+j],rs1[(i*p)+j]);
-        }
-
-    }
-
-    fclose(f1);
-
-
-    */

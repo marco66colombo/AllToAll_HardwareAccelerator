@@ -19,11 +19,11 @@ class IndexCalculator(numberPE: Int, val indexWidth: Int) extends Module{
         val reset = Input(Bool())
         val enable = Input(Bool())
         val last_index = Output(Bool())
-        val index = Output(Bits((indexWidth*2 + 1).W))
+        val index = Output(Bits((indexWidth*2 + 2).W))
     }) 
     
     //+1 because it counts from 0 to nPE, not from 0 to nPE-1
-    val counter = Reg(UInt((indexWidth*2 + 1).W))
+    val counter = Reg(UInt((indexWidth*2 + 2).W))
     
     when (io.enable) {
 
@@ -49,10 +49,10 @@ class IndexCalculatorV1(n: Int, n_PE: Int, val indexWidth: Int) extends Module{
         //number or rows (of 64 bits) to be exchanged for each PE
         val dim_N = Input(Bits(16.W))
 
-        val index0 = Output(Bits((indexWidth*2 + 1).W))
-        val index1 = Output(Bits((indexWidth*2 + 1).W))
-        val index2 = Output(Bits((indexWidth*2 + 1).W))
-        val index3 = Output(Bits((indexWidth*2 + 1).W))
+        val index0 = Output(Bits((indexWidth*2 + 2).W))
+        val index1 = Output(Bits((indexWidth*2 + 2).W))
+        val index2 = Output(Bits((indexWidth*2 + 2).W))
+        val index3 = Output(Bits((indexWidth*2 + 2).W))
 
         //says whether the index_i is a valid index or not
         val valid0 = Output(Bool())
@@ -81,7 +81,7 @@ class IndexCalculatorV1(n: Int, n_PE: Int, val indexWidth: Int) extends Module{
     }) 
 
     
-    val dim_N = Reg(Bits(8.W))
+    val dim_N = Reg(Bits(16.W))
 
     //val counter_PE = Reg(UInt((indexWidth*2 + 1).W))
     val counter_PE = Reg(UInt((32).W))
@@ -117,10 +117,16 @@ class IndexCalculatorV1(n: Int, n_PE: Int, val indexWidth: Int) extends Module{
     io.index3 := (counter_PE+3.U) * dim_N + counter_offset
 
     //useful when n is not a multiple of 4, so in the last iteration some output addresses are not valid
+    /*
     io.valid0 := counter_PE * dim_N <= (n_PE-1).U
     io.valid1 := (counter_PE+1.U) * dim_N <= (n_PE-1).U
     io.valid2 := (counter_PE+2.U) * dim_N <= (n_PE-1).U
     io.valid3 := (counter_PE+3.U) * dim_N <= (n_PE-1).U
+    */
+    io.valid0 := counter_PE <= (n_PE-1).U
+    io.valid1 := (counter_PE+1.U) <= (n_PE-1).U
+    io.valid2 := (counter_PE+2.U) <= (n_PE-1).U
+    io.valid3 := (counter_PE+3.U) <= (n_PE-1).U
 
     def compute_x_coord(i: UInt): UInt = (i % n.U)
     //def compute_y_coord(i: UInt): UInt = ((n-1).U - (i / n.U))

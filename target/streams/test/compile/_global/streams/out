@@ -1,19 +1,4 @@
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/test/scala/AllToAllTest.scala:1716:19: value busy is not a member of chisel3.util.DecoupledIO[hppsProject.RoCCCommandWrapper][0m
-[0m[[0m[31merror[0m] [0m[0m  expect(c.io.cmd.busy, true.B)[0m
-[0m[[0m[31merror[0m] [0m[0m                  ^[0m
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/test/scala/AllToAllTest.scala:1721:19: value busy is not a member of chisel3.util.DecoupledIO[hppsProject.RoCCCommandWrapper][0m
-[0m[[0m[31merror[0m] [0m[0m  expect(c.io.cmd.busy, true.B)[0m
-[0m[[0m[31merror[0m] [0m[0m                  ^[0m
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/test/scala/AllToAllTest.scala:1725:19: value busy is not a member of chisel3.util.DecoupledIO[hppsProject.RoCCCommandWrapper][0m
-[0m[[0m[31merror[0m] [0m[0m  expect(c.io.cmd.busy, true.B)[0m
-[0m[[0m[31merror[0m] [0m[0m                  ^[0m
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/test/scala/AllToAllTest.scala:1729:19: value busy is not a member of chisel3.util.DecoupledIO[hppsProject.RoCCCommandWrapper][0m
-[0m[[0m[31merror[0m] [0m[0m  expect(c.io.cmd.busy, true.B)[0m
-[0m[[0m[31merror[0m] [0m[0m                  ^[0m
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/test/scala/AllToAllTest.scala:1734:19: value busy is not a member of chisel3.util.DecoupledIO[hppsProject.RoCCCommandWrapper][0m
-[0m[[0m[31merror[0m] [0m[0m  expect(c.io.cmd.busy, true.B)[0m
-[0m[[0m[31merror[0m] [0m[0m                  ^[0m
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/test/scala/AllToAllTest.scala:1738:19: value busy is not a member of chisel3.util.DecoupledIO[hppsProject.RoCCCommandWrapper][0m
-[0m[[0m[31merror[0m] [0m[0m  expect(c.io.cmd.busy, true.B)[0m
-[0m[[0m[31merror[0m] [0m[0m                  ^[0m
-[0m[[0m[31merror[0m] [0m[0m6 errors found[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/test/scala/testAllToAll.scala:2003:7: testN2_dim2 is already defined as class testN2_dim2[0m
+[0m[[0m[31merror[0m] [0m[0mclass testN2_dim2(c: AllToAll1) extends PeekPokeTester(c) {[0m
+[0m[[0m[31merror[0m] [0m[0m      ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m

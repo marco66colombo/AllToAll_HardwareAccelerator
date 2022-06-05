@@ -39,6 +39,7 @@ class OutputPE(val indexWidth: Int) extends Bundle{
   val y_0 = Bits(indexWidth.W)
   val x_dest = Bits(indexWidth.W)
   val y_dest = Bits(indexWidth.W)
+  val pos = Bits(16.W)
 }
 
 

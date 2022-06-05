@@ -25,10 +25,17 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
   //It represents the number of the PE -> at most 2^16 PE -> n of mesh max 2^8 = 256
   val x_coord = RegInit(UInt(bitsWidth.W),x.U)
   val y_coord = RegInit(UInt(bitsWidth.W),y.U)
-  val offset = RegInit((n*n).U(32.W))
+  
   //VA MODIFICATO SE N!= 1
   //val index_write_this_PE = RegInit(13.U)
-  val index_write_this_PE = RegInit((x + y*n + n*n).U(32.W))
+
+  val dim_N = Reg(Bits(16.W))
+  //val offset = RegInit((n*n).U(32.W))
+  val offset = Reg(UInt(32.W))
+  //offset := (n*n).U * dim_N
+  //val index_write_this_PE = RegInit((x + y*n + n*n).U(32.W))
+  val index_write_this_PE = Reg(UInt(32.W))
+  //index_write_this_PE := ((x+y*n).U * dim_N + offset)
   
   //store rs1 and rs2 values and keep for all the cycle
   val rs1 = Reg(Bits(64.W))
@@ -37,7 +44,6 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
   rs1 := io.cmd.bits.rs1
   rs2 := io.cmd.bits.rs2
 
-  val dim_N = Reg(Bits(16.W))
 
   val end_push_data = Reg(Bool())
 
@@ -73,12 +79,13 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-  val index_calcualtor = Module(new IndexCalculatorV1(n,n*n,log2Up(n)))
+  val index_calcualtor = Module(new IndexCalculatorV1(n,n*n,bitsWidth))
 
   val read_values = Reg(Vec(4, Bits(64.W)))
   val read_values_valid = RegInit(VecInit(Seq.fill(4)(false.B)))
   val read_x_dest = Reg(Vec(4,UInt(bitsWidth.W)))
   val read_y_dest = Reg(Vec(4,UInt(bitsWidth.W)))
+  val read_pos = Reg(Vec(4,UInt(16.W)))
 
   val this_PE_generation_0= (read_x_dest(0) === x_coord) && (read_y_dest(0) === y_coord)
   val this_PE_generation_1= (read_x_dest(1) === x_coord) && (read_y_dest(1) === y_coord)
@@ -172,19 +179,23 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
   //when a message in input has as destination the current PE, that message must be written in memory and not forwarded
   //write into mem at index + n*n
   when(left_dispatcher.io.this_PE){
-    memPE(left_in.bits.x_0 + left_in.bits.y_0 * n.U + offset) := left_in.bits.data
+    //memPE(left_in.bits.x_0 + left_in.bits.y_0 * n.U + offset) := left_in.bits.data
+    memPE((left_in.bits.x_0 + left_in.bits.y_0 * n.U)*dim_N + left_in.bits.pos + offset) := left_in.bits.data
   }
 
   when(right_dispatcher.io.this_PE){
-    memPE(right_in.bits.x_0 + right_in.bits.y_0 * n.U + offset) := right_in.bits.data
+    //memPE(right_in.bits.x_0 + right_in.bits.y_0 * n.U + offset) := right_in.bits.data
+    memPE((right_in.bits.x_0 + right_in.bits.y_0 * n.U)*dim_N + right_in.bits.pos + offset) := right_in.bits.data
   }
 
   when(up_dispatcher.io.this_PE){
-    memPE(up_in.bits.x_0 + up_in.bits.y_0 * n.U + offset) := up_in.bits.data
+    //memPE(up_in.bits.x_0 + up_in.bits.y_0 * n.U + offset) := up_in.bits.data
+    memPE((up_in.bits.x_0 + up_in.bits.y_0 * n.U)*dim_N + up_in.bits.pos + offset) := up_in.bits.data
   }
 
   when(bottom_dispatcher.io.this_PE){
-    memPE(bottom_in.bits.x_0 + bottom_in.bits.y_0 * n.U + offset) := bottom_in.bits.data
+    //memPE(bottom_in.bits.x_0 + bottom_in.bits.y_0 * n.U + offset) := bottom_in.bits.data
+    memPE((bottom_in.bits.x_0 + bottom_in.bits.y_0 * n.U)*dim_N + bottom_in.bits.pos + offset) := bottom_in.bits.data
   }
 
   //modules that implements a priority multiplexer
@@ -209,24 +220,28 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
   left_mux.io.in_bits(0).y_0 := y_coord
   left_mux.io.in_bits(0).x_dest := read_x_dest(0)
   left_mux.io.in_bits(0).y_dest := read_y_dest(0)
+  left_mux.io.in_bits(0).pos := read_pos(0)
   
   left_mux.io.in_bits(1).data := read_values(1)
   left_mux.io.in_bits(1).x_0 := x_coord
   left_mux.io.in_bits(1).y_0 := y_coord
   left_mux.io.in_bits(1).x_dest := read_x_dest(1)
   left_mux.io.in_bits(1).y_dest := read_y_dest(1)
+  left_mux.io.in_bits(1).pos := read_pos(1)
 
   left_mux.io.in_bits(2).data := read_values(2)
   left_mux.io.in_bits(2).x_0 := x_coord
   left_mux.io.in_bits(2).y_0 := y_coord
   left_mux.io.in_bits(2).x_dest := read_x_dest(2)
   left_mux.io.in_bits(2).y_dest := read_y_dest(2)
+  left_mux.io.in_bits(2).pos := read_pos(2)
 
   left_mux.io.in_bits(3).data := read_values(3)
   left_mux.io.in_bits(3).x_0 := x_coord
   left_mux.io.in_bits(3).y_0 := y_coord
   left_mux.io.in_bits(3).x_dest := read_x_dest(3)
   left_mux.io.in_bits(3).y_dest := read_y_dest(3)
+  left_mux.io.in_bits(3).pos := read_pos(3)
 
   //right out queue
   right_mux.io.valid(0) := read_values_valid(0) && generation_dispatcher_0.io.right && !this_PE_generation_0
@@ -239,24 +254,28 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
   right_mux.io.in_bits(0).y_0 := y_coord
   right_mux.io.in_bits(0).x_dest := read_x_dest(0)
   right_mux.io.in_bits(0).y_dest := read_y_dest(0)
+  right_mux.io.in_bits(0).pos := read_pos(0)
   
   right_mux.io.in_bits(1).data := read_values(1)
   right_mux.io.in_bits(1).x_0 := x_coord
   right_mux.io.in_bits(1).y_0 := y_coord
   right_mux.io.in_bits(1).x_dest := read_x_dest(1)
   right_mux.io.in_bits(1).y_dest := read_y_dest(1)
+  right_mux.io.in_bits(1).pos := read_pos(1)
 
   right_mux.io.in_bits(2).data := read_values(2)
   right_mux.io.in_bits(2).x_0 := x_coord
   right_mux.io.in_bits(2).y_0 := y_coord
   right_mux.io.in_bits(2).x_dest := read_x_dest(2)
   right_mux.io.in_bits(2).y_dest := read_y_dest(2)
+  right_mux.io.in_bits(2).pos := read_pos(2)
 
   right_mux.io.in_bits(3).data := read_values(3)
   right_mux.io.in_bits(3).x_0 := x_coord
   right_mux.io.in_bits(3).y_0 := y_coord
   right_mux.io.in_bits(3).x_dest := read_x_dest(3)
   right_mux.io.in_bits(3).y_dest := read_y_dest(3)
+  right_mux.io.in_bits(3).pos := read_pos(3)
 
   //up out queue
   up_mux.io.valid(0) := read_values_valid(0) && generation_dispatcher_0.io.up && !this_PE_generation_0
@@ -269,24 +288,28 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
   up_mux.io.in_bits(0).y_0 := y_coord
   up_mux.io.in_bits(0).x_dest := read_x_dest(0)
   up_mux.io.in_bits(0).y_dest := read_y_dest(0)
+  up_mux.io.in_bits(0).pos := read_pos(0)
   
   up_mux.io.in_bits(1).data := read_values(1)
   up_mux.io.in_bits(1).x_0 := x_coord
   up_mux.io.in_bits(1).y_0 := y_coord
   up_mux.io.in_bits(1).x_dest := read_x_dest(1)
   up_mux.io.in_bits(1).y_dest := read_y_dest(1)
+  up_mux.io.in_bits(1).pos := read_pos(1)
 
   up_mux.io.in_bits(2).data := read_values(2)
   up_mux.io.in_bits(2).x_0 := x_coord
   up_mux.io.in_bits(2).y_0 := y_coord
   up_mux.io.in_bits(2).x_dest := read_x_dest(2)
   up_mux.io.in_bits(2).y_dest := read_y_dest(2)
+  up_mux.io.in_bits(2).pos := read_pos(2)
 
   up_mux.io.in_bits(3).data := read_values(3)
   up_mux.io.in_bits(3).x_0 := x_coord
   up_mux.io.in_bits(3).y_0 := y_coord
   up_mux.io.in_bits(3).x_dest := read_x_dest(3)
   up_mux.io.in_bits(3).y_dest := read_y_dest(3)
+  up_mux.io.in_bits(3).pos := read_pos(3)
 
   //bottom out queue
   bottom_mux.io.valid(0) := read_values_valid(0) && generation_dispatcher_0.io.bottom && !this_PE_generation_0
@@ -299,24 +322,28 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
   bottom_mux.io.in_bits(0).y_0 := y_coord
   bottom_mux.io.in_bits(0).x_dest := read_x_dest(0)
   bottom_mux.io.in_bits(0).y_dest := read_y_dest(0)
+  bottom_mux.io.in_bits(0).pos := read_pos(0)
   
   bottom_mux.io.in_bits(1).data := read_values(1)
   bottom_mux.io.in_bits(1).x_0 := x_coord
   bottom_mux.io.in_bits(1).y_0 := y_coord
   bottom_mux.io.in_bits(1).x_dest := read_x_dest(1)
   bottom_mux.io.in_bits(1).y_dest := read_y_dest(1)
+  bottom_mux.io.in_bits(1).pos := read_pos(1)
 
   bottom_mux.io.in_bits(2).data := read_values(2)
   bottom_mux.io.in_bits(2).x_0 := x_coord
   bottom_mux.io.in_bits(2).y_0 := y_coord
   bottom_mux.io.in_bits(2).x_dest := read_x_dest(2)
   bottom_mux.io.in_bits(2).y_dest := read_y_dest(2)
+  bottom_mux.io.in_bits(2).pos := read_pos(2)
 
   bottom_mux.io.in_bits(3).data := read_values(3)
   bottom_mux.io.in_bits(3).x_0 := x_coord
   bottom_mux.io.in_bits(3).y_0 := y_coord
   bottom_mux.io.in_bits(3).x_dest := read_x_dest(3)
   bottom_mux.io.in_bits(3).y_dest := read_y_dest(3)
+  bottom_mux.io.in_bits(3).pos := read_pos(3)
 
 
   /*
@@ -558,6 +585,8 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     //w_en := false.B
     io.resp.bits.write_enable := false.B
 
+    offset := (n*n).U * dim_N
+
     end_push_data := false.B
 
     state := wait_action_resp
@@ -570,6 +599,8 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     io.resp.valid := false.B
     //io.resp.bits.data := resp_value
     io.resp.bits.data := 31.U
+
+    index_write_this_PE := ((x+y*n).U * dim_N + offset)
 
     io.resp.bits.write_enable := false.B
     
@@ -659,6 +690,11 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
       read_y_dest(2) := index_calcualtor.io.y_dest_2
       read_y_dest(3) := index_calcualtor.io.y_dest_3
 
+      read_pos(0) := index_calcualtor.io.pos_0
+      read_pos(1) := index_calcualtor.io.pos_1
+      read_pos(2) := index_calcualtor.io.pos_2
+      read_pos(3) := index_calcualtor.io.pos_3
+
     }.otherwise{
 
       index_calcualtor.io.enable := false.B
@@ -694,16 +730,16 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     
 
       when(this_PE_generation_0){
-        memPE(index_write_this_PE) := read_values(0)
+        memPE(index_write_this_PE + read_pos(0)) := read_values(0)
       }
       when(this_PE_generation_1){
-        memPE(index_write_this_PE) := read_values(1)
+        memPE(index_write_this_PE + read_pos(1)) := read_values(1)
       }
       when(this_PE_generation_2){
-        memPE(index_write_this_PE) := read_values(2)
+        memPE(index_write_this_PE + read_pos(2)) := read_values(2)
       }
       when(this_PE_generation_3){
-        memPE(index_write_this_PE) := read_values(3)
+        memPE(index_write_this_PE + read_pos(3)) := read_values(3)
       }
 
     }
