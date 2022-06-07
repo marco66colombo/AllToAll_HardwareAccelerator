@@ -37,6 +37,10 @@ class AllToAllMeshTester(c: AllToAllMesh) extends PeekPokeTester(c) {
     expect(c.io.resp.valid, false.B)
     expect(c.io.resp.bits.data, 0.U)
 
+    while(peek(c.io.resp.valid) != 0) {
+      print("looping")
+    }
+
 }
 
 //load and then store the same value

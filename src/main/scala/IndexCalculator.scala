@@ -19,7 +19,7 @@ class IndexCalculator(numberPE: Int, val indexWidth: Int) extends Module{
         val reset = Input(Bool())
         val enable = Input(Bool())
         val last_index = Output(Bool())
-        val index = Output(Bits((indexWidth*2 + 2).W))
+        val index = Output(Bits((32.W).W))
     }) 
     
     //+1 because it counts from 0 to nPE, not from 0 to nPE-1
@@ -49,10 +49,10 @@ class IndexCalculatorV1(n: Int, n_PE: Int, val indexWidth: Int) extends Module{
         //number or rows (of 64 bits) to be exchanged for each PE
         val dim_N = Input(Bits(16.W))
 
-        val index0 = Output(Bits((indexWidth*2 + 2).W))
-        val index1 = Output(Bits((indexWidth*2 + 2).W))
-        val index2 = Output(Bits((indexWidth*2 + 2).W))
-        val index3 = Output(Bits((indexWidth*2 + 2).W))
+        val index0 = Output(Bits(32.W))
+        val index1 = Output(Bits(32.W))
+        val index2 = Output(Bits(32.W))
+        val index3 = Output(Bits(32.W))
 
         //says whether the index_i is a valid index or not
         val valid0 = Output(Bool())

@@ -1,4 +1,11 @@
-[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/test/scala/testAllToAll.scala:2003:7: testN2_dim2 is already defined as class testN2_dim2[0m
-[0m[[0m[31merror[0m] [0m[0mclass testN2_dim2(c: AllToAll1) extends PeekPokeTester(c) {[0m
-[0m[[0m[31merror[0m] [0m[0m      ^[0m
-[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/test/scala/AllToAllN_6.scala:181:23: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : hppsProject.AllToAll6[0m
+[0m[[0m[31merror[0m] [0m[0m required: hppsProject.AllToAll5[0m
+[0m[[0m[31merror[0m] [0m[0m      c => new testN6(c)[0m
+[0m[[0m[31merror[0m] [0m[0m                      ^[0m
+[0m[[0m[31merror[0m] [0m[0m/root/chipyard/generators/hppsProject/src/test/scala/AllToAllN_6.scala:181:12: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : hppsProject.testN6[0m
+[0m[[0m[31merror[0m] [0m[0m required: chisel3.iotesters.PeekPokeTester[hppsProject.AllToAll6][0m
+[0m[[0m[31merror[0m] [0m[0m      c => new testN6(c)[0m
+[0m[[0m[31merror[0m] [0m[0m           ^[0m
+[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m

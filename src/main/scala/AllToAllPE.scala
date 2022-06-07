@@ -12,7 +12,7 @@ import freechips.rocketchip.util.InOrderArbiter
 
 class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) extends Module{
 
-  var bitsWidth = log2Up(n)+1
+  var bitsWidth = log2Up(n)
   
   val io = IO(new AllToAllPEIO(bitsWidth))
 
