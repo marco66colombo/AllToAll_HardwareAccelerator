@@ -69,7 +69,6 @@ class MyPriorityMux(val indexWidth : Int) extends Module{
 
 
   val myseq1 = Seq(io.valid(0),io.valid(1),io.valid(2),io.valid(3),true.B)
-  //val myseq2 = Seq(io.in_bits(0), io.in_bits(1), io.in_bits(2), io.in_bits(3), io.in_bits(3))
   val myseq2 = Seq(first, second, third, fourth, no_valid_input)
 
   val mux1 = PriorityMux(myseq1,myseq2)
@@ -78,34 +77,5 @@ class MyPriorityMux(val indexWidth : Int) extends Module{
 
   val no_valid = !io.valid(0) && !io.valid(1) && !io.valid(2) && !io.valid(3)
   io.out_valid := Mux(no_valid, false.B, true.B)
-
-    
+  
 }
-
-
-
-
-/*
-  val left_0_mux = PriorityMux(Seq(
-    generation_dispatcher_0.io.left && read_values_valid(0) -> Seq(1.U,read_values(0),index_calcualtor.io.x_dest_0,index_calcualtor.io.y_dest_0),
-    generation_dispatcher_1.io.left && read_values_valid(1) -> Seq(true.B,read_values(1),index_calcualtor.io.x_dest_1,index_calcualtor.io.y_dest_1),
-    generation_dispatcher_2.io.left && read_values_valid(2) -> Seq(true.B,read_values(2),index_calcualtor.io.x_dest_2,index_calcualtor.io.y_dest_2),
-    generation_dispatcher_3.io.left && read_values_valid(3) -> Seq(true.B,read_values(3),index_calcualtor.io.x_dest_3,index_calcualtor.io.y_dest_3),
-    !read_values(0) && !read_values(1) && !read_values(2) && !read_values(3) -> Seq(false.B, 0.U,0.U,0.U)
-  ))
-
-
-  val myseq1 = Seq((generation_dispatcher_0.io.left && read_values_valid(0)), (generation_dispatcher_1.io.left && read_values_valid(1)),(generation_dispatcher_2.io.left && read_values_valid(2)),(generation_dispatcher_3.io.left && read_values_valid(3)))
-  /*val myseq2 = Seq(Seq(1.U,read_values(0),index_calcualtor.io.x_dest_0,index_calcualtor.io.y_dest_0),
-    Seq(1.U,read_values(1),index_calcualtor.io.x_dest_1,index_calcualtor.io.y_dest_1),
-    Seq(1.U,read_values(2),index_calcualtor.io.x_dest_2,index_calcualtor.io.y_dest_2),
-    Seq(1.U,read_values(3),index_calcualtor.io.x_dest_3,index_calcualtor.io.y_dest_3))
-*/
-  val myseq2 = Seq(1.U,2.U,3.U,4.U)
-
-  val left_0_mux = PriorityMux(myseq1,myseq2)
-
-*/  
-
-
-

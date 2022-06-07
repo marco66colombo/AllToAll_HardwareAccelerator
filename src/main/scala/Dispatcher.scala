@@ -155,7 +155,7 @@ class Dispatcher(val indexWidth: Int) extends Module{
     val oddResult_y = x_PE_transl_odd ^ y_PE_transl_odd ^ uFactor_y
 
     //case (x_PE,y_PE) not on axis -> use standard forward rule
-    when(io.x_PE != io.x_0 && io.y_PE != io.y_0){
+    when(io.x_PE =/= io.x_0 && io.y_PE =/= io.y_0){
 
         when(oddResult_x && !sign_delta_x){
             //RIGHT

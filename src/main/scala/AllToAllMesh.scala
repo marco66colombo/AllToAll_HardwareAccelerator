@@ -50,7 +50,6 @@ class AllToAllMesh(n : Int, cacheSize : Int, queueSize: Int) extends Module{
     val zero64 =  0.U(64.W)
     val zeroValue =  0.U
 
-
     var vector1 = Seq[AllToAllPE]()
     /*
     for(i<-0 to (n*n)-1){
@@ -69,18 +68,6 @@ class AllToAllMesh(n : Int, cacheSize : Int, queueSize: Int) extends Module{
 
         }
     }
-    */
-
-    /*
-    def upLeftCorner(i: Int): Boolean = (i == 0)
-    def upRightCorner(i: Int): Boolean = (i == (n-1))
-    def bottomLeftCorner(i: Int): Boolean = (i == ((n*n)-n))
-    def bottomRightCorner(i: Int): Boolean = (i == ((n*n)-1))
-
-    def up(i: Int): Boolean = ( i > 0 && i < n-1)
-    def bottom(i: Int): Boolean = (i > ((n*n)-n) && i < ((n*n)-1))
-    def left(i: Int): Boolean = (!upLeftCorner(i) && !bottomLeftCorner(i) && (i%n == 0))
-    def right(i: Int): Boolean = (!upRightCorner(i) && !bottomRightCorner(i) && (i%n == (n-1)))
     */
 
     def upLeftCorner(i: Int): Boolean = (i == ((n*n)-n))

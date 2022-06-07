@@ -4,12 +4,9 @@ import freechips.rocketchip.tile._
 import hppsProject._
 import chisel3._
 import chisel3.util._
-import chisel3.util.HasBlackBoxResource
 import chisel3.experimental.IntParam
 import freechips.rocketchip.config._
 import freechips.rocketchip.diplomacy._
-import freechips.rocketchip.rocket._
-import freechips.rocketchip.tilelink._
 import freechips.rocketchip.util.InOrderArbiter
 
 
@@ -26,26 +23,15 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
   val x_coord = RegInit(UInt(bitsWidth.W),x.U)
   val y_coord = RegInit(UInt(bitsWidth.W),y.U)
   
-  //VA MODIFICATO SE N!= 1
-  //val index_write_this_PE = RegInit(13.U)
-
   val dim_N = Reg(Bits(16.W))
-  //val offset = RegInit((n*n).U(32.W))
   val offset = Reg(UInt(32.W))
-  //offset := (n*n).U * dim_N
-  //val index_write_this_PE = RegInit((x + y*n + n*n).U(32.W))
   val index_write_this_PE = Reg(UInt(32.W))
-  //index_write_this_PE := ((x+y*n).U * dim_N + offset)
   
   //store rs1 and rs2 values and keep for all the cycle
   val rs1 = Reg(Bits(64.W))
   val rs2 = Reg(Bits(64.W))
-
   rs1 := io.cmd.bits.rs1
   rs2 := io.cmd.bits.rs2
-
-
-  val end_push_data = Reg(Bool())
 
   //notify when the response is ready
   val w_en = RegInit(Bool(),false.B)
@@ -63,24 +49,16 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
   /*
     transitions values
   */
-
-  //da togliere
-  //IF CONTROLLER STALLS WAITING FOR THE RESP.READY OF PROCESSOR -> IO.CMD.VALID = FALSE -> FOR SURE NO NEW CMD
-
   val is_this_PE = (x_value === x_coord) && (y_value === y_coord)
   val load_signal = io.cmd.valid && io.cmd.bits.load 
   val store_signal = io.cmd.valid && io.cmd.bits.store 
   val allToAll_signal = io.cmd.valid && io.cmd.bits.doAllToAll 
-  //need to respond but cannot
   val stall_resp = !io.resp.ready && io.resp.valid
   val start_AllToAll = state === action
 
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
   val index_calcualtor = Module(new IndexCalculatorV1(n,n*n,bitsWidth))
 
+  val end_push_data = Reg(Bool())
   val read_values = Reg(Vec(4, Bits(64.W)))
   val read_values_valid = RegInit(VecInit(Seq.fill(4)(false.B)))
   val read_x_dest = Reg(Vec(4,UInt(bitsWidth.W)))
@@ -94,8 +72,7 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
 
   val do_read = !read_values_valid(0) && !read_values_valid(1) && !read_values_valid(2) && !read_values_valid(3)
 
-
-  ///////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
   //input queues, one for each edge of the PE
@@ -414,31 +391,27 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
   bottom_out_arbiter.io.in(3).bits <> up_in.bits
   bottom_out_arbiter.io.in(3).valid := up_dispatcher.io.bottom && up_in.valid
 
-  //TODO
   //manage ready bits of input queues (queue.io.deq.ready)
   //ready if: the message has to be written in memory or one output queue accepts it
   left_in.ready := left_dispatcher.io.this_PE || 
-                  (left_dispatcher.io.right && right_out_arbiter.io.chosen === 1.U && right_out_arbiter.io.in(1).ready) ||
-                  (left_dispatcher.io.up && up_out_arbiter.io.chosen === 1.U && up_out_arbiter.io.in(1).ready) ||
-                  (left_dispatcher.io.bottom && bottom_out_arbiter.io.chosen === 1.U && bottom_out_arbiter.io.in(1).ready)
+                  (left_dispatcher.io.right && right_out_arbiter.io.in(1).ready) ||
+                  (left_dispatcher.io.up && up_out_arbiter.io.in(1).ready) ||
+                  (left_dispatcher.io.bottom && bottom_out_arbiter.io.in(1).ready)
   
   right_in.ready := right_dispatcher.io.this_PE || 
-                  (right_dispatcher.io.left && left_out_arbiter.io.chosen === 1.U && left_out_arbiter.io.in(1).ready) ||
-                  (right_dispatcher.io.up && up_out_arbiter.io.chosen === 2.U && up_out_arbiter.io.in(2).ready) ||
-                  (right_dispatcher.io.bottom && bottom_out_arbiter.io.chosen === 2.U && bottom_out_arbiter.io.in(2).ready)
+                  (right_dispatcher.io.left && left_out_arbiter.io.in(1).ready) ||
+                  (right_dispatcher.io.up && up_out_arbiter.io.in(2).ready) ||
+                  (right_dispatcher.io.bottom && bottom_out_arbiter.io.in(2).ready)
   
   up_in.ready := up_dispatcher.io.this_PE || 
-                  (up_dispatcher.io.left && left_out_arbiter.io.chosen === 2.U && left_out_arbiter.io.in(2).ready) ||
-                  (up_dispatcher.io.right && right_out_arbiter.io.chosen === 2.U && right_out_arbiter.io.in(2).ready) ||
-                  (up_dispatcher.io.bottom && bottom_out_arbiter.io.chosen === 3.U && bottom_out_arbiter.io.in(3).ready)
+                  (up_dispatcher.io.left && left_out_arbiter.io.in(2).ready) ||
+                  (up_dispatcher.io.right && right_out_arbiter.io.in(2).ready) ||
+                  (up_dispatcher.io.bottom && bottom_out_arbiter.io.in(3).ready)
 
   bottom_in.ready := bottom_dispatcher.io.this_PE || 
-                  (bottom_dispatcher.io.left && left_out_arbiter.io.chosen === 3.U && left_out_arbiter.io.in(3).ready) ||
-                  (bottom_dispatcher.io.right && right_out_arbiter.io.chosen === 3.U && right_out_arbiter.io.in(3).ready) ||
-                  (bottom_dispatcher.io.up && up_out_arbiter.io.chosen === 3.U && up_out_arbiter.io.in(3).ready)
-
-
-
+                  (bottom_dispatcher.io.left && left_out_arbiter.io.in(3).ready) ||
+                  (bottom_dispatcher.io.right && right_out_arbiter.io.in(3).ready) ||
+                  (bottom_dispatcher.io.up && up_out_arbiter.io.in(3).ready)
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -452,11 +425,6 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     w_en := false.B
 
     dim_N := io.cmd.bits.rs1(15,0)
-
-    io.left.in.ready := false.B
-    io.right.in.ready := false.B
-    io.up.in.ready := false.B
-    io.bottom.in.ready := false.B
 
     when(load_signal){
       state := do_load
@@ -486,11 +454,6 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
    
     dim_N := io.cmd.bits.rs1(15,0)
 
-    io.left.in.ready := false.B
-    io.right.in.ready := false.B
-    io.up.in.ready := false.B
-    io.bottom.in.ready := false.B
-
     when(load_signal && !stall_resp){
       state := do_load
     }.elsewhen(store_signal && !stall_resp){
@@ -519,11 +482,6 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
 
     io.resp.bits.write_enable := false.B
 
-    io.left.in.ready := false.B
-    io.right.in.ready := false.B
-    io.up.in.ready := false.B
-    io.bottom.in.ready := false.B
-
     state := store_resp
 
   }.elsewhen(state === store_resp){
@@ -535,12 +493,7 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     io.resp.bits.write_enable := w_en
 
     dim_N := io.cmd.bits.rs1(15,0)
-
-    io.left.in.ready := false.B
-    io.right.in.ready := false.B
-    io.up.in.ready := false.B
-    io.bottom.in.ready := false.B
-    
+  
     when(load_signal && !stall_resp){
       state := do_load
     }.elsewhen(store_signal && !stall_resp){
@@ -561,12 +514,7 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     io.resp.bits.data := resp_value
 
     io.resp.bits.write_enable := w_en
-
-    io.left.in.ready := false.B
-    io.right.in.ready := false.B
-    io.up.in.ready := false.B
-    io.bottom.in.ready := false.B
-    
+  
     when(stall_resp){
       state := stall_state
     }.otherwise{
@@ -578,11 +526,8 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     io.busy := true.B
     io.cmd.ready := false.B
     io.resp.valid := false.B
-    //io.resp.bits.data := resp_value
     io.resp.bits.data := 30.U
 
-    //SERVE???
-    //w_en := false.B
     io.resp.bits.write_enable := false.B
 
     offset := (n*n).U * dim_N
@@ -594,16 +539,13 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
   }.elsewhen(state === wait_action_resp){
     //busy iff at least one edge is busy
     io.busy := (left_busy || right_busy || up_busy || bottom_busy || !end_push_data)
-    //io.busy := false.B
     io.cmd.ready := false.B
     io.resp.valid := false.B
-    //io.resp.bits.data := resp_value
     io.resp.bits.data := 31.U
 
     index_write_this_PE := ((x+y*n).U * dim_N + offset)
 
     io.resp.bits.write_enable := false.B
-    
     
     when (io.end_AllToAll){
       state := action_resp
@@ -633,30 +575,24 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
   //states
   val idle1 :: action1 :: Nil = Enum(2)
 
   val stateAction = RegInit(idle1) 
 
-  //SETTATA NELLA TRANSIZIONE CHE FA ANDARE IN ACTION -> DOVREBBE ESSERE GIUSTO
   index_calcualtor.io.dim_N := dim_N
   
   when(stateAction === idle1){
 
     index_calcualtor.io.enable := true.B
     index_calcualtor.io.reset := true.B
-    //TODO
-    //end_push_data := false.B
-
+    
     read_values_valid(0) := false.B
     read_values_valid(1) := false.B
     read_values_valid(2) := false.B
     read_values_valid(3) := false.B
 
     when(start_AllToAll){
-      //TODO
-      //end_push_data := false.B
       stateAction := action1
     }.otherwise{
       stateAction := idle1
@@ -699,10 +635,10 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
 
       index_calcualtor.io.enable := false.B
 
-      val left_fire = left_out_arbiter.io.chosen === 0.U && left_out_arbiter.io.in(0).ready
-      val right_fire = right_out_arbiter.io.chosen === 0.U && right_out_arbiter.io.in(0).ready
-      val up_fire = up_out_arbiter.io.chosen === 0.U && up_out_arbiter.io.in(0).ready
-      val bottom_fire = bottom_out_arbiter.io.chosen === 0.U && bottom_out_arbiter.io.in(0).ready
+      val left_fire = left_out_arbiter.io.in(0).ready
+      val right_fire = right_out_arbiter.io.in(0).ready
+      val up_fire = up_out_arbiter.io.in(0).ready
+      val bottom_fire = bottom_out_arbiter.io.in(0).ready
     
       read_values_valid(0) := !(((left_mux.io.out_val.selected === "b0001".U) && left_fire) ||
                                 ((right_mux.io.out_val.selected === "b0001".U) && right_fire) ||

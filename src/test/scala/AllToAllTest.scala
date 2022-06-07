@@ -10,7 +10,7 @@ import hppsProject._
 
 class AllToAll() extends LazyRoCCModuleImpWrapper{
   
-  val aTaModule = Module(new AllToAllModule(3,1024,300))
+  val aTaModule = Module(new AllToAllModule(3,1024,5))
 
   //command input
   aTaModule.io.cmd.valid := io.cmd.valid
@@ -40,14 +40,6 @@ class AllToAll() extends LazyRoCCModuleImpWrapper{
   //exception input
   aTaModule.io.exception := io.exception
 
-  
-  /*
-  io.cmd.bits.status := null
-  io.ptw := null
-  io.fpu_req := null
-  io.fpu_resp := null
-  io.mem := null
-  */
 }
 
 
@@ -107,10 +99,6 @@ class AllToAllModuleTester(c: AllToAll) extends PeekPokeTester(c) {
   expect(c.io.interrupt, false.B)
   expect(c.io.busy, false.B) 
 
-
-
-
-  
 }
 
 class testATALoadStore(c: AllToAll) extends PeekPokeTester(c) {
@@ -296,93 +284,12 @@ class testATAStallResp(c: AllToAll) extends PeekPokeTester(c) {
  
 }
 
-/*
-class testATALoadStore(c: AllToAll) extends PeekPokeTester(c) {
-
-  poke(c.io.cmd.valid, false.B) 
-  poke(c.io.cmd.bits.inst.funct, "b0000001".U)
-  poke(c.io.cmd.bits.inst.opcode, "b0001011".U)
-  poke(c.io.cmd.bits.inst.rd, 1.U)
-  poke(c.io.cmd.bits.rs1, 23.U)
-  poke(c.io.cmd.bits.rs2,3.U)
-  poke(c.io.resp.ready, true.B)
-  
-
-  step(1)
-
-  //idle
-  expect(c.io.cmd.ready, true.B)
-  expect(c.io.resp.valid, false.B)
-  expect(c.io.resp.bits.rd,1.U)
-  expect(c.io.resp.bits.data, 0.U)
-  expect(c.io.interrupt, false.B)
-  expect(c.io.busy, false.B) 
-  
-
-  poke(c.io.cmd.valid, true.B) 
-  //load
-  poke(c.io.cmd.bits.inst.funct, "b0000001".U)
-  poke(c.io.cmd.bits.inst.opcode, "b0001011".U)
-  poke(c.io.cmd.bits.inst.rd, 3.U)
-  poke(c.io.cmd.bits.rs1, 24.U)
-  poke(c.io.cmd.bits.rs2,  "b00000000000000000000000000000001_0000000000000001_0000000000000010".U)
-  
-  step(1)
-
-  expect(c.io.cmd.ready, true.B)
-  expect(c.io.resp.valid, true.B)
-  expect(c.io.resp.bits.rd,3.U)
-  expect(c.io.resp.bits.data, 32.U)
-  expect(c.io.interrupt, false.B)
-  expect(c.io.busy, false.B) 
-  
-  poke(c.io.cmd.valid, true.B) 
-  //store
-  poke(c.io.cmd.bits.inst.funct, "b0000010".U)
-  poke(c.io.cmd.bits.inst.opcode, "b0001011".U)
-  poke(c.io.cmd.bits.inst.rd, 5.U)
-  poke(c.io.cmd.bits.rs1, 41.U)
-  poke(c.io.cmd.bits.rs2,  "b00000000000000000000000000000001_0000000000000001_0000000000000010".U)
-
-  step(1)
-
-  expect(c.io.cmd.ready, false.B)
-  expect(c.io.resp.valid, false.B)
-  expect(c.io.resp.bits.rd,5.U)
-  expect(c.io.resp.bits.data, 33.U)
-  expect(c.io.interrupt, false.B)
-  expect(c.io.busy, true.B) 
-
-  poke(c.io.cmd.valid, false.B) 
-
-  step(1)
-
-  expect(c.io.cmd.ready, true.B)
-  expect(c.io.resp.valid, true.B)
-  expect(c.io.resp.bits.rd,5.U)
-  expect(c.io.resp.bits.data, 24.U)
-  expect(c.io.interrupt, false.B)
-  expect(c.io.busy, false.B) 
-
-  poke(c.io.cmd.valid, false.B) 
-
-  step(1)
-  expect(c.io.cmd.ready, true.B)
-  expect(c.io.resp.valid, false.B)
-  expect(c.io.resp.bits.rd,5.U)
-  expect(c.io.resp.bits.data, 0.U)
-  expect(c.io.interrupt, false.B)
-  expect(c.io.busy, false.B)
- 
-}*/
-
 
 class testATA(c: AllToAll) extends PeekPokeTester(c) {
 
   poke(c.io.cmd.valid, false.B) 
   poke(c.io.resp.ready, true.B)
   
-
   step(1)
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -657,7 +564,7 @@ step(1)
   step(1)
   poke(c.io.cmd.valid, false.B)
 
-  step(2000)
+  step(40)
 
   //idle
   expect(c.io.cmd.ready, true.B)

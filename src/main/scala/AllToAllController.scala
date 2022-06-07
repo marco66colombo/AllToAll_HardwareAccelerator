@@ -69,7 +69,8 @@ class AllToAllController extends Module{
   //action opcode is "b0101011"
   //val action_signal = pcmd.valid && pcmd.ready && (pcmd.bits.inst.opcode === "b0101011".U)
   val action_signal = pcmd.valid && pcmd.ready && (pcmd.bits.inst.opcode === "b0001011".U) && (pcmd.bits.inst.funct === "b0000011".U)
-  val done_action_signal = !(io.mesh.busy)
+  //val done_action_signal = !(io.mesh.busy)
+  val done_action_signal = io.mesh.resp.valid
 
   //mem command opcode is "b0001011"
   val mem_cmd = pcmd.valid && pcmd.ready && (pcmd.bits.inst.opcode === "b0001011".U)

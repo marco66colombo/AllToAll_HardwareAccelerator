@@ -1,11 +1,11 @@
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.IndexCalculatorTest, org.scalatest.tools.Framework$$anon$1@4b20f4e, false, [SuiteSelector])[0m
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllTest1, org.scalatest.tools.Framework$$anon$1@4b20f4e, false, [SuiteSelector])[0m
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllControllerTest, org.scalatest.tools.Framework$$anon$1@4b20f4e, false, [SuiteSelector])[0m
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.DispatcherTest, org.scalatest.tools.Framework$$anon$1@4b20f4e, false, [SuiteSelector])[0m
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllTest, org.scalatest.tools.Framework$$anon$1@4b20f4e, false, [SuiteSelector])[0m
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllMeshTest, org.scalatest.tools.Framework$$anon$1@4b20f4e, false, [SuiteSelector])[0m
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllPETest, org.scalatest.tools.Framework$$anon$1@4b20f4e, false, [SuiteSelector])[0m
-[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.UtilityTest, org.scalatest.tools.Framework$$anon$1@4b20f4e, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.DispatcherTest, org.scalatest.tools.Framework$$anon$1@41c2ef35, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllPETest, org.scalatest.tools.Framework$$anon$1@41c2ef35, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllControllerTest, org.scalatest.tools.Framework$$anon$1@41c2ef35, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.UtilityTest, org.scalatest.tools.Framework$$anon$1@41c2ef35, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllTest1, org.scalatest.tools.Framework$$anon$1@41c2ef35, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.IndexCalculatorTest, org.scalatest.tools.Framework$$anon$1@41c2ef35, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllTest, org.scalatest.tools.Framework$$anon$1@41c2ef35, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(hppsProject.AllToAllMeshTest, org.scalatest.tools.Framework$$anon$1@41c2ef35, false, [SuiteSelector])[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mUtilityTest:[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mutility[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- should mux correctly[0m[0m
@@ -45,10 +45,6 @@
 [0m[[0m[0minfo[0m] [0m[0m[32m- should store+resp[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mpeFSMTest[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- should load+store+load+store[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32mstallResp[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should load+store+stall[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32mstallResp[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- should load+stall[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mallToAll1[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- should first attempt[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mallToAll_get_and_save[0m[0m
@@ -84,14 +80,16 @@
 [0m[[0m[0minfo[0m] [0m[0m[32m- should real first test[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mreal_first_test2[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- should real first test[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mtest_n_3_dimN_2[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- should real first test 2[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0mSummary for ScalaCheck not available.[0m
 [0m[[0m[0minfo[0m] [0m[0mScalaTest[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 1 minute, 55 seconds.[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 35[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 2 minutes, 39 seconds.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 34[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 8, aborted 0[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 35, failed 0, canceled 0, ignored 0, pending 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 34, failed 0, canceled 0, ignored 0, pending 0[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mAll tests passed.[0m[0m
-[0m[[0m[0minfo[0m] [0m[0mPassed: Total 35, Failed 0, Errors 0, Passed 35[0m
+[0m[[0m[0minfo[0m] [0m[0mPassed: Total 34, Failed 0, Errors 0, Passed 34[0m
 [0m[[0m[0mdebug[0m] [0m[0mPassed tests:[0m
 [0m[[0m[0mdebug[0m] [0m[0m	hppsProject.AllToAllControllerTest[0m
 [0m[[0m[0mdebug[0m] [0m[0m	hppsProject.AllToAllMeshTest[0m

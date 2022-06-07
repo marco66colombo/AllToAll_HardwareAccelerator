@@ -10,7 +10,7 @@ import hppsProject._
 
 class AllToAll1() extends LazyRoCCModuleImpWrapper{
   
-  val aTaModule = Module(new AllToAllModule(4,1024,100))
+  val aTaModule = Module(new AllToAllModule(4,1024,10))
 
   //command input
   aTaModule.io.cmd.valid := io.cmd.valid
@@ -857,8 +857,8 @@ step(1)
   step(1)
   poke(c.io.cmd.valid, false.B)
 
-  //47-> fail -> 48 = n cycles to do all to all n = 4
-  step(48)
+  //48-> fail -> 49 = n cycles to do all to all n = 4
+  step(49)
 
   //idle
   expect(c.io.cmd.ready, true.B)

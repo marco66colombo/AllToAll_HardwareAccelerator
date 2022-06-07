@@ -1,8 +1,2 @@
-[0m[[0m[33mwarn[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/Dispatcher.scala:158:18: method != in class UInt is deprecated (since 3.0): Use '=/=', which avoids potential precedence problems[0m
-[0m[[0m[33mwarn[0m] [0m[0m    when(io.x_PE != io.x_0 && io.y_PE != io.y_0){[0m
-[0m[[0m[33mwarn[0m] [0m[0m                 ^[0m
-[0m[[0m[33mwarn[0m] [0m[0m/root/chipyard/generators/hppsProject/src/main/scala/Dispatcher.scala:158:39: method != in class UInt is deprecated (since 3.0): Use '=/=', which avoids potential precedence problems[0m
-[0m[[0m[33mwarn[0m] [0m[0m    when(io.x_PE != io.x_0 && io.y_PE != io.y_0){[0m
-[0m[[0m[33mwarn[0m] [0m[0m                                      ^[0m
-[0m[[0m[33mwarn[0m] [0m[0mthere were 348 feature warnings; re-run with -feature for details[0m
-[0m[[0m[33mwarn[0m] [0m[0mthree warnings found[0m
+[0m[[0m[33mwarn[0m] [0m[0mthere were 44 feature warnings; re-run with -feature for details[0m
+[0m[[0m[33mwarn[0m] [0m[0mone warning found[0m
