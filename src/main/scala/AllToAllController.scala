@@ -31,10 +31,7 @@ class AllToAllController extends Module{
   val io = IO(new ControllerIO())
   
   /*
-    FSM 
-    idle : controller ready to receive a request
-    exchange: mesh of PE are exchanging data each other
-    done_exchange: exchange between PE in mesh is terminated, notify the processor
+    FSM states
   */
   val idle :: action :: wait_action_resp :: action_resp :: load_state :: store_state :: store_resp :: stall_resp_state :: Nil = Enum(8)
   val state = RegInit(idle) 
@@ -47,11 +44,9 @@ class AllToAllController extends Module{
   val rd_address = Reg(Bits(5.W))
 
   //says whether the resp valid is true or not (if at the current cycle a response has to be sent)
-  //val resp_signal = RegInit(Bool(),false.B)
   //true iff at that cycle accelerator have to respond and cannot (!presp.ready)
   val stall_resp = !presp.ready && io.mesh.resp.valid
   
-
   //interrupt always false up to this version
   io.processor.interrupt := false.B
   
@@ -66,10 +61,8 @@ class AllToAllController extends Module{
   /*
     transitions values
   */
-  //action opcode is "b0101011"
-  //val action_signal = pcmd.valid && pcmd.ready && (pcmd.bits.inst.opcode === "b0101011".U)
+  //action opcode is "b0001011" with funct "b0000011"
   val action_signal = pcmd.valid && pcmd.ready && (pcmd.bits.inst.opcode === "b0001011".U) && (pcmd.bits.inst.funct === "b0000011".U)
-  //val done_action_signal = !(io.mesh.busy)
   val done_action_signal = io.mesh.resp.valid
 
   //mem command opcode is "b0001011"
@@ -231,8 +224,4 @@ class AllToAllController extends Module{
     
   }
   
-  
-
 }
-
-

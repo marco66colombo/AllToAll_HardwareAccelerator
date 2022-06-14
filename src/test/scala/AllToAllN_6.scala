@@ -10,7 +10,7 @@ import hppsProject._
 
 class AllToAll6() extends LazyRoCCModuleImpWrapper{
   
-  val aTaModule = Module(new AllToAllModule(6,1024,16))
+  val aTaModule = Module(new AllToAllModule(6,10000,128))
 
   //command input
   aTaModule.io.cmd.valid := io.cmd.valid
@@ -163,7 +163,12 @@ class testN6(c: AllToAll6) extends PeekPokeTester(c) {
   }
  
 
-  testNumberCycles(6,2)//works
+  testNumberCycles(6,1)
+  testNumberCycles(6,2)
+  testNumberCycles(6,4)
+  testNumberCycles(6,8)
+  testNumberCycles(6,16)
+
 
 }
 
@@ -178,7 +183,7 @@ class AllToAllTest6 extends ChiselFlatSpec {
 
 
   behavior of "test_n_6"
-  it should "real first test" in {
+  it should "test_n_6" in {
     chisel3.iotesters.Driver.execute( testerArgs, () => new AllToAll6()) {
       c => new testN6(c)
     } should be (true)

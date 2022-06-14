@@ -182,14 +182,14 @@ circuit AllToAll :
     output io_valid1 : UInt<1>
     output io_valid2 : UInt<1>
     output io_valid3 : UInt<1>
-    output io_x_dest_0 : UInt<3>
-    output io_x_dest_1 : UInt<3>
-    output io_x_dest_2 : UInt<3>
-    output io_x_dest_3 : UInt<3>
-    output io_y_dest_0 : UInt<3>
-    output io_y_dest_1 : UInt<3>
-    output io_y_dest_2 : UInt<3>
-    output io_y_dest_3 : UInt<3>
+    output io_x_dest_0 : UInt<2>
+    output io_x_dest_1 : UInt<2>
+    output io_x_dest_2 : UInt<2>
+    output io_x_dest_3 : UInt<2>
+    output io_y_dest_0 : UInt<2>
+    output io_y_dest_1 : UInt<2>
+    output io_y_dest_2 : UInt<2>
+    output io_y_dest_3 : UInt<2>
     output io_pos_0 : UInt<16>
     output io_pos_1 : UInt<16>
     output io_pos_2 : UInt<16>
@@ -280,10 +280,10 @@ circuit AllToAll :
     io_x_dest_1 <= _T_41 @[IndexCalculator.scala 130:17]
     io_x_dest_2 <= _T_44 @[IndexCalculator.scala 131:17]
     io_x_dest_3 <= _T_47 @[IndexCalculator.scala 132:17]
-    io_y_dest_0 <= bits(_T_48, 2, 0) @[IndexCalculator.scala 134:17]
-    io_y_dest_1 <= bits(_T_51, 2, 0) @[IndexCalculator.scala 135:17]
-    io_y_dest_2 <= bits(_T_54, 2, 0) @[IndexCalculator.scala 136:17]
-    io_y_dest_3 <= bits(_T_57, 2, 0) @[IndexCalculator.scala 137:17]
+    io_y_dest_0 <= bits(_T_48, 1, 0) @[IndexCalculator.scala 134:17]
+    io_y_dest_1 <= bits(_T_51, 1, 0) @[IndexCalculator.scala 135:17]
+    io_y_dest_2 <= bits(_T_54, 1, 0) @[IndexCalculator.scala 136:17]
+    io_y_dest_3 <= bits(_T_57, 1, 0) @[IndexCalculator.scala 137:17]
     io_pos_0 <= counter_offset @[IndexCalculator.scala 140:14]
     io_pos_1 <= counter_offset @[IndexCalculator.scala 141:14]
     io_pos_2 <= counter_offset @[IndexCalculator.scala 142:14]
@@ -299,18 +299,18 @@ circuit AllToAll :
     output io_enq_ready : UInt<1>
     input io_enq_valid : UInt<1>
     input io_enq_bits_data : UInt<64>
-    input io_enq_bits_x_0 : UInt<3>
-    input io_enq_bits_y_0 : UInt<3>
-    input io_enq_bits_x_dest : UInt<3>
-    input io_enq_bits_y_dest : UInt<3>
+    input io_enq_bits_x_0 : UInt<2>
+    input io_enq_bits_y_0 : UInt<2>
+    input io_enq_bits_x_dest : UInt<2>
+    input io_enq_bits_y_dest : UInt<2>
     input io_enq_bits_pos : UInt<16>
     input io_deq_ready : UInt<1>
     output io_deq_valid : UInt<1>
     output io_deq_bits_data : UInt<64>
-    output io_deq_bits_x_0 : UInt<3>
-    output io_deq_bits_y_0 : UInt<3>
-    output io_deq_bits_x_dest : UInt<3>
-    output io_deq_bits_y_dest : UInt<3>
+    output io_deq_bits_x_0 : UInt<2>
+    output io_deq_bits_y_0 : UInt<2>
+    output io_deq_bits_x_dest : UInt<2>
+    output io_deq_bits_y_dest : UInt<2>
     output io_deq_bits_pos : UInt<16>
     output io_count : UInt<6>
 
@@ -323,7 +323,7 @@ circuit AllToAll :
       writer => MPORT
       read-under-write => undefined
     mem ram_x_0 : @[Decoupled.scala 218:16]
-      data-type => UInt<3>
+      data-type => UInt<2>
       depth => 32
       read-latency => 0
       write-latency => 1
@@ -331,7 +331,7 @@ circuit AllToAll :
       writer => MPORT
       read-under-write => undefined
     mem ram_y_0 : @[Decoupled.scala 218:16]
-      data-type => UInt<3>
+      data-type => UInt<2>
       depth => 32
       read-latency => 0
       write-latency => 1
@@ -339,7 +339,7 @@ circuit AllToAll :
       writer => MPORT
       read-under-write => undefined
     mem ram_x_dest : @[Decoupled.scala 218:16]
-      data-type => UInt<3>
+      data-type => UInt<2>
       depth => 32
       read-latency => 0
       write-latency => 1
@@ -347,7 +347,7 @@ circuit AllToAll :
       writer => MPORT
       read-under-write => undefined
     mem ram_y_dest : @[Decoupled.scala 218:16]
-      data-type => UInt<3>
+      data-type => UInt<2>
       depth => 32
       read-latency => 0
       write-latency => 1
@@ -467,12 +467,12 @@ circuit AllToAll :
   module Dispatcher :
     input clock : Clock
     input reset : UInt<1>
-    input io_x_PE : UInt<3>
-    input io_y_PE : UInt<3>
-    input io_x_0 : UInt<3>
-    input io_y_0 : UInt<3>
-    input io_x_dest : UInt<3>
-    input io_y_dest : UInt<3>
+    input io_x_PE : UInt<2>
+    input io_y_PE : UInt<2>
+    input io_x_0 : UInt<2>
+    input io_y_0 : UInt<2>
+    input io_x_dest : UInt<2>
+    input io_y_dest : UInt<2>
     output io_left : UInt<1>
     output io_right : UInt<1>
     output io_up : UInt<1>
@@ -627,10 +627,10 @@ circuit AllToAll :
   module GenerationDispatcher :
     input clock : Clock
     input reset : UInt<1>
-    input io_x_PE : UInt<3>
-    input io_y_PE : UInt<3>
-    input io_x_dest : UInt<3>
-    input io_y_dest : UInt<3>
+    input io_x_PE : UInt<2>
+    input io_y_PE : UInt<2>
+    input io_x_dest : UInt<2>
+    input io_y_dest : UInt<2>
     output io_left : UInt<1>
     output io_right : UInt<1>
     output io_up : UInt<1>
@@ -692,35 +692,35 @@ circuit AllToAll :
     input io_valid_2 : UInt<1>
     input io_valid_3 : UInt<1>
     input io_in_bits_0_data : UInt<64>
-    input io_in_bits_0_x_0 : UInt<3>
-    input io_in_bits_0_y_0 : UInt<3>
-    input io_in_bits_0_x_dest : UInt<3>
-    input io_in_bits_0_y_dest : UInt<3>
+    input io_in_bits_0_x_0 : UInt<2>
+    input io_in_bits_0_y_0 : UInt<2>
+    input io_in_bits_0_x_dest : UInt<2>
+    input io_in_bits_0_y_dest : UInt<2>
     input io_in_bits_0_pos : UInt<16>
     input io_in_bits_1_data : UInt<64>
-    input io_in_bits_1_x_0 : UInt<3>
-    input io_in_bits_1_y_0 : UInt<3>
-    input io_in_bits_1_x_dest : UInt<3>
-    input io_in_bits_1_y_dest : UInt<3>
+    input io_in_bits_1_x_0 : UInt<2>
+    input io_in_bits_1_y_0 : UInt<2>
+    input io_in_bits_1_x_dest : UInt<2>
+    input io_in_bits_1_y_dest : UInt<2>
     input io_in_bits_1_pos : UInt<16>
     input io_in_bits_2_data : UInt<64>
-    input io_in_bits_2_x_0 : UInt<3>
-    input io_in_bits_2_y_0 : UInt<3>
-    input io_in_bits_2_x_dest : UInt<3>
-    input io_in_bits_2_y_dest : UInt<3>
+    input io_in_bits_2_x_0 : UInt<2>
+    input io_in_bits_2_y_0 : UInt<2>
+    input io_in_bits_2_x_dest : UInt<2>
+    input io_in_bits_2_y_dest : UInt<2>
     input io_in_bits_2_pos : UInt<16>
     input io_in_bits_3_data : UInt<64>
-    input io_in_bits_3_x_0 : UInt<3>
-    input io_in_bits_3_y_0 : UInt<3>
-    input io_in_bits_3_x_dest : UInt<3>
-    input io_in_bits_3_y_dest : UInt<3>
+    input io_in_bits_3_x_0 : UInt<2>
+    input io_in_bits_3_y_0 : UInt<2>
+    input io_in_bits_3_x_dest : UInt<2>
+    input io_in_bits_3_y_dest : UInt<2>
     input io_in_bits_3_pos : UInt<16>
     output io_out_valid : UInt<1>
     output io_out_val_bits_data : UInt<64>
-    output io_out_val_bits_x_0 : UInt<3>
-    output io_out_val_bits_y_0 : UInt<3>
-    output io_out_val_bits_x_dest : UInt<3>
-    output io_out_val_bits_y_dest : UInt<3>
+    output io_out_val_bits_x_0 : UInt<2>
+    output io_out_val_bits_y_0 : UInt<2>
+    output io_out_val_bits_x_dest : UInt<2>
+    output io_out_val_bits_y_dest : UInt<2>
     output io_out_val_bits_pos : UInt<16>
     output io_out_val_selected : UInt<4>
 
@@ -728,16 +728,16 @@ circuit AllToAll :
     node myseq2_4_bits_data = pad(UInt<1>("h0"), 64) @[Utility.scala 48:28 Utility.scala 55:28]
     node _T_bits_data = mux(io_valid_3, fourth_bits_data, myseq2_4_bits_data) @[Mux.scala 47:69]
     node fourth_bits_x_0 = io_in_bits_3_x_0 @[Utility.scala 47:20 Utility.scala 53:15]
-    node myseq2_4_bits_x_0 = pad(UInt<1>("h0"), 3) @[Utility.scala 48:28 Utility.scala 56:27]
+    node myseq2_4_bits_x_0 = pad(UInt<1>("h0"), 2) @[Utility.scala 48:28 Utility.scala 56:27]
     node _T_bits_x_0 = mux(io_valid_3, fourth_bits_x_0, myseq2_4_bits_x_0) @[Mux.scala 47:69]
     node fourth_bits_y_0 = io_in_bits_3_y_0 @[Utility.scala 47:20 Utility.scala 53:15]
-    node myseq2_4_bits_y_0 = pad(UInt<1>("h0"), 3) @[Utility.scala 48:28 Utility.scala 57:27]
+    node myseq2_4_bits_y_0 = pad(UInt<1>("h0"), 2) @[Utility.scala 48:28 Utility.scala 57:27]
     node _T_bits_y_0 = mux(io_valid_3, fourth_bits_y_0, myseq2_4_bits_y_0) @[Mux.scala 47:69]
     node fourth_bits_x_dest = io_in_bits_3_x_dest @[Utility.scala 47:20 Utility.scala 53:15]
-    node myseq2_4_bits_x_dest = pad(UInt<1>("h0"), 3) @[Utility.scala 48:28 Utility.scala 58:30]
+    node myseq2_4_bits_x_dest = pad(UInt<1>("h0"), 2) @[Utility.scala 48:28 Utility.scala 58:30]
     node _T_bits_x_dest = mux(io_valid_3, fourth_bits_x_dest, myseq2_4_bits_x_dest) @[Mux.scala 47:69]
     node fourth_bits_y_dest = io_in_bits_3_y_dest @[Utility.scala 47:20 Utility.scala 53:15]
-    node myseq2_4_bits_y_dest = pad(UInt<1>("h0"), 3) @[Utility.scala 48:28 Utility.scala 59:30]
+    node myseq2_4_bits_y_dest = pad(UInt<1>("h0"), 2) @[Utility.scala 48:28 Utility.scala 59:30]
     node _T_bits_y_dest = mux(io_valid_3, fourth_bits_y_dest, myseq2_4_bits_y_dest) @[Mux.scala 47:69]
     node fourth_bits_pos = io_in_bits_3_pos @[Utility.scala 47:20 Utility.scala 53:15]
     node myseq2_4_bits_pos = pad(UInt<1>("h0"), 16) @[Utility.scala 48:28 Utility.scala 60:27]
@@ -810,42 +810,42 @@ circuit AllToAll :
     output io_in_0_ready : UInt<1>
     input io_in_0_valid : UInt<1>
     input io_in_0_bits_data : UInt<64>
-    input io_in_0_bits_x_0 : UInt<3>
-    input io_in_0_bits_y_0 : UInt<3>
-    input io_in_0_bits_x_dest : UInt<3>
-    input io_in_0_bits_y_dest : UInt<3>
+    input io_in_0_bits_x_0 : UInt<2>
+    input io_in_0_bits_y_0 : UInt<2>
+    input io_in_0_bits_x_dest : UInt<2>
+    input io_in_0_bits_y_dest : UInt<2>
     input io_in_0_bits_pos : UInt<16>
     output io_in_1_ready : UInt<1>
     input io_in_1_valid : UInt<1>
     input io_in_1_bits_data : UInt<64>
-    input io_in_1_bits_x_0 : UInt<3>
-    input io_in_1_bits_y_0 : UInt<3>
-    input io_in_1_bits_x_dest : UInt<3>
-    input io_in_1_bits_y_dest : UInt<3>
+    input io_in_1_bits_x_0 : UInt<2>
+    input io_in_1_bits_y_0 : UInt<2>
+    input io_in_1_bits_x_dest : UInt<2>
+    input io_in_1_bits_y_dest : UInt<2>
     input io_in_1_bits_pos : UInt<16>
     output io_in_2_ready : UInt<1>
     input io_in_2_valid : UInt<1>
     input io_in_2_bits_data : UInt<64>
-    input io_in_2_bits_x_0 : UInt<3>
-    input io_in_2_bits_y_0 : UInt<3>
-    input io_in_2_bits_x_dest : UInt<3>
-    input io_in_2_bits_y_dest : UInt<3>
+    input io_in_2_bits_x_0 : UInt<2>
+    input io_in_2_bits_y_0 : UInt<2>
+    input io_in_2_bits_x_dest : UInt<2>
+    input io_in_2_bits_y_dest : UInt<2>
     input io_in_2_bits_pos : UInt<16>
     output io_in_3_ready : UInt<1>
     input io_in_3_valid : UInt<1>
     input io_in_3_bits_data : UInt<64>
-    input io_in_3_bits_x_0 : UInt<3>
-    input io_in_3_bits_y_0 : UInt<3>
-    input io_in_3_bits_x_dest : UInt<3>
-    input io_in_3_bits_y_dest : UInt<3>
+    input io_in_3_bits_x_0 : UInt<2>
+    input io_in_3_bits_y_0 : UInt<2>
+    input io_in_3_bits_x_dest : UInt<2>
+    input io_in_3_bits_y_dest : UInt<2>
     input io_in_3_bits_pos : UInt<16>
     input io_out_ready : UInt<1>
     output io_out_valid : UInt<1>
     output io_out_bits_data : UInt<64>
-    output io_out_bits_x_0 : UInt<3>
-    output io_out_bits_y_0 : UInt<3>
-    output io_out_bits_x_dest : UInt<3>
-    output io_out_bits_y_dest : UInt<3>
+    output io_out_bits_x_0 : UInt<2>
+    output io_out_bits_y_0 : UInt<2>
+    output io_out_bits_x_dest : UInt<2>
+    output io_out_bits_y_dest : UInt<2>
     output io_out_bits_pos : UInt<16>
     output io_chosen : UInt<2>
 
@@ -961,71 +961,71 @@ circuit AllToAll :
     input io_left_out_ready : UInt<1>
     output io_left_out_valid : UInt<1>
     output io_left_out_bits_data : UInt<64>
-    output io_left_out_bits_x_0 : UInt<3>
-    output io_left_out_bits_y_0 : UInt<3>
-    output io_left_out_bits_x_dest : UInt<3>
-    output io_left_out_bits_y_dest : UInt<3>
+    output io_left_out_bits_x_0 : UInt<2>
+    output io_left_out_bits_y_0 : UInt<2>
+    output io_left_out_bits_x_dest : UInt<2>
+    output io_left_out_bits_y_dest : UInt<2>
     output io_left_out_bits_pos : UInt<16>
     output io_left_in_ready : UInt<1>
     input io_left_in_valid : UInt<1>
     input io_left_in_bits_data : UInt<64>
-    input io_left_in_bits_x_0 : UInt<3>
-    input io_left_in_bits_y_0 : UInt<3>
-    input io_left_in_bits_x_dest : UInt<3>
-    input io_left_in_bits_y_dest : UInt<3>
+    input io_left_in_bits_x_0 : UInt<2>
+    input io_left_in_bits_y_0 : UInt<2>
+    input io_left_in_bits_x_dest : UInt<2>
+    input io_left_in_bits_y_dest : UInt<2>
     input io_left_in_bits_pos : UInt<16>
     input io_right_out_ready : UInt<1>
     output io_right_out_valid : UInt<1>
     output io_right_out_bits_data : UInt<64>
-    output io_right_out_bits_x_0 : UInt<3>
-    output io_right_out_bits_y_0 : UInt<3>
-    output io_right_out_bits_x_dest : UInt<3>
-    output io_right_out_bits_y_dest : UInt<3>
+    output io_right_out_bits_x_0 : UInt<2>
+    output io_right_out_bits_y_0 : UInt<2>
+    output io_right_out_bits_x_dest : UInt<2>
+    output io_right_out_bits_y_dest : UInt<2>
     output io_right_out_bits_pos : UInt<16>
     output io_right_in_ready : UInt<1>
     input io_right_in_valid : UInt<1>
     input io_right_in_bits_data : UInt<64>
-    input io_right_in_bits_x_0 : UInt<3>
-    input io_right_in_bits_y_0 : UInt<3>
-    input io_right_in_bits_x_dest : UInt<3>
-    input io_right_in_bits_y_dest : UInt<3>
+    input io_right_in_bits_x_0 : UInt<2>
+    input io_right_in_bits_y_0 : UInt<2>
+    input io_right_in_bits_x_dest : UInt<2>
+    input io_right_in_bits_y_dest : UInt<2>
     input io_right_in_bits_pos : UInt<16>
     input io_up_out_ready : UInt<1>
     output io_up_out_valid : UInt<1>
     output io_up_out_bits_data : UInt<64>
-    output io_up_out_bits_x_0 : UInt<3>
-    output io_up_out_bits_y_0 : UInt<3>
-    output io_up_out_bits_x_dest : UInt<3>
-    output io_up_out_bits_y_dest : UInt<3>
+    output io_up_out_bits_x_0 : UInt<2>
+    output io_up_out_bits_y_0 : UInt<2>
+    output io_up_out_bits_x_dest : UInt<2>
+    output io_up_out_bits_y_dest : UInt<2>
     output io_up_out_bits_pos : UInt<16>
     output io_up_in_ready : UInt<1>
     input io_up_in_valid : UInt<1>
     input io_up_in_bits_data : UInt<64>
-    input io_up_in_bits_x_0 : UInt<3>
-    input io_up_in_bits_y_0 : UInt<3>
-    input io_up_in_bits_x_dest : UInt<3>
-    input io_up_in_bits_y_dest : UInt<3>
+    input io_up_in_bits_x_0 : UInt<2>
+    input io_up_in_bits_y_0 : UInt<2>
+    input io_up_in_bits_x_dest : UInt<2>
+    input io_up_in_bits_y_dest : UInt<2>
     input io_up_in_bits_pos : UInt<16>
     input io_bottom_out_ready : UInt<1>
     output io_bottom_out_valid : UInt<1>
     output io_bottom_out_bits_data : UInt<64>
-    output io_bottom_out_bits_x_0 : UInt<3>
-    output io_bottom_out_bits_y_0 : UInt<3>
-    output io_bottom_out_bits_x_dest : UInt<3>
-    output io_bottom_out_bits_y_dest : UInt<3>
+    output io_bottom_out_bits_x_0 : UInt<2>
+    output io_bottom_out_bits_y_0 : UInt<2>
+    output io_bottom_out_bits_x_dest : UInt<2>
+    output io_bottom_out_bits_y_dest : UInt<2>
     output io_bottom_out_bits_pos : UInt<16>
     output io_bottom_in_ready : UInt<1>
     input io_bottom_in_valid : UInt<1>
     input io_bottom_in_bits_data : UInt<64>
-    input io_bottom_in_bits_x_0 : UInt<3>
-    input io_bottom_in_bits_y_0 : UInt<3>
-    input io_bottom_in_bits_x_dest : UInt<3>
-    input io_bottom_in_bits_y_dest : UInt<3>
+    input io_bottom_in_bits_x_0 : UInt<2>
+    input io_bottom_in_bits_y_0 : UInt<2>
+    input io_bottom_in_bits_x_dest : UInt<2>
+    input io_bottom_in_bits_y_dest : UInt<2>
     input io_bottom_in_bits_pos : UInt<16>
 
     mem memPE : @[AllToAllPE.scala 20:18]
       data-type => UInt<64>
-      depth => 10000
+      depth => 5000
       read-latency => 0
       write-latency => 1
       reader => MPORT_5
@@ -1068,9 +1068,9 @@ circuit AllToAll :
     inst right_out of Queue @[Decoupled.scala 296:21]
     inst up_out of Queue @[Decoupled.scala 296:21]
     inst bottom_out of Queue @[Decoupled.scala 296:21]
-    reg x_coord : UInt<3>, clock with :
+    reg x_coord : UInt<2>, clock with :
       reset => (UInt<1>("h0"), x_coord) @[AllToAllPE.scala 23:24]
-    reg y_coord : UInt<3>, clock with :
+    reg y_coord : UInt<2>, clock with :
       reset => (UInt<1>("h0"), y_coord) @[AllToAllPE.scala 24:24]
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[AllToAllPE.scala 26:18]
@@ -1118,21 +1118,21 @@ circuit AllToAll :
       reset => (UInt<1>("h0"), read_values_valid_2) @[AllToAllPE.scala 63:34]
     reg read_values_valid_3 : UInt<1>, clock with :
       reset => (UInt<1>("h0"), read_values_valid_3) @[AllToAllPE.scala 63:34]
-    reg read_x_dest_0 : UInt<3>, clock with :
+    reg read_x_dest_0 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_0) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_1 : UInt<3>, clock with :
+    reg read_x_dest_1 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_1) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_2 : UInt<3>, clock with :
+    reg read_x_dest_2 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_2) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_3 : UInt<3>, clock with :
+    reg read_x_dest_3 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_3) @[AllToAllPE.scala 64:24]
-    reg read_y_dest_0 : UInt<3>, clock with :
+    reg read_y_dest_0 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_0) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_1 : UInt<3>, clock with :
+    reg read_y_dest_1 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_1) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_2 : UInt<3>, clock with :
+    reg read_y_dest_2 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_2) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_3 : UInt<3>, clock with :
+    reg read_y_dest_3 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_3) @[AllToAllPE.scala 65:24]
     reg read_pos_0 : UInt<16>, clock with :
       reset => (UInt<1>("h0"), read_pos_0) @[AllToAllPE.scala 66:21]
@@ -1173,7 +1173,7 @@ circuit AllToAll :
     node _T_22 = tail(_T_21, 1) @[AllToAllPE.scala 160:61]
     node _T_23 = add(_T_22, offset) @[AllToAllPE.scala 160:80]
     node _T_24 = tail(_T_23, 1) @[AllToAllPE.scala 160:80]
-    node _T_25 = bits(_T_24, 13, 0) @[AllToAllPE.scala 160:10]
+    node _T_25 = bits(_T_24, 12, 0) @[AllToAllPE.scala 160:10]
     node _GEN_0 = validif(left_dispatcher.io_this_PE, _T_25) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10]
     node _GEN_1 = validif(left_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10]
     node _GEN_2 = mux(left_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10 AllToAllPE.scala 20:18]
@@ -1187,7 +1187,7 @@ circuit AllToAll :
     node _T_31 = tail(_T_30, 1) @[AllToAllPE.scala 165:63]
     node _T_32 = add(_T_31, offset) @[AllToAllPE.scala 165:83]
     node _T_33 = tail(_T_32, 1) @[AllToAllPE.scala 165:83]
-    node _T_34 = bits(_T_33, 13, 0) @[AllToAllPE.scala 165:10]
+    node _T_34 = bits(_T_33, 12, 0) @[AllToAllPE.scala 165:10]
     node _GEN_5 = validif(right_dispatcher.io_this_PE, _T_34) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10]
     node _GEN_6 = validif(right_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10]
     node _GEN_7 = mux(right_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10 AllToAllPE.scala 20:18]
@@ -1201,7 +1201,7 @@ circuit AllToAll :
     node _T_40 = tail(_T_39, 1) @[AllToAllPE.scala 170:57]
     node _T_41 = add(_T_40, offset) @[AllToAllPE.scala 170:74]
     node _T_42 = tail(_T_41, 1) @[AllToAllPE.scala 170:74]
-    node _T_43 = bits(_T_42, 13, 0) @[AllToAllPE.scala 170:10]
+    node _T_43 = bits(_T_42, 12, 0) @[AllToAllPE.scala 170:10]
     node _GEN_10 = validif(up_dispatcher.io_this_PE, _T_43) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10]
     node _GEN_11 = validif(up_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10]
     node _GEN_12 = mux(up_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10 AllToAllPE.scala 20:18]
@@ -1215,7 +1215,7 @@ circuit AllToAll :
     node _T_49 = tail(_T_48, 1) @[AllToAllPE.scala 175:65]
     node _T_50 = add(_T_49, offset) @[AllToAllPE.scala 175:86]
     node _T_51 = tail(_T_50, 1) @[AllToAllPE.scala 175:86]
-    node _T_52 = bits(_T_51, 13, 0) @[AllToAllPE.scala 175:10]
+    node _T_52 = bits(_T_51, 12, 0) @[AllToAllPE.scala 175:10]
     node _GEN_15 = validif(bottom_dispatcher.io_this_PE, _T_52) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10]
     node _GEN_16 = validif(bottom_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10]
     node _GEN_17 = mux(bottom_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10 AllToAllPE.scala 20:18]
@@ -1312,7 +1312,7 @@ circuit AllToAll :
     node _GEN_22 = mux(load_signal, UInt<3>("h4"), _GEN_21) @[AllToAllPE.scala 429:22 AllToAllPE.scala 430:13]
     node _T_115 = eq(state, UInt<3>("h4")) @[AllToAllPE.scala 439:20]
     node _T_116 = eq(stall_resp, UInt<1>("h0")) @[AllToAllPE.scala 441:21]
-    node _T_117 = bits(memIndex, 13, 0) @[AllToAllPE.scala 447:12]
+    node _T_117 = bits(memIndex, 12, 0) @[AllToAllPE.scala 447:12]
     node _GEN_23 = validif(is_this_PE, _T_117) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12]
     node _GEN_24 = validif(is_this_PE, clock) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12]
     node _GEN_25 = mux(is_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12 AllToAllPE.scala 20:18]
@@ -1330,7 +1330,7 @@ circuit AllToAll :
     node _GEN_30 = mux(_T_122, UInt<3>("h5"), _GEN_29) @[AllToAllPE.scala 459:44 AllToAllPE.scala 460:13]
     node _GEN_31 = mux(_T_120, UInt<3>("h4"), _GEN_30) @[AllToAllPE.scala 457:37 AllToAllPE.scala 458:13]
     node _T_125 = eq(state, UInt<3>("h5")) @[AllToAllPE.scala 469:20]
-    node _T_126 = bits(memIndex, 13, 0) @[AllToAllPE.scala 477:26]
+    node _T_126 = bits(memIndex, 12, 0) @[AllToAllPE.scala 477:26]
     node _GEN_32 = validif(is_this_PE, _T_126) @[AllToAllPE.scala 476:21 AllToAllPE.scala 477:26]
     node _GEN_33 = mux(is_this_PE, memPE.MPORT_5.data, resp_value) @[AllToAllPE.scala 476:21 AllToAllPE.scala 477:18 AllToAllPE.scala 43:27]
     node _T_127 = eq(state, UInt<3>("h6")) @[AllToAllPE.scala 487:20]
@@ -1461,10 +1461,10 @@ circuit AllToAll :
     node _T_150 = eq(stateAction, UInt<1>("h1")) @[AllToAllPE.scala 600:26]
     node _T_151 = eq(index_calcualtor.io_last_iteration, UInt<1>("h0")) @[AllToAllPE.scala 605:21]
     node _T_152 = and(do_read, _T_151) @[AllToAllPE.scala 605:18]
-    node _T_153 = bits(index_calcualtor.io_index0, 13, 0) @[AllToAllPE.scala 609:30]
-    node _T_154 = bits(index_calcualtor.io_index1, 13, 0) @[AllToAllPE.scala 610:30]
-    node _T_155 = bits(index_calcualtor.io_index2, 13, 0) @[AllToAllPE.scala 611:30]
-    node _T_156 = bits(index_calcualtor.io_index3, 13, 0) @[AllToAllPE.scala 612:30]
+    node _T_153 = bits(index_calcualtor.io_index0, 12, 0) @[AllToAllPE.scala 609:30]
+    node _T_154 = bits(index_calcualtor.io_index1, 12, 0) @[AllToAllPE.scala 610:30]
+    node _T_155 = bits(index_calcualtor.io_index2, 12, 0) @[AllToAllPE.scala 611:30]
+    node _T_156 = bits(index_calcualtor.io_index3, 12, 0) @[AllToAllPE.scala 612:30]
     node _T_157 = eq(left_mux.io_out_val_selected, UInt<1>("h1")) @[AllToAllPE.scala 643:64]
     node _T_158 = and(_T_157, left_out_arbiter.io_in_0_ready) @[AllToAllPE.scala 643:79]
     node _T_159 = eq(right_mux.io_out_val_selected, UInt<1>("h1")) @[AllToAllPE.scala 644:65]
@@ -1523,7 +1523,7 @@ circuit AllToAll :
     node _T_212 = and(_T_211, read_values_valid_3) @[AllToAllPE.scala 665:56]
     node _T_213 = add(index_write_this_PE, read_pos_0) @[AllToAllPE.scala 669:35]
     node _T_214 = tail(_T_213, 1) @[AllToAllPE.scala 669:35]
-    node _T_215 = bits(_T_214, 13, 0) @[AllToAllPE.scala 669:14]
+    node _T_215 = bits(_T_214, 12, 0) @[AllToAllPE.scala 669:14]
     node _GEN_134 = validif(this_PE_generation_0, _T_215) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14]
     node _GEN_135 = validif(this_PE_generation_0, clock) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14]
     node _GEN_136 = mux(this_PE_generation_0, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14 AllToAllPE.scala 20:18]
@@ -1531,7 +1531,7 @@ circuit AllToAll :
     node _GEN_138 = validif(this_PE_generation_0, read_values_0) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:50]
     node _T_216 = add(index_write_this_PE, read_pos_1) @[AllToAllPE.scala 672:35]
     node _T_217 = tail(_T_216, 1) @[AllToAllPE.scala 672:35]
-    node _T_218 = bits(_T_217, 13, 0) @[AllToAllPE.scala 672:14]
+    node _T_218 = bits(_T_217, 12, 0) @[AllToAllPE.scala 672:14]
     node _GEN_139 = validif(this_PE_generation_1, _T_218) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14]
     node _GEN_140 = validif(this_PE_generation_1, clock) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14]
     node _GEN_141 = mux(this_PE_generation_1, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14 AllToAllPE.scala 20:18]
@@ -1539,7 +1539,7 @@ circuit AllToAll :
     node _GEN_143 = validif(this_PE_generation_1, read_values_1) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:50]
     node _T_219 = add(index_write_this_PE, read_pos_2) @[AllToAllPE.scala 675:35]
     node _T_220 = tail(_T_219, 1) @[AllToAllPE.scala 675:35]
-    node _T_221 = bits(_T_220, 13, 0) @[AllToAllPE.scala 675:14]
+    node _T_221 = bits(_T_220, 12, 0) @[AllToAllPE.scala 675:14]
     node _GEN_144 = validif(this_PE_generation_2, _T_221) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14]
     node _GEN_145 = validif(this_PE_generation_2, clock) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14]
     node _GEN_146 = mux(this_PE_generation_2, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14 AllToAllPE.scala 20:18]
@@ -1547,7 +1547,7 @@ circuit AllToAll :
     node _GEN_148 = validif(this_PE_generation_2, read_values_2) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:50]
     node _T_222 = add(index_write_this_PE, read_pos_3) @[AllToAllPE.scala 678:35]
     node _T_223 = tail(_T_222, 1) @[AllToAllPE.scala 678:35]
-    node _T_224 = bits(_T_223, 13, 0) @[AllToAllPE.scala 678:14]
+    node _T_224 = bits(_T_223, 12, 0) @[AllToAllPE.scala 678:14]
     node _GEN_149 = validif(this_PE_generation_3, _T_224) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14]
     node _GEN_150 = validif(this_PE_generation_3, clock) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14]
     node _GEN_151 = mux(this_PE_generation_3, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14 AllToAllPE.scala 20:18]
@@ -2240,71 +2240,71 @@ circuit AllToAll :
     input io_left_out_ready : UInt<1>
     output io_left_out_valid : UInt<1>
     output io_left_out_bits_data : UInt<64>
-    output io_left_out_bits_x_0 : UInt<3>
-    output io_left_out_bits_y_0 : UInt<3>
-    output io_left_out_bits_x_dest : UInt<3>
-    output io_left_out_bits_y_dest : UInt<3>
+    output io_left_out_bits_x_0 : UInt<2>
+    output io_left_out_bits_y_0 : UInt<2>
+    output io_left_out_bits_x_dest : UInt<2>
+    output io_left_out_bits_y_dest : UInt<2>
     output io_left_out_bits_pos : UInt<16>
     output io_left_in_ready : UInt<1>
     input io_left_in_valid : UInt<1>
     input io_left_in_bits_data : UInt<64>
-    input io_left_in_bits_x_0 : UInt<3>
-    input io_left_in_bits_y_0 : UInt<3>
-    input io_left_in_bits_x_dest : UInt<3>
-    input io_left_in_bits_y_dest : UInt<3>
+    input io_left_in_bits_x_0 : UInt<2>
+    input io_left_in_bits_y_0 : UInt<2>
+    input io_left_in_bits_x_dest : UInt<2>
+    input io_left_in_bits_y_dest : UInt<2>
     input io_left_in_bits_pos : UInt<16>
     input io_right_out_ready : UInt<1>
     output io_right_out_valid : UInt<1>
     output io_right_out_bits_data : UInt<64>
-    output io_right_out_bits_x_0 : UInt<3>
-    output io_right_out_bits_y_0 : UInt<3>
-    output io_right_out_bits_x_dest : UInt<3>
-    output io_right_out_bits_y_dest : UInt<3>
+    output io_right_out_bits_x_0 : UInt<2>
+    output io_right_out_bits_y_0 : UInt<2>
+    output io_right_out_bits_x_dest : UInt<2>
+    output io_right_out_bits_y_dest : UInt<2>
     output io_right_out_bits_pos : UInt<16>
     output io_right_in_ready : UInt<1>
     input io_right_in_valid : UInt<1>
     input io_right_in_bits_data : UInt<64>
-    input io_right_in_bits_x_0 : UInt<3>
-    input io_right_in_bits_y_0 : UInt<3>
-    input io_right_in_bits_x_dest : UInt<3>
-    input io_right_in_bits_y_dest : UInt<3>
+    input io_right_in_bits_x_0 : UInt<2>
+    input io_right_in_bits_y_0 : UInt<2>
+    input io_right_in_bits_x_dest : UInt<2>
+    input io_right_in_bits_y_dest : UInt<2>
     input io_right_in_bits_pos : UInt<16>
     input io_up_out_ready : UInt<1>
     output io_up_out_valid : UInt<1>
     output io_up_out_bits_data : UInt<64>
-    output io_up_out_bits_x_0 : UInt<3>
-    output io_up_out_bits_y_0 : UInt<3>
-    output io_up_out_bits_x_dest : UInt<3>
-    output io_up_out_bits_y_dest : UInt<3>
+    output io_up_out_bits_x_0 : UInt<2>
+    output io_up_out_bits_y_0 : UInt<2>
+    output io_up_out_bits_x_dest : UInt<2>
+    output io_up_out_bits_y_dest : UInt<2>
     output io_up_out_bits_pos : UInt<16>
     output io_up_in_ready : UInt<1>
     input io_up_in_valid : UInt<1>
     input io_up_in_bits_data : UInt<64>
-    input io_up_in_bits_x_0 : UInt<3>
-    input io_up_in_bits_y_0 : UInt<3>
-    input io_up_in_bits_x_dest : UInt<3>
-    input io_up_in_bits_y_dest : UInt<3>
+    input io_up_in_bits_x_0 : UInt<2>
+    input io_up_in_bits_y_0 : UInt<2>
+    input io_up_in_bits_x_dest : UInt<2>
+    input io_up_in_bits_y_dest : UInt<2>
     input io_up_in_bits_pos : UInt<16>
     input io_bottom_out_ready : UInt<1>
     output io_bottom_out_valid : UInt<1>
     output io_bottom_out_bits_data : UInt<64>
-    output io_bottom_out_bits_x_0 : UInt<3>
-    output io_bottom_out_bits_y_0 : UInt<3>
-    output io_bottom_out_bits_x_dest : UInt<3>
-    output io_bottom_out_bits_y_dest : UInt<3>
+    output io_bottom_out_bits_x_0 : UInt<2>
+    output io_bottom_out_bits_y_0 : UInt<2>
+    output io_bottom_out_bits_x_dest : UInt<2>
+    output io_bottom_out_bits_y_dest : UInt<2>
     output io_bottom_out_bits_pos : UInt<16>
     output io_bottom_in_ready : UInt<1>
     input io_bottom_in_valid : UInt<1>
     input io_bottom_in_bits_data : UInt<64>
-    input io_bottom_in_bits_x_0 : UInt<3>
-    input io_bottom_in_bits_y_0 : UInt<3>
-    input io_bottom_in_bits_x_dest : UInt<3>
-    input io_bottom_in_bits_y_dest : UInt<3>
+    input io_bottom_in_bits_x_0 : UInt<2>
+    input io_bottom_in_bits_y_0 : UInt<2>
+    input io_bottom_in_bits_x_dest : UInt<2>
+    input io_bottom_in_bits_y_dest : UInt<2>
     input io_bottom_in_bits_pos : UInt<16>
 
     mem memPE : @[AllToAllPE.scala 20:18]
       data-type => UInt<64>
-      depth => 10000
+      depth => 5000
       read-latency => 0
       write-latency => 1
       reader => MPORT_5
@@ -2347,9 +2347,9 @@ circuit AllToAll :
     inst right_out of Queue @[Decoupled.scala 296:21]
     inst up_out of Queue @[Decoupled.scala 296:21]
     inst bottom_out of Queue @[Decoupled.scala 296:21]
-    reg x_coord : UInt<3>, clock with :
+    reg x_coord : UInt<2>, clock with :
       reset => (UInt<1>("h0"), x_coord) @[AllToAllPE.scala 23:24]
-    reg y_coord : UInt<3>, clock with :
+    reg y_coord : UInt<2>, clock with :
       reset => (UInt<1>("h0"), y_coord) @[AllToAllPE.scala 24:24]
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[AllToAllPE.scala 26:18]
@@ -2397,21 +2397,21 @@ circuit AllToAll :
       reset => (UInt<1>("h0"), read_values_valid_2) @[AllToAllPE.scala 63:34]
     reg read_values_valid_3 : UInt<1>, clock with :
       reset => (UInt<1>("h0"), read_values_valid_3) @[AllToAllPE.scala 63:34]
-    reg read_x_dest_0 : UInt<3>, clock with :
+    reg read_x_dest_0 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_0) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_1 : UInt<3>, clock with :
+    reg read_x_dest_1 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_1) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_2 : UInt<3>, clock with :
+    reg read_x_dest_2 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_2) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_3 : UInt<3>, clock with :
+    reg read_x_dest_3 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_3) @[AllToAllPE.scala 64:24]
-    reg read_y_dest_0 : UInt<3>, clock with :
+    reg read_y_dest_0 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_0) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_1 : UInt<3>, clock with :
+    reg read_y_dest_1 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_1) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_2 : UInt<3>, clock with :
+    reg read_y_dest_2 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_2) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_3 : UInt<3>, clock with :
+    reg read_y_dest_3 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_3) @[AllToAllPE.scala 65:24]
     reg read_pos_0 : UInt<16>, clock with :
       reset => (UInt<1>("h0"), read_pos_0) @[AllToAllPE.scala 66:21]
@@ -2452,7 +2452,7 @@ circuit AllToAll :
     node _T_22 = tail(_T_21, 1) @[AllToAllPE.scala 160:61]
     node _T_23 = add(_T_22, offset) @[AllToAllPE.scala 160:80]
     node _T_24 = tail(_T_23, 1) @[AllToAllPE.scala 160:80]
-    node _T_25 = bits(_T_24, 13, 0) @[AllToAllPE.scala 160:10]
+    node _T_25 = bits(_T_24, 12, 0) @[AllToAllPE.scala 160:10]
     node _GEN_0 = validif(left_dispatcher.io_this_PE, _T_25) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10]
     node _GEN_1 = validif(left_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10]
     node _GEN_2 = mux(left_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10 AllToAllPE.scala 20:18]
@@ -2466,7 +2466,7 @@ circuit AllToAll :
     node _T_31 = tail(_T_30, 1) @[AllToAllPE.scala 165:63]
     node _T_32 = add(_T_31, offset) @[AllToAllPE.scala 165:83]
     node _T_33 = tail(_T_32, 1) @[AllToAllPE.scala 165:83]
-    node _T_34 = bits(_T_33, 13, 0) @[AllToAllPE.scala 165:10]
+    node _T_34 = bits(_T_33, 12, 0) @[AllToAllPE.scala 165:10]
     node _GEN_5 = validif(right_dispatcher.io_this_PE, _T_34) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10]
     node _GEN_6 = validif(right_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10]
     node _GEN_7 = mux(right_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10 AllToAllPE.scala 20:18]
@@ -2480,7 +2480,7 @@ circuit AllToAll :
     node _T_40 = tail(_T_39, 1) @[AllToAllPE.scala 170:57]
     node _T_41 = add(_T_40, offset) @[AllToAllPE.scala 170:74]
     node _T_42 = tail(_T_41, 1) @[AllToAllPE.scala 170:74]
-    node _T_43 = bits(_T_42, 13, 0) @[AllToAllPE.scala 170:10]
+    node _T_43 = bits(_T_42, 12, 0) @[AllToAllPE.scala 170:10]
     node _GEN_10 = validif(up_dispatcher.io_this_PE, _T_43) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10]
     node _GEN_11 = validif(up_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10]
     node _GEN_12 = mux(up_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10 AllToAllPE.scala 20:18]
@@ -2494,7 +2494,7 @@ circuit AllToAll :
     node _T_49 = tail(_T_48, 1) @[AllToAllPE.scala 175:65]
     node _T_50 = add(_T_49, offset) @[AllToAllPE.scala 175:86]
     node _T_51 = tail(_T_50, 1) @[AllToAllPE.scala 175:86]
-    node _T_52 = bits(_T_51, 13, 0) @[AllToAllPE.scala 175:10]
+    node _T_52 = bits(_T_51, 12, 0) @[AllToAllPE.scala 175:10]
     node _GEN_15 = validif(bottom_dispatcher.io_this_PE, _T_52) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10]
     node _GEN_16 = validif(bottom_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10]
     node _GEN_17 = mux(bottom_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10 AllToAllPE.scala 20:18]
@@ -2591,7 +2591,7 @@ circuit AllToAll :
     node _GEN_22 = mux(load_signal, UInt<3>("h4"), _GEN_21) @[AllToAllPE.scala 429:22 AllToAllPE.scala 430:13]
     node _T_115 = eq(state, UInt<3>("h4")) @[AllToAllPE.scala 439:20]
     node _T_116 = eq(stall_resp, UInt<1>("h0")) @[AllToAllPE.scala 441:21]
-    node _T_117 = bits(memIndex, 13, 0) @[AllToAllPE.scala 447:12]
+    node _T_117 = bits(memIndex, 12, 0) @[AllToAllPE.scala 447:12]
     node _GEN_23 = validif(is_this_PE, _T_117) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12]
     node _GEN_24 = validif(is_this_PE, clock) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12]
     node _GEN_25 = mux(is_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12 AllToAllPE.scala 20:18]
@@ -2609,7 +2609,7 @@ circuit AllToAll :
     node _GEN_30 = mux(_T_122, UInt<3>("h5"), _GEN_29) @[AllToAllPE.scala 459:44 AllToAllPE.scala 460:13]
     node _GEN_31 = mux(_T_120, UInt<3>("h4"), _GEN_30) @[AllToAllPE.scala 457:37 AllToAllPE.scala 458:13]
     node _T_125 = eq(state, UInt<3>("h5")) @[AllToAllPE.scala 469:20]
-    node _T_126 = bits(memIndex, 13, 0) @[AllToAllPE.scala 477:26]
+    node _T_126 = bits(memIndex, 12, 0) @[AllToAllPE.scala 477:26]
     node _GEN_32 = validif(is_this_PE, _T_126) @[AllToAllPE.scala 476:21 AllToAllPE.scala 477:26]
     node _GEN_33 = mux(is_this_PE, memPE.MPORT_5.data, resp_value) @[AllToAllPE.scala 476:21 AllToAllPE.scala 477:18 AllToAllPE.scala 43:27]
     node _T_127 = eq(state, UInt<3>("h6")) @[AllToAllPE.scala 487:20]
@@ -2740,10 +2740,10 @@ circuit AllToAll :
     node _T_150 = eq(stateAction, UInt<1>("h1")) @[AllToAllPE.scala 600:26]
     node _T_151 = eq(index_calcualtor.io_last_iteration, UInt<1>("h0")) @[AllToAllPE.scala 605:21]
     node _T_152 = and(do_read, _T_151) @[AllToAllPE.scala 605:18]
-    node _T_153 = bits(index_calcualtor.io_index0, 13, 0) @[AllToAllPE.scala 609:30]
-    node _T_154 = bits(index_calcualtor.io_index1, 13, 0) @[AllToAllPE.scala 610:30]
-    node _T_155 = bits(index_calcualtor.io_index2, 13, 0) @[AllToAllPE.scala 611:30]
-    node _T_156 = bits(index_calcualtor.io_index3, 13, 0) @[AllToAllPE.scala 612:30]
+    node _T_153 = bits(index_calcualtor.io_index0, 12, 0) @[AllToAllPE.scala 609:30]
+    node _T_154 = bits(index_calcualtor.io_index1, 12, 0) @[AllToAllPE.scala 610:30]
+    node _T_155 = bits(index_calcualtor.io_index2, 12, 0) @[AllToAllPE.scala 611:30]
+    node _T_156 = bits(index_calcualtor.io_index3, 12, 0) @[AllToAllPE.scala 612:30]
     node _T_157 = eq(left_mux.io_out_val_selected, UInt<1>("h1")) @[AllToAllPE.scala 643:64]
     node _T_158 = and(_T_157, left_out_arbiter.io_in_0_ready) @[AllToAllPE.scala 643:79]
     node _T_159 = eq(right_mux.io_out_val_selected, UInt<1>("h1")) @[AllToAllPE.scala 644:65]
@@ -2802,7 +2802,7 @@ circuit AllToAll :
     node _T_212 = and(_T_211, read_values_valid_3) @[AllToAllPE.scala 665:56]
     node _T_213 = add(index_write_this_PE, read_pos_0) @[AllToAllPE.scala 669:35]
     node _T_214 = tail(_T_213, 1) @[AllToAllPE.scala 669:35]
-    node _T_215 = bits(_T_214, 13, 0) @[AllToAllPE.scala 669:14]
+    node _T_215 = bits(_T_214, 12, 0) @[AllToAllPE.scala 669:14]
     node _GEN_134 = validif(this_PE_generation_0, _T_215) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14]
     node _GEN_135 = validif(this_PE_generation_0, clock) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14]
     node _GEN_136 = mux(this_PE_generation_0, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14 AllToAllPE.scala 20:18]
@@ -2810,7 +2810,7 @@ circuit AllToAll :
     node _GEN_138 = validif(this_PE_generation_0, read_values_0) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:50]
     node _T_216 = add(index_write_this_PE, read_pos_1) @[AllToAllPE.scala 672:35]
     node _T_217 = tail(_T_216, 1) @[AllToAllPE.scala 672:35]
-    node _T_218 = bits(_T_217, 13, 0) @[AllToAllPE.scala 672:14]
+    node _T_218 = bits(_T_217, 12, 0) @[AllToAllPE.scala 672:14]
     node _GEN_139 = validif(this_PE_generation_1, _T_218) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14]
     node _GEN_140 = validif(this_PE_generation_1, clock) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14]
     node _GEN_141 = mux(this_PE_generation_1, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14 AllToAllPE.scala 20:18]
@@ -2818,7 +2818,7 @@ circuit AllToAll :
     node _GEN_143 = validif(this_PE_generation_1, read_values_1) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:50]
     node _T_219 = add(index_write_this_PE, read_pos_2) @[AllToAllPE.scala 675:35]
     node _T_220 = tail(_T_219, 1) @[AllToAllPE.scala 675:35]
-    node _T_221 = bits(_T_220, 13, 0) @[AllToAllPE.scala 675:14]
+    node _T_221 = bits(_T_220, 12, 0) @[AllToAllPE.scala 675:14]
     node _GEN_144 = validif(this_PE_generation_2, _T_221) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14]
     node _GEN_145 = validif(this_PE_generation_2, clock) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14]
     node _GEN_146 = mux(this_PE_generation_2, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14 AllToAllPE.scala 20:18]
@@ -2826,7 +2826,7 @@ circuit AllToAll :
     node _GEN_148 = validif(this_PE_generation_2, read_values_2) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:50]
     node _T_222 = add(index_write_this_PE, read_pos_3) @[AllToAllPE.scala 678:35]
     node _T_223 = tail(_T_222, 1) @[AllToAllPE.scala 678:35]
-    node _T_224 = bits(_T_223, 13, 0) @[AllToAllPE.scala 678:14]
+    node _T_224 = bits(_T_223, 12, 0) @[AllToAllPE.scala 678:14]
     node _GEN_149 = validif(this_PE_generation_3, _T_224) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14]
     node _GEN_150 = validif(this_PE_generation_3, clock) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14]
     node _GEN_151 = mux(this_PE_generation_3, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14 AllToAllPE.scala 20:18]
@@ -3519,71 +3519,71 @@ circuit AllToAll :
     input io_left_out_ready : UInt<1>
     output io_left_out_valid : UInt<1>
     output io_left_out_bits_data : UInt<64>
-    output io_left_out_bits_x_0 : UInt<3>
-    output io_left_out_bits_y_0 : UInt<3>
-    output io_left_out_bits_x_dest : UInt<3>
-    output io_left_out_bits_y_dest : UInt<3>
+    output io_left_out_bits_x_0 : UInt<2>
+    output io_left_out_bits_y_0 : UInt<2>
+    output io_left_out_bits_x_dest : UInt<2>
+    output io_left_out_bits_y_dest : UInt<2>
     output io_left_out_bits_pos : UInt<16>
     output io_left_in_ready : UInt<1>
     input io_left_in_valid : UInt<1>
     input io_left_in_bits_data : UInt<64>
-    input io_left_in_bits_x_0 : UInt<3>
-    input io_left_in_bits_y_0 : UInt<3>
-    input io_left_in_bits_x_dest : UInt<3>
-    input io_left_in_bits_y_dest : UInt<3>
+    input io_left_in_bits_x_0 : UInt<2>
+    input io_left_in_bits_y_0 : UInt<2>
+    input io_left_in_bits_x_dest : UInt<2>
+    input io_left_in_bits_y_dest : UInt<2>
     input io_left_in_bits_pos : UInt<16>
     input io_right_out_ready : UInt<1>
     output io_right_out_valid : UInt<1>
     output io_right_out_bits_data : UInt<64>
-    output io_right_out_bits_x_0 : UInt<3>
-    output io_right_out_bits_y_0 : UInt<3>
-    output io_right_out_bits_x_dest : UInt<3>
-    output io_right_out_bits_y_dest : UInt<3>
+    output io_right_out_bits_x_0 : UInt<2>
+    output io_right_out_bits_y_0 : UInt<2>
+    output io_right_out_bits_x_dest : UInt<2>
+    output io_right_out_bits_y_dest : UInt<2>
     output io_right_out_bits_pos : UInt<16>
     output io_right_in_ready : UInt<1>
     input io_right_in_valid : UInt<1>
     input io_right_in_bits_data : UInt<64>
-    input io_right_in_bits_x_0 : UInt<3>
-    input io_right_in_bits_y_0 : UInt<3>
-    input io_right_in_bits_x_dest : UInt<3>
-    input io_right_in_bits_y_dest : UInt<3>
+    input io_right_in_bits_x_0 : UInt<2>
+    input io_right_in_bits_y_0 : UInt<2>
+    input io_right_in_bits_x_dest : UInt<2>
+    input io_right_in_bits_y_dest : UInt<2>
     input io_right_in_bits_pos : UInt<16>
     input io_up_out_ready : UInt<1>
     output io_up_out_valid : UInt<1>
     output io_up_out_bits_data : UInt<64>
-    output io_up_out_bits_x_0 : UInt<3>
-    output io_up_out_bits_y_0 : UInt<3>
-    output io_up_out_bits_x_dest : UInt<3>
-    output io_up_out_bits_y_dest : UInt<3>
+    output io_up_out_bits_x_0 : UInt<2>
+    output io_up_out_bits_y_0 : UInt<2>
+    output io_up_out_bits_x_dest : UInt<2>
+    output io_up_out_bits_y_dest : UInt<2>
     output io_up_out_bits_pos : UInt<16>
     output io_up_in_ready : UInt<1>
     input io_up_in_valid : UInt<1>
     input io_up_in_bits_data : UInt<64>
-    input io_up_in_bits_x_0 : UInt<3>
-    input io_up_in_bits_y_0 : UInt<3>
-    input io_up_in_bits_x_dest : UInt<3>
-    input io_up_in_bits_y_dest : UInt<3>
+    input io_up_in_bits_x_0 : UInt<2>
+    input io_up_in_bits_y_0 : UInt<2>
+    input io_up_in_bits_x_dest : UInt<2>
+    input io_up_in_bits_y_dest : UInt<2>
     input io_up_in_bits_pos : UInt<16>
     input io_bottom_out_ready : UInt<1>
     output io_bottom_out_valid : UInt<1>
     output io_bottom_out_bits_data : UInt<64>
-    output io_bottom_out_bits_x_0 : UInt<3>
-    output io_bottom_out_bits_y_0 : UInt<3>
-    output io_bottom_out_bits_x_dest : UInt<3>
-    output io_bottom_out_bits_y_dest : UInt<3>
+    output io_bottom_out_bits_x_0 : UInt<2>
+    output io_bottom_out_bits_y_0 : UInt<2>
+    output io_bottom_out_bits_x_dest : UInt<2>
+    output io_bottom_out_bits_y_dest : UInt<2>
     output io_bottom_out_bits_pos : UInt<16>
     output io_bottom_in_ready : UInt<1>
     input io_bottom_in_valid : UInt<1>
     input io_bottom_in_bits_data : UInt<64>
-    input io_bottom_in_bits_x_0 : UInt<3>
-    input io_bottom_in_bits_y_0 : UInt<3>
-    input io_bottom_in_bits_x_dest : UInt<3>
-    input io_bottom_in_bits_y_dest : UInt<3>
+    input io_bottom_in_bits_x_0 : UInt<2>
+    input io_bottom_in_bits_y_0 : UInt<2>
+    input io_bottom_in_bits_x_dest : UInt<2>
+    input io_bottom_in_bits_y_dest : UInt<2>
     input io_bottom_in_bits_pos : UInt<16>
 
     mem memPE : @[AllToAllPE.scala 20:18]
       data-type => UInt<64>
-      depth => 10000
+      depth => 5000
       read-latency => 0
       write-latency => 1
       reader => MPORT_5
@@ -3626,9 +3626,9 @@ circuit AllToAll :
     inst right_out of Queue @[Decoupled.scala 296:21]
     inst up_out of Queue @[Decoupled.scala 296:21]
     inst bottom_out of Queue @[Decoupled.scala 296:21]
-    reg x_coord : UInt<3>, clock with :
+    reg x_coord : UInt<2>, clock with :
       reset => (UInt<1>("h0"), x_coord) @[AllToAllPE.scala 23:24]
-    reg y_coord : UInt<3>, clock with :
+    reg y_coord : UInt<2>, clock with :
       reset => (UInt<1>("h0"), y_coord) @[AllToAllPE.scala 24:24]
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[AllToAllPE.scala 26:18]
@@ -3676,21 +3676,21 @@ circuit AllToAll :
       reset => (UInt<1>("h0"), read_values_valid_2) @[AllToAllPE.scala 63:34]
     reg read_values_valid_3 : UInt<1>, clock with :
       reset => (UInt<1>("h0"), read_values_valid_3) @[AllToAllPE.scala 63:34]
-    reg read_x_dest_0 : UInt<3>, clock with :
+    reg read_x_dest_0 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_0) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_1 : UInt<3>, clock with :
+    reg read_x_dest_1 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_1) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_2 : UInt<3>, clock with :
+    reg read_x_dest_2 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_2) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_3 : UInt<3>, clock with :
+    reg read_x_dest_3 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_3) @[AllToAllPE.scala 64:24]
-    reg read_y_dest_0 : UInt<3>, clock with :
+    reg read_y_dest_0 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_0) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_1 : UInt<3>, clock with :
+    reg read_y_dest_1 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_1) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_2 : UInt<3>, clock with :
+    reg read_y_dest_2 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_2) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_3 : UInt<3>, clock with :
+    reg read_y_dest_3 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_3) @[AllToAllPE.scala 65:24]
     reg read_pos_0 : UInt<16>, clock with :
       reset => (UInt<1>("h0"), read_pos_0) @[AllToAllPE.scala 66:21]
@@ -3731,7 +3731,7 @@ circuit AllToAll :
     node _T_22 = tail(_T_21, 1) @[AllToAllPE.scala 160:61]
     node _T_23 = add(_T_22, offset) @[AllToAllPE.scala 160:80]
     node _T_24 = tail(_T_23, 1) @[AllToAllPE.scala 160:80]
-    node _T_25 = bits(_T_24, 13, 0) @[AllToAllPE.scala 160:10]
+    node _T_25 = bits(_T_24, 12, 0) @[AllToAllPE.scala 160:10]
     node _GEN_0 = validif(left_dispatcher.io_this_PE, _T_25) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10]
     node _GEN_1 = validif(left_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10]
     node _GEN_2 = mux(left_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10 AllToAllPE.scala 20:18]
@@ -3745,7 +3745,7 @@ circuit AllToAll :
     node _T_31 = tail(_T_30, 1) @[AllToAllPE.scala 165:63]
     node _T_32 = add(_T_31, offset) @[AllToAllPE.scala 165:83]
     node _T_33 = tail(_T_32, 1) @[AllToAllPE.scala 165:83]
-    node _T_34 = bits(_T_33, 13, 0) @[AllToAllPE.scala 165:10]
+    node _T_34 = bits(_T_33, 12, 0) @[AllToAllPE.scala 165:10]
     node _GEN_5 = validif(right_dispatcher.io_this_PE, _T_34) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10]
     node _GEN_6 = validif(right_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10]
     node _GEN_7 = mux(right_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10 AllToAllPE.scala 20:18]
@@ -3759,7 +3759,7 @@ circuit AllToAll :
     node _T_40 = tail(_T_39, 1) @[AllToAllPE.scala 170:57]
     node _T_41 = add(_T_40, offset) @[AllToAllPE.scala 170:74]
     node _T_42 = tail(_T_41, 1) @[AllToAllPE.scala 170:74]
-    node _T_43 = bits(_T_42, 13, 0) @[AllToAllPE.scala 170:10]
+    node _T_43 = bits(_T_42, 12, 0) @[AllToAllPE.scala 170:10]
     node _GEN_10 = validif(up_dispatcher.io_this_PE, _T_43) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10]
     node _GEN_11 = validif(up_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10]
     node _GEN_12 = mux(up_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10 AllToAllPE.scala 20:18]
@@ -3773,7 +3773,7 @@ circuit AllToAll :
     node _T_49 = tail(_T_48, 1) @[AllToAllPE.scala 175:65]
     node _T_50 = add(_T_49, offset) @[AllToAllPE.scala 175:86]
     node _T_51 = tail(_T_50, 1) @[AllToAllPE.scala 175:86]
-    node _T_52 = bits(_T_51, 13, 0) @[AllToAllPE.scala 175:10]
+    node _T_52 = bits(_T_51, 12, 0) @[AllToAllPE.scala 175:10]
     node _GEN_15 = validif(bottom_dispatcher.io_this_PE, _T_52) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10]
     node _GEN_16 = validif(bottom_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10]
     node _GEN_17 = mux(bottom_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10 AllToAllPE.scala 20:18]
@@ -3870,7 +3870,7 @@ circuit AllToAll :
     node _GEN_22 = mux(load_signal, UInt<3>("h4"), _GEN_21) @[AllToAllPE.scala 429:22 AllToAllPE.scala 430:13]
     node _T_115 = eq(state, UInt<3>("h4")) @[AllToAllPE.scala 439:20]
     node _T_116 = eq(stall_resp, UInt<1>("h0")) @[AllToAllPE.scala 441:21]
-    node _T_117 = bits(memIndex, 13, 0) @[AllToAllPE.scala 447:12]
+    node _T_117 = bits(memIndex, 12, 0) @[AllToAllPE.scala 447:12]
     node _GEN_23 = validif(is_this_PE, _T_117) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12]
     node _GEN_24 = validif(is_this_PE, clock) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12]
     node _GEN_25 = mux(is_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12 AllToAllPE.scala 20:18]
@@ -3888,7 +3888,7 @@ circuit AllToAll :
     node _GEN_30 = mux(_T_122, UInt<3>("h5"), _GEN_29) @[AllToAllPE.scala 459:44 AllToAllPE.scala 460:13]
     node _GEN_31 = mux(_T_120, UInt<3>("h4"), _GEN_30) @[AllToAllPE.scala 457:37 AllToAllPE.scala 458:13]
     node _T_125 = eq(state, UInt<3>("h5")) @[AllToAllPE.scala 469:20]
-    node _T_126 = bits(memIndex, 13, 0) @[AllToAllPE.scala 477:26]
+    node _T_126 = bits(memIndex, 12, 0) @[AllToAllPE.scala 477:26]
     node _GEN_32 = validif(is_this_PE, _T_126) @[AllToAllPE.scala 476:21 AllToAllPE.scala 477:26]
     node _GEN_33 = mux(is_this_PE, memPE.MPORT_5.data, resp_value) @[AllToAllPE.scala 476:21 AllToAllPE.scala 477:18 AllToAllPE.scala 43:27]
     node _T_127 = eq(state, UInt<3>("h6")) @[AllToAllPE.scala 487:20]
@@ -4019,10 +4019,10 @@ circuit AllToAll :
     node _T_150 = eq(stateAction, UInt<1>("h1")) @[AllToAllPE.scala 600:26]
     node _T_151 = eq(index_calcualtor.io_last_iteration, UInt<1>("h0")) @[AllToAllPE.scala 605:21]
     node _T_152 = and(do_read, _T_151) @[AllToAllPE.scala 605:18]
-    node _T_153 = bits(index_calcualtor.io_index0, 13, 0) @[AllToAllPE.scala 609:30]
-    node _T_154 = bits(index_calcualtor.io_index1, 13, 0) @[AllToAllPE.scala 610:30]
-    node _T_155 = bits(index_calcualtor.io_index2, 13, 0) @[AllToAllPE.scala 611:30]
-    node _T_156 = bits(index_calcualtor.io_index3, 13, 0) @[AllToAllPE.scala 612:30]
+    node _T_153 = bits(index_calcualtor.io_index0, 12, 0) @[AllToAllPE.scala 609:30]
+    node _T_154 = bits(index_calcualtor.io_index1, 12, 0) @[AllToAllPE.scala 610:30]
+    node _T_155 = bits(index_calcualtor.io_index2, 12, 0) @[AllToAllPE.scala 611:30]
+    node _T_156 = bits(index_calcualtor.io_index3, 12, 0) @[AllToAllPE.scala 612:30]
     node _T_157 = eq(left_mux.io_out_val_selected, UInt<1>("h1")) @[AllToAllPE.scala 643:64]
     node _T_158 = and(_T_157, left_out_arbiter.io_in_0_ready) @[AllToAllPE.scala 643:79]
     node _T_159 = eq(right_mux.io_out_val_selected, UInt<1>("h1")) @[AllToAllPE.scala 644:65]
@@ -4081,7 +4081,7 @@ circuit AllToAll :
     node _T_212 = and(_T_211, read_values_valid_3) @[AllToAllPE.scala 665:56]
     node _T_213 = add(index_write_this_PE, read_pos_0) @[AllToAllPE.scala 669:35]
     node _T_214 = tail(_T_213, 1) @[AllToAllPE.scala 669:35]
-    node _T_215 = bits(_T_214, 13, 0) @[AllToAllPE.scala 669:14]
+    node _T_215 = bits(_T_214, 12, 0) @[AllToAllPE.scala 669:14]
     node _GEN_134 = validif(this_PE_generation_0, _T_215) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14]
     node _GEN_135 = validif(this_PE_generation_0, clock) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14]
     node _GEN_136 = mux(this_PE_generation_0, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14 AllToAllPE.scala 20:18]
@@ -4089,7 +4089,7 @@ circuit AllToAll :
     node _GEN_138 = validif(this_PE_generation_0, read_values_0) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:50]
     node _T_216 = add(index_write_this_PE, read_pos_1) @[AllToAllPE.scala 672:35]
     node _T_217 = tail(_T_216, 1) @[AllToAllPE.scala 672:35]
-    node _T_218 = bits(_T_217, 13, 0) @[AllToAllPE.scala 672:14]
+    node _T_218 = bits(_T_217, 12, 0) @[AllToAllPE.scala 672:14]
     node _GEN_139 = validif(this_PE_generation_1, _T_218) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14]
     node _GEN_140 = validif(this_PE_generation_1, clock) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14]
     node _GEN_141 = mux(this_PE_generation_1, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14 AllToAllPE.scala 20:18]
@@ -4097,7 +4097,7 @@ circuit AllToAll :
     node _GEN_143 = validif(this_PE_generation_1, read_values_1) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:50]
     node _T_219 = add(index_write_this_PE, read_pos_2) @[AllToAllPE.scala 675:35]
     node _T_220 = tail(_T_219, 1) @[AllToAllPE.scala 675:35]
-    node _T_221 = bits(_T_220, 13, 0) @[AllToAllPE.scala 675:14]
+    node _T_221 = bits(_T_220, 12, 0) @[AllToAllPE.scala 675:14]
     node _GEN_144 = validif(this_PE_generation_2, _T_221) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14]
     node _GEN_145 = validif(this_PE_generation_2, clock) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14]
     node _GEN_146 = mux(this_PE_generation_2, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14 AllToAllPE.scala 20:18]
@@ -4105,7 +4105,7 @@ circuit AllToAll :
     node _GEN_148 = validif(this_PE_generation_2, read_values_2) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:50]
     node _T_222 = add(index_write_this_PE, read_pos_3) @[AllToAllPE.scala 678:35]
     node _T_223 = tail(_T_222, 1) @[AllToAllPE.scala 678:35]
-    node _T_224 = bits(_T_223, 13, 0) @[AllToAllPE.scala 678:14]
+    node _T_224 = bits(_T_223, 12, 0) @[AllToAllPE.scala 678:14]
     node _GEN_149 = validif(this_PE_generation_3, _T_224) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14]
     node _GEN_150 = validif(this_PE_generation_3, clock) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14]
     node _GEN_151 = mux(this_PE_generation_3, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14 AllToAllPE.scala 20:18]
@@ -4798,71 +4798,71 @@ circuit AllToAll :
     input io_left_out_ready : UInt<1>
     output io_left_out_valid : UInt<1>
     output io_left_out_bits_data : UInt<64>
-    output io_left_out_bits_x_0 : UInt<3>
-    output io_left_out_bits_y_0 : UInt<3>
-    output io_left_out_bits_x_dest : UInt<3>
-    output io_left_out_bits_y_dest : UInt<3>
+    output io_left_out_bits_x_0 : UInt<2>
+    output io_left_out_bits_y_0 : UInt<2>
+    output io_left_out_bits_x_dest : UInt<2>
+    output io_left_out_bits_y_dest : UInt<2>
     output io_left_out_bits_pos : UInt<16>
     output io_left_in_ready : UInt<1>
     input io_left_in_valid : UInt<1>
     input io_left_in_bits_data : UInt<64>
-    input io_left_in_bits_x_0 : UInt<3>
-    input io_left_in_bits_y_0 : UInt<3>
-    input io_left_in_bits_x_dest : UInt<3>
-    input io_left_in_bits_y_dest : UInt<3>
+    input io_left_in_bits_x_0 : UInt<2>
+    input io_left_in_bits_y_0 : UInt<2>
+    input io_left_in_bits_x_dest : UInt<2>
+    input io_left_in_bits_y_dest : UInt<2>
     input io_left_in_bits_pos : UInt<16>
     input io_right_out_ready : UInt<1>
     output io_right_out_valid : UInt<1>
     output io_right_out_bits_data : UInt<64>
-    output io_right_out_bits_x_0 : UInt<3>
-    output io_right_out_bits_y_0 : UInt<3>
-    output io_right_out_bits_x_dest : UInt<3>
-    output io_right_out_bits_y_dest : UInt<3>
+    output io_right_out_bits_x_0 : UInt<2>
+    output io_right_out_bits_y_0 : UInt<2>
+    output io_right_out_bits_x_dest : UInt<2>
+    output io_right_out_bits_y_dest : UInt<2>
     output io_right_out_bits_pos : UInt<16>
     output io_right_in_ready : UInt<1>
     input io_right_in_valid : UInt<1>
     input io_right_in_bits_data : UInt<64>
-    input io_right_in_bits_x_0 : UInt<3>
-    input io_right_in_bits_y_0 : UInt<3>
-    input io_right_in_bits_x_dest : UInt<3>
-    input io_right_in_bits_y_dest : UInt<3>
+    input io_right_in_bits_x_0 : UInt<2>
+    input io_right_in_bits_y_0 : UInt<2>
+    input io_right_in_bits_x_dest : UInt<2>
+    input io_right_in_bits_y_dest : UInt<2>
     input io_right_in_bits_pos : UInt<16>
     input io_up_out_ready : UInt<1>
     output io_up_out_valid : UInt<1>
     output io_up_out_bits_data : UInt<64>
-    output io_up_out_bits_x_0 : UInt<3>
-    output io_up_out_bits_y_0 : UInt<3>
-    output io_up_out_bits_x_dest : UInt<3>
-    output io_up_out_bits_y_dest : UInt<3>
+    output io_up_out_bits_x_0 : UInt<2>
+    output io_up_out_bits_y_0 : UInt<2>
+    output io_up_out_bits_x_dest : UInt<2>
+    output io_up_out_bits_y_dest : UInt<2>
     output io_up_out_bits_pos : UInt<16>
     output io_up_in_ready : UInt<1>
     input io_up_in_valid : UInt<1>
     input io_up_in_bits_data : UInt<64>
-    input io_up_in_bits_x_0 : UInt<3>
-    input io_up_in_bits_y_0 : UInt<3>
-    input io_up_in_bits_x_dest : UInt<3>
-    input io_up_in_bits_y_dest : UInt<3>
+    input io_up_in_bits_x_0 : UInt<2>
+    input io_up_in_bits_y_0 : UInt<2>
+    input io_up_in_bits_x_dest : UInt<2>
+    input io_up_in_bits_y_dest : UInt<2>
     input io_up_in_bits_pos : UInt<16>
     input io_bottom_out_ready : UInt<1>
     output io_bottom_out_valid : UInt<1>
     output io_bottom_out_bits_data : UInt<64>
-    output io_bottom_out_bits_x_0 : UInt<3>
-    output io_bottom_out_bits_y_0 : UInt<3>
-    output io_bottom_out_bits_x_dest : UInt<3>
-    output io_bottom_out_bits_y_dest : UInt<3>
+    output io_bottom_out_bits_x_0 : UInt<2>
+    output io_bottom_out_bits_y_0 : UInt<2>
+    output io_bottom_out_bits_x_dest : UInt<2>
+    output io_bottom_out_bits_y_dest : UInt<2>
     output io_bottom_out_bits_pos : UInt<16>
     output io_bottom_in_ready : UInt<1>
     input io_bottom_in_valid : UInt<1>
     input io_bottom_in_bits_data : UInt<64>
-    input io_bottom_in_bits_x_0 : UInt<3>
-    input io_bottom_in_bits_y_0 : UInt<3>
-    input io_bottom_in_bits_x_dest : UInt<3>
-    input io_bottom_in_bits_y_dest : UInt<3>
+    input io_bottom_in_bits_x_0 : UInt<2>
+    input io_bottom_in_bits_y_0 : UInt<2>
+    input io_bottom_in_bits_x_dest : UInt<2>
+    input io_bottom_in_bits_y_dest : UInt<2>
     input io_bottom_in_bits_pos : UInt<16>
 
     mem memPE : @[AllToAllPE.scala 20:18]
       data-type => UInt<64>
-      depth => 10000
+      depth => 5000
       read-latency => 0
       write-latency => 1
       reader => MPORT_5
@@ -4905,9 +4905,9 @@ circuit AllToAll :
     inst right_out of Queue @[Decoupled.scala 296:21]
     inst up_out of Queue @[Decoupled.scala 296:21]
     inst bottom_out of Queue @[Decoupled.scala 296:21]
-    reg x_coord : UInt<3>, clock with :
+    reg x_coord : UInt<2>, clock with :
       reset => (UInt<1>("h0"), x_coord) @[AllToAllPE.scala 23:24]
-    reg y_coord : UInt<3>, clock with :
+    reg y_coord : UInt<2>, clock with :
       reset => (UInt<1>("h0"), y_coord) @[AllToAllPE.scala 24:24]
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[AllToAllPE.scala 26:18]
@@ -4955,21 +4955,21 @@ circuit AllToAll :
       reset => (UInt<1>("h0"), read_values_valid_2) @[AllToAllPE.scala 63:34]
     reg read_values_valid_3 : UInt<1>, clock with :
       reset => (UInt<1>("h0"), read_values_valid_3) @[AllToAllPE.scala 63:34]
-    reg read_x_dest_0 : UInt<3>, clock with :
+    reg read_x_dest_0 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_0) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_1 : UInt<3>, clock with :
+    reg read_x_dest_1 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_1) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_2 : UInt<3>, clock with :
+    reg read_x_dest_2 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_2) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_3 : UInt<3>, clock with :
+    reg read_x_dest_3 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_3) @[AllToAllPE.scala 64:24]
-    reg read_y_dest_0 : UInt<3>, clock with :
+    reg read_y_dest_0 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_0) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_1 : UInt<3>, clock with :
+    reg read_y_dest_1 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_1) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_2 : UInt<3>, clock with :
+    reg read_y_dest_2 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_2) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_3 : UInt<3>, clock with :
+    reg read_y_dest_3 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_3) @[AllToAllPE.scala 65:24]
     reg read_pos_0 : UInt<16>, clock with :
       reset => (UInt<1>("h0"), read_pos_0) @[AllToAllPE.scala 66:21]
@@ -5010,7 +5010,7 @@ circuit AllToAll :
     node _T_22 = tail(_T_21, 1) @[AllToAllPE.scala 160:61]
     node _T_23 = add(_T_22, offset) @[AllToAllPE.scala 160:80]
     node _T_24 = tail(_T_23, 1) @[AllToAllPE.scala 160:80]
-    node _T_25 = bits(_T_24, 13, 0) @[AllToAllPE.scala 160:10]
+    node _T_25 = bits(_T_24, 12, 0) @[AllToAllPE.scala 160:10]
     node _GEN_0 = validif(left_dispatcher.io_this_PE, _T_25) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10]
     node _GEN_1 = validif(left_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10]
     node _GEN_2 = mux(left_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10 AllToAllPE.scala 20:18]
@@ -5024,7 +5024,7 @@ circuit AllToAll :
     node _T_31 = tail(_T_30, 1) @[AllToAllPE.scala 165:63]
     node _T_32 = add(_T_31, offset) @[AllToAllPE.scala 165:83]
     node _T_33 = tail(_T_32, 1) @[AllToAllPE.scala 165:83]
-    node _T_34 = bits(_T_33, 13, 0) @[AllToAllPE.scala 165:10]
+    node _T_34 = bits(_T_33, 12, 0) @[AllToAllPE.scala 165:10]
     node _GEN_5 = validif(right_dispatcher.io_this_PE, _T_34) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10]
     node _GEN_6 = validif(right_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10]
     node _GEN_7 = mux(right_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10 AllToAllPE.scala 20:18]
@@ -5038,7 +5038,7 @@ circuit AllToAll :
     node _T_40 = tail(_T_39, 1) @[AllToAllPE.scala 170:57]
     node _T_41 = add(_T_40, offset) @[AllToAllPE.scala 170:74]
     node _T_42 = tail(_T_41, 1) @[AllToAllPE.scala 170:74]
-    node _T_43 = bits(_T_42, 13, 0) @[AllToAllPE.scala 170:10]
+    node _T_43 = bits(_T_42, 12, 0) @[AllToAllPE.scala 170:10]
     node _GEN_10 = validif(up_dispatcher.io_this_PE, _T_43) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10]
     node _GEN_11 = validif(up_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10]
     node _GEN_12 = mux(up_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10 AllToAllPE.scala 20:18]
@@ -5052,7 +5052,7 @@ circuit AllToAll :
     node _T_49 = tail(_T_48, 1) @[AllToAllPE.scala 175:65]
     node _T_50 = add(_T_49, offset) @[AllToAllPE.scala 175:86]
     node _T_51 = tail(_T_50, 1) @[AllToAllPE.scala 175:86]
-    node _T_52 = bits(_T_51, 13, 0) @[AllToAllPE.scala 175:10]
+    node _T_52 = bits(_T_51, 12, 0) @[AllToAllPE.scala 175:10]
     node _GEN_15 = validif(bottom_dispatcher.io_this_PE, _T_52) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10]
     node _GEN_16 = validif(bottom_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10]
     node _GEN_17 = mux(bottom_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10 AllToAllPE.scala 20:18]
@@ -5149,7 +5149,7 @@ circuit AllToAll :
     node _GEN_22 = mux(load_signal, UInt<3>("h4"), _GEN_21) @[AllToAllPE.scala 429:22 AllToAllPE.scala 430:13]
     node _T_115 = eq(state, UInt<3>("h4")) @[AllToAllPE.scala 439:20]
     node _T_116 = eq(stall_resp, UInt<1>("h0")) @[AllToAllPE.scala 441:21]
-    node _T_117 = bits(memIndex, 13, 0) @[AllToAllPE.scala 447:12]
+    node _T_117 = bits(memIndex, 12, 0) @[AllToAllPE.scala 447:12]
     node _GEN_23 = validif(is_this_PE, _T_117) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12]
     node _GEN_24 = validif(is_this_PE, clock) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12]
     node _GEN_25 = mux(is_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12 AllToAllPE.scala 20:18]
@@ -5167,7 +5167,7 @@ circuit AllToAll :
     node _GEN_30 = mux(_T_122, UInt<3>("h5"), _GEN_29) @[AllToAllPE.scala 459:44 AllToAllPE.scala 460:13]
     node _GEN_31 = mux(_T_120, UInt<3>("h4"), _GEN_30) @[AllToAllPE.scala 457:37 AllToAllPE.scala 458:13]
     node _T_125 = eq(state, UInt<3>("h5")) @[AllToAllPE.scala 469:20]
-    node _T_126 = bits(memIndex, 13, 0) @[AllToAllPE.scala 477:26]
+    node _T_126 = bits(memIndex, 12, 0) @[AllToAllPE.scala 477:26]
     node _GEN_32 = validif(is_this_PE, _T_126) @[AllToAllPE.scala 476:21 AllToAllPE.scala 477:26]
     node _GEN_33 = mux(is_this_PE, memPE.MPORT_5.data, resp_value) @[AllToAllPE.scala 476:21 AllToAllPE.scala 477:18 AllToAllPE.scala 43:27]
     node _T_127 = eq(state, UInt<3>("h6")) @[AllToAllPE.scala 487:20]
@@ -5298,10 +5298,10 @@ circuit AllToAll :
     node _T_150 = eq(stateAction, UInt<1>("h1")) @[AllToAllPE.scala 600:26]
     node _T_151 = eq(index_calcualtor.io_last_iteration, UInt<1>("h0")) @[AllToAllPE.scala 605:21]
     node _T_152 = and(do_read, _T_151) @[AllToAllPE.scala 605:18]
-    node _T_153 = bits(index_calcualtor.io_index0, 13, 0) @[AllToAllPE.scala 609:30]
-    node _T_154 = bits(index_calcualtor.io_index1, 13, 0) @[AllToAllPE.scala 610:30]
-    node _T_155 = bits(index_calcualtor.io_index2, 13, 0) @[AllToAllPE.scala 611:30]
-    node _T_156 = bits(index_calcualtor.io_index3, 13, 0) @[AllToAllPE.scala 612:30]
+    node _T_153 = bits(index_calcualtor.io_index0, 12, 0) @[AllToAllPE.scala 609:30]
+    node _T_154 = bits(index_calcualtor.io_index1, 12, 0) @[AllToAllPE.scala 610:30]
+    node _T_155 = bits(index_calcualtor.io_index2, 12, 0) @[AllToAllPE.scala 611:30]
+    node _T_156 = bits(index_calcualtor.io_index3, 12, 0) @[AllToAllPE.scala 612:30]
     node _T_157 = eq(left_mux.io_out_val_selected, UInt<1>("h1")) @[AllToAllPE.scala 643:64]
     node _T_158 = and(_T_157, left_out_arbiter.io_in_0_ready) @[AllToAllPE.scala 643:79]
     node _T_159 = eq(right_mux.io_out_val_selected, UInt<1>("h1")) @[AllToAllPE.scala 644:65]
@@ -5360,7 +5360,7 @@ circuit AllToAll :
     node _T_212 = and(_T_211, read_values_valid_3) @[AllToAllPE.scala 665:56]
     node _T_213 = add(index_write_this_PE, read_pos_0) @[AllToAllPE.scala 669:35]
     node _T_214 = tail(_T_213, 1) @[AllToAllPE.scala 669:35]
-    node _T_215 = bits(_T_214, 13, 0) @[AllToAllPE.scala 669:14]
+    node _T_215 = bits(_T_214, 12, 0) @[AllToAllPE.scala 669:14]
     node _GEN_134 = validif(this_PE_generation_0, _T_215) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14]
     node _GEN_135 = validif(this_PE_generation_0, clock) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14]
     node _GEN_136 = mux(this_PE_generation_0, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14 AllToAllPE.scala 20:18]
@@ -5368,7 +5368,7 @@ circuit AllToAll :
     node _GEN_138 = validif(this_PE_generation_0, read_values_0) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:50]
     node _T_216 = add(index_write_this_PE, read_pos_1) @[AllToAllPE.scala 672:35]
     node _T_217 = tail(_T_216, 1) @[AllToAllPE.scala 672:35]
-    node _T_218 = bits(_T_217, 13, 0) @[AllToAllPE.scala 672:14]
+    node _T_218 = bits(_T_217, 12, 0) @[AllToAllPE.scala 672:14]
     node _GEN_139 = validif(this_PE_generation_1, _T_218) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14]
     node _GEN_140 = validif(this_PE_generation_1, clock) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14]
     node _GEN_141 = mux(this_PE_generation_1, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14 AllToAllPE.scala 20:18]
@@ -5376,7 +5376,7 @@ circuit AllToAll :
     node _GEN_143 = validif(this_PE_generation_1, read_values_1) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:50]
     node _T_219 = add(index_write_this_PE, read_pos_2) @[AllToAllPE.scala 675:35]
     node _T_220 = tail(_T_219, 1) @[AllToAllPE.scala 675:35]
-    node _T_221 = bits(_T_220, 13, 0) @[AllToAllPE.scala 675:14]
+    node _T_221 = bits(_T_220, 12, 0) @[AllToAllPE.scala 675:14]
     node _GEN_144 = validif(this_PE_generation_2, _T_221) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14]
     node _GEN_145 = validif(this_PE_generation_2, clock) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14]
     node _GEN_146 = mux(this_PE_generation_2, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14 AllToAllPE.scala 20:18]
@@ -5384,7 +5384,7 @@ circuit AllToAll :
     node _GEN_148 = validif(this_PE_generation_2, read_values_2) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:50]
     node _T_222 = add(index_write_this_PE, read_pos_3) @[AllToAllPE.scala 678:35]
     node _T_223 = tail(_T_222, 1) @[AllToAllPE.scala 678:35]
-    node _T_224 = bits(_T_223, 13, 0) @[AllToAllPE.scala 678:14]
+    node _T_224 = bits(_T_223, 12, 0) @[AllToAllPE.scala 678:14]
     node _GEN_149 = validif(this_PE_generation_3, _T_224) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14]
     node _GEN_150 = validif(this_PE_generation_3, clock) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14]
     node _GEN_151 = mux(this_PE_generation_3, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14 AllToAllPE.scala 20:18]
@@ -6077,71 +6077,71 @@ circuit AllToAll :
     input io_left_out_ready : UInt<1>
     output io_left_out_valid : UInt<1>
     output io_left_out_bits_data : UInt<64>
-    output io_left_out_bits_x_0 : UInt<3>
-    output io_left_out_bits_y_0 : UInt<3>
-    output io_left_out_bits_x_dest : UInt<3>
-    output io_left_out_bits_y_dest : UInt<3>
+    output io_left_out_bits_x_0 : UInt<2>
+    output io_left_out_bits_y_0 : UInt<2>
+    output io_left_out_bits_x_dest : UInt<2>
+    output io_left_out_bits_y_dest : UInt<2>
     output io_left_out_bits_pos : UInt<16>
     output io_left_in_ready : UInt<1>
     input io_left_in_valid : UInt<1>
     input io_left_in_bits_data : UInt<64>
-    input io_left_in_bits_x_0 : UInt<3>
-    input io_left_in_bits_y_0 : UInt<3>
-    input io_left_in_bits_x_dest : UInt<3>
-    input io_left_in_bits_y_dest : UInt<3>
+    input io_left_in_bits_x_0 : UInt<2>
+    input io_left_in_bits_y_0 : UInt<2>
+    input io_left_in_bits_x_dest : UInt<2>
+    input io_left_in_bits_y_dest : UInt<2>
     input io_left_in_bits_pos : UInt<16>
     input io_right_out_ready : UInt<1>
     output io_right_out_valid : UInt<1>
     output io_right_out_bits_data : UInt<64>
-    output io_right_out_bits_x_0 : UInt<3>
-    output io_right_out_bits_y_0 : UInt<3>
-    output io_right_out_bits_x_dest : UInt<3>
-    output io_right_out_bits_y_dest : UInt<3>
+    output io_right_out_bits_x_0 : UInt<2>
+    output io_right_out_bits_y_0 : UInt<2>
+    output io_right_out_bits_x_dest : UInt<2>
+    output io_right_out_bits_y_dest : UInt<2>
     output io_right_out_bits_pos : UInt<16>
     output io_right_in_ready : UInt<1>
     input io_right_in_valid : UInt<1>
     input io_right_in_bits_data : UInt<64>
-    input io_right_in_bits_x_0 : UInt<3>
-    input io_right_in_bits_y_0 : UInt<3>
-    input io_right_in_bits_x_dest : UInt<3>
-    input io_right_in_bits_y_dest : UInt<3>
+    input io_right_in_bits_x_0 : UInt<2>
+    input io_right_in_bits_y_0 : UInt<2>
+    input io_right_in_bits_x_dest : UInt<2>
+    input io_right_in_bits_y_dest : UInt<2>
     input io_right_in_bits_pos : UInt<16>
     input io_up_out_ready : UInt<1>
     output io_up_out_valid : UInt<1>
     output io_up_out_bits_data : UInt<64>
-    output io_up_out_bits_x_0 : UInt<3>
-    output io_up_out_bits_y_0 : UInt<3>
-    output io_up_out_bits_x_dest : UInt<3>
-    output io_up_out_bits_y_dest : UInt<3>
+    output io_up_out_bits_x_0 : UInt<2>
+    output io_up_out_bits_y_0 : UInt<2>
+    output io_up_out_bits_x_dest : UInt<2>
+    output io_up_out_bits_y_dest : UInt<2>
     output io_up_out_bits_pos : UInt<16>
     output io_up_in_ready : UInt<1>
     input io_up_in_valid : UInt<1>
     input io_up_in_bits_data : UInt<64>
-    input io_up_in_bits_x_0 : UInt<3>
-    input io_up_in_bits_y_0 : UInt<3>
-    input io_up_in_bits_x_dest : UInt<3>
-    input io_up_in_bits_y_dest : UInt<3>
+    input io_up_in_bits_x_0 : UInt<2>
+    input io_up_in_bits_y_0 : UInt<2>
+    input io_up_in_bits_x_dest : UInt<2>
+    input io_up_in_bits_y_dest : UInt<2>
     input io_up_in_bits_pos : UInt<16>
     input io_bottom_out_ready : UInt<1>
     output io_bottom_out_valid : UInt<1>
     output io_bottom_out_bits_data : UInt<64>
-    output io_bottom_out_bits_x_0 : UInt<3>
-    output io_bottom_out_bits_y_0 : UInt<3>
-    output io_bottom_out_bits_x_dest : UInt<3>
-    output io_bottom_out_bits_y_dest : UInt<3>
+    output io_bottom_out_bits_x_0 : UInt<2>
+    output io_bottom_out_bits_y_0 : UInt<2>
+    output io_bottom_out_bits_x_dest : UInt<2>
+    output io_bottom_out_bits_y_dest : UInt<2>
     output io_bottom_out_bits_pos : UInt<16>
     output io_bottom_in_ready : UInt<1>
     input io_bottom_in_valid : UInt<1>
     input io_bottom_in_bits_data : UInt<64>
-    input io_bottom_in_bits_x_0 : UInt<3>
-    input io_bottom_in_bits_y_0 : UInt<3>
-    input io_bottom_in_bits_x_dest : UInt<3>
-    input io_bottom_in_bits_y_dest : UInt<3>
+    input io_bottom_in_bits_x_0 : UInt<2>
+    input io_bottom_in_bits_y_0 : UInt<2>
+    input io_bottom_in_bits_x_dest : UInt<2>
+    input io_bottom_in_bits_y_dest : UInt<2>
     input io_bottom_in_bits_pos : UInt<16>
 
     mem memPE : @[AllToAllPE.scala 20:18]
       data-type => UInt<64>
-      depth => 10000
+      depth => 5000
       read-latency => 0
       write-latency => 1
       reader => MPORT_5
@@ -6184,9 +6184,9 @@ circuit AllToAll :
     inst right_out of Queue @[Decoupled.scala 296:21]
     inst up_out of Queue @[Decoupled.scala 296:21]
     inst bottom_out of Queue @[Decoupled.scala 296:21]
-    reg x_coord : UInt<3>, clock with :
+    reg x_coord : UInt<2>, clock with :
       reset => (UInt<1>("h0"), x_coord) @[AllToAllPE.scala 23:24]
-    reg y_coord : UInt<3>, clock with :
+    reg y_coord : UInt<2>, clock with :
       reset => (UInt<1>("h0"), y_coord) @[AllToAllPE.scala 24:24]
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[AllToAllPE.scala 26:18]
@@ -6234,21 +6234,21 @@ circuit AllToAll :
       reset => (UInt<1>("h0"), read_values_valid_2) @[AllToAllPE.scala 63:34]
     reg read_values_valid_3 : UInt<1>, clock with :
       reset => (UInt<1>("h0"), read_values_valid_3) @[AllToAllPE.scala 63:34]
-    reg read_x_dest_0 : UInt<3>, clock with :
+    reg read_x_dest_0 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_0) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_1 : UInt<3>, clock with :
+    reg read_x_dest_1 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_1) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_2 : UInt<3>, clock with :
+    reg read_x_dest_2 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_2) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_3 : UInt<3>, clock with :
+    reg read_x_dest_3 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_3) @[AllToAllPE.scala 64:24]
-    reg read_y_dest_0 : UInt<3>, clock with :
+    reg read_y_dest_0 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_0) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_1 : UInt<3>, clock with :
+    reg read_y_dest_1 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_1) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_2 : UInt<3>, clock with :
+    reg read_y_dest_2 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_2) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_3 : UInt<3>, clock with :
+    reg read_y_dest_3 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_3) @[AllToAllPE.scala 65:24]
     reg read_pos_0 : UInt<16>, clock with :
       reset => (UInt<1>("h0"), read_pos_0) @[AllToAllPE.scala 66:21]
@@ -6289,7 +6289,7 @@ circuit AllToAll :
     node _T_22 = tail(_T_21, 1) @[AllToAllPE.scala 160:61]
     node _T_23 = add(_T_22, offset) @[AllToAllPE.scala 160:80]
     node _T_24 = tail(_T_23, 1) @[AllToAllPE.scala 160:80]
-    node _T_25 = bits(_T_24, 13, 0) @[AllToAllPE.scala 160:10]
+    node _T_25 = bits(_T_24, 12, 0) @[AllToAllPE.scala 160:10]
     node _GEN_0 = validif(left_dispatcher.io_this_PE, _T_25) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10]
     node _GEN_1 = validif(left_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10]
     node _GEN_2 = mux(left_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10 AllToAllPE.scala 20:18]
@@ -6303,7 +6303,7 @@ circuit AllToAll :
     node _T_31 = tail(_T_30, 1) @[AllToAllPE.scala 165:63]
     node _T_32 = add(_T_31, offset) @[AllToAllPE.scala 165:83]
     node _T_33 = tail(_T_32, 1) @[AllToAllPE.scala 165:83]
-    node _T_34 = bits(_T_33, 13, 0) @[AllToAllPE.scala 165:10]
+    node _T_34 = bits(_T_33, 12, 0) @[AllToAllPE.scala 165:10]
     node _GEN_5 = validif(right_dispatcher.io_this_PE, _T_34) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10]
     node _GEN_6 = validif(right_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10]
     node _GEN_7 = mux(right_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10 AllToAllPE.scala 20:18]
@@ -6317,7 +6317,7 @@ circuit AllToAll :
     node _T_40 = tail(_T_39, 1) @[AllToAllPE.scala 170:57]
     node _T_41 = add(_T_40, offset) @[AllToAllPE.scala 170:74]
     node _T_42 = tail(_T_41, 1) @[AllToAllPE.scala 170:74]
-    node _T_43 = bits(_T_42, 13, 0) @[AllToAllPE.scala 170:10]
+    node _T_43 = bits(_T_42, 12, 0) @[AllToAllPE.scala 170:10]
     node _GEN_10 = validif(up_dispatcher.io_this_PE, _T_43) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10]
     node _GEN_11 = validif(up_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10]
     node _GEN_12 = mux(up_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10 AllToAllPE.scala 20:18]
@@ -6331,7 +6331,7 @@ circuit AllToAll :
     node _T_49 = tail(_T_48, 1) @[AllToAllPE.scala 175:65]
     node _T_50 = add(_T_49, offset) @[AllToAllPE.scala 175:86]
     node _T_51 = tail(_T_50, 1) @[AllToAllPE.scala 175:86]
-    node _T_52 = bits(_T_51, 13, 0) @[AllToAllPE.scala 175:10]
+    node _T_52 = bits(_T_51, 12, 0) @[AllToAllPE.scala 175:10]
     node _GEN_15 = validif(bottom_dispatcher.io_this_PE, _T_52) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10]
     node _GEN_16 = validif(bottom_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10]
     node _GEN_17 = mux(bottom_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10 AllToAllPE.scala 20:18]
@@ -6428,7 +6428,7 @@ circuit AllToAll :
     node _GEN_22 = mux(load_signal, UInt<3>("h4"), _GEN_21) @[AllToAllPE.scala 429:22 AllToAllPE.scala 430:13]
     node _T_115 = eq(state, UInt<3>("h4")) @[AllToAllPE.scala 439:20]
     node _T_116 = eq(stall_resp, UInt<1>("h0")) @[AllToAllPE.scala 441:21]
-    node _T_117 = bits(memIndex, 13, 0) @[AllToAllPE.scala 447:12]
+    node _T_117 = bits(memIndex, 12, 0) @[AllToAllPE.scala 447:12]
     node _GEN_23 = validif(is_this_PE, _T_117) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12]
     node _GEN_24 = validif(is_this_PE, clock) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12]
     node _GEN_25 = mux(is_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12 AllToAllPE.scala 20:18]
@@ -6446,7 +6446,7 @@ circuit AllToAll :
     node _GEN_30 = mux(_T_122, UInt<3>("h5"), _GEN_29) @[AllToAllPE.scala 459:44 AllToAllPE.scala 460:13]
     node _GEN_31 = mux(_T_120, UInt<3>("h4"), _GEN_30) @[AllToAllPE.scala 457:37 AllToAllPE.scala 458:13]
     node _T_125 = eq(state, UInt<3>("h5")) @[AllToAllPE.scala 469:20]
-    node _T_126 = bits(memIndex, 13, 0) @[AllToAllPE.scala 477:26]
+    node _T_126 = bits(memIndex, 12, 0) @[AllToAllPE.scala 477:26]
     node _GEN_32 = validif(is_this_PE, _T_126) @[AllToAllPE.scala 476:21 AllToAllPE.scala 477:26]
     node _GEN_33 = mux(is_this_PE, memPE.MPORT_5.data, resp_value) @[AllToAllPE.scala 476:21 AllToAllPE.scala 477:18 AllToAllPE.scala 43:27]
     node _T_127 = eq(state, UInt<3>("h6")) @[AllToAllPE.scala 487:20]
@@ -6577,10 +6577,10 @@ circuit AllToAll :
     node _T_150 = eq(stateAction, UInt<1>("h1")) @[AllToAllPE.scala 600:26]
     node _T_151 = eq(index_calcualtor.io_last_iteration, UInt<1>("h0")) @[AllToAllPE.scala 605:21]
     node _T_152 = and(do_read, _T_151) @[AllToAllPE.scala 605:18]
-    node _T_153 = bits(index_calcualtor.io_index0, 13, 0) @[AllToAllPE.scala 609:30]
-    node _T_154 = bits(index_calcualtor.io_index1, 13, 0) @[AllToAllPE.scala 610:30]
-    node _T_155 = bits(index_calcualtor.io_index2, 13, 0) @[AllToAllPE.scala 611:30]
-    node _T_156 = bits(index_calcualtor.io_index3, 13, 0) @[AllToAllPE.scala 612:30]
+    node _T_153 = bits(index_calcualtor.io_index0, 12, 0) @[AllToAllPE.scala 609:30]
+    node _T_154 = bits(index_calcualtor.io_index1, 12, 0) @[AllToAllPE.scala 610:30]
+    node _T_155 = bits(index_calcualtor.io_index2, 12, 0) @[AllToAllPE.scala 611:30]
+    node _T_156 = bits(index_calcualtor.io_index3, 12, 0) @[AllToAllPE.scala 612:30]
     node _T_157 = eq(left_mux.io_out_val_selected, UInt<1>("h1")) @[AllToAllPE.scala 643:64]
     node _T_158 = and(_T_157, left_out_arbiter.io_in_0_ready) @[AllToAllPE.scala 643:79]
     node _T_159 = eq(right_mux.io_out_val_selected, UInt<1>("h1")) @[AllToAllPE.scala 644:65]
@@ -6639,7 +6639,7 @@ circuit AllToAll :
     node _T_212 = and(_T_211, read_values_valid_3) @[AllToAllPE.scala 665:56]
     node _T_213 = add(index_write_this_PE, read_pos_0) @[AllToAllPE.scala 669:35]
     node _T_214 = tail(_T_213, 1) @[AllToAllPE.scala 669:35]
-    node _T_215 = bits(_T_214, 13, 0) @[AllToAllPE.scala 669:14]
+    node _T_215 = bits(_T_214, 12, 0) @[AllToAllPE.scala 669:14]
     node _GEN_134 = validif(this_PE_generation_0, _T_215) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14]
     node _GEN_135 = validif(this_PE_generation_0, clock) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14]
     node _GEN_136 = mux(this_PE_generation_0, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14 AllToAllPE.scala 20:18]
@@ -6647,7 +6647,7 @@ circuit AllToAll :
     node _GEN_138 = validif(this_PE_generation_0, read_values_0) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:50]
     node _T_216 = add(index_write_this_PE, read_pos_1) @[AllToAllPE.scala 672:35]
     node _T_217 = tail(_T_216, 1) @[AllToAllPE.scala 672:35]
-    node _T_218 = bits(_T_217, 13, 0) @[AllToAllPE.scala 672:14]
+    node _T_218 = bits(_T_217, 12, 0) @[AllToAllPE.scala 672:14]
     node _GEN_139 = validif(this_PE_generation_1, _T_218) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14]
     node _GEN_140 = validif(this_PE_generation_1, clock) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14]
     node _GEN_141 = mux(this_PE_generation_1, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14 AllToAllPE.scala 20:18]
@@ -6655,7 +6655,7 @@ circuit AllToAll :
     node _GEN_143 = validif(this_PE_generation_1, read_values_1) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:50]
     node _T_219 = add(index_write_this_PE, read_pos_2) @[AllToAllPE.scala 675:35]
     node _T_220 = tail(_T_219, 1) @[AllToAllPE.scala 675:35]
-    node _T_221 = bits(_T_220, 13, 0) @[AllToAllPE.scala 675:14]
+    node _T_221 = bits(_T_220, 12, 0) @[AllToAllPE.scala 675:14]
     node _GEN_144 = validif(this_PE_generation_2, _T_221) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14]
     node _GEN_145 = validif(this_PE_generation_2, clock) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14]
     node _GEN_146 = mux(this_PE_generation_2, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14 AllToAllPE.scala 20:18]
@@ -6663,7 +6663,7 @@ circuit AllToAll :
     node _GEN_148 = validif(this_PE_generation_2, read_values_2) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:50]
     node _T_222 = add(index_write_this_PE, read_pos_3) @[AllToAllPE.scala 678:35]
     node _T_223 = tail(_T_222, 1) @[AllToAllPE.scala 678:35]
-    node _T_224 = bits(_T_223, 13, 0) @[AllToAllPE.scala 678:14]
+    node _T_224 = bits(_T_223, 12, 0) @[AllToAllPE.scala 678:14]
     node _GEN_149 = validif(this_PE_generation_3, _T_224) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14]
     node _GEN_150 = validif(this_PE_generation_3, clock) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14]
     node _GEN_151 = mux(this_PE_generation_3, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14 AllToAllPE.scala 20:18]
@@ -7356,71 +7356,71 @@ circuit AllToAll :
     input io_left_out_ready : UInt<1>
     output io_left_out_valid : UInt<1>
     output io_left_out_bits_data : UInt<64>
-    output io_left_out_bits_x_0 : UInt<3>
-    output io_left_out_bits_y_0 : UInt<3>
-    output io_left_out_bits_x_dest : UInt<3>
-    output io_left_out_bits_y_dest : UInt<3>
+    output io_left_out_bits_x_0 : UInt<2>
+    output io_left_out_bits_y_0 : UInt<2>
+    output io_left_out_bits_x_dest : UInt<2>
+    output io_left_out_bits_y_dest : UInt<2>
     output io_left_out_bits_pos : UInt<16>
     output io_left_in_ready : UInt<1>
     input io_left_in_valid : UInt<1>
     input io_left_in_bits_data : UInt<64>
-    input io_left_in_bits_x_0 : UInt<3>
-    input io_left_in_bits_y_0 : UInt<3>
-    input io_left_in_bits_x_dest : UInt<3>
-    input io_left_in_bits_y_dest : UInt<3>
+    input io_left_in_bits_x_0 : UInt<2>
+    input io_left_in_bits_y_0 : UInt<2>
+    input io_left_in_bits_x_dest : UInt<2>
+    input io_left_in_bits_y_dest : UInt<2>
     input io_left_in_bits_pos : UInt<16>
     input io_right_out_ready : UInt<1>
     output io_right_out_valid : UInt<1>
     output io_right_out_bits_data : UInt<64>
-    output io_right_out_bits_x_0 : UInt<3>
-    output io_right_out_bits_y_0 : UInt<3>
-    output io_right_out_bits_x_dest : UInt<3>
-    output io_right_out_bits_y_dest : UInt<3>
+    output io_right_out_bits_x_0 : UInt<2>
+    output io_right_out_bits_y_0 : UInt<2>
+    output io_right_out_bits_x_dest : UInt<2>
+    output io_right_out_bits_y_dest : UInt<2>
     output io_right_out_bits_pos : UInt<16>
     output io_right_in_ready : UInt<1>
     input io_right_in_valid : UInt<1>
     input io_right_in_bits_data : UInt<64>
-    input io_right_in_bits_x_0 : UInt<3>
-    input io_right_in_bits_y_0 : UInt<3>
-    input io_right_in_bits_x_dest : UInt<3>
-    input io_right_in_bits_y_dest : UInt<3>
+    input io_right_in_bits_x_0 : UInt<2>
+    input io_right_in_bits_y_0 : UInt<2>
+    input io_right_in_bits_x_dest : UInt<2>
+    input io_right_in_bits_y_dest : UInt<2>
     input io_right_in_bits_pos : UInt<16>
     input io_up_out_ready : UInt<1>
     output io_up_out_valid : UInt<1>
     output io_up_out_bits_data : UInt<64>
-    output io_up_out_bits_x_0 : UInt<3>
-    output io_up_out_bits_y_0 : UInt<3>
-    output io_up_out_bits_x_dest : UInt<3>
-    output io_up_out_bits_y_dest : UInt<3>
+    output io_up_out_bits_x_0 : UInt<2>
+    output io_up_out_bits_y_0 : UInt<2>
+    output io_up_out_bits_x_dest : UInt<2>
+    output io_up_out_bits_y_dest : UInt<2>
     output io_up_out_bits_pos : UInt<16>
     output io_up_in_ready : UInt<1>
     input io_up_in_valid : UInt<1>
     input io_up_in_bits_data : UInt<64>
-    input io_up_in_bits_x_0 : UInt<3>
-    input io_up_in_bits_y_0 : UInt<3>
-    input io_up_in_bits_x_dest : UInt<3>
-    input io_up_in_bits_y_dest : UInt<3>
+    input io_up_in_bits_x_0 : UInt<2>
+    input io_up_in_bits_y_0 : UInt<2>
+    input io_up_in_bits_x_dest : UInt<2>
+    input io_up_in_bits_y_dest : UInt<2>
     input io_up_in_bits_pos : UInt<16>
     input io_bottom_out_ready : UInt<1>
     output io_bottom_out_valid : UInt<1>
     output io_bottom_out_bits_data : UInt<64>
-    output io_bottom_out_bits_x_0 : UInt<3>
-    output io_bottom_out_bits_y_0 : UInt<3>
-    output io_bottom_out_bits_x_dest : UInt<3>
-    output io_bottom_out_bits_y_dest : UInt<3>
+    output io_bottom_out_bits_x_0 : UInt<2>
+    output io_bottom_out_bits_y_0 : UInt<2>
+    output io_bottom_out_bits_x_dest : UInt<2>
+    output io_bottom_out_bits_y_dest : UInt<2>
     output io_bottom_out_bits_pos : UInt<16>
     output io_bottom_in_ready : UInt<1>
     input io_bottom_in_valid : UInt<1>
     input io_bottom_in_bits_data : UInt<64>
-    input io_bottom_in_bits_x_0 : UInt<3>
-    input io_bottom_in_bits_y_0 : UInt<3>
-    input io_bottom_in_bits_x_dest : UInt<3>
-    input io_bottom_in_bits_y_dest : UInt<3>
+    input io_bottom_in_bits_x_0 : UInt<2>
+    input io_bottom_in_bits_y_0 : UInt<2>
+    input io_bottom_in_bits_x_dest : UInt<2>
+    input io_bottom_in_bits_y_dest : UInt<2>
     input io_bottom_in_bits_pos : UInt<16>
 
     mem memPE : @[AllToAllPE.scala 20:18]
       data-type => UInt<64>
-      depth => 10000
+      depth => 5000
       read-latency => 0
       write-latency => 1
       reader => MPORT_5
@@ -7463,9 +7463,9 @@ circuit AllToAll :
     inst right_out of Queue @[Decoupled.scala 296:21]
     inst up_out of Queue @[Decoupled.scala 296:21]
     inst bottom_out of Queue @[Decoupled.scala 296:21]
-    reg x_coord : UInt<3>, clock with :
+    reg x_coord : UInt<2>, clock with :
       reset => (UInt<1>("h0"), x_coord) @[AllToAllPE.scala 23:24]
-    reg y_coord : UInt<3>, clock with :
+    reg y_coord : UInt<2>, clock with :
       reset => (UInt<1>("h0"), y_coord) @[AllToAllPE.scala 24:24]
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[AllToAllPE.scala 26:18]
@@ -7513,21 +7513,21 @@ circuit AllToAll :
       reset => (UInt<1>("h0"), read_values_valid_2) @[AllToAllPE.scala 63:34]
     reg read_values_valid_3 : UInt<1>, clock with :
       reset => (UInt<1>("h0"), read_values_valid_3) @[AllToAllPE.scala 63:34]
-    reg read_x_dest_0 : UInt<3>, clock with :
+    reg read_x_dest_0 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_0) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_1 : UInt<3>, clock with :
+    reg read_x_dest_1 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_1) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_2 : UInt<3>, clock with :
+    reg read_x_dest_2 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_2) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_3 : UInt<3>, clock with :
+    reg read_x_dest_3 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_3) @[AllToAllPE.scala 64:24]
-    reg read_y_dest_0 : UInt<3>, clock with :
+    reg read_y_dest_0 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_0) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_1 : UInt<3>, clock with :
+    reg read_y_dest_1 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_1) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_2 : UInt<3>, clock with :
+    reg read_y_dest_2 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_2) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_3 : UInt<3>, clock with :
+    reg read_y_dest_3 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_3) @[AllToAllPE.scala 65:24]
     reg read_pos_0 : UInt<16>, clock with :
       reset => (UInt<1>("h0"), read_pos_0) @[AllToAllPE.scala 66:21]
@@ -7568,7 +7568,7 @@ circuit AllToAll :
     node _T_22 = tail(_T_21, 1) @[AllToAllPE.scala 160:61]
     node _T_23 = add(_T_22, offset) @[AllToAllPE.scala 160:80]
     node _T_24 = tail(_T_23, 1) @[AllToAllPE.scala 160:80]
-    node _T_25 = bits(_T_24, 13, 0) @[AllToAllPE.scala 160:10]
+    node _T_25 = bits(_T_24, 12, 0) @[AllToAllPE.scala 160:10]
     node _GEN_0 = validif(left_dispatcher.io_this_PE, _T_25) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10]
     node _GEN_1 = validif(left_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10]
     node _GEN_2 = mux(left_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10 AllToAllPE.scala 20:18]
@@ -7582,7 +7582,7 @@ circuit AllToAll :
     node _T_31 = tail(_T_30, 1) @[AllToAllPE.scala 165:63]
     node _T_32 = add(_T_31, offset) @[AllToAllPE.scala 165:83]
     node _T_33 = tail(_T_32, 1) @[AllToAllPE.scala 165:83]
-    node _T_34 = bits(_T_33, 13, 0) @[AllToAllPE.scala 165:10]
+    node _T_34 = bits(_T_33, 12, 0) @[AllToAllPE.scala 165:10]
     node _GEN_5 = validif(right_dispatcher.io_this_PE, _T_34) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10]
     node _GEN_6 = validif(right_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10]
     node _GEN_7 = mux(right_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10 AllToAllPE.scala 20:18]
@@ -7596,7 +7596,7 @@ circuit AllToAll :
     node _T_40 = tail(_T_39, 1) @[AllToAllPE.scala 170:57]
     node _T_41 = add(_T_40, offset) @[AllToAllPE.scala 170:74]
     node _T_42 = tail(_T_41, 1) @[AllToAllPE.scala 170:74]
-    node _T_43 = bits(_T_42, 13, 0) @[AllToAllPE.scala 170:10]
+    node _T_43 = bits(_T_42, 12, 0) @[AllToAllPE.scala 170:10]
     node _GEN_10 = validif(up_dispatcher.io_this_PE, _T_43) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10]
     node _GEN_11 = validif(up_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10]
     node _GEN_12 = mux(up_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10 AllToAllPE.scala 20:18]
@@ -7610,7 +7610,7 @@ circuit AllToAll :
     node _T_49 = tail(_T_48, 1) @[AllToAllPE.scala 175:65]
     node _T_50 = add(_T_49, offset) @[AllToAllPE.scala 175:86]
     node _T_51 = tail(_T_50, 1) @[AllToAllPE.scala 175:86]
-    node _T_52 = bits(_T_51, 13, 0) @[AllToAllPE.scala 175:10]
+    node _T_52 = bits(_T_51, 12, 0) @[AllToAllPE.scala 175:10]
     node _GEN_15 = validif(bottom_dispatcher.io_this_PE, _T_52) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10]
     node _GEN_16 = validif(bottom_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10]
     node _GEN_17 = mux(bottom_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10 AllToAllPE.scala 20:18]
@@ -7707,7 +7707,7 @@ circuit AllToAll :
     node _GEN_22 = mux(load_signal, UInt<3>("h4"), _GEN_21) @[AllToAllPE.scala 429:22 AllToAllPE.scala 430:13]
     node _T_115 = eq(state, UInt<3>("h4")) @[AllToAllPE.scala 439:20]
     node _T_116 = eq(stall_resp, UInt<1>("h0")) @[AllToAllPE.scala 441:21]
-    node _T_117 = bits(memIndex, 13, 0) @[AllToAllPE.scala 447:12]
+    node _T_117 = bits(memIndex, 12, 0) @[AllToAllPE.scala 447:12]
     node _GEN_23 = validif(is_this_PE, _T_117) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12]
     node _GEN_24 = validif(is_this_PE, clock) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12]
     node _GEN_25 = mux(is_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12 AllToAllPE.scala 20:18]
@@ -7725,7 +7725,7 @@ circuit AllToAll :
     node _GEN_30 = mux(_T_122, UInt<3>("h5"), _GEN_29) @[AllToAllPE.scala 459:44 AllToAllPE.scala 460:13]
     node _GEN_31 = mux(_T_120, UInt<3>("h4"), _GEN_30) @[AllToAllPE.scala 457:37 AllToAllPE.scala 458:13]
     node _T_125 = eq(state, UInt<3>("h5")) @[AllToAllPE.scala 469:20]
-    node _T_126 = bits(memIndex, 13, 0) @[AllToAllPE.scala 477:26]
+    node _T_126 = bits(memIndex, 12, 0) @[AllToAllPE.scala 477:26]
     node _GEN_32 = validif(is_this_PE, _T_126) @[AllToAllPE.scala 476:21 AllToAllPE.scala 477:26]
     node _GEN_33 = mux(is_this_PE, memPE.MPORT_5.data, resp_value) @[AllToAllPE.scala 476:21 AllToAllPE.scala 477:18 AllToAllPE.scala 43:27]
     node _T_127 = eq(state, UInt<3>("h6")) @[AllToAllPE.scala 487:20]
@@ -7856,10 +7856,10 @@ circuit AllToAll :
     node _T_150 = eq(stateAction, UInt<1>("h1")) @[AllToAllPE.scala 600:26]
     node _T_151 = eq(index_calcualtor.io_last_iteration, UInt<1>("h0")) @[AllToAllPE.scala 605:21]
     node _T_152 = and(do_read, _T_151) @[AllToAllPE.scala 605:18]
-    node _T_153 = bits(index_calcualtor.io_index0, 13, 0) @[AllToAllPE.scala 609:30]
-    node _T_154 = bits(index_calcualtor.io_index1, 13, 0) @[AllToAllPE.scala 610:30]
-    node _T_155 = bits(index_calcualtor.io_index2, 13, 0) @[AllToAllPE.scala 611:30]
-    node _T_156 = bits(index_calcualtor.io_index3, 13, 0) @[AllToAllPE.scala 612:30]
+    node _T_153 = bits(index_calcualtor.io_index0, 12, 0) @[AllToAllPE.scala 609:30]
+    node _T_154 = bits(index_calcualtor.io_index1, 12, 0) @[AllToAllPE.scala 610:30]
+    node _T_155 = bits(index_calcualtor.io_index2, 12, 0) @[AllToAllPE.scala 611:30]
+    node _T_156 = bits(index_calcualtor.io_index3, 12, 0) @[AllToAllPE.scala 612:30]
     node _T_157 = eq(left_mux.io_out_val_selected, UInt<1>("h1")) @[AllToAllPE.scala 643:64]
     node _T_158 = and(_T_157, left_out_arbiter.io_in_0_ready) @[AllToAllPE.scala 643:79]
     node _T_159 = eq(right_mux.io_out_val_selected, UInt<1>("h1")) @[AllToAllPE.scala 644:65]
@@ -7918,7 +7918,7 @@ circuit AllToAll :
     node _T_212 = and(_T_211, read_values_valid_3) @[AllToAllPE.scala 665:56]
     node _T_213 = add(index_write_this_PE, read_pos_0) @[AllToAllPE.scala 669:35]
     node _T_214 = tail(_T_213, 1) @[AllToAllPE.scala 669:35]
-    node _T_215 = bits(_T_214, 13, 0) @[AllToAllPE.scala 669:14]
+    node _T_215 = bits(_T_214, 12, 0) @[AllToAllPE.scala 669:14]
     node _GEN_134 = validif(this_PE_generation_0, _T_215) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14]
     node _GEN_135 = validif(this_PE_generation_0, clock) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14]
     node _GEN_136 = mux(this_PE_generation_0, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14 AllToAllPE.scala 20:18]
@@ -7926,7 +7926,7 @@ circuit AllToAll :
     node _GEN_138 = validif(this_PE_generation_0, read_values_0) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:50]
     node _T_216 = add(index_write_this_PE, read_pos_1) @[AllToAllPE.scala 672:35]
     node _T_217 = tail(_T_216, 1) @[AllToAllPE.scala 672:35]
-    node _T_218 = bits(_T_217, 13, 0) @[AllToAllPE.scala 672:14]
+    node _T_218 = bits(_T_217, 12, 0) @[AllToAllPE.scala 672:14]
     node _GEN_139 = validif(this_PE_generation_1, _T_218) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14]
     node _GEN_140 = validif(this_PE_generation_1, clock) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14]
     node _GEN_141 = mux(this_PE_generation_1, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14 AllToAllPE.scala 20:18]
@@ -7934,7 +7934,7 @@ circuit AllToAll :
     node _GEN_143 = validif(this_PE_generation_1, read_values_1) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:50]
     node _T_219 = add(index_write_this_PE, read_pos_2) @[AllToAllPE.scala 675:35]
     node _T_220 = tail(_T_219, 1) @[AllToAllPE.scala 675:35]
-    node _T_221 = bits(_T_220, 13, 0) @[AllToAllPE.scala 675:14]
+    node _T_221 = bits(_T_220, 12, 0) @[AllToAllPE.scala 675:14]
     node _GEN_144 = validif(this_PE_generation_2, _T_221) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14]
     node _GEN_145 = validif(this_PE_generation_2, clock) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14]
     node _GEN_146 = mux(this_PE_generation_2, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14 AllToAllPE.scala 20:18]
@@ -7942,7 +7942,7 @@ circuit AllToAll :
     node _GEN_148 = validif(this_PE_generation_2, read_values_2) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:50]
     node _T_222 = add(index_write_this_PE, read_pos_3) @[AllToAllPE.scala 678:35]
     node _T_223 = tail(_T_222, 1) @[AllToAllPE.scala 678:35]
-    node _T_224 = bits(_T_223, 13, 0) @[AllToAllPE.scala 678:14]
+    node _T_224 = bits(_T_223, 12, 0) @[AllToAllPE.scala 678:14]
     node _GEN_149 = validif(this_PE_generation_3, _T_224) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14]
     node _GEN_150 = validif(this_PE_generation_3, clock) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14]
     node _GEN_151 = mux(this_PE_generation_3, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14 AllToAllPE.scala 20:18]
@@ -8635,71 +8635,71 @@ circuit AllToAll :
     input io_left_out_ready : UInt<1>
     output io_left_out_valid : UInt<1>
     output io_left_out_bits_data : UInt<64>
-    output io_left_out_bits_x_0 : UInt<3>
-    output io_left_out_bits_y_0 : UInt<3>
-    output io_left_out_bits_x_dest : UInt<3>
-    output io_left_out_bits_y_dest : UInt<3>
+    output io_left_out_bits_x_0 : UInt<2>
+    output io_left_out_bits_y_0 : UInt<2>
+    output io_left_out_bits_x_dest : UInt<2>
+    output io_left_out_bits_y_dest : UInt<2>
     output io_left_out_bits_pos : UInt<16>
     output io_left_in_ready : UInt<1>
     input io_left_in_valid : UInt<1>
     input io_left_in_bits_data : UInt<64>
-    input io_left_in_bits_x_0 : UInt<3>
-    input io_left_in_bits_y_0 : UInt<3>
-    input io_left_in_bits_x_dest : UInt<3>
-    input io_left_in_bits_y_dest : UInt<3>
+    input io_left_in_bits_x_0 : UInt<2>
+    input io_left_in_bits_y_0 : UInt<2>
+    input io_left_in_bits_x_dest : UInt<2>
+    input io_left_in_bits_y_dest : UInt<2>
     input io_left_in_bits_pos : UInt<16>
     input io_right_out_ready : UInt<1>
     output io_right_out_valid : UInt<1>
     output io_right_out_bits_data : UInt<64>
-    output io_right_out_bits_x_0 : UInt<3>
-    output io_right_out_bits_y_0 : UInt<3>
-    output io_right_out_bits_x_dest : UInt<3>
-    output io_right_out_bits_y_dest : UInt<3>
+    output io_right_out_bits_x_0 : UInt<2>
+    output io_right_out_bits_y_0 : UInt<2>
+    output io_right_out_bits_x_dest : UInt<2>
+    output io_right_out_bits_y_dest : UInt<2>
     output io_right_out_bits_pos : UInt<16>
     output io_right_in_ready : UInt<1>
     input io_right_in_valid : UInt<1>
     input io_right_in_bits_data : UInt<64>
-    input io_right_in_bits_x_0 : UInt<3>
-    input io_right_in_bits_y_0 : UInt<3>
-    input io_right_in_bits_x_dest : UInt<3>
-    input io_right_in_bits_y_dest : UInt<3>
+    input io_right_in_bits_x_0 : UInt<2>
+    input io_right_in_bits_y_0 : UInt<2>
+    input io_right_in_bits_x_dest : UInt<2>
+    input io_right_in_bits_y_dest : UInt<2>
     input io_right_in_bits_pos : UInt<16>
     input io_up_out_ready : UInt<1>
     output io_up_out_valid : UInt<1>
     output io_up_out_bits_data : UInt<64>
-    output io_up_out_bits_x_0 : UInt<3>
-    output io_up_out_bits_y_0 : UInt<3>
-    output io_up_out_bits_x_dest : UInt<3>
-    output io_up_out_bits_y_dest : UInt<3>
+    output io_up_out_bits_x_0 : UInt<2>
+    output io_up_out_bits_y_0 : UInt<2>
+    output io_up_out_bits_x_dest : UInt<2>
+    output io_up_out_bits_y_dest : UInt<2>
     output io_up_out_bits_pos : UInt<16>
     output io_up_in_ready : UInt<1>
     input io_up_in_valid : UInt<1>
     input io_up_in_bits_data : UInt<64>
-    input io_up_in_bits_x_0 : UInt<3>
-    input io_up_in_bits_y_0 : UInt<3>
-    input io_up_in_bits_x_dest : UInt<3>
-    input io_up_in_bits_y_dest : UInt<3>
+    input io_up_in_bits_x_0 : UInt<2>
+    input io_up_in_bits_y_0 : UInt<2>
+    input io_up_in_bits_x_dest : UInt<2>
+    input io_up_in_bits_y_dest : UInt<2>
     input io_up_in_bits_pos : UInt<16>
     input io_bottom_out_ready : UInt<1>
     output io_bottom_out_valid : UInt<1>
     output io_bottom_out_bits_data : UInt<64>
-    output io_bottom_out_bits_x_0 : UInt<3>
-    output io_bottom_out_bits_y_0 : UInt<3>
-    output io_bottom_out_bits_x_dest : UInt<3>
-    output io_bottom_out_bits_y_dest : UInt<3>
+    output io_bottom_out_bits_x_0 : UInt<2>
+    output io_bottom_out_bits_y_0 : UInt<2>
+    output io_bottom_out_bits_x_dest : UInt<2>
+    output io_bottom_out_bits_y_dest : UInt<2>
     output io_bottom_out_bits_pos : UInt<16>
     output io_bottom_in_ready : UInt<1>
     input io_bottom_in_valid : UInt<1>
     input io_bottom_in_bits_data : UInt<64>
-    input io_bottom_in_bits_x_0 : UInt<3>
-    input io_bottom_in_bits_y_0 : UInt<3>
-    input io_bottom_in_bits_x_dest : UInt<3>
-    input io_bottom_in_bits_y_dest : UInt<3>
+    input io_bottom_in_bits_x_0 : UInt<2>
+    input io_bottom_in_bits_y_0 : UInt<2>
+    input io_bottom_in_bits_x_dest : UInt<2>
+    input io_bottom_in_bits_y_dest : UInt<2>
     input io_bottom_in_bits_pos : UInt<16>
 
     mem memPE : @[AllToAllPE.scala 20:18]
       data-type => UInt<64>
-      depth => 10000
+      depth => 5000
       read-latency => 0
       write-latency => 1
       reader => MPORT_5
@@ -8742,9 +8742,9 @@ circuit AllToAll :
     inst right_out of Queue @[Decoupled.scala 296:21]
     inst up_out of Queue @[Decoupled.scala 296:21]
     inst bottom_out of Queue @[Decoupled.scala 296:21]
-    reg x_coord : UInt<3>, clock with :
+    reg x_coord : UInt<2>, clock with :
       reset => (UInt<1>("h0"), x_coord) @[AllToAllPE.scala 23:24]
-    reg y_coord : UInt<3>, clock with :
+    reg y_coord : UInt<2>, clock with :
       reset => (UInt<1>("h0"), y_coord) @[AllToAllPE.scala 24:24]
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[AllToAllPE.scala 26:18]
@@ -8792,21 +8792,21 @@ circuit AllToAll :
       reset => (UInt<1>("h0"), read_values_valid_2) @[AllToAllPE.scala 63:34]
     reg read_values_valid_3 : UInt<1>, clock with :
       reset => (UInt<1>("h0"), read_values_valid_3) @[AllToAllPE.scala 63:34]
-    reg read_x_dest_0 : UInt<3>, clock with :
+    reg read_x_dest_0 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_0) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_1 : UInt<3>, clock with :
+    reg read_x_dest_1 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_1) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_2 : UInt<3>, clock with :
+    reg read_x_dest_2 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_2) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_3 : UInt<3>, clock with :
+    reg read_x_dest_3 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_3) @[AllToAllPE.scala 64:24]
-    reg read_y_dest_0 : UInt<3>, clock with :
+    reg read_y_dest_0 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_0) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_1 : UInt<3>, clock with :
+    reg read_y_dest_1 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_1) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_2 : UInt<3>, clock with :
+    reg read_y_dest_2 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_2) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_3 : UInt<3>, clock with :
+    reg read_y_dest_3 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_3) @[AllToAllPE.scala 65:24]
     reg read_pos_0 : UInt<16>, clock with :
       reset => (UInt<1>("h0"), read_pos_0) @[AllToAllPE.scala 66:21]
@@ -8847,7 +8847,7 @@ circuit AllToAll :
     node _T_22 = tail(_T_21, 1) @[AllToAllPE.scala 160:61]
     node _T_23 = add(_T_22, offset) @[AllToAllPE.scala 160:80]
     node _T_24 = tail(_T_23, 1) @[AllToAllPE.scala 160:80]
-    node _T_25 = bits(_T_24, 13, 0) @[AllToAllPE.scala 160:10]
+    node _T_25 = bits(_T_24, 12, 0) @[AllToAllPE.scala 160:10]
     node _GEN_0 = validif(left_dispatcher.io_this_PE, _T_25) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10]
     node _GEN_1 = validif(left_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10]
     node _GEN_2 = mux(left_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10 AllToAllPE.scala 20:18]
@@ -8861,7 +8861,7 @@ circuit AllToAll :
     node _T_31 = tail(_T_30, 1) @[AllToAllPE.scala 165:63]
     node _T_32 = add(_T_31, offset) @[AllToAllPE.scala 165:83]
     node _T_33 = tail(_T_32, 1) @[AllToAllPE.scala 165:83]
-    node _T_34 = bits(_T_33, 13, 0) @[AllToAllPE.scala 165:10]
+    node _T_34 = bits(_T_33, 12, 0) @[AllToAllPE.scala 165:10]
     node _GEN_5 = validif(right_dispatcher.io_this_PE, _T_34) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10]
     node _GEN_6 = validif(right_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10]
     node _GEN_7 = mux(right_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10 AllToAllPE.scala 20:18]
@@ -8875,7 +8875,7 @@ circuit AllToAll :
     node _T_40 = tail(_T_39, 1) @[AllToAllPE.scala 170:57]
     node _T_41 = add(_T_40, offset) @[AllToAllPE.scala 170:74]
     node _T_42 = tail(_T_41, 1) @[AllToAllPE.scala 170:74]
-    node _T_43 = bits(_T_42, 13, 0) @[AllToAllPE.scala 170:10]
+    node _T_43 = bits(_T_42, 12, 0) @[AllToAllPE.scala 170:10]
     node _GEN_10 = validif(up_dispatcher.io_this_PE, _T_43) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10]
     node _GEN_11 = validif(up_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10]
     node _GEN_12 = mux(up_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10 AllToAllPE.scala 20:18]
@@ -8889,7 +8889,7 @@ circuit AllToAll :
     node _T_49 = tail(_T_48, 1) @[AllToAllPE.scala 175:65]
     node _T_50 = add(_T_49, offset) @[AllToAllPE.scala 175:86]
     node _T_51 = tail(_T_50, 1) @[AllToAllPE.scala 175:86]
-    node _T_52 = bits(_T_51, 13, 0) @[AllToAllPE.scala 175:10]
+    node _T_52 = bits(_T_51, 12, 0) @[AllToAllPE.scala 175:10]
     node _GEN_15 = validif(bottom_dispatcher.io_this_PE, _T_52) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10]
     node _GEN_16 = validif(bottom_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10]
     node _GEN_17 = mux(bottom_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10 AllToAllPE.scala 20:18]
@@ -8986,7 +8986,7 @@ circuit AllToAll :
     node _GEN_22 = mux(load_signal, UInt<3>("h4"), _GEN_21) @[AllToAllPE.scala 429:22 AllToAllPE.scala 430:13]
     node _T_115 = eq(state, UInt<3>("h4")) @[AllToAllPE.scala 439:20]
     node _T_116 = eq(stall_resp, UInt<1>("h0")) @[AllToAllPE.scala 441:21]
-    node _T_117 = bits(memIndex, 13, 0) @[AllToAllPE.scala 447:12]
+    node _T_117 = bits(memIndex, 12, 0) @[AllToAllPE.scala 447:12]
     node _GEN_23 = validif(is_this_PE, _T_117) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12]
     node _GEN_24 = validif(is_this_PE, clock) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12]
     node _GEN_25 = mux(is_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12 AllToAllPE.scala 20:18]
@@ -9004,7 +9004,7 @@ circuit AllToAll :
     node _GEN_30 = mux(_T_122, UInt<3>("h5"), _GEN_29) @[AllToAllPE.scala 459:44 AllToAllPE.scala 460:13]
     node _GEN_31 = mux(_T_120, UInt<3>("h4"), _GEN_30) @[AllToAllPE.scala 457:37 AllToAllPE.scala 458:13]
     node _T_125 = eq(state, UInt<3>("h5")) @[AllToAllPE.scala 469:20]
-    node _T_126 = bits(memIndex, 13, 0) @[AllToAllPE.scala 477:26]
+    node _T_126 = bits(memIndex, 12, 0) @[AllToAllPE.scala 477:26]
     node _GEN_32 = validif(is_this_PE, _T_126) @[AllToAllPE.scala 476:21 AllToAllPE.scala 477:26]
     node _GEN_33 = mux(is_this_PE, memPE.MPORT_5.data, resp_value) @[AllToAllPE.scala 476:21 AllToAllPE.scala 477:18 AllToAllPE.scala 43:27]
     node _T_127 = eq(state, UInt<3>("h6")) @[AllToAllPE.scala 487:20]
@@ -9135,10 +9135,10 @@ circuit AllToAll :
     node _T_150 = eq(stateAction, UInt<1>("h1")) @[AllToAllPE.scala 600:26]
     node _T_151 = eq(index_calcualtor.io_last_iteration, UInt<1>("h0")) @[AllToAllPE.scala 605:21]
     node _T_152 = and(do_read, _T_151) @[AllToAllPE.scala 605:18]
-    node _T_153 = bits(index_calcualtor.io_index0, 13, 0) @[AllToAllPE.scala 609:30]
-    node _T_154 = bits(index_calcualtor.io_index1, 13, 0) @[AllToAllPE.scala 610:30]
-    node _T_155 = bits(index_calcualtor.io_index2, 13, 0) @[AllToAllPE.scala 611:30]
-    node _T_156 = bits(index_calcualtor.io_index3, 13, 0) @[AllToAllPE.scala 612:30]
+    node _T_153 = bits(index_calcualtor.io_index0, 12, 0) @[AllToAllPE.scala 609:30]
+    node _T_154 = bits(index_calcualtor.io_index1, 12, 0) @[AllToAllPE.scala 610:30]
+    node _T_155 = bits(index_calcualtor.io_index2, 12, 0) @[AllToAllPE.scala 611:30]
+    node _T_156 = bits(index_calcualtor.io_index3, 12, 0) @[AllToAllPE.scala 612:30]
     node _T_157 = eq(left_mux.io_out_val_selected, UInt<1>("h1")) @[AllToAllPE.scala 643:64]
     node _T_158 = and(_T_157, left_out_arbiter.io_in_0_ready) @[AllToAllPE.scala 643:79]
     node _T_159 = eq(right_mux.io_out_val_selected, UInt<1>("h1")) @[AllToAllPE.scala 644:65]
@@ -9197,7 +9197,7 @@ circuit AllToAll :
     node _T_212 = and(_T_211, read_values_valid_3) @[AllToAllPE.scala 665:56]
     node _T_213 = add(index_write_this_PE, read_pos_0) @[AllToAllPE.scala 669:35]
     node _T_214 = tail(_T_213, 1) @[AllToAllPE.scala 669:35]
-    node _T_215 = bits(_T_214, 13, 0) @[AllToAllPE.scala 669:14]
+    node _T_215 = bits(_T_214, 12, 0) @[AllToAllPE.scala 669:14]
     node _GEN_134 = validif(this_PE_generation_0, _T_215) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14]
     node _GEN_135 = validif(this_PE_generation_0, clock) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14]
     node _GEN_136 = mux(this_PE_generation_0, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14 AllToAllPE.scala 20:18]
@@ -9205,7 +9205,7 @@ circuit AllToAll :
     node _GEN_138 = validif(this_PE_generation_0, read_values_0) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:50]
     node _T_216 = add(index_write_this_PE, read_pos_1) @[AllToAllPE.scala 672:35]
     node _T_217 = tail(_T_216, 1) @[AllToAllPE.scala 672:35]
-    node _T_218 = bits(_T_217, 13, 0) @[AllToAllPE.scala 672:14]
+    node _T_218 = bits(_T_217, 12, 0) @[AllToAllPE.scala 672:14]
     node _GEN_139 = validif(this_PE_generation_1, _T_218) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14]
     node _GEN_140 = validif(this_PE_generation_1, clock) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14]
     node _GEN_141 = mux(this_PE_generation_1, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14 AllToAllPE.scala 20:18]
@@ -9213,7 +9213,7 @@ circuit AllToAll :
     node _GEN_143 = validif(this_PE_generation_1, read_values_1) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:50]
     node _T_219 = add(index_write_this_PE, read_pos_2) @[AllToAllPE.scala 675:35]
     node _T_220 = tail(_T_219, 1) @[AllToAllPE.scala 675:35]
-    node _T_221 = bits(_T_220, 13, 0) @[AllToAllPE.scala 675:14]
+    node _T_221 = bits(_T_220, 12, 0) @[AllToAllPE.scala 675:14]
     node _GEN_144 = validif(this_PE_generation_2, _T_221) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14]
     node _GEN_145 = validif(this_PE_generation_2, clock) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14]
     node _GEN_146 = mux(this_PE_generation_2, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14 AllToAllPE.scala 20:18]
@@ -9221,7 +9221,7 @@ circuit AllToAll :
     node _GEN_148 = validif(this_PE_generation_2, read_values_2) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:50]
     node _T_222 = add(index_write_this_PE, read_pos_3) @[AllToAllPE.scala 678:35]
     node _T_223 = tail(_T_222, 1) @[AllToAllPE.scala 678:35]
-    node _T_224 = bits(_T_223, 13, 0) @[AllToAllPE.scala 678:14]
+    node _T_224 = bits(_T_223, 12, 0) @[AllToAllPE.scala 678:14]
     node _GEN_149 = validif(this_PE_generation_3, _T_224) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14]
     node _GEN_150 = validif(this_PE_generation_3, clock) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14]
     node _GEN_151 = mux(this_PE_generation_3, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14 AllToAllPE.scala 20:18]
@@ -9914,71 +9914,71 @@ circuit AllToAll :
     input io_left_out_ready : UInt<1>
     output io_left_out_valid : UInt<1>
     output io_left_out_bits_data : UInt<64>
-    output io_left_out_bits_x_0 : UInt<3>
-    output io_left_out_bits_y_0 : UInt<3>
-    output io_left_out_bits_x_dest : UInt<3>
-    output io_left_out_bits_y_dest : UInt<3>
+    output io_left_out_bits_x_0 : UInt<2>
+    output io_left_out_bits_y_0 : UInt<2>
+    output io_left_out_bits_x_dest : UInt<2>
+    output io_left_out_bits_y_dest : UInt<2>
     output io_left_out_bits_pos : UInt<16>
     output io_left_in_ready : UInt<1>
     input io_left_in_valid : UInt<1>
     input io_left_in_bits_data : UInt<64>
-    input io_left_in_bits_x_0 : UInt<3>
-    input io_left_in_bits_y_0 : UInt<3>
-    input io_left_in_bits_x_dest : UInt<3>
-    input io_left_in_bits_y_dest : UInt<3>
+    input io_left_in_bits_x_0 : UInt<2>
+    input io_left_in_bits_y_0 : UInt<2>
+    input io_left_in_bits_x_dest : UInt<2>
+    input io_left_in_bits_y_dest : UInt<2>
     input io_left_in_bits_pos : UInt<16>
     input io_right_out_ready : UInt<1>
     output io_right_out_valid : UInt<1>
     output io_right_out_bits_data : UInt<64>
-    output io_right_out_bits_x_0 : UInt<3>
-    output io_right_out_bits_y_0 : UInt<3>
-    output io_right_out_bits_x_dest : UInt<3>
-    output io_right_out_bits_y_dest : UInt<3>
+    output io_right_out_bits_x_0 : UInt<2>
+    output io_right_out_bits_y_0 : UInt<2>
+    output io_right_out_bits_x_dest : UInt<2>
+    output io_right_out_bits_y_dest : UInt<2>
     output io_right_out_bits_pos : UInt<16>
     output io_right_in_ready : UInt<1>
     input io_right_in_valid : UInt<1>
     input io_right_in_bits_data : UInt<64>
-    input io_right_in_bits_x_0 : UInt<3>
-    input io_right_in_bits_y_0 : UInt<3>
-    input io_right_in_bits_x_dest : UInt<3>
-    input io_right_in_bits_y_dest : UInt<3>
+    input io_right_in_bits_x_0 : UInt<2>
+    input io_right_in_bits_y_0 : UInt<2>
+    input io_right_in_bits_x_dest : UInt<2>
+    input io_right_in_bits_y_dest : UInt<2>
     input io_right_in_bits_pos : UInt<16>
     input io_up_out_ready : UInt<1>
     output io_up_out_valid : UInt<1>
     output io_up_out_bits_data : UInt<64>
-    output io_up_out_bits_x_0 : UInt<3>
-    output io_up_out_bits_y_0 : UInt<3>
-    output io_up_out_bits_x_dest : UInt<3>
-    output io_up_out_bits_y_dest : UInt<3>
+    output io_up_out_bits_x_0 : UInt<2>
+    output io_up_out_bits_y_0 : UInt<2>
+    output io_up_out_bits_x_dest : UInt<2>
+    output io_up_out_bits_y_dest : UInt<2>
     output io_up_out_bits_pos : UInt<16>
     output io_up_in_ready : UInt<1>
     input io_up_in_valid : UInt<1>
     input io_up_in_bits_data : UInt<64>
-    input io_up_in_bits_x_0 : UInt<3>
-    input io_up_in_bits_y_0 : UInt<3>
-    input io_up_in_bits_x_dest : UInt<3>
-    input io_up_in_bits_y_dest : UInt<3>
+    input io_up_in_bits_x_0 : UInt<2>
+    input io_up_in_bits_y_0 : UInt<2>
+    input io_up_in_bits_x_dest : UInt<2>
+    input io_up_in_bits_y_dest : UInt<2>
     input io_up_in_bits_pos : UInt<16>
     input io_bottom_out_ready : UInt<1>
     output io_bottom_out_valid : UInt<1>
     output io_bottom_out_bits_data : UInt<64>
-    output io_bottom_out_bits_x_0 : UInt<3>
-    output io_bottom_out_bits_y_0 : UInt<3>
-    output io_bottom_out_bits_x_dest : UInt<3>
-    output io_bottom_out_bits_y_dest : UInt<3>
+    output io_bottom_out_bits_x_0 : UInt<2>
+    output io_bottom_out_bits_y_0 : UInt<2>
+    output io_bottom_out_bits_x_dest : UInt<2>
+    output io_bottom_out_bits_y_dest : UInt<2>
     output io_bottom_out_bits_pos : UInt<16>
     output io_bottom_in_ready : UInt<1>
     input io_bottom_in_valid : UInt<1>
     input io_bottom_in_bits_data : UInt<64>
-    input io_bottom_in_bits_x_0 : UInt<3>
-    input io_bottom_in_bits_y_0 : UInt<3>
-    input io_bottom_in_bits_x_dest : UInt<3>
-    input io_bottom_in_bits_y_dest : UInt<3>
+    input io_bottom_in_bits_x_0 : UInt<2>
+    input io_bottom_in_bits_y_0 : UInt<2>
+    input io_bottom_in_bits_x_dest : UInt<2>
+    input io_bottom_in_bits_y_dest : UInt<2>
     input io_bottom_in_bits_pos : UInt<16>
 
     mem memPE : @[AllToAllPE.scala 20:18]
       data-type => UInt<64>
-      depth => 10000
+      depth => 5000
       read-latency => 0
       write-latency => 1
       reader => MPORT_5
@@ -10021,9 +10021,9 @@ circuit AllToAll :
     inst right_out of Queue @[Decoupled.scala 296:21]
     inst up_out of Queue @[Decoupled.scala 296:21]
     inst bottom_out of Queue @[Decoupled.scala 296:21]
-    reg x_coord : UInt<3>, clock with :
+    reg x_coord : UInt<2>, clock with :
       reset => (UInt<1>("h0"), x_coord) @[AllToAllPE.scala 23:24]
-    reg y_coord : UInt<3>, clock with :
+    reg y_coord : UInt<2>, clock with :
       reset => (UInt<1>("h0"), y_coord) @[AllToAllPE.scala 24:24]
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[AllToAllPE.scala 26:18]
@@ -10071,21 +10071,21 @@ circuit AllToAll :
       reset => (UInt<1>("h0"), read_values_valid_2) @[AllToAllPE.scala 63:34]
     reg read_values_valid_3 : UInt<1>, clock with :
       reset => (UInt<1>("h0"), read_values_valid_3) @[AllToAllPE.scala 63:34]
-    reg read_x_dest_0 : UInt<3>, clock with :
+    reg read_x_dest_0 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_0) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_1 : UInt<3>, clock with :
+    reg read_x_dest_1 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_1) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_2 : UInt<3>, clock with :
+    reg read_x_dest_2 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_2) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_3 : UInt<3>, clock with :
+    reg read_x_dest_3 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_3) @[AllToAllPE.scala 64:24]
-    reg read_y_dest_0 : UInt<3>, clock with :
+    reg read_y_dest_0 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_0) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_1 : UInt<3>, clock with :
+    reg read_y_dest_1 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_1) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_2 : UInt<3>, clock with :
+    reg read_y_dest_2 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_2) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_3 : UInt<3>, clock with :
+    reg read_y_dest_3 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_3) @[AllToAllPE.scala 65:24]
     reg read_pos_0 : UInt<16>, clock with :
       reset => (UInt<1>("h0"), read_pos_0) @[AllToAllPE.scala 66:21]
@@ -10126,7 +10126,7 @@ circuit AllToAll :
     node _T_22 = tail(_T_21, 1) @[AllToAllPE.scala 160:61]
     node _T_23 = add(_T_22, offset) @[AllToAllPE.scala 160:80]
     node _T_24 = tail(_T_23, 1) @[AllToAllPE.scala 160:80]
-    node _T_25 = bits(_T_24, 13, 0) @[AllToAllPE.scala 160:10]
+    node _T_25 = bits(_T_24, 12, 0) @[AllToAllPE.scala 160:10]
     node _GEN_0 = validif(left_dispatcher.io_this_PE, _T_25) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10]
     node _GEN_1 = validif(left_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10]
     node _GEN_2 = mux(left_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10 AllToAllPE.scala 20:18]
@@ -10140,7 +10140,7 @@ circuit AllToAll :
     node _T_31 = tail(_T_30, 1) @[AllToAllPE.scala 165:63]
     node _T_32 = add(_T_31, offset) @[AllToAllPE.scala 165:83]
     node _T_33 = tail(_T_32, 1) @[AllToAllPE.scala 165:83]
-    node _T_34 = bits(_T_33, 13, 0) @[AllToAllPE.scala 165:10]
+    node _T_34 = bits(_T_33, 12, 0) @[AllToAllPE.scala 165:10]
     node _GEN_5 = validif(right_dispatcher.io_this_PE, _T_34) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10]
     node _GEN_6 = validif(right_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10]
     node _GEN_7 = mux(right_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10 AllToAllPE.scala 20:18]
@@ -10154,7 +10154,7 @@ circuit AllToAll :
     node _T_40 = tail(_T_39, 1) @[AllToAllPE.scala 170:57]
     node _T_41 = add(_T_40, offset) @[AllToAllPE.scala 170:74]
     node _T_42 = tail(_T_41, 1) @[AllToAllPE.scala 170:74]
-    node _T_43 = bits(_T_42, 13, 0) @[AllToAllPE.scala 170:10]
+    node _T_43 = bits(_T_42, 12, 0) @[AllToAllPE.scala 170:10]
     node _GEN_10 = validif(up_dispatcher.io_this_PE, _T_43) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10]
     node _GEN_11 = validif(up_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10]
     node _GEN_12 = mux(up_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10 AllToAllPE.scala 20:18]
@@ -10168,7 +10168,7 @@ circuit AllToAll :
     node _T_49 = tail(_T_48, 1) @[AllToAllPE.scala 175:65]
     node _T_50 = add(_T_49, offset) @[AllToAllPE.scala 175:86]
     node _T_51 = tail(_T_50, 1) @[AllToAllPE.scala 175:86]
-    node _T_52 = bits(_T_51, 13, 0) @[AllToAllPE.scala 175:10]
+    node _T_52 = bits(_T_51, 12, 0) @[AllToAllPE.scala 175:10]
     node _GEN_15 = validif(bottom_dispatcher.io_this_PE, _T_52) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10]
     node _GEN_16 = validif(bottom_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10]
     node _GEN_17 = mux(bottom_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10 AllToAllPE.scala 20:18]
@@ -10265,7 +10265,7 @@ circuit AllToAll :
     node _GEN_22 = mux(load_signal, UInt<3>("h4"), _GEN_21) @[AllToAllPE.scala 429:22 AllToAllPE.scala 430:13]
     node _T_115 = eq(state, UInt<3>("h4")) @[AllToAllPE.scala 439:20]
     node _T_116 = eq(stall_resp, UInt<1>("h0")) @[AllToAllPE.scala 441:21]
-    node _T_117 = bits(memIndex, 13, 0) @[AllToAllPE.scala 447:12]
+    node _T_117 = bits(memIndex, 12, 0) @[AllToAllPE.scala 447:12]
     node _GEN_23 = validif(is_this_PE, _T_117) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12]
     node _GEN_24 = validif(is_this_PE, clock) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12]
     node _GEN_25 = mux(is_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12 AllToAllPE.scala 20:18]
@@ -10283,7 +10283,7 @@ circuit AllToAll :
     node _GEN_30 = mux(_T_122, UInt<3>("h5"), _GEN_29) @[AllToAllPE.scala 459:44 AllToAllPE.scala 460:13]
     node _GEN_31 = mux(_T_120, UInt<3>("h4"), _GEN_30) @[AllToAllPE.scala 457:37 AllToAllPE.scala 458:13]
     node _T_125 = eq(state, UInt<3>("h5")) @[AllToAllPE.scala 469:20]
-    node _T_126 = bits(memIndex, 13, 0) @[AllToAllPE.scala 477:26]
+    node _T_126 = bits(memIndex, 12, 0) @[AllToAllPE.scala 477:26]
     node _GEN_32 = validif(is_this_PE, _T_126) @[AllToAllPE.scala 476:21 AllToAllPE.scala 477:26]
     node _GEN_33 = mux(is_this_PE, memPE.MPORT_5.data, resp_value) @[AllToAllPE.scala 476:21 AllToAllPE.scala 477:18 AllToAllPE.scala 43:27]
     node _T_127 = eq(state, UInt<3>("h6")) @[AllToAllPE.scala 487:20]
@@ -10414,10 +10414,10 @@ circuit AllToAll :
     node _T_150 = eq(stateAction, UInt<1>("h1")) @[AllToAllPE.scala 600:26]
     node _T_151 = eq(index_calcualtor.io_last_iteration, UInt<1>("h0")) @[AllToAllPE.scala 605:21]
     node _T_152 = and(do_read, _T_151) @[AllToAllPE.scala 605:18]
-    node _T_153 = bits(index_calcualtor.io_index0, 13, 0) @[AllToAllPE.scala 609:30]
-    node _T_154 = bits(index_calcualtor.io_index1, 13, 0) @[AllToAllPE.scala 610:30]
-    node _T_155 = bits(index_calcualtor.io_index2, 13, 0) @[AllToAllPE.scala 611:30]
-    node _T_156 = bits(index_calcualtor.io_index3, 13, 0) @[AllToAllPE.scala 612:30]
+    node _T_153 = bits(index_calcualtor.io_index0, 12, 0) @[AllToAllPE.scala 609:30]
+    node _T_154 = bits(index_calcualtor.io_index1, 12, 0) @[AllToAllPE.scala 610:30]
+    node _T_155 = bits(index_calcualtor.io_index2, 12, 0) @[AllToAllPE.scala 611:30]
+    node _T_156 = bits(index_calcualtor.io_index3, 12, 0) @[AllToAllPE.scala 612:30]
     node _T_157 = eq(left_mux.io_out_val_selected, UInt<1>("h1")) @[AllToAllPE.scala 643:64]
     node _T_158 = and(_T_157, left_out_arbiter.io_in_0_ready) @[AllToAllPE.scala 643:79]
     node _T_159 = eq(right_mux.io_out_val_selected, UInt<1>("h1")) @[AllToAllPE.scala 644:65]
@@ -10476,7 +10476,7 @@ circuit AllToAll :
     node _T_212 = and(_T_211, read_values_valid_3) @[AllToAllPE.scala 665:56]
     node _T_213 = add(index_write_this_PE, read_pos_0) @[AllToAllPE.scala 669:35]
     node _T_214 = tail(_T_213, 1) @[AllToAllPE.scala 669:35]
-    node _T_215 = bits(_T_214, 13, 0) @[AllToAllPE.scala 669:14]
+    node _T_215 = bits(_T_214, 12, 0) @[AllToAllPE.scala 669:14]
     node _GEN_134 = validif(this_PE_generation_0, _T_215) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14]
     node _GEN_135 = validif(this_PE_generation_0, clock) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14]
     node _GEN_136 = mux(this_PE_generation_0, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14 AllToAllPE.scala 20:18]
@@ -10484,7 +10484,7 @@ circuit AllToAll :
     node _GEN_138 = validif(this_PE_generation_0, read_values_0) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:50]
     node _T_216 = add(index_write_this_PE, read_pos_1) @[AllToAllPE.scala 672:35]
     node _T_217 = tail(_T_216, 1) @[AllToAllPE.scala 672:35]
-    node _T_218 = bits(_T_217, 13, 0) @[AllToAllPE.scala 672:14]
+    node _T_218 = bits(_T_217, 12, 0) @[AllToAllPE.scala 672:14]
     node _GEN_139 = validif(this_PE_generation_1, _T_218) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14]
     node _GEN_140 = validif(this_PE_generation_1, clock) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14]
     node _GEN_141 = mux(this_PE_generation_1, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14 AllToAllPE.scala 20:18]
@@ -10492,7 +10492,7 @@ circuit AllToAll :
     node _GEN_143 = validif(this_PE_generation_1, read_values_1) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:50]
     node _T_219 = add(index_write_this_PE, read_pos_2) @[AllToAllPE.scala 675:35]
     node _T_220 = tail(_T_219, 1) @[AllToAllPE.scala 675:35]
-    node _T_221 = bits(_T_220, 13, 0) @[AllToAllPE.scala 675:14]
+    node _T_221 = bits(_T_220, 12, 0) @[AllToAllPE.scala 675:14]
     node _GEN_144 = validif(this_PE_generation_2, _T_221) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14]
     node _GEN_145 = validif(this_PE_generation_2, clock) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14]
     node _GEN_146 = mux(this_PE_generation_2, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14 AllToAllPE.scala 20:18]
@@ -10500,7 +10500,7 @@ circuit AllToAll :
     node _GEN_148 = validif(this_PE_generation_2, read_values_2) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:50]
     node _T_222 = add(index_write_this_PE, read_pos_3) @[AllToAllPE.scala 678:35]
     node _T_223 = tail(_T_222, 1) @[AllToAllPE.scala 678:35]
-    node _T_224 = bits(_T_223, 13, 0) @[AllToAllPE.scala 678:14]
+    node _T_224 = bits(_T_223, 12, 0) @[AllToAllPE.scala 678:14]
     node _GEN_149 = validif(this_PE_generation_3, _T_224) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14]
     node _GEN_150 = validif(this_PE_generation_3, clock) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14]
     node _GEN_151 = mux(this_PE_generation_3, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14 AllToAllPE.scala 20:18]
@@ -11193,71 +11193,71 @@ circuit AllToAll :
     input io_left_out_ready : UInt<1>
     output io_left_out_valid : UInt<1>
     output io_left_out_bits_data : UInt<64>
-    output io_left_out_bits_x_0 : UInt<3>
-    output io_left_out_bits_y_0 : UInt<3>
-    output io_left_out_bits_x_dest : UInt<3>
-    output io_left_out_bits_y_dest : UInt<3>
+    output io_left_out_bits_x_0 : UInt<2>
+    output io_left_out_bits_y_0 : UInt<2>
+    output io_left_out_bits_x_dest : UInt<2>
+    output io_left_out_bits_y_dest : UInt<2>
     output io_left_out_bits_pos : UInt<16>
     output io_left_in_ready : UInt<1>
     input io_left_in_valid : UInt<1>
     input io_left_in_bits_data : UInt<64>
-    input io_left_in_bits_x_0 : UInt<3>
-    input io_left_in_bits_y_0 : UInt<3>
-    input io_left_in_bits_x_dest : UInt<3>
-    input io_left_in_bits_y_dest : UInt<3>
+    input io_left_in_bits_x_0 : UInt<2>
+    input io_left_in_bits_y_0 : UInt<2>
+    input io_left_in_bits_x_dest : UInt<2>
+    input io_left_in_bits_y_dest : UInt<2>
     input io_left_in_bits_pos : UInt<16>
     input io_right_out_ready : UInt<1>
     output io_right_out_valid : UInt<1>
     output io_right_out_bits_data : UInt<64>
-    output io_right_out_bits_x_0 : UInt<3>
-    output io_right_out_bits_y_0 : UInt<3>
-    output io_right_out_bits_x_dest : UInt<3>
-    output io_right_out_bits_y_dest : UInt<3>
+    output io_right_out_bits_x_0 : UInt<2>
+    output io_right_out_bits_y_0 : UInt<2>
+    output io_right_out_bits_x_dest : UInt<2>
+    output io_right_out_bits_y_dest : UInt<2>
     output io_right_out_bits_pos : UInt<16>
     output io_right_in_ready : UInt<1>
     input io_right_in_valid : UInt<1>
     input io_right_in_bits_data : UInt<64>
-    input io_right_in_bits_x_0 : UInt<3>
-    input io_right_in_bits_y_0 : UInt<3>
-    input io_right_in_bits_x_dest : UInt<3>
-    input io_right_in_bits_y_dest : UInt<3>
+    input io_right_in_bits_x_0 : UInt<2>
+    input io_right_in_bits_y_0 : UInt<2>
+    input io_right_in_bits_x_dest : UInt<2>
+    input io_right_in_bits_y_dest : UInt<2>
     input io_right_in_bits_pos : UInt<16>
     input io_up_out_ready : UInt<1>
     output io_up_out_valid : UInt<1>
     output io_up_out_bits_data : UInt<64>
-    output io_up_out_bits_x_0 : UInt<3>
-    output io_up_out_bits_y_0 : UInt<3>
-    output io_up_out_bits_x_dest : UInt<3>
-    output io_up_out_bits_y_dest : UInt<3>
+    output io_up_out_bits_x_0 : UInt<2>
+    output io_up_out_bits_y_0 : UInt<2>
+    output io_up_out_bits_x_dest : UInt<2>
+    output io_up_out_bits_y_dest : UInt<2>
     output io_up_out_bits_pos : UInt<16>
     output io_up_in_ready : UInt<1>
     input io_up_in_valid : UInt<1>
     input io_up_in_bits_data : UInt<64>
-    input io_up_in_bits_x_0 : UInt<3>
-    input io_up_in_bits_y_0 : UInt<3>
-    input io_up_in_bits_x_dest : UInt<3>
-    input io_up_in_bits_y_dest : UInt<3>
+    input io_up_in_bits_x_0 : UInt<2>
+    input io_up_in_bits_y_0 : UInt<2>
+    input io_up_in_bits_x_dest : UInt<2>
+    input io_up_in_bits_y_dest : UInt<2>
     input io_up_in_bits_pos : UInt<16>
     input io_bottom_out_ready : UInt<1>
     output io_bottom_out_valid : UInt<1>
     output io_bottom_out_bits_data : UInt<64>
-    output io_bottom_out_bits_x_0 : UInt<3>
-    output io_bottom_out_bits_y_0 : UInt<3>
-    output io_bottom_out_bits_x_dest : UInt<3>
-    output io_bottom_out_bits_y_dest : UInt<3>
+    output io_bottom_out_bits_x_0 : UInt<2>
+    output io_bottom_out_bits_y_0 : UInt<2>
+    output io_bottom_out_bits_x_dest : UInt<2>
+    output io_bottom_out_bits_y_dest : UInt<2>
     output io_bottom_out_bits_pos : UInt<16>
     output io_bottom_in_ready : UInt<1>
     input io_bottom_in_valid : UInt<1>
     input io_bottom_in_bits_data : UInt<64>
-    input io_bottom_in_bits_x_0 : UInt<3>
-    input io_bottom_in_bits_y_0 : UInt<3>
-    input io_bottom_in_bits_x_dest : UInt<3>
-    input io_bottom_in_bits_y_dest : UInt<3>
+    input io_bottom_in_bits_x_0 : UInt<2>
+    input io_bottom_in_bits_y_0 : UInt<2>
+    input io_bottom_in_bits_x_dest : UInt<2>
+    input io_bottom_in_bits_y_dest : UInt<2>
     input io_bottom_in_bits_pos : UInt<16>
 
     mem memPE : @[AllToAllPE.scala 20:18]
       data-type => UInt<64>
-      depth => 10000
+      depth => 5000
       read-latency => 0
       write-latency => 1
       reader => MPORT_5
@@ -11300,9 +11300,9 @@ circuit AllToAll :
     inst right_out of Queue @[Decoupled.scala 296:21]
     inst up_out of Queue @[Decoupled.scala 296:21]
     inst bottom_out of Queue @[Decoupled.scala 296:21]
-    reg x_coord : UInt<3>, clock with :
+    reg x_coord : UInt<2>, clock with :
       reset => (UInt<1>("h0"), x_coord) @[AllToAllPE.scala 23:24]
-    reg y_coord : UInt<3>, clock with :
+    reg y_coord : UInt<2>, clock with :
       reset => (UInt<1>("h0"), y_coord) @[AllToAllPE.scala 24:24]
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[AllToAllPE.scala 26:18]
@@ -11350,21 +11350,21 @@ circuit AllToAll :
       reset => (UInt<1>("h0"), read_values_valid_2) @[AllToAllPE.scala 63:34]
     reg read_values_valid_3 : UInt<1>, clock with :
       reset => (UInt<1>("h0"), read_values_valid_3) @[AllToAllPE.scala 63:34]
-    reg read_x_dest_0 : UInt<3>, clock with :
+    reg read_x_dest_0 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_0) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_1 : UInt<3>, clock with :
+    reg read_x_dest_1 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_1) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_2 : UInt<3>, clock with :
+    reg read_x_dest_2 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_2) @[AllToAllPE.scala 64:24]
-    reg read_x_dest_3 : UInt<3>, clock with :
+    reg read_x_dest_3 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_x_dest_3) @[AllToAllPE.scala 64:24]
-    reg read_y_dest_0 : UInt<3>, clock with :
+    reg read_y_dest_0 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_0) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_1 : UInt<3>, clock with :
+    reg read_y_dest_1 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_1) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_2 : UInt<3>, clock with :
+    reg read_y_dest_2 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_2) @[AllToAllPE.scala 65:24]
-    reg read_y_dest_3 : UInt<3>, clock with :
+    reg read_y_dest_3 : UInt<2>, clock with :
       reset => (UInt<1>("h0"), read_y_dest_3) @[AllToAllPE.scala 65:24]
     reg read_pos_0 : UInt<16>, clock with :
       reset => (UInt<1>("h0"), read_pos_0) @[AllToAllPE.scala 66:21]
@@ -11405,7 +11405,7 @@ circuit AllToAll :
     node _T_22 = tail(_T_21, 1) @[AllToAllPE.scala 160:61]
     node _T_23 = add(_T_22, offset) @[AllToAllPE.scala 160:80]
     node _T_24 = tail(_T_23, 1) @[AllToAllPE.scala 160:80]
-    node _T_25 = bits(_T_24, 13, 0) @[AllToAllPE.scala 160:10]
+    node _T_25 = bits(_T_24, 12, 0) @[AllToAllPE.scala 160:10]
     node _GEN_0 = validif(left_dispatcher.io_this_PE, _T_25) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10]
     node _GEN_1 = validif(left_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10]
     node _GEN_2 = mux(left_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 158:35 AllToAllPE.scala 160:10 AllToAllPE.scala 20:18]
@@ -11419,7 +11419,7 @@ circuit AllToAll :
     node _T_31 = tail(_T_30, 1) @[AllToAllPE.scala 165:63]
     node _T_32 = add(_T_31, offset) @[AllToAllPE.scala 165:83]
     node _T_33 = tail(_T_32, 1) @[AllToAllPE.scala 165:83]
-    node _T_34 = bits(_T_33, 13, 0) @[AllToAllPE.scala 165:10]
+    node _T_34 = bits(_T_33, 12, 0) @[AllToAllPE.scala 165:10]
     node _GEN_5 = validif(right_dispatcher.io_this_PE, _T_34) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10]
     node _GEN_6 = validif(right_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10]
     node _GEN_7 = mux(right_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 163:36 AllToAllPE.scala 165:10 AllToAllPE.scala 20:18]
@@ -11433,7 +11433,7 @@ circuit AllToAll :
     node _T_40 = tail(_T_39, 1) @[AllToAllPE.scala 170:57]
     node _T_41 = add(_T_40, offset) @[AllToAllPE.scala 170:74]
     node _T_42 = tail(_T_41, 1) @[AllToAllPE.scala 170:74]
-    node _T_43 = bits(_T_42, 13, 0) @[AllToAllPE.scala 170:10]
+    node _T_43 = bits(_T_42, 12, 0) @[AllToAllPE.scala 170:10]
     node _GEN_10 = validif(up_dispatcher.io_this_PE, _T_43) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10]
     node _GEN_11 = validif(up_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10]
     node _GEN_12 = mux(up_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 168:33 AllToAllPE.scala 170:10 AllToAllPE.scala 20:18]
@@ -11447,7 +11447,7 @@ circuit AllToAll :
     node _T_49 = tail(_T_48, 1) @[AllToAllPE.scala 175:65]
     node _T_50 = add(_T_49, offset) @[AllToAllPE.scala 175:86]
     node _T_51 = tail(_T_50, 1) @[AllToAllPE.scala 175:86]
-    node _T_52 = bits(_T_51, 13, 0) @[AllToAllPE.scala 175:10]
+    node _T_52 = bits(_T_51, 12, 0) @[AllToAllPE.scala 175:10]
     node _GEN_15 = validif(bottom_dispatcher.io_this_PE, _T_52) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10]
     node _GEN_16 = validif(bottom_dispatcher.io_this_PE, clock) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10]
     node _GEN_17 = mux(bottom_dispatcher.io_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 173:37 AllToAllPE.scala 175:10 AllToAllPE.scala 20:18]
@@ -11544,7 +11544,7 @@ circuit AllToAll :
     node _GEN_22 = mux(load_signal, UInt<3>("h4"), _GEN_21) @[AllToAllPE.scala 429:22 AllToAllPE.scala 430:13]
     node _T_115 = eq(state, UInt<3>("h4")) @[AllToAllPE.scala 439:20]
     node _T_116 = eq(stall_resp, UInt<1>("h0")) @[AllToAllPE.scala 441:21]
-    node _T_117 = bits(memIndex, 13, 0) @[AllToAllPE.scala 447:12]
+    node _T_117 = bits(memIndex, 12, 0) @[AllToAllPE.scala 447:12]
     node _GEN_23 = validif(is_this_PE, _T_117) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12]
     node _GEN_24 = validif(is_this_PE, clock) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12]
     node _GEN_25 = mux(is_this_PE, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 446:21 AllToAllPE.scala 447:12 AllToAllPE.scala 20:18]
@@ -11562,7 +11562,7 @@ circuit AllToAll :
     node _GEN_30 = mux(_T_122, UInt<3>("h5"), _GEN_29) @[AllToAllPE.scala 459:44 AllToAllPE.scala 460:13]
     node _GEN_31 = mux(_T_120, UInt<3>("h4"), _GEN_30) @[AllToAllPE.scala 457:37 AllToAllPE.scala 458:13]
     node _T_125 = eq(state, UInt<3>("h5")) @[AllToAllPE.scala 469:20]
-    node _T_126 = bits(memIndex, 13, 0) @[AllToAllPE.scala 477:26]
+    node _T_126 = bits(memIndex, 12, 0) @[AllToAllPE.scala 477:26]
     node _GEN_32 = validif(is_this_PE, _T_126) @[AllToAllPE.scala 476:21 AllToAllPE.scala 477:26]
     node _GEN_33 = mux(is_this_PE, memPE.MPORT_5.data, resp_value) @[AllToAllPE.scala 476:21 AllToAllPE.scala 477:18 AllToAllPE.scala 43:27]
     node _T_127 = eq(state, UInt<3>("h6")) @[AllToAllPE.scala 487:20]
@@ -11693,10 +11693,10 @@ circuit AllToAll :
     node _T_150 = eq(stateAction, UInt<1>("h1")) @[AllToAllPE.scala 600:26]
     node _T_151 = eq(index_calcualtor.io_last_iteration, UInt<1>("h0")) @[AllToAllPE.scala 605:21]
     node _T_152 = and(do_read, _T_151) @[AllToAllPE.scala 605:18]
-    node _T_153 = bits(index_calcualtor.io_index0, 13, 0) @[AllToAllPE.scala 609:30]
-    node _T_154 = bits(index_calcualtor.io_index1, 13, 0) @[AllToAllPE.scala 610:30]
-    node _T_155 = bits(index_calcualtor.io_index2, 13, 0) @[AllToAllPE.scala 611:30]
-    node _T_156 = bits(index_calcualtor.io_index3, 13, 0) @[AllToAllPE.scala 612:30]
+    node _T_153 = bits(index_calcualtor.io_index0, 12, 0) @[AllToAllPE.scala 609:30]
+    node _T_154 = bits(index_calcualtor.io_index1, 12, 0) @[AllToAllPE.scala 610:30]
+    node _T_155 = bits(index_calcualtor.io_index2, 12, 0) @[AllToAllPE.scala 611:30]
+    node _T_156 = bits(index_calcualtor.io_index3, 12, 0) @[AllToAllPE.scala 612:30]
     node _T_157 = eq(left_mux.io_out_val_selected, UInt<1>("h1")) @[AllToAllPE.scala 643:64]
     node _T_158 = and(_T_157, left_out_arbiter.io_in_0_ready) @[AllToAllPE.scala 643:79]
     node _T_159 = eq(right_mux.io_out_val_selected, UInt<1>("h1")) @[AllToAllPE.scala 644:65]
@@ -11755,7 +11755,7 @@ circuit AllToAll :
     node _T_212 = and(_T_211, read_values_valid_3) @[AllToAllPE.scala 665:56]
     node _T_213 = add(index_write_this_PE, read_pos_0) @[AllToAllPE.scala 669:35]
     node _T_214 = tail(_T_213, 1) @[AllToAllPE.scala 669:35]
-    node _T_215 = bits(_T_214, 13, 0) @[AllToAllPE.scala 669:14]
+    node _T_215 = bits(_T_214, 12, 0) @[AllToAllPE.scala 669:14]
     node _GEN_134 = validif(this_PE_generation_0, _T_215) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14]
     node _GEN_135 = validif(this_PE_generation_0, clock) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14]
     node _GEN_136 = mux(this_PE_generation_0, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:14 AllToAllPE.scala 20:18]
@@ -11763,7 +11763,7 @@ circuit AllToAll :
     node _GEN_138 = validif(this_PE_generation_0, read_values_0) @[AllToAllPE.scala 668:33 AllToAllPE.scala 669:50]
     node _T_216 = add(index_write_this_PE, read_pos_1) @[AllToAllPE.scala 672:35]
     node _T_217 = tail(_T_216, 1) @[AllToAllPE.scala 672:35]
-    node _T_218 = bits(_T_217, 13, 0) @[AllToAllPE.scala 672:14]
+    node _T_218 = bits(_T_217, 12, 0) @[AllToAllPE.scala 672:14]
     node _GEN_139 = validif(this_PE_generation_1, _T_218) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14]
     node _GEN_140 = validif(this_PE_generation_1, clock) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14]
     node _GEN_141 = mux(this_PE_generation_1, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:14 AllToAllPE.scala 20:18]
@@ -11771,7 +11771,7 @@ circuit AllToAll :
     node _GEN_143 = validif(this_PE_generation_1, read_values_1) @[AllToAllPE.scala 671:33 AllToAllPE.scala 672:50]
     node _T_219 = add(index_write_this_PE, read_pos_2) @[AllToAllPE.scala 675:35]
     node _T_220 = tail(_T_219, 1) @[AllToAllPE.scala 675:35]
-    node _T_221 = bits(_T_220, 13, 0) @[AllToAllPE.scala 675:14]
+    node _T_221 = bits(_T_220, 12, 0) @[AllToAllPE.scala 675:14]
     node _GEN_144 = validif(this_PE_generation_2, _T_221) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14]
     node _GEN_145 = validif(this_PE_generation_2, clock) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14]
     node _GEN_146 = mux(this_PE_generation_2, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:14 AllToAllPE.scala 20:18]
@@ -11779,7 +11779,7 @@ circuit AllToAll :
     node _GEN_148 = validif(this_PE_generation_2, read_values_2) @[AllToAllPE.scala 674:33 AllToAllPE.scala 675:50]
     node _T_222 = add(index_write_this_PE, read_pos_3) @[AllToAllPE.scala 678:35]
     node _T_223 = tail(_T_222, 1) @[AllToAllPE.scala 678:35]
-    node _T_224 = bits(_T_223, 13, 0) @[AllToAllPE.scala 678:14]
+    node _T_224 = bits(_T_223, 12, 0) @[AllToAllPE.scala 678:14]
     node _GEN_149 = validif(this_PE_generation_3, _T_224) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14]
     node _GEN_150 = validif(this_PE_generation_3, clock) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14]
     node _GEN_151 = mux(this_PE_generation_3, UInt<1>("h1"), UInt<1>("h0")) @[AllToAllPE.scala 677:33 AllToAllPE.scala 678:14 AllToAllPE.scala 20:18]
@@ -12984,25 +12984,25 @@ circuit AllToAll :
     output io_interrupt : UInt<1>
     input io_exception : UInt<1>
 
-    inst aTaModule of AllToAllModule @[AllToAllTest.scala 13:25]
-    io_cmd_ready <= aTaModule.io_cmd_ready @[AllToAllTest.scala 31:16]
-    io_resp_valid <= aTaModule.io_resp_valid @[AllToAllTest.scala 32:17]
-    io_resp_bits_rd <= aTaModule.io_resp_bits_rd @[AllToAllTest.scala 33:19]
-    io_resp_bits_data <= aTaModule.io_resp_bits_data @[AllToAllTest.scala 34:21]
-    io_busy <= aTaModule.io_busy @[AllToAllTest.scala 38:11]
-    io_interrupt <= aTaModule.io_interrupt @[AllToAllTest.scala 37:16]
+    inst aTaModule of AllToAllModule @[AllToAllTest.scala 14:25]
+    io_cmd_ready <= aTaModule.io_cmd_ready @[AllToAllTest.scala 32:16]
+    io_resp_valid <= aTaModule.io_resp_valid @[AllToAllTest.scala 33:17]
+    io_resp_bits_rd <= aTaModule.io_resp_bits_rd @[AllToAllTest.scala 34:19]
+    io_resp_bits_data <= aTaModule.io_resp_bits_data @[AllToAllTest.scala 35:21]
+    io_busy <= aTaModule.io_busy @[AllToAllTest.scala 39:11]
+    io_interrupt <= aTaModule.io_interrupt @[AllToAllTest.scala 38:16]
     aTaModule.clock <= clock
     aTaModule.reset <= reset
-    aTaModule.io_cmd_valid <= io_cmd_valid @[AllToAllTest.scala 16:26]
-    aTaModule.io_cmd_bits_inst_funct <= io_cmd_bits_inst_funct @[AllToAllTest.scala 17:36]
-    aTaModule.io_cmd_bits_inst_rs2 <= io_cmd_bits_inst_rs2 @[AllToAllTest.scala 18:34]
-    aTaModule.io_cmd_bits_inst_rs1 <= io_cmd_bits_inst_rs1 @[AllToAllTest.scala 19:34]
-    aTaModule.io_cmd_bits_inst_xd <= io_cmd_bits_inst_xd @[AllToAllTest.scala 20:33]
-    aTaModule.io_cmd_bits_inst_xs1 <= io_cmd_bits_inst_xs1 @[AllToAllTest.scala 21:34]
-    aTaModule.io_cmd_bits_inst_xs2 <= io_cmd_bits_inst_xs2 @[AllToAllTest.scala 22:34]
-    aTaModule.io_cmd_bits_inst_rd <= io_cmd_bits_inst_rd @[AllToAllTest.scala 23:33]
-    aTaModule.io_cmd_bits_inst_opcode <= io_cmd_bits_inst_opcode @[AllToAllTest.scala 24:37]
-    aTaModule.io_cmd_bits_rs1 <= io_cmd_bits_rs1 @[AllToAllTest.scala 25:29]
-    aTaModule.io_cmd_bits_rs2 <= io_cmd_bits_rs2 @[AllToAllTest.scala 26:29]
-    aTaModule.io_resp_ready <= io_resp_ready @[AllToAllTest.scala 27:27]
-    aTaModule.io_exception <= io_exception @[AllToAllTest.scala 41:26]
+    aTaModule.io_cmd_valid <= io_cmd_valid @[AllToAllTest.scala 17:26]
+    aTaModule.io_cmd_bits_inst_funct <= io_cmd_bits_inst_funct @[AllToAllTest.scala 18:36]
+    aTaModule.io_cmd_bits_inst_rs2 <= io_cmd_bits_inst_rs2 @[AllToAllTest.scala 19:34]
+    aTaModule.io_cmd_bits_inst_rs1 <= io_cmd_bits_inst_rs1 @[AllToAllTest.scala 20:34]
+    aTaModule.io_cmd_bits_inst_xd <= io_cmd_bits_inst_xd @[AllToAllTest.scala 21:33]
+    aTaModule.io_cmd_bits_inst_xs1 <= io_cmd_bits_inst_xs1 @[AllToAllTest.scala 22:34]
+    aTaModule.io_cmd_bits_inst_xs2 <= io_cmd_bits_inst_xs2 @[AllToAllTest.scala 23:34]
+    aTaModule.io_cmd_bits_inst_rd <= io_cmd_bits_inst_rd @[AllToAllTest.scala 24:33]
+    aTaModule.io_cmd_bits_inst_opcode <= io_cmd_bits_inst_opcode @[AllToAllTest.scala 25:37]
+    aTaModule.io_cmd_bits_rs1 <= io_cmd_bits_rs1 @[AllToAllTest.scala 26:29]
+    aTaModule.io_cmd_bits_rs2 <= io_cmd_bits_rs2 @[AllToAllTest.scala 27:29]
+    aTaModule.io_resp_ready <= io_resp_ready @[AllToAllTest.scala 28:27]
+    aTaModule.io_exception <= io_exception @[AllToAllTest.scala 42:26]

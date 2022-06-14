@@ -36,8 +36,6 @@ class MeshIO extends Bundle{
     val busy = Output(Bool())
 }
 
-
-
 /*
     AllToAllMesh respresents the mesh coposed of processing units
     n : is the dimension of the square matrix of PE
@@ -47,29 +45,8 @@ class AllToAllMesh(n : Int, cacheSize : Int, queueSize: Int) extends Module{
 
     val io = IO(new MeshIO)
 
-    val zero64 =  0.U(64.W)
-    val zeroValue =  0.U
-
     var vector1 = Seq[AllToAllPE]()
-    /*
-    for(i<-0 to (n*n)-1){
-        vector1 = vector1 :+  Module(new AllToAllPE(n,cacheSize,i))
-    }*/
-    /*
-    for(i<-0 to (n*n)-1){
-        if(upLeftCorner(i) || upRightCorner(i) || bottomLeftCorner(i) || bottomRightCorner(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEcorner(n,cacheSize,i))
-
-        }else if(up(i) || bottom(i) || left(i)|| right(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEedge(n,cacheSize,i))
-            
-        }else{ //elements not on the borders
-            vector1 = vector1 :+  Module(new AllToAllPEmiddle(n,cacheSize,i))
-
-        }
-    }
-    */
-
+  
     def upLeftCorner(i: Int): Boolean = (i == ((n*n)-n))
     def upRightCorner(i: Int): Boolean = (i == ((n*n)-1))
     def bottomLeftCorner(i: Int): Boolean = (i == 0)
@@ -81,7 +58,6 @@ class AllToAllMesh(n : Int, cacheSize : Int, queueSize: Int) extends Module{
     def right(i: Int): Boolean = (!upRightCorner(i) && !bottomRightCorner(i) && (i%n == (n-1)))
 
     def x_coord(i: Int): Int = (i%n)
-    //def y_coord(i: Int): Int = ((n-1)-(i/n))
     def y_coord(i: Int): Int = (i/n)
 
     var x,y = 0
@@ -92,33 +68,7 @@ class AllToAllMesh(n : Int, cacheSize : Int, queueSize: Int) extends Module{
         x = x_coord(i)
         y = y_coord(i)
 
-        if(upLeftCorner(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEupLeftCorner(n,cacheSize,queueSize,x,y))
-
-        }else if(upRightCorner(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEupRightCorner(n,cacheSize,queueSize,x,y))
-            
-        }else if(bottomLeftCorner(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEbottomLeftCorner(n,cacheSize,queueSize,x,y))
-            
-        }else if(bottomRightCorner(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEbottomRightCorner(n,cacheSize,queueSize,x,y))
-        }else if(up(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEup(n,cacheSize,queueSize,x,y))
-            
-        }else if(bottom(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEbottom(n,cacheSize,queueSize,x,y))
-            
-        }else if(left(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEleft(n,cacheSize,queueSize,x,y))
-            
-        }else if(right(i)){
-            vector1 = vector1 :+  Module(new AllToAllPEright(n,cacheSize,queueSize,x,y))
-            
-        }else{ //elements not on the borders
-            vector1 = vector1 :+  Module(new AllToAllPEmiddle(n,cacheSize,queueSize,x,y))
-        }
-        
+        vector1 = vector1 :+  Module(new AllToAllPE(n,cacheSize,queueSize,x,y))
     }
     val vector = vector1
 
@@ -155,6 +105,14 @@ class AllToAllMesh(n : Int, cacheSize : Int, queueSize: Int) extends Module{
     val myVec4 = vector.map{ _.io.resp.bits.data }
 
     io.resp.bits.data := PriorityMux(myVec3,myVec4)
+
+    val no_valid_input = Wire(new OutputPE(log2Up(n)))
+    no_valid_input.data := 0.U
+    no_valid_input.x_0 := 0.U
+    no_valid_input.y_0 := 0.U
+    no_valid_input.x_dest := 0.U
+    no_valid_input.y_dest := 0.U
+    no_valid_input.pos := 0.U
     
 
     //connect each PE with each other
@@ -163,343 +121,167 @@ class AllToAllMesh(n : Int, cacheSize : Int, queueSize: Int) extends Module{
         if(upLeftCorner(i)){
 
             vector(i).io.left.in.valid := false.B
-            vector(i).io.left.in.bits.data := zero64
-            vector(i).io.left.in.bits.x_0 := zeroValue
-            vector(i).io.left.in.bits.y_0 := zeroValue
-            vector(i).io.left.in.bits.x_dest := zeroValue
-            vector(i).io.left.in.bits.y_dest := zeroValue
-            vector(i).io.left.in.bits.pos := zeroValue
+            vector(i).io.left.in.bits <> no_valid_input
             vector(i).io.left.out.ready :=  false.B
 
             vector(i).io.right.in.valid := vector(i+1).io.left.out.valid
-            vector(i).io.right.in.bits.data := vector(i+1).io.left.out.bits.data
-            vector(i).io.right.in.bits.x_0 := vector(i+1).io.left.out.bits.x_0
-            vector(i).io.right.in.bits.y_0 := vector(i+1).io.left.out.bits.y_0
-            vector(i).io.right.in.bits.x_dest := vector(i+1).io.left.out.bits.x_dest
-            vector(i).io.right.in.bits.y_dest := vector(i+1).io.left.out.bits.y_dest
-            vector(i).io.right.in.bits.pos := vector(i+1).io.left.out.bits.pos
+            vector(i).io.right.in.bits <> vector(i+1).io.left.out.bits
             vector(i).io.right.out.ready :=  vector(i+1).io.left.in.ready
 
+            
             vector(i).io.up.in.valid := false.B
-            vector(i).io.up.in.bits.data := zero64
-            vector(i).io.up.in.bits.x_0 := zeroValue
-            vector(i).io.up.in.bits.y_0 := zeroValue
-            vector(i).io.up.in.bits.x_dest := zeroValue
-            vector(i).io.up.in.bits.y_dest := zeroValue
-            vector(i).io.up.in.bits.pos := zeroValue
+            vector(i).io.up.in.bits <> no_valid_input
             vector(i).io.up.out.ready :=  false.B
-        
+    
             vector(i).io.bottom.in.valid := vector(i-n).io.up.out.valid
-            vector(i).io.bottom.in.bits.data := vector(i-n).io.up.out.bits.data
-            vector(i).io.bottom.in.bits.x_0 := vector(i-n).io.up.out.bits.x_0
-            vector(i).io.bottom.in.bits.y_0 := vector(i-n).io.up.out.bits.y_0
-            vector(i).io.bottom.in.bits.x_dest := vector(i-n).io.up.out.bits.x_dest
-            vector(i).io.bottom.in.bits.y_dest := vector(i-n).io.up.out.bits.y_dest
-            vector(i).io.bottom.in.bits.pos := vector(i-n).io.up.out.bits.pos
+            vector(i).io.bottom.in.bits <> vector(i-n).io.up.out.bits
             vector(i).io.bottom.out.ready :=  vector(i-n).io.up.in.ready
 
         }else if(upRightCorner(i)){
 
             vector(i).io.left.in.valid := vector(i-1).io.right.out.valid
-            vector(i).io.left.in.bits.data := vector(i-1).io.right.out.bits.data
-            vector(i).io.left.in.bits.x_0 := vector(i-1).io.right.out.bits.x_0
-            vector(i).io.left.in.bits.y_0 := vector(i-1).io.right.out.bits.y_0
-            vector(i).io.left.in.bits.x_dest := vector(i-1).io.right.out.bits.x_dest
-            vector(i).io.left.in.bits.y_dest := vector(i-1).io.right.out.bits.y_dest
-            vector(i).io.left.in.bits.pos := vector(i-1).io.right.out.bits.pos
+            vector(i).io.left.in.bits <> vector(i-1).io.right.out.bits
             vector(i).io.left.out.ready :=  vector(i-1).io.right.in.ready
 
             vector(i).io.right.in.valid := false.B
-            vector(i).io.right.in.bits.data := zero64
-            vector(i).io.right.in.bits.x_0 := zeroValue
-            vector(i).io.right.in.bits.y_0 := zeroValue
-            vector(i).io.right.in.bits.x_dest := zeroValue
-            vector(i).io.right.in.bits.y_dest := zeroValue
-            vector(i).io.right.in.bits.pos := zeroValue
+            vector(i).io.right.in.bits <> no_valid_input
             vector(i).io.right.out.ready :=  false.B
 
             vector(i).io.up.in.valid := false.B
-            vector(i).io.up.in.bits.data := zero64
-            vector(i).io.up.in.bits.x_0 := zeroValue
-            vector(i).io.up.in.bits.y_0 := zeroValue
-            vector(i).io.up.in.bits.x_dest := zeroValue
-            vector(i).io.up.in.bits.y_dest := zeroValue
-            vector(i).io.up.in.bits.pos := zeroValue
+            vector(i).io.up.in.bits <> no_valid_input
             vector(i).io.up.out.ready :=  false.B
             
             vector(i).io.bottom.in.valid := vector(i-n).io.up.out.valid
-            vector(i).io.bottom.in.bits.data := vector(i-n).io.up.out.bits.data
-            vector(i).io.bottom.in.bits.x_0 := vector(i-n).io.up.out.bits.x_0
-            vector(i).io.bottom.in.bits.y_0 := vector(i-n).io.up.out.bits.y_0
-            vector(i).io.bottom.in.bits.x_dest := vector(i-n).io.up.out.bits.x_dest
-            vector(i).io.bottom.in.bits.y_dest := vector(i-n).io.up.out.bits.y_dest
-            vector(i).io.bottom.in.bits.pos := vector(i-n).io.up.out.bits.pos
+            vector(i).io.bottom.in.bits <> vector(i-n).io.up.out.bits
             vector(i).io.bottom.out.ready :=  vector(i-n).io.up.in.ready
             
         }else if(bottomLeftCorner(i)){
 
             vector(i).io.left.in.valid := false.B
-            vector(i).io.left.in.bits.data := zero64
-            vector(i).io.left.in.bits.x_0 := zeroValue
-            vector(i).io.left.in.bits.y_0 := zeroValue
-            vector(i).io.left.in.bits.x_dest := zeroValue
-            vector(i).io.left.in.bits.y_dest := zeroValue
-            vector(i).io.left.in.bits.pos := zeroValue
+            vector(i).io.left.in.bits <> no_valid_input
             vector(i).io.left.out.ready :=  false.B
 
             vector(i).io.right.in.valid := vector(i+1).io.left.out.valid
-            vector(i).io.right.in.bits.data := vector(i+1).io.left.out.bits.data
-            vector(i).io.right.in.bits.x_0 := vector(i+1).io.left.out.bits.x_0
-            vector(i).io.right.in.bits.y_0 := vector(i+1).io.left.out.bits.y_0
-            vector(i).io.right.in.bits.x_dest := vector(i+1).io.left.out.bits.x_dest
-            vector(i).io.right.in.bits.y_dest := vector(i+1).io.left.out.bits.y_dest
-            vector(i).io.right.in.bits.pos := vector(i+1).io.left.out.bits.pos
+            vector(i).io.right.in.bits <> vector(i+1).io.left.out.bits
             vector(i).io.right.out.ready :=  vector(i+1).io.left.in.ready
 
             vector(i).io.up.in.valid := vector(i+n).io.bottom.out.valid
-            vector(i).io.up.in.bits.data := vector(i+n).io.bottom.out.bits.data
-            vector(i).io.up.in.bits.x_0 := vector(i+n).io.bottom.out.bits.x_0
-            vector(i).io.up.in.bits.y_0 := vector(i+n).io.bottom.out.bits.y_0
-            vector(i).io.up.in.bits.x_dest := vector(i+n).io.bottom.out.bits.x_dest
-            vector(i).io.up.in.bits.y_dest := vector(i+n).io.bottom.out.bits.y_dest
-            vector(i).io.up.in.bits.pos := vector(i+n).io.bottom.out.bits.pos
+            vector(i).io.up.in.bits <> vector(i+n).io.bottom.out.bits
             vector(i).io.up.out.ready :=  vector(i+n).io.bottom.in.ready
 
             vector(i).io.bottom.in.valid := false.B
-            vector(i).io.bottom.in.bits.data := zero64
-            vector(i).io.bottom.in.bits.x_0 := zeroValue
-            vector(i).io.bottom.in.bits.y_0 := zeroValue
-            vector(i).io.bottom.in.bits.x_dest := zeroValue
-            vector(i).io.bottom.in.bits.y_dest := zeroValue
-            vector(i).io.bottom.in.bits.pos := zeroValue
+            vector(i).io.bottom.in.bits <> no_valid_input
             vector(i).io.bottom.out.ready := false.B
             
         }else if(bottomRightCorner(i)){
+
             vector(i).io.left.in.valid := vector(i-1).io.right.out.valid
-            vector(i).io.left.in.bits.data := vector(i-1).io.right.out.bits.data
-            vector(i).io.left.in.bits.x_0 := vector(i-1).io.right.out.bits.x_0
-            vector(i).io.left.in.bits.y_0 := vector(i-1).io.right.out.bits.y_0
-            vector(i).io.left.in.bits.x_dest := vector(i-1).io.right.out.bits.x_dest
-            vector(i).io.left.in.bits.y_dest := vector(i-1).io.right.out.bits.y_dest
-            vector(i).io.left.in.bits.pos := vector(i-1).io.right.out.bits.pos
+            vector(i).io.left.in.bits <> vector(i-1).io.right.out.bits
             vector(i).io.left.out.ready :=  vector(i-1).io.right.in.ready
 
             vector(i).io.right.in.valid := false.B
-            vector(i).io.right.in.bits.data := zero64
-            vector(i).io.right.in.bits.x_0 := zeroValue
-            vector(i).io.right.in.bits.y_0 := zeroValue
-            vector(i).io.right.in.bits.x_dest := zeroValue
-            vector(i).io.right.in.bits.y_dest := zeroValue
-            vector(i).io.right.in.bits.pos := zeroValue
+            vector(i).io.right.in.bits <> no_valid_input
             vector(i).io.right.out.ready :=  false.B
         
             vector(i).io.up.in.valid := vector(i+n).io.bottom.out.valid
-            vector(i).io.up.in.bits.data := vector(i+n).io.bottom.out.bits.data
-            vector(i).io.up.in.bits.x_0 := vector(i+n).io.bottom.out.bits.x_0
-            vector(i).io.up.in.bits.y_0 := vector(i+n).io.bottom.out.bits.y_0
-            vector(i).io.up.in.bits.x_dest := vector(i+n).io.bottom.out.bits.x_dest
-            vector(i).io.up.in.bits.y_dest := vector(i+n).io.bottom.out.bits.y_dest
-            vector(i).io.up.in.bits.pos := vector(i+n).io.bottom.out.bits.pos
+            vector(i).io.up.in.bits <> vector(i+n).io.bottom.out.bits
             vector(i).io.up.out.ready :=  vector(i+n).io.bottom.in.ready
 
             vector(i).io.bottom.in.valid := false.B
-            vector(i).io.bottom.in.bits.data := zero64
-            vector(i).io.bottom.in.bits.x_0 := zeroValue
-            vector(i).io.bottom.in.bits.y_0 := zeroValue
-            vector(i).io.bottom.in.bits.x_dest := zeroValue
-            vector(i).io.bottom.in.bits.y_dest := zeroValue
-            vector(i).io.bottom.in.bits.pos := zeroValue
+            vector(i).io.bottom.in.bits <> no_valid_input
             vector(i).io.bottom.out.ready := false.B
             
         }else if(up(i)){
             
             vector(i).io.left.in.valid := vector(i-1).io.right.out.valid
-            vector(i).io.left.in.bits.data := vector(i-1).io.right.out.bits.data
-            vector(i).io.left.in.bits.x_0 := vector(i-1).io.right.out.bits.x_0
-            vector(i).io.left.in.bits.y_0 := vector(i-1).io.right.out.bits.y_0
-            vector(i).io.left.in.bits.x_dest := vector(i-1).io.right.out.bits.x_dest
-            vector(i).io.left.in.bits.y_dest := vector(i-1).io.right.out.bits.y_dest
-            vector(i).io.left.in.bits.pos := vector(i-1).io.right.out.bits.pos
+            vector(i).io.left.in.bits <> vector(i-1).io.right.out.bits
             vector(i).io.left.out.ready :=  vector(i-1).io.right.in.ready
 
             vector(i).io.right.in.valid := vector(i+1).io.left.out.valid
-            vector(i).io.right.in.bits.data := vector(i+1).io.left.out.bits.data
-            vector(i).io.right.in.bits.x_0 := vector(i+1).io.left.out.bits.x_0
-            vector(i).io.right.in.bits.y_0 := vector(i+1).io.left.out.bits.y_0
-            vector(i).io.right.in.bits.x_dest := vector(i+1).io.left.out.bits.x_dest
-            vector(i).io.right.in.bits.y_dest := vector(i+1).io.left.out.bits.y_dest
-            vector(i).io.right.in.bits.pos := vector(i+1).io.left.out.bits.pos
+            vector(i).io.right.in.bits <> vector(i+1).io.left.out.bits
             vector(i).io.right.out.ready :=  vector(i+1).io.left.in.ready
 
             vector(i).io.up.in.valid := false.B
-            vector(i).io.up.in.bits.data := zero64
-            vector(i).io.up.in.bits.x_0 := zeroValue
-            vector(i).io.up.in.bits.y_0 := zeroValue
-            vector(i).io.up.in.bits.x_dest := zeroValue
-            vector(i).io.up.in.bits.y_dest := zeroValue
-            vector(i).io.up.in.bits.pos := zeroValue
+            vector(i).io.up.in.bits <> no_valid_input
             vector(i).io.up.out.ready :=  false.B
 
             vector(i).io.bottom.in.valid := vector(i-n).io.up.out.valid
-            vector(i).io.bottom.in.bits.data := vector(i-n).io.up.out.bits.data
-            vector(i).io.bottom.in.bits.x_0 := vector(i-n).io.up.out.bits.x_0
-            vector(i).io.bottom.in.bits.y_0 := vector(i-n).io.up.out.bits.y_0
-            vector(i).io.bottom.in.bits.x_dest := vector(i-n).io.up.out.bits.x_dest
-            vector(i).io.bottom.in.bits.y_dest := vector(i-n).io.up.out.bits.y_dest
-            vector(i).io.bottom.in.bits.pos := vector(i-n).io.up.out.bits.pos
+            vector(i).io.bottom.in.bits <> vector(i-n).io.up.out.bits
             vector(i).io.bottom.out.ready :=  vector(i-n).io.up.in.ready
             
         }else if(bottom(i)){
+
             vector(i).io.left.in.valid := vector(i-1).io.right.out.valid
-            vector(i).io.left.in.bits.data := vector(i-1).io.right.out.bits.data
-            vector(i).io.left.in.bits.x_0 := vector(i-1).io.right.out.bits.x_0
-            vector(i).io.left.in.bits.y_0 := vector(i-1).io.right.out.bits.y_0
-            vector(i).io.left.in.bits.x_dest := vector(i-1).io.right.out.bits.x_dest
-            vector(i).io.left.in.bits.y_dest := vector(i-1).io.right.out.bits.y_dest
-            vector(i).io.left.in.bits.pos := vector(i-1).io.right.out.bits.pos
+            vector(i).io.left.in.bits <> vector(i-1).io.right.out.bits
             vector(i).io.left.out.ready :=  vector(i-1).io.right.in.ready
 
             vector(i).io.right.in.valid := vector(i+1).io.left.out.valid
-            vector(i).io.right.in.bits.data := vector(i+1).io.left.out.bits.data
-            vector(i).io.right.in.bits.x_0 := vector(i+1).io.left.out.bits.x_0
-            vector(i).io.right.in.bits.y_0 := vector(i+1).io.left.out.bits.y_0
-            vector(i).io.right.in.bits.x_dest := vector(i+1).io.left.out.bits.x_dest
-            vector(i).io.right.in.bits.y_dest := vector(i+1).io.left.out.bits.y_dest
-            vector(i).io.right.in.bits.pos := vector(i+1).io.left.out.bits.pos
+            vector(i).io.right.in.bits <> vector(i+1).io.left.out.bits
             vector(i).io.right.out.ready :=  vector(i+1).io.left.in.ready
 
             vector(i).io.up.in.valid := vector(i+n).io.bottom.out.valid
-            vector(i).io.up.in.bits.data := vector(i+n).io.bottom.out.bits.data
-            vector(i).io.up.in.bits.x_0 := vector(i+n).io.bottom.out.bits.x_0
-            vector(i).io.up.in.bits.y_0 := vector(i+n).io.bottom.out.bits.y_0
-            vector(i).io.up.in.bits.x_dest := vector(i+n).io.bottom.out.bits.x_dest
-            vector(i).io.up.in.bits.y_dest := vector(i+n).io.bottom.out.bits.y_dest
-            vector(i).io.up.in.bits.pos := vector(i+n).io.bottom.out.bits.pos
+            vector(i).io.up.in.bits <> vector(i+n).io.bottom.out.bits
             vector(i).io.up.out.ready :=  vector(i+n).io.bottom.in.ready
 
             vector(i).io.bottom.in.valid := false.B
-            vector(i).io.bottom.in.bits.data := zero64
-            vector(i).io.bottom.in.bits.x_0 := zeroValue
-            vector(i).io.bottom.in.bits.y_0 := zeroValue
-            vector(i).io.bottom.in.bits.x_dest := zeroValue
-            vector(i).io.bottom.in.bits.y_dest := zeroValue
-            vector(i).io.bottom.in.bits.pos := zeroValue
+            vector(i).io.bottom.in.bits <> no_valid_input
             vector(i).io.bottom.out.ready := false.B
             
         }else if(left(i)){
+
             vector(i).io.left.in.valid := false.B
-            vector(i).io.left.in.bits.data := zero64
-            vector(i).io.left.in.bits.x_0 := zeroValue
-            vector(i).io.left.in.bits.y_0 := zeroValue
-            vector(i).io.left.in.bits.x_dest := zeroValue
-            vector(i).io.left.in.bits.y_dest := zeroValue
-            vector(i).io.left.in.bits.pos := zeroValue
+            vector(i).io.left.in.bits <> no_valid_input
             vector(i).io.left.out.ready :=  false.B
 
             vector(i).io.right.in.valid := vector(i+1).io.left.out.valid
-            vector(i).io.right.in.bits.data := vector(i+1).io.left.out.bits.data
-            vector(i).io.right.in.bits.x_0 := vector(i+1).io.left.out.bits.x_0
-            vector(i).io.right.in.bits.y_0 := vector(i+1).io.left.out.bits.y_0
-            vector(i).io.right.in.bits.x_dest := vector(i+1).io.left.out.bits.x_dest
-            vector(i).io.right.in.bits.y_dest := vector(i+1).io.left.out.bits.y_dest
-            vector(i).io.right.in.bits.pos := vector(i+1).io.left.out.bits.pos
+            vector(i).io.right.in.bits <> vector(i+1).io.left.out.bits
             vector(i).io.right.out.ready :=  vector(i+1).io.left.in.ready
 
             vector(i).io.up.in.valid := vector(i+n).io.bottom.out.valid
-            vector(i).io.up.in.bits.data := vector(i+n).io.bottom.out.bits.data
-            vector(i).io.up.in.bits.x_0 := vector(i+n).io.bottom.out.bits.x_0
-            vector(i).io.up.in.bits.y_0 := vector(i+n).io.bottom.out.bits.y_0
-            vector(i).io.up.in.bits.x_dest := vector(i+n).io.bottom.out.bits.x_dest
-            vector(i).io.up.in.bits.y_dest := vector(i+n).io.bottom.out.bits.y_dest
-            vector(i).io.up.in.bits.pos := vector(i+n).io.bottom.out.bits.pos
+            vector(i).io.up.in.bits <> vector(i+n).io.bottom.out.bits
             vector(i).io.up.out.ready :=  vector(i+n).io.bottom.in.ready
 
             vector(i).io.bottom.in.valid := vector(i-n).io.up.out.valid
-            vector(i).io.bottom.in.bits.data := vector(i-n).io.up.out.bits.data
-            vector(i).io.bottom.in.bits.x_0 := vector(i-n).io.up.out.bits.x_0
-            vector(i).io.bottom.in.bits.y_0 := vector(i-n).io.up.out.bits.y_0
-            vector(i).io.bottom.in.bits.x_dest := vector(i-n).io.up.out.bits.x_dest
-            vector(i).io.bottom.in.bits.y_dest := vector(i-n).io.up.out.bits.y_dest
-            vector(i).io.bottom.in.bits.pos := vector(i-n).io.up.out.bits.pos
+            vector(i).io.bottom.in.bits <> vector(i-n).io.up.out.bits
             vector(i).io.bottom.out.ready :=  vector(i-n).io.up.in.ready
             
         }else if(right(i)){
+
             vector(i).io.left.in.valid := vector(i-1).io.right.out.valid
-            vector(i).io.left.in.bits.data := vector(i-1).io.right.out.bits.data
-            vector(i).io.left.in.bits.x_0 := vector(i-1).io.right.out.bits.x_0
-            vector(i).io.left.in.bits.y_0 := vector(i-1).io.right.out.bits.y_0
-            vector(i).io.left.in.bits.x_dest := vector(i-1).io.right.out.bits.x_dest
-            vector(i).io.left.in.bits.y_dest := vector(i-1).io.right.out.bits.y_dest
-            vector(i).io.left.in.bits.pos := vector(i-1).io.right.out.bits.pos
+            vector(i).io.left.in.bits <> vector(i-1).io.right.out.bits
             vector(i).io.left.out.ready :=  vector(i-1).io.right.in.ready
 
             vector(i).io.right.in.valid := false.B
-            vector(i).io.right.in.bits.data := zero64
-            vector(i).io.right.in.bits.x_0 := zeroValue
-            vector(i).io.right.in.bits.y_0 := zeroValue
-            vector(i).io.right.in.bits.x_dest := zeroValue
-            vector(i).io.right.in.bits.y_dest := zeroValue
-            vector(i).io.right.in.bits.pos := zeroValue
+            vector(i).io.right.in.bits <> no_valid_input
             vector(i).io.right.out.ready :=  false.B
 
             vector(i).io.up.in.valid := vector(i+n).io.bottom.out.valid
-            vector(i).io.up.in.bits.data := vector(i+n).io.bottom.out.bits.data
-            vector(i).io.up.in.bits.x_0 := vector(i+n).io.bottom.out.bits.x_0
-            vector(i).io.up.in.bits.y_0 := vector(i+n).io.bottom.out.bits.y_0
-            vector(i).io.up.in.bits.x_dest := vector(i+n).io.bottom.out.bits.x_dest
-            vector(i).io.up.in.bits.y_dest := vector(i+n).io.bottom.out.bits.y_dest
-            vector(i).io.up.in.bits.pos := vector(i+n).io.bottom.out.bits.pos
+            vector(i).io.up.in.bits <> vector(i+n).io.bottom.out.bits
             vector(i).io.up.out.ready :=  vector(i+n).io.bottom.in.ready
 
             vector(i).io.bottom.in.valid := vector(i-n).io.up.out.valid
-            vector(i).io.bottom.in.bits.data := vector(i-n).io.up.out.bits.data
-            vector(i).io.bottom.in.bits.x_0 := vector(i-n).io.up.out.bits.x_0
-            vector(i).io.bottom.in.bits.y_0 := vector(i-n).io.up.out.bits.y_0
-            vector(i).io.bottom.in.bits.x_dest := vector(i-n).io.up.out.bits.x_dest
-            vector(i).io.bottom.in.bits.y_dest := vector(i-n).io.up.out.bits.y_dest
-            vector(i).io.bottom.in.bits.pos := vector(i-n).io.up.out.bits.pos
+            vector(i).io.bottom.in.bits <> vector(i-n).io.up.out.bits
             vector(i).io.bottom.out.ready :=  vector(i-n).io.up.in.ready
             
         }else{ //elements not on the borders
 
             vector(i).io.left.in.valid := vector(i-1).io.right.out.valid
-            vector(i).io.left.in.bits.data := vector(i-1).io.right.out.bits.data
-            vector(i).io.left.in.bits.x_0 := vector(i-1).io.right.out.bits.x_0
-            vector(i).io.left.in.bits.y_0 := vector(i-1).io.right.out.bits.y_0
-            vector(i).io.left.in.bits.x_dest := vector(i-1).io.right.out.bits.x_dest
-            vector(i).io.left.in.bits.y_dest := vector(i-1).io.right.out.bits.y_dest
-            vector(i).io.left.in.bits.pos := vector(i-1).io.right.out.bits.pos
+            vector(i).io.left.in.bits <> vector(i-1).io.right.out.bits
             vector(i).io.left.out.ready :=  vector(i-1).io.right.in.ready
 
             vector(i).io.right.in.valid := vector(i+1).io.left.out.valid
-            vector(i).io.right.in.bits.data := vector(i+1).io.left.out.bits.data
-            vector(i).io.right.in.bits.x_0 := vector(i+1).io.left.out.bits.x_0
-            vector(i).io.right.in.bits.y_0 := vector(i+1).io.left.out.bits.y_0
-            vector(i).io.right.in.bits.x_dest := vector(i+1).io.left.out.bits.x_dest
-            vector(i).io.right.in.bits.y_dest := vector(i+1).io.left.out.bits.y_dest
-            vector(i).io.right.in.bits.pos := vector(i+1).io.left.out.bits.pos
+            vector(i).io.right.in.bits <> vector(i+1).io.left.out.bits
             vector(i).io.right.out.ready :=  vector(i+1).io.left.in.ready
 
             vector(i).io.up.in.valid := vector(i+n).io.bottom.out.valid
-            vector(i).io.up.in.bits.data := vector(i+n).io.bottom.out.bits.data
-            vector(i).io.up.in.bits.x_0 := vector(i+n).io.bottom.out.bits.x_0
-            vector(i).io.up.in.bits.y_0 := vector(i+n).io.bottom.out.bits.y_0
-            vector(i).io.up.in.bits.x_dest := vector(i+n).io.bottom.out.bits.x_dest
-            vector(i).io.up.in.bits.y_dest := vector(i+n).io.bottom.out.bits.y_dest
-            vector(i).io.up.in.bits.pos := vector(i+n).io.bottom.out.bits.pos
+            vector(i).io.up.in.bits <> vector(i+n).io.bottom.out.bits
             vector(i).io.up.out.ready :=  vector(i+n).io.bottom.in.ready
 
             vector(i).io.bottom.in.valid := vector(i-n).io.up.out.valid
-            vector(i).io.bottom.in.bits.data := vector(i-n).io.up.out.bits.data
-            vector(i).io.bottom.in.bits.x_0 := vector(i-n).io.up.out.bits.x_0
-            vector(i).io.bottom.in.bits.y_0 := vector(i-n).io.up.out.bits.y_0
-            vector(i).io.bottom.in.bits.x_dest := vector(i-n).io.up.out.bits.x_dest
-            vector(i).io.bottom.in.bits.y_dest := vector(i-n).io.up.out.bits.y_dest
-            vector(i).io.bottom.in.bits.pos := vector(i-n).io.up.out.bits.pos
+            vector(i).io.bottom.in.bits <> vector(i-n).io.up.out.bits
             vector(i).io.bottom.out.ready :=  vector(i-n).io.up.in.ready
         }
         
     }
-
 
 }

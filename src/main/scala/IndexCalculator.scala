@@ -19,7 +19,7 @@ class IndexCalculator(numberPE: Int, val indexWidth: Int) extends Module{
         val reset = Input(Bool())
         val enable = Input(Bool())
         val last_index = Output(Bool())
-        val index = Output(Bits((32.W).W))
+        val index = Output(Bits(32.W))
     }) 
     
     //+1 because it counts from 0 to nPE, not from 0 to nPE-1
@@ -117,10 +117,10 @@ class IndexCalculatorV1(n: Int, n_PE: Int, val indexWidth: Int) extends Module{
     io.index3 := (counter_PE+3.U) * dim_N + counter_offset
 
     //useful when n is not a multiple of 4, so in the last iteration some output addresses are not valid
-    io.valid0 := counter_PE <= (n_PE-1).U
-    io.valid1 := (counter_PE+1.U) <= (n_PE-1).U
-    io.valid2 := (counter_PE+2.U) <= (n_PE-1).U
-    io.valid3 := (counter_PE+3.U) <= (n_PE-1).U
+    io.valid0 := counter_PE <= (n_PE-1).U && !io.last_iteration
+    io.valid1 := (counter_PE+1.U) <= (n_PE-1).U && !io.last_iteration
+    io.valid2 := (counter_PE+2.U) <= (n_PE-1).U && !io.last_iteration
+    io.valid3 := (counter_PE+3.U) <= (n_PE-1).U && !io.last_iteration
 
     def compute_x_coord(i: UInt): UInt = (i % n.U)
     def compute_y_coord(i: UInt): UInt = (i / n.U)

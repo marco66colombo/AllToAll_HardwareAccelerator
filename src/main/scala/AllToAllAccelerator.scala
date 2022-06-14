@@ -40,7 +40,6 @@ class AllToAllAcceleratorModule(outer: AllToAllAccelerator) extends LazyRoCCModu
   aTaModule.io.cmd.bits.rs1 := io.cmd.bits.rs1
   aTaModule.io.cmd.bits.rs2 := io.cmd.bits.rs2
   aTaModule.io.resp.ready := io.resp.ready
-  //customModule.io.cmd.bits.status := io.cmd.bits.status
 
   //resp output
   io.cmd.ready := aTaModule.io.cmd.ready
@@ -48,15 +47,11 @@ class AllToAllAcceleratorModule(outer: AllToAllAccelerator) extends LazyRoCCModu
   io.resp.bits.rd := aTaModule.io.resp.bits.rd 
   io.resp.bits.data := aTaModule.io.resp.bits.data
   
-
-  
   //output
   io.busy := aTaModule.io.busy
-  //io.interrupt := aTaModule.io.interrupt
   io.interrupt := false.B
 
   //input
-  //aTaModule.io.exception := io.exception
   aTaModule.io.exception := false.B
 
 }

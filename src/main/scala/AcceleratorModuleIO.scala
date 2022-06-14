@@ -39,7 +39,6 @@ class Response extends Bundle {
 class AcceleratorModuleIO extends Bundle {
   val cmd = Flipped(Decoupled(new Command))
   val resp = Decoupled(new Response)
-  //val mem = new HellaCacheIO
   val busy = Output(Bool())
   val interrupt = Output(Bool())
   val exception = Input(Bool())

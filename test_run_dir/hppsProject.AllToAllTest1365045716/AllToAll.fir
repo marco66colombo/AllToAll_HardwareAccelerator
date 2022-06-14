@@ -190,7 +190,7 @@ circuit AllToAll :
   module IndexCalculatorV1 :
     input clock : Clock
     input reset : Reset
-    output io : { flip reset : UInt<1>, flip enable : UInt<1>, flip dim_N : UInt<16>, index0 : UInt<32>, index1 : UInt<32>, index2 : UInt<32>, index3 : UInt<32>, valid0 : UInt<1>, valid1 : UInt<1>, valid2 : UInt<1>, valid3 : UInt<1>, x_dest_0 : UInt<3>, x_dest_1 : UInt<3>, x_dest_2 : UInt<3>, x_dest_3 : UInt<3>, y_dest_0 : UInt<3>, y_dest_1 : UInt<3>, y_dest_2 : UInt<3>, y_dest_3 : UInt<3>, pos_0 : UInt<16>, pos_1 : UInt<16>, pos_2 : UInt<16>, pos_3 : UInt<16>, last_iteration : UInt<1>}
+    output io : { flip reset : UInt<1>, flip enable : UInt<1>, flip dim_N : UInt<16>, index0 : UInt<32>, index1 : UInt<32>, index2 : UInt<32>, index3 : UInt<32>, valid0 : UInt<1>, valid1 : UInt<1>, valid2 : UInt<1>, valid3 : UInt<1>, x_dest_0 : UInt<2>, x_dest_1 : UInt<2>, x_dest_2 : UInt<2>, x_dest_3 : UInt<2>, y_dest_0 : UInt<2>, y_dest_1 : UInt<2>, y_dest_2 : UInt<2>, y_dest_3 : UInt<2>, pos_0 : UInt<16>, pos_1 : UInt<16>, pos_2 : UInt<16>, pos_3 : UInt<16>, last_iteration : UInt<1>}
 
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[IndexCalculator.scala 84:20]
@@ -292,9 +292,9 @@ circuit AllToAll :
   module Queue :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -352,9 +352,9 @@ circuit AllToAll :
   module Queue_1 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -412,9 +412,9 @@ circuit AllToAll :
   module Queue_2 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -472,9 +472,9 @@ circuit AllToAll :
   module Queue_3 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -532,7 +532,7 @@ circuit AllToAll :
   module Dispatcher :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -719,7 +719,7 @@ circuit AllToAll :
   module Dispatcher_1 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -906,7 +906,7 @@ circuit AllToAll :
   module Dispatcher_2 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -1093,7 +1093,7 @@ circuit AllToAll :
   module Dispatcher_3 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -1280,7 +1280,7 @@ circuit AllToAll :
   module GenerationDispatcher :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -1342,7 +1342,7 @@ circuit AllToAll :
   module GenerationDispatcher_1 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -1404,7 +1404,7 @@ circuit AllToAll :
   module GenerationDispatcher_2 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -1466,7 +1466,7 @@ circuit AllToAll :
   module GenerationDispatcher_3 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -1528,13 +1528,13 @@ circuit AllToAll :
   module MyPriorityMux :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -1594,13 +1594,13 @@ circuit AllToAll :
   module MyPriorityMux_1 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -1660,13 +1660,13 @@ circuit AllToAll :
   module MyPriorityMux_2 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -1726,13 +1726,13 @@ circuit AllToAll :
   module MyPriorityMux_3 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -1792,7 +1792,7 @@ circuit AllToAll :
   module RRArbiter :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -1862,7 +1862,7 @@ circuit AllToAll :
   module RRArbiter_1 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -1932,7 +1932,7 @@ circuit AllToAll :
   module RRArbiter_2 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -2002,7 +2002,7 @@ circuit AllToAll :
   module RRArbiter_3 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -2072,9 +2072,9 @@ circuit AllToAll :
   module Queue_4 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -2132,9 +2132,9 @@ circuit AllToAll :
   module Queue_5 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -2192,9 +2192,9 @@ circuit AllToAll :
   module Queue_6 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -2252,9 +2252,9 @@ circuit AllToAll :
   module Queue_7 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -2312,12 +2312,12 @@ circuit AllToAll :
   module AllToAllPEbottomLeftCorner :
     input clock : Clock
     input reset : Reset
-    output io : { busy : UInt<1>, flip end_AllToAll : UInt<1>, flip cmd : { flip ready : UInt<1>, valid : UInt<1>, bits : { load : UInt<1>, store : UInt<1>, doAllToAll : UInt<1>, rs1 : UInt<64>, rs2 : UInt<64>}}, resp : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, write_enable : UInt<1>}}, left : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, right : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, up : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, bottom : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}}
+    output io : { busy : UInt<1>, flip end_AllToAll : UInt<1>, flip cmd : { flip ready : UInt<1>, valid : UInt<1>, bits : { load : UInt<1>, store : UInt<1>, doAllToAll : UInt<1>, rs1 : UInt<64>, rs2 : UInt<64>}}, resp : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, write_enable : UInt<1>}}, left : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, right : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, up : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, bottom : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}}
 
-    cmem memPE : UInt<64> [10000] @[AllToAllPE.scala 20:18]
-    reg x_coord : UInt<3>, clock with :
+    cmem memPE : UInt<64> [5000] @[AllToAllPE.scala 20:18]
+    reg x_coord : UInt<2>, clock with :
       reset => (reset, UInt<1>("h0")) @[AllToAllPE.scala 23:24]
-    reg y_coord : UInt<3>, clock with :
+    reg y_coord : UInt<2>, clock with :
       reset => (reset, UInt<1>("h0")) @[AllToAllPE.scala 24:24]
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[AllToAllPE.scala 26:18]
@@ -2363,9 +2363,9 @@ circuit AllToAll :
     _WIRE[3] <= UInt<1>("h0") @[AllToAllPE.scala 63:42]
     reg read_values_valid : UInt<1>[4], clock with :
       reset => (reset, _WIRE) @[AllToAllPE.scala 63:34]
-    reg read_x_dest : UInt<3>[4], clock with :
+    reg read_x_dest : UInt<2>[4], clock with :
       reset => (UInt<1>("h0"), read_x_dest) @[AllToAllPE.scala 64:24]
-    reg read_y_dest : UInt<3>[4], clock with :
+    reg read_y_dest : UInt<2>[4], clock with :
       reset => (UInt<1>("h0"), read_y_dest) @[AllToAllPE.scala 65:24]
     reg read_pos : UInt<16>[4], clock with :
       reset => (UInt<1>("h0"), read_pos) @[AllToAllPE.scala 66:21]
@@ -2509,7 +2509,7 @@ circuit AllToAll :
       node _T_22 = tail(_T_21, 1) @[AllToAllPE.scala 160:61]
       node _T_23 = add(_T_22, offset) @[AllToAllPE.scala 160:80]
       node _T_24 = tail(_T_23, 1) @[AllToAllPE.scala 160:80]
-      node _T_25 = bits(_T_24, 13, 0) @[AllToAllPE.scala 160:10]
+      node _T_25 = bits(_T_24, 12, 0) @[AllToAllPE.scala 160:10]
       infer mport MPORT = memPE[_T_25], clock @[AllToAllPE.scala 160:10]
       MPORT <= left_in.io.deq.bits.data @[AllToAllPE.scala 160:90]
     when right_dispatcher.io.this_PE : @[AllToAllPE.scala 163:36]
@@ -2521,7 +2521,7 @@ circuit AllToAll :
       node _T_31 = tail(_T_30, 1) @[AllToAllPE.scala 165:63]
       node _T_32 = add(_T_31, offset) @[AllToAllPE.scala 165:83]
       node _T_33 = tail(_T_32, 1) @[AllToAllPE.scala 165:83]
-      node _T_34 = bits(_T_33, 13, 0) @[AllToAllPE.scala 165:10]
+      node _T_34 = bits(_T_33, 12, 0) @[AllToAllPE.scala 165:10]
       infer mport MPORT_1 = memPE[_T_34], clock @[AllToAllPE.scala 165:10]
       MPORT_1 <= right_in.io.deq.bits.data @[AllToAllPE.scala 165:93]
     when up_dispatcher.io.this_PE : @[AllToAllPE.scala 168:33]
@@ -2533,7 +2533,7 @@ circuit AllToAll :
       node _T_40 = tail(_T_39, 1) @[AllToAllPE.scala 170:57]
       node _T_41 = add(_T_40, offset) @[AllToAllPE.scala 170:74]
       node _T_42 = tail(_T_41, 1) @[AllToAllPE.scala 170:74]
-      node _T_43 = bits(_T_42, 13, 0) @[AllToAllPE.scala 170:10]
+      node _T_43 = bits(_T_42, 12, 0) @[AllToAllPE.scala 170:10]
       infer mport MPORT_2 = memPE[_T_43], clock @[AllToAllPE.scala 170:10]
       MPORT_2 <= up_in.io.deq.bits.data @[AllToAllPE.scala 170:84]
     when bottom_dispatcher.io.this_PE : @[AllToAllPE.scala 173:37]
@@ -2545,7 +2545,7 @@ circuit AllToAll :
       node _T_49 = tail(_T_48, 1) @[AllToAllPE.scala 175:65]
       node _T_50 = add(_T_49, offset) @[AllToAllPE.scala 175:86]
       node _T_51 = tail(_T_50, 1) @[AllToAllPE.scala 175:86]
-      node _T_52 = bits(_T_51, 13, 0) @[AllToAllPE.scala 175:10]
+      node _T_52 = bits(_T_51, 12, 0) @[AllToAllPE.scala 175:10]
       infer mport MPORT_3 = memPE[_T_52], clock @[AllToAllPE.scala 175:10]
       MPORT_3 <= bottom_in.io.deq.bits.data @[AllToAllPE.scala 175:96]
     inst left_mux of MyPriorityMux @[AllToAllPE.scala 182:24]
@@ -2990,7 +2990,7 @@ circuit AllToAll :
         io.resp.bits.data <= UInt<6>("h20") @[AllToAllPE.scala 443:23]
         resp_value <= UInt<6>("h20") @[AllToAllPE.scala 444:16]
         when is_this_PE : @[AllToAllPE.scala 446:21]
-          node _T_117 = bits(memIndex, 13, 0) @[AllToAllPE.scala 447:12]
+          node _T_117 = bits(memIndex, 12, 0) @[AllToAllPE.scala 447:12]
           infer mport MPORT_4 = memPE[_T_117], clock @[AllToAllPE.scala 447:12]
           MPORT_4 <= rs1 @[AllToAllPE.scala 447:23]
           io.resp.bits.write_enable <= UInt<1>("h1") @[AllToAllPE.scala 448:33]
@@ -3027,7 +3027,7 @@ circuit AllToAll :
           io.resp.valid <= UInt<1>("h0") @[AllToAllPE.scala 473:19]
           io.resp.bits.data <= UInt<6>("h21") @[AllToAllPE.scala 474:23]
           when is_this_PE : @[AllToAllPE.scala 476:21]
-            node _T_126 = bits(memIndex, 13, 0) @[AllToAllPE.scala 477:26]
+            node _T_126 = bits(memIndex, 12, 0) @[AllToAllPE.scala 477:26]
             infer mport MPORT_5 = memPE[_T_126], clock @[AllToAllPE.scala 477:26]
             resp_value <= MPORT_5 @[AllToAllPE.scala 477:18]
             w_en <= UInt<1>("h1") @[AllToAllPE.scala 478:12]
@@ -3148,16 +3148,16 @@ circuit AllToAll :
         node _T_152 = and(do_read, _T_151) @[AllToAllPE.scala 605:18]
         when _T_152 : @[AllToAllPE.scala 605:57]
           index_calcualtor.io.enable <= UInt<1>("h1") @[AllToAllPE.scala 607:34]
-          node _T_153 = bits(index_calcualtor.io.index0, 13, 0) @[AllToAllPE.scala 609:30]
+          node _T_153 = bits(index_calcualtor.io.index0, 12, 0) @[AllToAllPE.scala 609:30]
           infer mport MPORT_6 = memPE[_T_153], clock @[AllToAllPE.scala 609:30]
           read_values[0] <= MPORT_6 @[AllToAllPE.scala 609:22]
-          node _T_154 = bits(index_calcualtor.io.index1, 13, 0) @[AllToAllPE.scala 610:30]
+          node _T_154 = bits(index_calcualtor.io.index1, 12, 0) @[AllToAllPE.scala 610:30]
           infer mport MPORT_7 = memPE[_T_154], clock @[AllToAllPE.scala 610:30]
           read_values[1] <= MPORT_7 @[AllToAllPE.scala 610:22]
-          node _T_155 = bits(index_calcualtor.io.index2, 13, 0) @[AllToAllPE.scala 611:30]
+          node _T_155 = bits(index_calcualtor.io.index2, 12, 0) @[AllToAllPE.scala 611:30]
           infer mport MPORT_8 = memPE[_T_155], clock @[AllToAllPE.scala 611:30]
           read_values[2] <= MPORT_8 @[AllToAllPE.scala 611:22]
-          node _T_156 = bits(index_calcualtor.io.index3, 13, 0) @[AllToAllPE.scala 612:30]
+          node _T_156 = bits(index_calcualtor.io.index3, 12, 0) @[AllToAllPE.scala 612:30]
           infer mport MPORT_9 = memPE[_T_156], clock @[AllToAllPE.scala 612:30]
           read_values[3] <= MPORT_9 @[AllToAllPE.scala 612:22]
           read_values_valid[0] <= index_calcualtor.io.valid0 @[AllToAllPE.scala 614:28]
@@ -3241,25 +3241,25 @@ circuit AllToAll :
           when this_PE_generation_0 : @[AllToAllPE.scala 668:33]
             node _T_213 = add(index_write_this_PE, read_pos[0]) @[AllToAllPE.scala 669:35]
             node _T_214 = tail(_T_213, 1) @[AllToAllPE.scala 669:35]
-            node _T_215 = bits(_T_214, 13, 0) @[AllToAllPE.scala 669:14]
+            node _T_215 = bits(_T_214, 12, 0) @[AllToAllPE.scala 669:14]
             infer mport MPORT_10 = memPE[_T_215], clock @[AllToAllPE.scala 669:14]
             MPORT_10 <= read_values[0] @[AllToAllPE.scala 669:50]
           when this_PE_generation_1 : @[AllToAllPE.scala 671:33]
             node _T_216 = add(index_write_this_PE, read_pos[1]) @[AllToAllPE.scala 672:35]
             node _T_217 = tail(_T_216, 1) @[AllToAllPE.scala 672:35]
-            node _T_218 = bits(_T_217, 13, 0) @[AllToAllPE.scala 672:14]
+            node _T_218 = bits(_T_217, 12, 0) @[AllToAllPE.scala 672:14]
             infer mport MPORT_11 = memPE[_T_218], clock @[AllToAllPE.scala 672:14]
             MPORT_11 <= read_values[1] @[AllToAllPE.scala 672:50]
           when this_PE_generation_2 : @[AllToAllPE.scala 674:33]
             node _T_219 = add(index_write_this_PE, read_pos[2]) @[AllToAllPE.scala 675:35]
             node _T_220 = tail(_T_219, 1) @[AllToAllPE.scala 675:35]
-            node _T_221 = bits(_T_220, 13, 0) @[AllToAllPE.scala 675:14]
+            node _T_221 = bits(_T_220, 12, 0) @[AllToAllPE.scala 675:14]
             infer mport MPORT_12 = memPE[_T_221], clock @[AllToAllPE.scala 675:14]
             MPORT_12 <= read_values[2] @[AllToAllPE.scala 675:50]
           when this_PE_generation_3 : @[AllToAllPE.scala 677:33]
             node _T_222 = add(index_write_this_PE, read_pos[3]) @[AllToAllPE.scala 678:35]
             node _T_223 = tail(_T_222, 1) @[AllToAllPE.scala 678:35]
-            node _T_224 = bits(_T_223, 13, 0) @[AllToAllPE.scala 678:14]
+            node _T_224 = bits(_T_223, 12, 0) @[AllToAllPE.scala 678:14]
             infer mport MPORT_13 = memPE[_T_224], clock @[AllToAllPE.scala 678:14]
             MPORT_13 <= read_values[3] @[AllToAllPE.scala 678:50]
         node _T_225 = and(index_calcualtor.io.last_iteration, do_read) @[AllToAllPE.scala 684:45]
@@ -3275,7 +3275,7 @@ circuit AllToAll :
   module IndexCalculatorV1_1 :
     input clock : Clock
     input reset : Reset
-    output io : { flip reset : UInt<1>, flip enable : UInt<1>, flip dim_N : UInt<16>, index0 : UInt<32>, index1 : UInt<32>, index2 : UInt<32>, index3 : UInt<32>, valid0 : UInt<1>, valid1 : UInt<1>, valid2 : UInt<1>, valid3 : UInt<1>, x_dest_0 : UInt<3>, x_dest_1 : UInt<3>, x_dest_2 : UInt<3>, x_dest_3 : UInt<3>, y_dest_0 : UInt<3>, y_dest_1 : UInt<3>, y_dest_2 : UInt<3>, y_dest_3 : UInt<3>, pos_0 : UInt<16>, pos_1 : UInt<16>, pos_2 : UInt<16>, pos_3 : UInt<16>, last_iteration : UInt<1>}
+    output io : { flip reset : UInt<1>, flip enable : UInt<1>, flip dim_N : UInt<16>, index0 : UInt<32>, index1 : UInt<32>, index2 : UInt<32>, index3 : UInt<32>, valid0 : UInt<1>, valid1 : UInt<1>, valid2 : UInt<1>, valid3 : UInt<1>, x_dest_0 : UInt<2>, x_dest_1 : UInt<2>, x_dest_2 : UInt<2>, x_dest_3 : UInt<2>, y_dest_0 : UInt<2>, y_dest_1 : UInt<2>, y_dest_2 : UInt<2>, y_dest_3 : UInt<2>, pos_0 : UInt<16>, pos_1 : UInt<16>, pos_2 : UInt<16>, pos_3 : UInt<16>, last_iteration : UInt<1>}
 
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[IndexCalculator.scala 84:20]
@@ -3377,9 +3377,9 @@ circuit AllToAll :
   module Queue_8 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -3437,9 +3437,9 @@ circuit AllToAll :
   module Queue_9 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -3497,9 +3497,9 @@ circuit AllToAll :
   module Queue_10 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -3557,9 +3557,9 @@ circuit AllToAll :
   module Queue_11 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -3617,7 +3617,7 @@ circuit AllToAll :
   module Dispatcher_4 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -3804,7 +3804,7 @@ circuit AllToAll :
   module Dispatcher_5 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -3991,7 +3991,7 @@ circuit AllToAll :
   module Dispatcher_6 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -4178,7 +4178,7 @@ circuit AllToAll :
   module Dispatcher_7 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -4365,7 +4365,7 @@ circuit AllToAll :
   module GenerationDispatcher_4 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -4427,7 +4427,7 @@ circuit AllToAll :
   module GenerationDispatcher_5 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -4489,7 +4489,7 @@ circuit AllToAll :
   module GenerationDispatcher_6 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -4551,7 +4551,7 @@ circuit AllToAll :
   module GenerationDispatcher_7 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -4613,13 +4613,13 @@ circuit AllToAll :
   module MyPriorityMux_4 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -4679,13 +4679,13 @@ circuit AllToAll :
   module MyPriorityMux_5 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -4745,13 +4745,13 @@ circuit AllToAll :
   module MyPriorityMux_6 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -4811,13 +4811,13 @@ circuit AllToAll :
   module MyPriorityMux_7 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -4877,7 +4877,7 @@ circuit AllToAll :
   module RRArbiter_4 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -4947,7 +4947,7 @@ circuit AllToAll :
   module RRArbiter_5 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -5017,7 +5017,7 @@ circuit AllToAll :
   module RRArbiter_6 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -5087,7 +5087,7 @@ circuit AllToAll :
   module RRArbiter_7 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -5157,9 +5157,9 @@ circuit AllToAll :
   module Queue_12 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -5217,9 +5217,9 @@ circuit AllToAll :
   module Queue_13 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -5277,9 +5277,9 @@ circuit AllToAll :
   module Queue_14 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -5337,9 +5337,9 @@ circuit AllToAll :
   module Queue_15 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -5397,12 +5397,12 @@ circuit AllToAll :
   module AllToAllPEbottom :
     input clock : Clock
     input reset : Reset
-    output io : { busy : UInt<1>, flip end_AllToAll : UInt<1>, flip cmd : { flip ready : UInt<1>, valid : UInt<1>, bits : { load : UInt<1>, store : UInt<1>, doAllToAll : UInt<1>, rs1 : UInt<64>, rs2 : UInt<64>}}, resp : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, write_enable : UInt<1>}}, left : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, right : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, up : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, bottom : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}}
+    output io : { busy : UInt<1>, flip end_AllToAll : UInt<1>, flip cmd : { flip ready : UInt<1>, valid : UInt<1>, bits : { load : UInt<1>, store : UInt<1>, doAllToAll : UInt<1>, rs1 : UInt<64>, rs2 : UInt<64>}}, resp : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, write_enable : UInt<1>}}, left : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, right : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, up : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, bottom : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}}
 
-    cmem memPE : UInt<64> [10000] @[AllToAllPE.scala 20:18]
-    reg x_coord : UInt<3>, clock with :
+    cmem memPE : UInt<64> [5000] @[AllToAllPE.scala 20:18]
+    reg x_coord : UInt<2>, clock with :
       reset => (reset, UInt<1>("h1")) @[AllToAllPE.scala 23:24]
-    reg y_coord : UInt<3>, clock with :
+    reg y_coord : UInt<2>, clock with :
       reset => (reset, UInt<1>("h0")) @[AllToAllPE.scala 24:24]
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[AllToAllPE.scala 26:18]
@@ -5448,9 +5448,9 @@ circuit AllToAll :
     _WIRE[3] <= UInt<1>("h0") @[AllToAllPE.scala 63:42]
     reg read_values_valid : UInt<1>[4], clock with :
       reset => (reset, _WIRE) @[AllToAllPE.scala 63:34]
-    reg read_x_dest : UInt<3>[4], clock with :
+    reg read_x_dest : UInt<2>[4], clock with :
       reset => (UInt<1>("h0"), read_x_dest) @[AllToAllPE.scala 64:24]
-    reg read_y_dest : UInt<3>[4], clock with :
+    reg read_y_dest : UInt<2>[4], clock with :
       reset => (UInt<1>("h0"), read_y_dest) @[AllToAllPE.scala 65:24]
     reg read_pos : UInt<16>[4], clock with :
       reset => (UInt<1>("h0"), read_pos) @[AllToAllPE.scala 66:21]
@@ -5594,7 +5594,7 @@ circuit AllToAll :
       node _T_22 = tail(_T_21, 1) @[AllToAllPE.scala 160:61]
       node _T_23 = add(_T_22, offset) @[AllToAllPE.scala 160:80]
       node _T_24 = tail(_T_23, 1) @[AllToAllPE.scala 160:80]
-      node _T_25 = bits(_T_24, 13, 0) @[AllToAllPE.scala 160:10]
+      node _T_25 = bits(_T_24, 12, 0) @[AllToAllPE.scala 160:10]
       infer mport MPORT = memPE[_T_25], clock @[AllToAllPE.scala 160:10]
       MPORT <= left_in.io.deq.bits.data @[AllToAllPE.scala 160:90]
     when right_dispatcher.io.this_PE : @[AllToAllPE.scala 163:36]
@@ -5606,7 +5606,7 @@ circuit AllToAll :
       node _T_31 = tail(_T_30, 1) @[AllToAllPE.scala 165:63]
       node _T_32 = add(_T_31, offset) @[AllToAllPE.scala 165:83]
       node _T_33 = tail(_T_32, 1) @[AllToAllPE.scala 165:83]
-      node _T_34 = bits(_T_33, 13, 0) @[AllToAllPE.scala 165:10]
+      node _T_34 = bits(_T_33, 12, 0) @[AllToAllPE.scala 165:10]
       infer mport MPORT_1 = memPE[_T_34], clock @[AllToAllPE.scala 165:10]
       MPORT_1 <= right_in.io.deq.bits.data @[AllToAllPE.scala 165:93]
     when up_dispatcher.io.this_PE : @[AllToAllPE.scala 168:33]
@@ -5618,7 +5618,7 @@ circuit AllToAll :
       node _T_40 = tail(_T_39, 1) @[AllToAllPE.scala 170:57]
       node _T_41 = add(_T_40, offset) @[AllToAllPE.scala 170:74]
       node _T_42 = tail(_T_41, 1) @[AllToAllPE.scala 170:74]
-      node _T_43 = bits(_T_42, 13, 0) @[AllToAllPE.scala 170:10]
+      node _T_43 = bits(_T_42, 12, 0) @[AllToAllPE.scala 170:10]
       infer mport MPORT_2 = memPE[_T_43], clock @[AllToAllPE.scala 170:10]
       MPORT_2 <= up_in.io.deq.bits.data @[AllToAllPE.scala 170:84]
     when bottom_dispatcher.io.this_PE : @[AllToAllPE.scala 173:37]
@@ -5630,7 +5630,7 @@ circuit AllToAll :
       node _T_49 = tail(_T_48, 1) @[AllToAllPE.scala 175:65]
       node _T_50 = add(_T_49, offset) @[AllToAllPE.scala 175:86]
       node _T_51 = tail(_T_50, 1) @[AllToAllPE.scala 175:86]
-      node _T_52 = bits(_T_51, 13, 0) @[AllToAllPE.scala 175:10]
+      node _T_52 = bits(_T_51, 12, 0) @[AllToAllPE.scala 175:10]
       infer mport MPORT_3 = memPE[_T_52], clock @[AllToAllPE.scala 175:10]
       MPORT_3 <= bottom_in.io.deq.bits.data @[AllToAllPE.scala 175:96]
     inst left_mux of MyPriorityMux_4 @[AllToAllPE.scala 182:24]
@@ -6075,7 +6075,7 @@ circuit AllToAll :
         io.resp.bits.data <= UInt<6>("h20") @[AllToAllPE.scala 443:23]
         resp_value <= UInt<6>("h20") @[AllToAllPE.scala 444:16]
         when is_this_PE : @[AllToAllPE.scala 446:21]
-          node _T_117 = bits(memIndex, 13, 0) @[AllToAllPE.scala 447:12]
+          node _T_117 = bits(memIndex, 12, 0) @[AllToAllPE.scala 447:12]
           infer mport MPORT_4 = memPE[_T_117], clock @[AllToAllPE.scala 447:12]
           MPORT_4 <= rs1 @[AllToAllPE.scala 447:23]
           io.resp.bits.write_enable <= UInt<1>("h1") @[AllToAllPE.scala 448:33]
@@ -6112,7 +6112,7 @@ circuit AllToAll :
           io.resp.valid <= UInt<1>("h0") @[AllToAllPE.scala 473:19]
           io.resp.bits.data <= UInt<6>("h21") @[AllToAllPE.scala 474:23]
           when is_this_PE : @[AllToAllPE.scala 476:21]
-            node _T_126 = bits(memIndex, 13, 0) @[AllToAllPE.scala 477:26]
+            node _T_126 = bits(memIndex, 12, 0) @[AllToAllPE.scala 477:26]
             infer mport MPORT_5 = memPE[_T_126], clock @[AllToAllPE.scala 477:26]
             resp_value <= MPORT_5 @[AllToAllPE.scala 477:18]
             w_en <= UInt<1>("h1") @[AllToAllPE.scala 478:12]
@@ -6233,16 +6233,16 @@ circuit AllToAll :
         node _T_152 = and(do_read, _T_151) @[AllToAllPE.scala 605:18]
         when _T_152 : @[AllToAllPE.scala 605:57]
           index_calcualtor.io.enable <= UInt<1>("h1") @[AllToAllPE.scala 607:34]
-          node _T_153 = bits(index_calcualtor.io.index0, 13, 0) @[AllToAllPE.scala 609:30]
+          node _T_153 = bits(index_calcualtor.io.index0, 12, 0) @[AllToAllPE.scala 609:30]
           infer mport MPORT_6 = memPE[_T_153], clock @[AllToAllPE.scala 609:30]
           read_values[0] <= MPORT_6 @[AllToAllPE.scala 609:22]
-          node _T_154 = bits(index_calcualtor.io.index1, 13, 0) @[AllToAllPE.scala 610:30]
+          node _T_154 = bits(index_calcualtor.io.index1, 12, 0) @[AllToAllPE.scala 610:30]
           infer mport MPORT_7 = memPE[_T_154], clock @[AllToAllPE.scala 610:30]
           read_values[1] <= MPORT_7 @[AllToAllPE.scala 610:22]
-          node _T_155 = bits(index_calcualtor.io.index2, 13, 0) @[AllToAllPE.scala 611:30]
+          node _T_155 = bits(index_calcualtor.io.index2, 12, 0) @[AllToAllPE.scala 611:30]
           infer mport MPORT_8 = memPE[_T_155], clock @[AllToAllPE.scala 611:30]
           read_values[2] <= MPORT_8 @[AllToAllPE.scala 611:22]
-          node _T_156 = bits(index_calcualtor.io.index3, 13, 0) @[AllToAllPE.scala 612:30]
+          node _T_156 = bits(index_calcualtor.io.index3, 12, 0) @[AllToAllPE.scala 612:30]
           infer mport MPORT_9 = memPE[_T_156], clock @[AllToAllPE.scala 612:30]
           read_values[3] <= MPORT_9 @[AllToAllPE.scala 612:22]
           read_values_valid[0] <= index_calcualtor.io.valid0 @[AllToAllPE.scala 614:28]
@@ -6326,25 +6326,25 @@ circuit AllToAll :
           when this_PE_generation_0 : @[AllToAllPE.scala 668:33]
             node _T_213 = add(index_write_this_PE, read_pos[0]) @[AllToAllPE.scala 669:35]
             node _T_214 = tail(_T_213, 1) @[AllToAllPE.scala 669:35]
-            node _T_215 = bits(_T_214, 13, 0) @[AllToAllPE.scala 669:14]
+            node _T_215 = bits(_T_214, 12, 0) @[AllToAllPE.scala 669:14]
             infer mport MPORT_10 = memPE[_T_215], clock @[AllToAllPE.scala 669:14]
             MPORT_10 <= read_values[0] @[AllToAllPE.scala 669:50]
           when this_PE_generation_1 : @[AllToAllPE.scala 671:33]
             node _T_216 = add(index_write_this_PE, read_pos[1]) @[AllToAllPE.scala 672:35]
             node _T_217 = tail(_T_216, 1) @[AllToAllPE.scala 672:35]
-            node _T_218 = bits(_T_217, 13, 0) @[AllToAllPE.scala 672:14]
+            node _T_218 = bits(_T_217, 12, 0) @[AllToAllPE.scala 672:14]
             infer mport MPORT_11 = memPE[_T_218], clock @[AllToAllPE.scala 672:14]
             MPORT_11 <= read_values[1] @[AllToAllPE.scala 672:50]
           when this_PE_generation_2 : @[AllToAllPE.scala 674:33]
             node _T_219 = add(index_write_this_PE, read_pos[2]) @[AllToAllPE.scala 675:35]
             node _T_220 = tail(_T_219, 1) @[AllToAllPE.scala 675:35]
-            node _T_221 = bits(_T_220, 13, 0) @[AllToAllPE.scala 675:14]
+            node _T_221 = bits(_T_220, 12, 0) @[AllToAllPE.scala 675:14]
             infer mport MPORT_12 = memPE[_T_221], clock @[AllToAllPE.scala 675:14]
             MPORT_12 <= read_values[2] @[AllToAllPE.scala 675:50]
           when this_PE_generation_3 : @[AllToAllPE.scala 677:33]
             node _T_222 = add(index_write_this_PE, read_pos[3]) @[AllToAllPE.scala 678:35]
             node _T_223 = tail(_T_222, 1) @[AllToAllPE.scala 678:35]
-            node _T_224 = bits(_T_223, 13, 0) @[AllToAllPE.scala 678:14]
+            node _T_224 = bits(_T_223, 12, 0) @[AllToAllPE.scala 678:14]
             infer mport MPORT_13 = memPE[_T_224], clock @[AllToAllPE.scala 678:14]
             MPORT_13 <= read_values[3] @[AllToAllPE.scala 678:50]
         node _T_225 = and(index_calcualtor.io.last_iteration, do_read) @[AllToAllPE.scala 684:45]
@@ -6360,7 +6360,7 @@ circuit AllToAll :
   module IndexCalculatorV1_2 :
     input clock : Clock
     input reset : Reset
-    output io : { flip reset : UInt<1>, flip enable : UInt<1>, flip dim_N : UInt<16>, index0 : UInt<32>, index1 : UInt<32>, index2 : UInt<32>, index3 : UInt<32>, valid0 : UInt<1>, valid1 : UInt<1>, valid2 : UInt<1>, valid3 : UInt<1>, x_dest_0 : UInt<3>, x_dest_1 : UInt<3>, x_dest_2 : UInt<3>, x_dest_3 : UInt<3>, y_dest_0 : UInt<3>, y_dest_1 : UInt<3>, y_dest_2 : UInt<3>, y_dest_3 : UInt<3>, pos_0 : UInt<16>, pos_1 : UInt<16>, pos_2 : UInt<16>, pos_3 : UInt<16>, last_iteration : UInt<1>}
+    output io : { flip reset : UInt<1>, flip enable : UInt<1>, flip dim_N : UInt<16>, index0 : UInt<32>, index1 : UInt<32>, index2 : UInt<32>, index3 : UInt<32>, valid0 : UInt<1>, valid1 : UInt<1>, valid2 : UInt<1>, valid3 : UInt<1>, x_dest_0 : UInt<2>, x_dest_1 : UInt<2>, x_dest_2 : UInt<2>, x_dest_3 : UInt<2>, y_dest_0 : UInt<2>, y_dest_1 : UInt<2>, y_dest_2 : UInt<2>, y_dest_3 : UInt<2>, pos_0 : UInt<16>, pos_1 : UInt<16>, pos_2 : UInt<16>, pos_3 : UInt<16>, last_iteration : UInt<1>}
 
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[IndexCalculator.scala 84:20]
@@ -6462,9 +6462,9 @@ circuit AllToAll :
   module Queue_16 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -6522,9 +6522,9 @@ circuit AllToAll :
   module Queue_17 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -6582,9 +6582,9 @@ circuit AllToAll :
   module Queue_18 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -6642,9 +6642,9 @@ circuit AllToAll :
   module Queue_19 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -6702,7 +6702,7 @@ circuit AllToAll :
   module Dispatcher_8 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -6889,7 +6889,7 @@ circuit AllToAll :
   module Dispatcher_9 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -7076,7 +7076,7 @@ circuit AllToAll :
   module Dispatcher_10 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -7263,7 +7263,7 @@ circuit AllToAll :
   module Dispatcher_11 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -7450,7 +7450,7 @@ circuit AllToAll :
   module GenerationDispatcher_8 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -7512,7 +7512,7 @@ circuit AllToAll :
   module GenerationDispatcher_9 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -7574,7 +7574,7 @@ circuit AllToAll :
   module GenerationDispatcher_10 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -7636,7 +7636,7 @@ circuit AllToAll :
   module GenerationDispatcher_11 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -7698,13 +7698,13 @@ circuit AllToAll :
   module MyPriorityMux_8 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -7764,13 +7764,13 @@ circuit AllToAll :
   module MyPriorityMux_9 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -7830,13 +7830,13 @@ circuit AllToAll :
   module MyPriorityMux_10 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -7896,13 +7896,13 @@ circuit AllToAll :
   module MyPriorityMux_11 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -7962,7 +7962,7 @@ circuit AllToAll :
   module RRArbiter_8 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -8032,7 +8032,7 @@ circuit AllToAll :
   module RRArbiter_9 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -8102,7 +8102,7 @@ circuit AllToAll :
   module RRArbiter_10 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -8172,7 +8172,7 @@ circuit AllToAll :
   module RRArbiter_11 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -8242,9 +8242,9 @@ circuit AllToAll :
   module Queue_20 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -8302,9 +8302,9 @@ circuit AllToAll :
   module Queue_21 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -8362,9 +8362,9 @@ circuit AllToAll :
   module Queue_22 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -8422,9 +8422,9 @@ circuit AllToAll :
   module Queue_23 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -8482,12 +8482,12 @@ circuit AllToAll :
   module AllToAllPEbottomRightCorner :
     input clock : Clock
     input reset : Reset
-    output io : { busy : UInt<1>, flip end_AllToAll : UInt<1>, flip cmd : { flip ready : UInt<1>, valid : UInt<1>, bits : { load : UInt<1>, store : UInt<1>, doAllToAll : UInt<1>, rs1 : UInt<64>, rs2 : UInt<64>}}, resp : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, write_enable : UInt<1>}}, left : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, right : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, up : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, bottom : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}}
+    output io : { busy : UInt<1>, flip end_AllToAll : UInt<1>, flip cmd : { flip ready : UInt<1>, valid : UInt<1>, bits : { load : UInt<1>, store : UInt<1>, doAllToAll : UInt<1>, rs1 : UInt<64>, rs2 : UInt<64>}}, resp : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, write_enable : UInt<1>}}, left : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, right : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, up : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, bottom : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}}
 
-    cmem memPE : UInt<64> [10000] @[AllToAllPE.scala 20:18]
-    reg x_coord : UInt<3>, clock with :
+    cmem memPE : UInt<64> [5000] @[AllToAllPE.scala 20:18]
+    reg x_coord : UInt<2>, clock with :
       reset => (reset, UInt<2>("h2")) @[AllToAllPE.scala 23:24]
-    reg y_coord : UInt<3>, clock with :
+    reg y_coord : UInt<2>, clock with :
       reset => (reset, UInt<1>("h0")) @[AllToAllPE.scala 24:24]
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[AllToAllPE.scala 26:18]
@@ -8533,9 +8533,9 @@ circuit AllToAll :
     _WIRE[3] <= UInt<1>("h0") @[AllToAllPE.scala 63:42]
     reg read_values_valid : UInt<1>[4], clock with :
       reset => (reset, _WIRE) @[AllToAllPE.scala 63:34]
-    reg read_x_dest : UInt<3>[4], clock with :
+    reg read_x_dest : UInt<2>[4], clock with :
       reset => (UInt<1>("h0"), read_x_dest) @[AllToAllPE.scala 64:24]
-    reg read_y_dest : UInt<3>[4], clock with :
+    reg read_y_dest : UInt<2>[4], clock with :
       reset => (UInt<1>("h0"), read_y_dest) @[AllToAllPE.scala 65:24]
     reg read_pos : UInt<16>[4], clock with :
       reset => (UInt<1>("h0"), read_pos) @[AllToAllPE.scala 66:21]
@@ -8679,7 +8679,7 @@ circuit AllToAll :
       node _T_22 = tail(_T_21, 1) @[AllToAllPE.scala 160:61]
       node _T_23 = add(_T_22, offset) @[AllToAllPE.scala 160:80]
       node _T_24 = tail(_T_23, 1) @[AllToAllPE.scala 160:80]
-      node _T_25 = bits(_T_24, 13, 0) @[AllToAllPE.scala 160:10]
+      node _T_25 = bits(_T_24, 12, 0) @[AllToAllPE.scala 160:10]
       infer mport MPORT = memPE[_T_25], clock @[AllToAllPE.scala 160:10]
       MPORT <= left_in.io.deq.bits.data @[AllToAllPE.scala 160:90]
     when right_dispatcher.io.this_PE : @[AllToAllPE.scala 163:36]
@@ -8691,7 +8691,7 @@ circuit AllToAll :
       node _T_31 = tail(_T_30, 1) @[AllToAllPE.scala 165:63]
       node _T_32 = add(_T_31, offset) @[AllToAllPE.scala 165:83]
       node _T_33 = tail(_T_32, 1) @[AllToAllPE.scala 165:83]
-      node _T_34 = bits(_T_33, 13, 0) @[AllToAllPE.scala 165:10]
+      node _T_34 = bits(_T_33, 12, 0) @[AllToAllPE.scala 165:10]
       infer mport MPORT_1 = memPE[_T_34], clock @[AllToAllPE.scala 165:10]
       MPORT_1 <= right_in.io.deq.bits.data @[AllToAllPE.scala 165:93]
     when up_dispatcher.io.this_PE : @[AllToAllPE.scala 168:33]
@@ -8703,7 +8703,7 @@ circuit AllToAll :
       node _T_40 = tail(_T_39, 1) @[AllToAllPE.scala 170:57]
       node _T_41 = add(_T_40, offset) @[AllToAllPE.scala 170:74]
       node _T_42 = tail(_T_41, 1) @[AllToAllPE.scala 170:74]
-      node _T_43 = bits(_T_42, 13, 0) @[AllToAllPE.scala 170:10]
+      node _T_43 = bits(_T_42, 12, 0) @[AllToAllPE.scala 170:10]
       infer mport MPORT_2 = memPE[_T_43], clock @[AllToAllPE.scala 170:10]
       MPORT_2 <= up_in.io.deq.bits.data @[AllToAllPE.scala 170:84]
     when bottom_dispatcher.io.this_PE : @[AllToAllPE.scala 173:37]
@@ -8715,7 +8715,7 @@ circuit AllToAll :
       node _T_49 = tail(_T_48, 1) @[AllToAllPE.scala 175:65]
       node _T_50 = add(_T_49, offset) @[AllToAllPE.scala 175:86]
       node _T_51 = tail(_T_50, 1) @[AllToAllPE.scala 175:86]
-      node _T_52 = bits(_T_51, 13, 0) @[AllToAllPE.scala 175:10]
+      node _T_52 = bits(_T_51, 12, 0) @[AllToAllPE.scala 175:10]
       infer mport MPORT_3 = memPE[_T_52], clock @[AllToAllPE.scala 175:10]
       MPORT_3 <= bottom_in.io.deq.bits.data @[AllToAllPE.scala 175:96]
     inst left_mux of MyPriorityMux_8 @[AllToAllPE.scala 182:24]
@@ -9160,7 +9160,7 @@ circuit AllToAll :
         io.resp.bits.data <= UInt<6>("h20") @[AllToAllPE.scala 443:23]
         resp_value <= UInt<6>("h20") @[AllToAllPE.scala 444:16]
         when is_this_PE : @[AllToAllPE.scala 446:21]
-          node _T_117 = bits(memIndex, 13, 0) @[AllToAllPE.scala 447:12]
+          node _T_117 = bits(memIndex, 12, 0) @[AllToAllPE.scala 447:12]
           infer mport MPORT_4 = memPE[_T_117], clock @[AllToAllPE.scala 447:12]
           MPORT_4 <= rs1 @[AllToAllPE.scala 447:23]
           io.resp.bits.write_enable <= UInt<1>("h1") @[AllToAllPE.scala 448:33]
@@ -9197,7 +9197,7 @@ circuit AllToAll :
           io.resp.valid <= UInt<1>("h0") @[AllToAllPE.scala 473:19]
           io.resp.bits.data <= UInt<6>("h21") @[AllToAllPE.scala 474:23]
           when is_this_PE : @[AllToAllPE.scala 476:21]
-            node _T_126 = bits(memIndex, 13, 0) @[AllToAllPE.scala 477:26]
+            node _T_126 = bits(memIndex, 12, 0) @[AllToAllPE.scala 477:26]
             infer mport MPORT_5 = memPE[_T_126], clock @[AllToAllPE.scala 477:26]
             resp_value <= MPORT_5 @[AllToAllPE.scala 477:18]
             w_en <= UInt<1>("h1") @[AllToAllPE.scala 478:12]
@@ -9318,16 +9318,16 @@ circuit AllToAll :
         node _T_152 = and(do_read, _T_151) @[AllToAllPE.scala 605:18]
         when _T_152 : @[AllToAllPE.scala 605:57]
           index_calcualtor.io.enable <= UInt<1>("h1") @[AllToAllPE.scala 607:34]
-          node _T_153 = bits(index_calcualtor.io.index0, 13, 0) @[AllToAllPE.scala 609:30]
+          node _T_153 = bits(index_calcualtor.io.index0, 12, 0) @[AllToAllPE.scala 609:30]
           infer mport MPORT_6 = memPE[_T_153], clock @[AllToAllPE.scala 609:30]
           read_values[0] <= MPORT_6 @[AllToAllPE.scala 609:22]
-          node _T_154 = bits(index_calcualtor.io.index1, 13, 0) @[AllToAllPE.scala 610:30]
+          node _T_154 = bits(index_calcualtor.io.index1, 12, 0) @[AllToAllPE.scala 610:30]
           infer mport MPORT_7 = memPE[_T_154], clock @[AllToAllPE.scala 610:30]
           read_values[1] <= MPORT_7 @[AllToAllPE.scala 610:22]
-          node _T_155 = bits(index_calcualtor.io.index2, 13, 0) @[AllToAllPE.scala 611:30]
+          node _T_155 = bits(index_calcualtor.io.index2, 12, 0) @[AllToAllPE.scala 611:30]
           infer mport MPORT_8 = memPE[_T_155], clock @[AllToAllPE.scala 611:30]
           read_values[2] <= MPORT_8 @[AllToAllPE.scala 611:22]
-          node _T_156 = bits(index_calcualtor.io.index3, 13, 0) @[AllToAllPE.scala 612:30]
+          node _T_156 = bits(index_calcualtor.io.index3, 12, 0) @[AllToAllPE.scala 612:30]
           infer mport MPORT_9 = memPE[_T_156], clock @[AllToAllPE.scala 612:30]
           read_values[3] <= MPORT_9 @[AllToAllPE.scala 612:22]
           read_values_valid[0] <= index_calcualtor.io.valid0 @[AllToAllPE.scala 614:28]
@@ -9411,25 +9411,25 @@ circuit AllToAll :
           when this_PE_generation_0 : @[AllToAllPE.scala 668:33]
             node _T_213 = add(index_write_this_PE, read_pos[0]) @[AllToAllPE.scala 669:35]
             node _T_214 = tail(_T_213, 1) @[AllToAllPE.scala 669:35]
-            node _T_215 = bits(_T_214, 13, 0) @[AllToAllPE.scala 669:14]
+            node _T_215 = bits(_T_214, 12, 0) @[AllToAllPE.scala 669:14]
             infer mport MPORT_10 = memPE[_T_215], clock @[AllToAllPE.scala 669:14]
             MPORT_10 <= read_values[0] @[AllToAllPE.scala 669:50]
           when this_PE_generation_1 : @[AllToAllPE.scala 671:33]
             node _T_216 = add(index_write_this_PE, read_pos[1]) @[AllToAllPE.scala 672:35]
             node _T_217 = tail(_T_216, 1) @[AllToAllPE.scala 672:35]
-            node _T_218 = bits(_T_217, 13, 0) @[AllToAllPE.scala 672:14]
+            node _T_218 = bits(_T_217, 12, 0) @[AllToAllPE.scala 672:14]
             infer mport MPORT_11 = memPE[_T_218], clock @[AllToAllPE.scala 672:14]
             MPORT_11 <= read_values[1] @[AllToAllPE.scala 672:50]
           when this_PE_generation_2 : @[AllToAllPE.scala 674:33]
             node _T_219 = add(index_write_this_PE, read_pos[2]) @[AllToAllPE.scala 675:35]
             node _T_220 = tail(_T_219, 1) @[AllToAllPE.scala 675:35]
-            node _T_221 = bits(_T_220, 13, 0) @[AllToAllPE.scala 675:14]
+            node _T_221 = bits(_T_220, 12, 0) @[AllToAllPE.scala 675:14]
             infer mport MPORT_12 = memPE[_T_221], clock @[AllToAllPE.scala 675:14]
             MPORT_12 <= read_values[2] @[AllToAllPE.scala 675:50]
           when this_PE_generation_3 : @[AllToAllPE.scala 677:33]
             node _T_222 = add(index_write_this_PE, read_pos[3]) @[AllToAllPE.scala 678:35]
             node _T_223 = tail(_T_222, 1) @[AllToAllPE.scala 678:35]
-            node _T_224 = bits(_T_223, 13, 0) @[AllToAllPE.scala 678:14]
+            node _T_224 = bits(_T_223, 12, 0) @[AllToAllPE.scala 678:14]
             infer mport MPORT_13 = memPE[_T_224], clock @[AllToAllPE.scala 678:14]
             MPORT_13 <= read_values[3] @[AllToAllPE.scala 678:50]
         node _T_225 = and(index_calcualtor.io.last_iteration, do_read) @[AllToAllPE.scala 684:45]
@@ -9445,7 +9445,7 @@ circuit AllToAll :
   module IndexCalculatorV1_3 :
     input clock : Clock
     input reset : Reset
-    output io : { flip reset : UInt<1>, flip enable : UInt<1>, flip dim_N : UInt<16>, index0 : UInt<32>, index1 : UInt<32>, index2 : UInt<32>, index3 : UInt<32>, valid0 : UInt<1>, valid1 : UInt<1>, valid2 : UInt<1>, valid3 : UInt<1>, x_dest_0 : UInt<3>, x_dest_1 : UInt<3>, x_dest_2 : UInt<3>, x_dest_3 : UInt<3>, y_dest_0 : UInt<3>, y_dest_1 : UInt<3>, y_dest_2 : UInt<3>, y_dest_3 : UInt<3>, pos_0 : UInt<16>, pos_1 : UInt<16>, pos_2 : UInt<16>, pos_3 : UInt<16>, last_iteration : UInt<1>}
+    output io : { flip reset : UInt<1>, flip enable : UInt<1>, flip dim_N : UInt<16>, index0 : UInt<32>, index1 : UInt<32>, index2 : UInt<32>, index3 : UInt<32>, valid0 : UInt<1>, valid1 : UInt<1>, valid2 : UInt<1>, valid3 : UInt<1>, x_dest_0 : UInt<2>, x_dest_1 : UInt<2>, x_dest_2 : UInt<2>, x_dest_3 : UInt<2>, y_dest_0 : UInt<2>, y_dest_1 : UInt<2>, y_dest_2 : UInt<2>, y_dest_3 : UInt<2>, pos_0 : UInt<16>, pos_1 : UInt<16>, pos_2 : UInt<16>, pos_3 : UInt<16>, last_iteration : UInt<1>}
 
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[IndexCalculator.scala 84:20]
@@ -9547,9 +9547,9 @@ circuit AllToAll :
   module Queue_24 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -9607,9 +9607,9 @@ circuit AllToAll :
   module Queue_25 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -9667,9 +9667,9 @@ circuit AllToAll :
   module Queue_26 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -9727,9 +9727,9 @@ circuit AllToAll :
   module Queue_27 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -9787,7 +9787,7 @@ circuit AllToAll :
   module Dispatcher_12 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -9974,7 +9974,7 @@ circuit AllToAll :
   module Dispatcher_13 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -10161,7 +10161,7 @@ circuit AllToAll :
   module Dispatcher_14 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -10348,7 +10348,7 @@ circuit AllToAll :
   module Dispatcher_15 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -10535,7 +10535,7 @@ circuit AllToAll :
   module GenerationDispatcher_12 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -10597,7 +10597,7 @@ circuit AllToAll :
   module GenerationDispatcher_13 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -10659,7 +10659,7 @@ circuit AllToAll :
   module GenerationDispatcher_14 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -10721,7 +10721,7 @@ circuit AllToAll :
   module GenerationDispatcher_15 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -10783,13 +10783,13 @@ circuit AllToAll :
   module MyPriorityMux_12 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -10849,13 +10849,13 @@ circuit AllToAll :
   module MyPriorityMux_13 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -10915,13 +10915,13 @@ circuit AllToAll :
   module MyPriorityMux_14 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -10981,13 +10981,13 @@ circuit AllToAll :
   module MyPriorityMux_15 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -11047,7 +11047,7 @@ circuit AllToAll :
   module RRArbiter_12 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -11117,7 +11117,7 @@ circuit AllToAll :
   module RRArbiter_13 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -11187,7 +11187,7 @@ circuit AllToAll :
   module RRArbiter_14 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -11257,7 +11257,7 @@ circuit AllToAll :
   module RRArbiter_15 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -11327,9 +11327,9 @@ circuit AllToAll :
   module Queue_28 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -11387,9 +11387,9 @@ circuit AllToAll :
   module Queue_29 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -11447,9 +11447,9 @@ circuit AllToAll :
   module Queue_30 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -11507,9 +11507,9 @@ circuit AllToAll :
   module Queue_31 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -11567,12 +11567,12 @@ circuit AllToAll :
   module AllToAllPEleft :
     input clock : Clock
     input reset : Reset
-    output io : { busy : UInt<1>, flip end_AllToAll : UInt<1>, flip cmd : { flip ready : UInt<1>, valid : UInt<1>, bits : { load : UInt<1>, store : UInt<1>, doAllToAll : UInt<1>, rs1 : UInt<64>, rs2 : UInt<64>}}, resp : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, write_enable : UInt<1>}}, left : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, right : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, up : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, bottom : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}}
+    output io : { busy : UInt<1>, flip end_AllToAll : UInt<1>, flip cmd : { flip ready : UInt<1>, valid : UInt<1>, bits : { load : UInt<1>, store : UInt<1>, doAllToAll : UInt<1>, rs1 : UInt<64>, rs2 : UInt<64>}}, resp : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, write_enable : UInt<1>}}, left : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, right : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, up : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, bottom : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}}
 
-    cmem memPE : UInt<64> [10000] @[AllToAllPE.scala 20:18]
-    reg x_coord : UInt<3>, clock with :
+    cmem memPE : UInt<64> [5000] @[AllToAllPE.scala 20:18]
+    reg x_coord : UInt<2>, clock with :
       reset => (reset, UInt<1>("h0")) @[AllToAllPE.scala 23:24]
-    reg y_coord : UInt<3>, clock with :
+    reg y_coord : UInt<2>, clock with :
       reset => (reset, UInt<1>("h1")) @[AllToAllPE.scala 24:24]
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[AllToAllPE.scala 26:18]
@@ -11618,9 +11618,9 @@ circuit AllToAll :
     _WIRE[3] <= UInt<1>("h0") @[AllToAllPE.scala 63:42]
     reg read_values_valid : UInt<1>[4], clock with :
       reset => (reset, _WIRE) @[AllToAllPE.scala 63:34]
-    reg read_x_dest : UInt<3>[4], clock with :
+    reg read_x_dest : UInt<2>[4], clock with :
       reset => (UInt<1>("h0"), read_x_dest) @[AllToAllPE.scala 64:24]
-    reg read_y_dest : UInt<3>[4], clock with :
+    reg read_y_dest : UInt<2>[4], clock with :
       reset => (UInt<1>("h0"), read_y_dest) @[AllToAllPE.scala 65:24]
     reg read_pos : UInt<16>[4], clock with :
       reset => (UInt<1>("h0"), read_pos) @[AllToAllPE.scala 66:21]
@@ -11764,7 +11764,7 @@ circuit AllToAll :
       node _T_22 = tail(_T_21, 1) @[AllToAllPE.scala 160:61]
       node _T_23 = add(_T_22, offset) @[AllToAllPE.scala 160:80]
       node _T_24 = tail(_T_23, 1) @[AllToAllPE.scala 160:80]
-      node _T_25 = bits(_T_24, 13, 0) @[AllToAllPE.scala 160:10]
+      node _T_25 = bits(_T_24, 12, 0) @[AllToAllPE.scala 160:10]
       infer mport MPORT = memPE[_T_25], clock @[AllToAllPE.scala 160:10]
       MPORT <= left_in.io.deq.bits.data @[AllToAllPE.scala 160:90]
     when right_dispatcher.io.this_PE : @[AllToAllPE.scala 163:36]
@@ -11776,7 +11776,7 @@ circuit AllToAll :
       node _T_31 = tail(_T_30, 1) @[AllToAllPE.scala 165:63]
       node _T_32 = add(_T_31, offset) @[AllToAllPE.scala 165:83]
       node _T_33 = tail(_T_32, 1) @[AllToAllPE.scala 165:83]
-      node _T_34 = bits(_T_33, 13, 0) @[AllToAllPE.scala 165:10]
+      node _T_34 = bits(_T_33, 12, 0) @[AllToAllPE.scala 165:10]
       infer mport MPORT_1 = memPE[_T_34], clock @[AllToAllPE.scala 165:10]
       MPORT_1 <= right_in.io.deq.bits.data @[AllToAllPE.scala 165:93]
     when up_dispatcher.io.this_PE : @[AllToAllPE.scala 168:33]
@@ -11788,7 +11788,7 @@ circuit AllToAll :
       node _T_40 = tail(_T_39, 1) @[AllToAllPE.scala 170:57]
       node _T_41 = add(_T_40, offset) @[AllToAllPE.scala 170:74]
       node _T_42 = tail(_T_41, 1) @[AllToAllPE.scala 170:74]
-      node _T_43 = bits(_T_42, 13, 0) @[AllToAllPE.scala 170:10]
+      node _T_43 = bits(_T_42, 12, 0) @[AllToAllPE.scala 170:10]
       infer mport MPORT_2 = memPE[_T_43], clock @[AllToAllPE.scala 170:10]
       MPORT_2 <= up_in.io.deq.bits.data @[AllToAllPE.scala 170:84]
     when bottom_dispatcher.io.this_PE : @[AllToAllPE.scala 173:37]
@@ -11800,7 +11800,7 @@ circuit AllToAll :
       node _T_49 = tail(_T_48, 1) @[AllToAllPE.scala 175:65]
       node _T_50 = add(_T_49, offset) @[AllToAllPE.scala 175:86]
       node _T_51 = tail(_T_50, 1) @[AllToAllPE.scala 175:86]
-      node _T_52 = bits(_T_51, 13, 0) @[AllToAllPE.scala 175:10]
+      node _T_52 = bits(_T_51, 12, 0) @[AllToAllPE.scala 175:10]
       infer mport MPORT_3 = memPE[_T_52], clock @[AllToAllPE.scala 175:10]
       MPORT_3 <= bottom_in.io.deq.bits.data @[AllToAllPE.scala 175:96]
     inst left_mux of MyPriorityMux_12 @[AllToAllPE.scala 182:24]
@@ -12245,7 +12245,7 @@ circuit AllToAll :
         io.resp.bits.data <= UInt<6>("h20") @[AllToAllPE.scala 443:23]
         resp_value <= UInt<6>("h20") @[AllToAllPE.scala 444:16]
         when is_this_PE : @[AllToAllPE.scala 446:21]
-          node _T_117 = bits(memIndex, 13, 0) @[AllToAllPE.scala 447:12]
+          node _T_117 = bits(memIndex, 12, 0) @[AllToAllPE.scala 447:12]
           infer mport MPORT_4 = memPE[_T_117], clock @[AllToAllPE.scala 447:12]
           MPORT_4 <= rs1 @[AllToAllPE.scala 447:23]
           io.resp.bits.write_enable <= UInt<1>("h1") @[AllToAllPE.scala 448:33]
@@ -12282,7 +12282,7 @@ circuit AllToAll :
           io.resp.valid <= UInt<1>("h0") @[AllToAllPE.scala 473:19]
           io.resp.bits.data <= UInt<6>("h21") @[AllToAllPE.scala 474:23]
           when is_this_PE : @[AllToAllPE.scala 476:21]
-            node _T_126 = bits(memIndex, 13, 0) @[AllToAllPE.scala 477:26]
+            node _T_126 = bits(memIndex, 12, 0) @[AllToAllPE.scala 477:26]
             infer mport MPORT_5 = memPE[_T_126], clock @[AllToAllPE.scala 477:26]
             resp_value <= MPORT_5 @[AllToAllPE.scala 477:18]
             w_en <= UInt<1>("h1") @[AllToAllPE.scala 478:12]
@@ -12403,16 +12403,16 @@ circuit AllToAll :
         node _T_152 = and(do_read, _T_151) @[AllToAllPE.scala 605:18]
         when _T_152 : @[AllToAllPE.scala 605:57]
           index_calcualtor.io.enable <= UInt<1>("h1") @[AllToAllPE.scala 607:34]
-          node _T_153 = bits(index_calcualtor.io.index0, 13, 0) @[AllToAllPE.scala 609:30]
+          node _T_153 = bits(index_calcualtor.io.index0, 12, 0) @[AllToAllPE.scala 609:30]
           infer mport MPORT_6 = memPE[_T_153], clock @[AllToAllPE.scala 609:30]
           read_values[0] <= MPORT_6 @[AllToAllPE.scala 609:22]
-          node _T_154 = bits(index_calcualtor.io.index1, 13, 0) @[AllToAllPE.scala 610:30]
+          node _T_154 = bits(index_calcualtor.io.index1, 12, 0) @[AllToAllPE.scala 610:30]
           infer mport MPORT_7 = memPE[_T_154], clock @[AllToAllPE.scala 610:30]
           read_values[1] <= MPORT_7 @[AllToAllPE.scala 610:22]
-          node _T_155 = bits(index_calcualtor.io.index2, 13, 0) @[AllToAllPE.scala 611:30]
+          node _T_155 = bits(index_calcualtor.io.index2, 12, 0) @[AllToAllPE.scala 611:30]
           infer mport MPORT_8 = memPE[_T_155], clock @[AllToAllPE.scala 611:30]
           read_values[2] <= MPORT_8 @[AllToAllPE.scala 611:22]
-          node _T_156 = bits(index_calcualtor.io.index3, 13, 0) @[AllToAllPE.scala 612:30]
+          node _T_156 = bits(index_calcualtor.io.index3, 12, 0) @[AllToAllPE.scala 612:30]
           infer mport MPORT_9 = memPE[_T_156], clock @[AllToAllPE.scala 612:30]
           read_values[3] <= MPORT_9 @[AllToAllPE.scala 612:22]
           read_values_valid[0] <= index_calcualtor.io.valid0 @[AllToAllPE.scala 614:28]
@@ -12496,25 +12496,25 @@ circuit AllToAll :
           when this_PE_generation_0 : @[AllToAllPE.scala 668:33]
             node _T_213 = add(index_write_this_PE, read_pos[0]) @[AllToAllPE.scala 669:35]
             node _T_214 = tail(_T_213, 1) @[AllToAllPE.scala 669:35]
-            node _T_215 = bits(_T_214, 13, 0) @[AllToAllPE.scala 669:14]
+            node _T_215 = bits(_T_214, 12, 0) @[AllToAllPE.scala 669:14]
             infer mport MPORT_10 = memPE[_T_215], clock @[AllToAllPE.scala 669:14]
             MPORT_10 <= read_values[0] @[AllToAllPE.scala 669:50]
           when this_PE_generation_1 : @[AllToAllPE.scala 671:33]
             node _T_216 = add(index_write_this_PE, read_pos[1]) @[AllToAllPE.scala 672:35]
             node _T_217 = tail(_T_216, 1) @[AllToAllPE.scala 672:35]
-            node _T_218 = bits(_T_217, 13, 0) @[AllToAllPE.scala 672:14]
+            node _T_218 = bits(_T_217, 12, 0) @[AllToAllPE.scala 672:14]
             infer mport MPORT_11 = memPE[_T_218], clock @[AllToAllPE.scala 672:14]
             MPORT_11 <= read_values[1] @[AllToAllPE.scala 672:50]
           when this_PE_generation_2 : @[AllToAllPE.scala 674:33]
             node _T_219 = add(index_write_this_PE, read_pos[2]) @[AllToAllPE.scala 675:35]
             node _T_220 = tail(_T_219, 1) @[AllToAllPE.scala 675:35]
-            node _T_221 = bits(_T_220, 13, 0) @[AllToAllPE.scala 675:14]
+            node _T_221 = bits(_T_220, 12, 0) @[AllToAllPE.scala 675:14]
             infer mport MPORT_12 = memPE[_T_221], clock @[AllToAllPE.scala 675:14]
             MPORT_12 <= read_values[2] @[AllToAllPE.scala 675:50]
           when this_PE_generation_3 : @[AllToAllPE.scala 677:33]
             node _T_222 = add(index_write_this_PE, read_pos[3]) @[AllToAllPE.scala 678:35]
             node _T_223 = tail(_T_222, 1) @[AllToAllPE.scala 678:35]
-            node _T_224 = bits(_T_223, 13, 0) @[AllToAllPE.scala 678:14]
+            node _T_224 = bits(_T_223, 12, 0) @[AllToAllPE.scala 678:14]
             infer mport MPORT_13 = memPE[_T_224], clock @[AllToAllPE.scala 678:14]
             MPORT_13 <= read_values[3] @[AllToAllPE.scala 678:50]
         node _T_225 = and(index_calcualtor.io.last_iteration, do_read) @[AllToAllPE.scala 684:45]
@@ -12530,7 +12530,7 @@ circuit AllToAll :
   module IndexCalculatorV1_4 :
     input clock : Clock
     input reset : Reset
-    output io : { flip reset : UInt<1>, flip enable : UInt<1>, flip dim_N : UInt<16>, index0 : UInt<32>, index1 : UInt<32>, index2 : UInt<32>, index3 : UInt<32>, valid0 : UInt<1>, valid1 : UInt<1>, valid2 : UInt<1>, valid3 : UInt<1>, x_dest_0 : UInt<3>, x_dest_1 : UInt<3>, x_dest_2 : UInt<3>, x_dest_3 : UInt<3>, y_dest_0 : UInt<3>, y_dest_1 : UInt<3>, y_dest_2 : UInt<3>, y_dest_3 : UInt<3>, pos_0 : UInt<16>, pos_1 : UInt<16>, pos_2 : UInt<16>, pos_3 : UInt<16>, last_iteration : UInt<1>}
+    output io : { flip reset : UInt<1>, flip enable : UInt<1>, flip dim_N : UInt<16>, index0 : UInt<32>, index1 : UInt<32>, index2 : UInt<32>, index3 : UInt<32>, valid0 : UInt<1>, valid1 : UInt<1>, valid2 : UInt<1>, valid3 : UInt<1>, x_dest_0 : UInt<2>, x_dest_1 : UInt<2>, x_dest_2 : UInt<2>, x_dest_3 : UInt<2>, y_dest_0 : UInt<2>, y_dest_1 : UInt<2>, y_dest_2 : UInt<2>, y_dest_3 : UInt<2>, pos_0 : UInt<16>, pos_1 : UInt<16>, pos_2 : UInt<16>, pos_3 : UInt<16>, last_iteration : UInt<1>}
 
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[IndexCalculator.scala 84:20]
@@ -12632,9 +12632,9 @@ circuit AllToAll :
   module Queue_32 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -12692,9 +12692,9 @@ circuit AllToAll :
   module Queue_33 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -12752,9 +12752,9 @@ circuit AllToAll :
   module Queue_34 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -12812,9 +12812,9 @@ circuit AllToAll :
   module Queue_35 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -12872,7 +12872,7 @@ circuit AllToAll :
   module Dispatcher_16 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -13059,7 +13059,7 @@ circuit AllToAll :
   module Dispatcher_17 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -13246,7 +13246,7 @@ circuit AllToAll :
   module Dispatcher_18 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -13433,7 +13433,7 @@ circuit AllToAll :
   module Dispatcher_19 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -13620,7 +13620,7 @@ circuit AllToAll :
   module GenerationDispatcher_16 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -13682,7 +13682,7 @@ circuit AllToAll :
   module GenerationDispatcher_17 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -13744,7 +13744,7 @@ circuit AllToAll :
   module GenerationDispatcher_18 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -13806,7 +13806,7 @@ circuit AllToAll :
   module GenerationDispatcher_19 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -13868,13 +13868,13 @@ circuit AllToAll :
   module MyPriorityMux_16 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -13934,13 +13934,13 @@ circuit AllToAll :
   module MyPriorityMux_17 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -14000,13 +14000,13 @@ circuit AllToAll :
   module MyPriorityMux_18 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -14066,13 +14066,13 @@ circuit AllToAll :
   module MyPriorityMux_19 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -14132,7 +14132,7 @@ circuit AllToAll :
   module RRArbiter_16 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -14202,7 +14202,7 @@ circuit AllToAll :
   module RRArbiter_17 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -14272,7 +14272,7 @@ circuit AllToAll :
   module RRArbiter_18 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -14342,7 +14342,7 @@ circuit AllToAll :
   module RRArbiter_19 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -14412,9 +14412,9 @@ circuit AllToAll :
   module Queue_36 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -14472,9 +14472,9 @@ circuit AllToAll :
   module Queue_37 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -14532,9 +14532,9 @@ circuit AllToAll :
   module Queue_38 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -14592,9 +14592,9 @@ circuit AllToAll :
   module Queue_39 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -14652,12 +14652,12 @@ circuit AllToAll :
   module AllToAllPEmiddle :
     input clock : Clock
     input reset : Reset
-    output io : { busy : UInt<1>, flip end_AllToAll : UInt<1>, flip cmd : { flip ready : UInt<1>, valid : UInt<1>, bits : { load : UInt<1>, store : UInt<1>, doAllToAll : UInt<1>, rs1 : UInt<64>, rs2 : UInt<64>}}, resp : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, write_enable : UInt<1>}}, left : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, right : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, up : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, bottom : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}}
+    output io : { busy : UInt<1>, flip end_AllToAll : UInt<1>, flip cmd : { flip ready : UInt<1>, valid : UInt<1>, bits : { load : UInt<1>, store : UInt<1>, doAllToAll : UInt<1>, rs1 : UInt<64>, rs2 : UInt<64>}}, resp : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, write_enable : UInt<1>}}, left : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, right : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, up : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, bottom : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}}
 
-    cmem memPE : UInt<64> [10000] @[AllToAllPE.scala 20:18]
-    reg x_coord : UInt<3>, clock with :
+    cmem memPE : UInt<64> [5000] @[AllToAllPE.scala 20:18]
+    reg x_coord : UInt<2>, clock with :
       reset => (reset, UInt<1>("h1")) @[AllToAllPE.scala 23:24]
-    reg y_coord : UInt<3>, clock with :
+    reg y_coord : UInt<2>, clock with :
       reset => (reset, UInt<1>("h1")) @[AllToAllPE.scala 24:24]
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[AllToAllPE.scala 26:18]
@@ -14703,9 +14703,9 @@ circuit AllToAll :
     _WIRE[3] <= UInt<1>("h0") @[AllToAllPE.scala 63:42]
     reg read_values_valid : UInt<1>[4], clock with :
       reset => (reset, _WIRE) @[AllToAllPE.scala 63:34]
-    reg read_x_dest : UInt<3>[4], clock with :
+    reg read_x_dest : UInt<2>[4], clock with :
       reset => (UInt<1>("h0"), read_x_dest) @[AllToAllPE.scala 64:24]
-    reg read_y_dest : UInt<3>[4], clock with :
+    reg read_y_dest : UInt<2>[4], clock with :
       reset => (UInt<1>("h0"), read_y_dest) @[AllToAllPE.scala 65:24]
     reg read_pos : UInt<16>[4], clock with :
       reset => (UInt<1>("h0"), read_pos) @[AllToAllPE.scala 66:21]
@@ -14849,7 +14849,7 @@ circuit AllToAll :
       node _T_22 = tail(_T_21, 1) @[AllToAllPE.scala 160:61]
       node _T_23 = add(_T_22, offset) @[AllToAllPE.scala 160:80]
       node _T_24 = tail(_T_23, 1) @[AllToAllPE.scala 160:80]
-      node _T_25 = bits(_T_24, 13, 0) @[AllToAllPE.scala 160:10]
+      node _T_25 = bits(_T_24, 12, 0) @[AllToAllPE.scala 160:10]
       infer mport MPORT = memPE[_T_25], clock @[AllToAllPE.scala 160:10]
       MPORT <= left_in.io.deq.bits.data @[AllToAllPE.scala 160:90]
     when right_dispatcher.io.this_PE : @[AllToAllPE.scala 163:36]
@@ -14861,7 +14861,7 @@ circuit AllToAll :
       node _T_31 = tail(_T_30, 1) @[AllToAllPE.scala 165:63]
       node _T_32 = add(_T_31, offset) @[AllToAllPE.scala 165:83]
       node _T_33 = tail(_T_32, 1) @[AllToAllPE.scala 165:83]
-      node _T_34 = bits(_T_33, 13, 0) @[AllToAllPE.scala 165:10]
+      node _T_34 = bits(_T_33, 12, 0) @[AllToAllPE.scala 165:10]
       infer mport MPORT_1 = memPE[_T_34], clock @[AllToAllPE.scala 165:10]
       MPORT_1 <= right_in.io.deq.bits.data @[AllToAllPE.scala 165:93]
     when up_dispatcher.io.this_PE : @[AllToAllPE.scala 168:33]
@@ -14873,7 +14873,7 @@ circuit AllToAll :
       node _T_40 = tail(_T_39, 1) @[AllToAllPE.scala 170:57]
       node _T_41 = add(_T_40, offset) @[AllToAllPE.scala 170:74]
       node _T_42 = tail(_T_41, 1) @[AllToAllPE.scala 170:74]
-      node _T_43 = bits(_T_42, 13, 0) @[AllToAllPE.scala 170:10]
+      node _T_43 = bits(_T_42, 12, 0) @[AllToAllPE.scala 170:10]
       infer mport MPORT_2 = memPE[_T_43], clock @[AllToAllPE.scala 170:10]
       MPORT_2 <= up_in.io.deq.bits.data @[AllToAllPE.scala 170:84]
     when bottom_dispatcher.io.this_PE : @[AllToAllPE.scala 173:37]
@@ -14885,7 +14885,7 @@ circuit AllToAll :
       node _T_49 = tail(_T_48, 1) @[AllToAllPE.scala 175:65]
       node _T_50 = add(_T_49, offset) @[AllToAllPE.scala 175:86]
       node _T_51 = tail(_T_50, 1) @[AllToAllPE.scala 175:86]
-      node _T_52 = bits(_T_51, 13, 0) @[AllToAllPE.scala 175:10]
+      node _T_52 = bits(_T_51, 12, 0) @[AllToAllPE.scala 175:10]
       infer mport MPORT_3 = memPE[_T_52], clock @[AllToAllPE.scala 175:10]
       MPORT_3 <= bottom_in.io.deq.bits.data @[AllToAllPE.scala 175:96]
     inst left_mux of MyPriorityMux_16 @[AllToAllPE.scala 182:24]
@@ -15330,7 +15330,7 @@ circuit AllToAll :
         io.resp.bits.data <= UInt<6>("h20") @[AllToAllPE.scala 443:23]
         resp_value <= UInt<6>("h20") @[AllToAllPE.scala 444:16]
         when is_this_PE : @[AllToAllPE.scala 446:21]
-          node _T_117 = bits(memIndex, 13, 0) @[AllToAllPE.scala 447:12]
+          node _T_117 = bits(memIndex, 12, 0) @[AllToAllPE.scala 447:12]
           infer mport MPORT_4 = memPE[_T_117], clock @[AllToAllPE.scala 447:12]
           MPORT_4 <= rs1 @[AllToAllPE.scala 447:23]
           io.resp.bits.write_enable <= UInt<1>("h1") @[AllToAllPE.scala 448:33]
@@ -15367,7 +15367,7 @@ circuit AllToAll :
           io.resp.valid <= UInt<1>("h0") @[AllToAllPE.scala 473:19]
           io.resp.bits.data <= UInt<6>("h21") @[AllToAllPE.scala 474:23]
           when is_this_PE : @[AllToAllPE.scala 476:21]
-            node _T_126 = bits(memIndex, 13, 0) @[AllToAllPE.scala 477:26]
+            node _T_126 = bits(memIndex, 12, 0) @[AllToAllPE.scala 477:26]
             infer mport MPORT_5 = memPE[_T_126], clock @[AllToAllPE.scala 477:26]
             resp_value <= MPORT_5 @[AllToAllPE.scala 477:18]
             w_en <= UInt<1>("h1") @[AllToAllPE.scala 478:12]
@@ -15488,16 +15488,16 @@ circuit AllToAll :
         node _T_152 = and(do_read, _T_151) @[AllToAllPE.scala 605:18]
         when _T_152 : @[AllToAllPE.scala 605:57]
           index_calcualtor.io.enable <= UInt<1>("h1") @[AllToAllPE.scala 607:34]
-          node _T_153 = bits(index_calcualtor.io.index0, 13, 0) @[AllToAllPE.scala 609:30]
+          node _T_153 = bits(index_calcualtor.io.index0, 12, 0) @[AllToAllPE.scala 609:30]
           infer mport MPORT_6 = memPE[_T_153], clock @[AllToAllPE.scala 609:30]
           read_values[0] <= MPORT_6 @[AllToAllPE.scala 609:22]
-          node _T_154 = bits(index_calcualtor.io.index1, 13, 0) @[AllToAllPE.scala 610:30]
+          node _T_154 = bits(index_calcualtor.io.index1, 12, 0) @[AllToAllPE.scala 610:30]
           infer mport MPORT_7 = memPE[_T_154], clock @[AllToAllPE.scala 610:30]
           read_values[1] <= MPORT_7 @[AllToAllPE.scala 610:22]
-          node _T_155 = bits(index_calcualtor.io.index2, 13, 0) @[AllToAllPE.scala 611:30]
+          node _T_155 = bits(index_calcualtor.io.index2, 12, 0) @[AllToAllPE.scala 611:30]
           infer mport MPORT_8 = memPE[_T_155], clock @[AllToAllPE.scala 611:30]
           read_values[2] <= MPORT_8 @[AllToAllPE.scala 611:22]
-          node _T_156 = bits(index_calcualtor.io.index3, 13, 0) @[AllToAllPE.scala 612:30]
+          node _T_156 = bits(index_calcualtor.io.index3, 12, 0) @[AllToAllPE.scala 612:30]
           infer mport MPORT_9 = memPE[_T_156], clock @[AllToAllPE.scala 612:30]
           read_values[3] <= MPORT_9 @[AllToAllPE.scala 612:22]
           read_values_valid[0] <= index_calcualtor.io.valid0 @[AllToAllPE.scala 614:28]
@@ -15581,25 +15581,25 @@ circuit AllToAll :
           when this_PE_generation_0 : @[AllToAllPE.scala 668:33]
             node _T_213 = add(index_write_this_PE, read_pos[0]) @[AllToAllPE.scala 669:35]
             node _T_214 = tail(_T_213, 1) @[AllToAllPE.scala 669:35]
-            node _T_215 = bits(_T_214, 13, 0) @[AllToAllPE.scala 669:14]
+            node _T_215 = bits(_T_214, 12, 0) @[AllToAllPE.scala 669:14]
             infer mport MPORT_10 = memPE[_T_215], clock @[AllToAllPE.scala 669:14]
             MPORT_10 <= read_values[0] @[AllToAllPE.scala 669:50]
           when this_PE_generation_1 : @[AllToAllPE.scala 671:33]
             node _T_216 = add(index_write_this_PE, read_pos[1]) @[AllToAllPE.scala 672:35]
             node _T_217 = tail(_T_216, 1) @[AllToAllPE.scala 672:35]
-            node _T_218 = bits(_T_217, 13, 0) @[AllToAllPE.scala 672:14]
+            node _T_218 = bits(_T_217, 12, 0) @[AllToAllPE.scala 672:14]
             infer mport MPORT_11 = memPE[_T_218], clock @[AllToAllPE.scala 672:14]
             MPORT_11 <= read_values[1] @[AllToAllPE.scala 672:50]
           when this_PE_generation_2 : @[AllToAllPE.scala 674:33]
             node _T_219 = add(index_write_this_PE, read_pos[2]) @[AllToAllPE.scala 675:35]
             node _T_220 = tail(_T_219, 1) @[AllToAllPE.scala 675:35]
-            node _T_221 = bits(_T_220, 13, 0) @[AllToAllPE.scala 675:14]
+            node _T_221 = bits(_T_220, 12, 0) @[AllToAllPE.scala 675:14]
             infer mport MPORT_12 = memPE[_T_221], clock @[AllToAllPE.scala 675:14]
             MPORT_12 <= read_values[2] @[AllToAllPE.scala 675:50]
           when this_PE_generation_3 : @[AllToAllPE.scala 677:33]
             node _T_222 = add(index_write_this_PE, read_pos[3]) @[AllToAllPE.scala 678:35]
             node _T_223 = tail(_T_222, 1) @[AllToAllPE.scala 678:35]
-            node _T_224 = bits(_T_223, 13, 0) @[AllToAllPE.scala 678:14]
+            node _T_224 = bits(_T_223, 12, 0) @[AllToAllPE.scala 678:14]
             infer mport MPORT_13 = memPE[_T_224], clock @[AllToAllPE.scala 678:14]
             MPORT_13 <= read_values[3] @[AllToAllPE.scala 678:50]
         node _T_225 = and(index_calcualtor.io.last_iteration, do_read) @[AllToAllPE.scala 684:45]
@@ -15615,7 +15615,7 @@ circuit AllToAll :
   module IndexCalculatorV1_5 :
     input clock : Clock
     input reset : Reset
-    output io : { flip reset : UInt<1>, flip enable : UInt<1>, flip dim_N : UInt<16>, index0 : UInt<32>, index1 : UInt<32>, index2 : UInt<32>, index3 : UInt<32>, valid0 : UInt<1>, valid1 : UInt<1>, valid2 : UInt<1>, valid3 : UInt<1>, x_dest_0 : UInt<3>, x_dest_1 : UInt<3>, x_dest_2 : UInt<3>, x_dest_3 : UInt<3>, y_dest_0 : UInt<3>, y_dest_1 : UInt<3>, y_dest_2 : UInt<3>, y_dest_3 : UInt<3>, pos_0 : UInt<16>, pos_1 : UInt<16>, pos_2 : UInt<16>, pos_3 : UInt<16>, last_iteration : UInt<1>}
+    output io : { flip reset : UInt<1>, flip enable : UInt<1>, flip dim_N : UInt<16>, index0 : UInt<32>, index1 : UInt<32>, index2 : UInt<32>, index3 : UInt<32>, valid0 : UInt<1>, valid1 : UInt<1>, valid2 : UInt<1>, valid3 : UInt<1>, x_dest_0 : UInt<2>, x_dest_1 : UInt<2>, x_dest_2 : UInt<2>, x_dest_3 : UInt<2>, y_dest_0 : UInt<2>, y_dest_1 : UInt<2>, y_dest_2 : UInt<2>, y_dest_3 : UInt<2>, pos_0 : UInt<16>, pos_1 : UInt<16>, pos_2 : UInt<16>, pos_3 : UInt<16>, last_iteration : UInt<1>}
 
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[IndexCalculator.scala 84:20]
@@ -15717,9 +15717,9 @@ circuit AllToAll :
   module Queue_40 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -15777,9 +15777,9 @@ circuit AllToAll :
   module Queue_41 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -15837,9 +15837,9 @@ circuit AllToAll :
   module Queue_42 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -15897,9 +15897,9 @@ circuit AllToAll :
   module Queue_43 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -15957,7 +15957,7 @@ circuit AllToAll :
   module Dispatcher_20 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -16144,7 +16144,7 @@ circuit AllToAll :
   module Dispatcher_21 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -16331,7 +16331,7 @@ circuit AllToAll :
   module Dispatcher_22 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -16518,7 +16518,7 @@ circuit AllToAll :
   module Dispatcher_23 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -16705,7 +16705,7 @@ circuit AllToAll :
   module GenerationDispatcher_20 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -16767,7 +16767,7 @@ circuit AllToAll :
   module GenerationDispatcher_21 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -16829,7 +16829,7 @@ circuit AllToAll :
   module GenerationDispatcher_22 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -16891,7 +16891,7 @@ circuit AllToAll :
   module GenerationDispatcher_23 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -16953,13 +16953,13 @@ circuit AllToAll :
   module MyPriorityMux_20 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -17019,13 +17019,13 @@ circuit AllToAll :
   module MyPriorityMux_21 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -17085,13 +17085,13 @@ circuit AllToAll :
   module MyPriorityMux_22 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -17151,13 +17151,13 @@ circuit AllToAll :
   module MyPriorityMux_23 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -17217,7 +17217,7 @@ circuit AllToAll :
   module RRArbiter_20 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -17287,7 +17287,7 @@ circuit AllToAll :
   module RRArbiter_21 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -17357,7 +17357,7 @@ circuit AllToAll :
   module RRArbiter_22 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -17427,7 +17427,7 @@ circuit AllToAll :
   module RRArbiter_23 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -17497,9 +17497,9 @@ circuit AllToAll :
   module Queue_44 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -17557,9 +17557,9 @@ circuit AllToAll :
   module Queue_45 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -17617,9 +17617,9 @@ circuit AllToAll :
   module Queue_46 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -17677,9 +17677,9 @@ circuit AllToAll :
   module Queue_47 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -17737,12 +17737,12 @@ circuit AllToAll :
   module AllToAllPEright :
     input clock : Clock
     input reset : Reset
-    output io : { busy : UInt<1>, flip end_AllToAll : UInt<1>, flip cmd : { flip ready : UInt<1>, valid : UInt<1>, bits : { load : UInt<1>, store : UInt<1>, doAllToAll : UInt<1>, rs1 : UInt<64>, rs2 : UInt<64>}}, resp : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, write_enable : UInt<1>}}, left : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, right : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, up : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, bottom : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}}
+    output io : { busy : UInt<1>, flip end_AllToAll : UInt<1>, flip cmd : { flip ready : UInt<1>, valid : UInt<1>, bits : { load : UInt<1>, store : UInt<1>, doAllToAll : UInt<1>, rs1 : UInt<64>, rs2 : UInt<64>}}, resp : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, write_enable : UInt<1>}}, left : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, right : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, up : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, bottom : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}}
 
-    cmem memPE : UInt<64> [10000] @[AllToAllPE.scala 20:18]
-    reg x_coord : UInt<3>, clock with :
+    cmem memPE : UInt<64> [5000] @[AllToAllPE.scala 20:18]
+    reg x_coord : UInt<2>, clock with :
       reset => (reset, UInt<2>("h2")) @[AllToAllPE.scala 23:24]
-    reg y_coord : UInt<3>, clock with :
+    reg y_coord : UInt<2>, clock with :
       reset => (reset, UInt<1>("h1")) @[AllToAllPE.scala 24:24]
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[AllToAllPE.scala 26:18]
@@ -17788,9 +17788,9 @@ circuit AllToAll :
     _WIRE[3] <= UInt<1>("h0") @[AllToAllPE.scala 63:42]
     reg read_values_valid : UInt<1>[4], clock with :
       reset => (reset, _WIRE) @[AllToAllPE.scala 63:34]
-    reg read_x_dest : UInt<3>[4], clock with :
+    reg read_x_dest : UInt<2>[4], clock with :
       reset => (UInt<1>("h0"), read_x_dest) @[AllToAllPE.scala 64:24]
-    reg read_y_dest : UInt<3>[4], clock with :
+    reg read_y_dest : UInt<2>[4], clock with :
       reset => (UInt<1>("h0"), read_y_dest) @[AllToAllPE.scala 65:24]
     reg read_pos : UInt<16>[4], clock with :
       reset => (UInt<1>("h0"), read_pos) @[AllToAllPE.scala 66:21]
@@ -17934,7 +17934,7 @@ circuit AllToAll :
       node _T_22 = tail(_T_21, 1) @[AllToAllPE.scala 160:61]
       node _T_23 = add(_T_22, offset) @[AllToAllPE.scala 160:80]
       node _T_24 = tail(_T_23, 1) @[AllToAllPE.scala 160:80]
-      node _T_25 = bits(_T_24, 13, 0) @[AllToAllPE.scala 160:10]
+      node _T_25 = bits(_T_24, 12, 0) @[AllToAllPE.scala 160:10]
       infer mport MPORT = memPE[_T_25], clock @[AllToAllPE.scala 160:10]
       MPORT <= left_in.io.deq.bits.data @[AllToAllPE.scala 160:90]
     when right_dispatcher.io.this_PE : @[AllToAllPE.scala 163:36]
@@ -17946,7 +17946,7 @@ circuit AllToAll :
       node _T_31 = tail(_T_30, 1) @[AllToAllPE.scala 165:63]
       node _T_32 = add(_T_31, offset) @[AllToAllPE.scala 165:83]
       node _T_33 = tail(_T_32, 1) @[AllToAllPE.scala 165:83]
-      node _T_34 = bits(_T_33, 13, 0) @[AllToAllPE.scala 165:10]
+      node _T_34 = bits(_T_33, 12, 0) @[AllToAllPE.scala 165:10]
       infer mport MPORT_1 = memPE[_T_34], clock @[AllToAllPE.scala 165:10]
       MPORT_1 <= right_in.io.deq.bits.data @[AllToAllPE.scala 165:93]
     when up_dispatcher.io.this_PE : @[AllToAllPE.scala 168:33]
@@ -17958,7 +17958,7 @@ circuit AllToAll :
       node _T_40 = tail(_T_39, 1) @[AllToAllPE.scala 170:57]
       node _T_41 = add(_T_40, offset) @[AllToAllPE.scala 170:74]
       node _T_42 = tail(_T_41, 1) @[AllToAllPE.scala 170:74]
-      node _T_43 = bits(_T_42, 13, 0) @[AllToAllPE.scala 170:10]
+      node _T_43 = bits(_T_42, 12, 0) @[AllToAllPE.scala 170:10]
       infer mport MPORT_2 = memPE[_T_43], clock @[AllToAllPE.scala 170:10]
       MPORT_2 <= up_in.io.deq.bits.data @[AllToAllPE.scala 170:84]
     when bottom_dispatcher.io.this_PE : @[AllToAllPE.scala 173:37]
@@ -17970,7 +17970,7 @@ circuit AllToAll :
       node _T_49 = tail(_T_48, 1) @[AllToAllPE.scala 175:65]
       node _T_50 = add(_T_49, offset) @[AllToAllPE.scala 175:86]
       node _T_51 = tail(_T_50, 1) @[AllToAllPE.scala 175:86]
-      node _T_52 = bits(_T_51, 13, 0) @[AllToAllPE.scala 175:10]
+      node _T_52 = bits(_T_51, 12, 0) @[AllToAllPE.scala 175:10]
       infer mport MPORT_3 = memPE[_T_52], clock @[AllToAllPE.scala 175:10]
       MPORT_3 <= bottom_in.io.deq.bits.data @[AllToAllPE.scala 175:96]
     inst left_mux of MyPriorityMux_20 @[AllToAllPE.scala 182:24]
@@ -18415,7 +18415,7 @@ circuit AllToAll :
         io.resp.bits.data <= UInt<6>("h20") @[AllToAllPE.scala 443:23]
         resp_value <= UInt<6>("h20") @[AllToAllPE.scala 444:16]
         when is_this_PE : @[AllToAllPE.scala 446:21]
-          node _T_117 = bits(memIndex, 13, 0) @[AllToAllPE.scala 447:12]
+          node _T_117 = bits(memIndex, 12, 0) @[AllToAllPE.scala 447:12]
           infer mport MPORT_4 = memPE[_T_117], clock @[AllToAllPE.scala 447:12]
           MPORT_4 <= rs1 @[AllToAllPE.scala 447:23]
           io.resp.bits.write_enable <= UInt<1>("h1") @[AllToAllPE.scala 448:33]
@@ -18452,7 +18452,7 @@ circuit AllToAll :
           io.resp.valid <= UInt<1>("h0") @[AllToAllPE.scala 473:19]
           io.resp.bits.data <= UInt<6>("h21") @[AllToAllPE.scala 474:23]
           when is_this_PE : @[AllToAllPE.scala 476:21]
-            node _T_126 = bits(memIndex, 13, 0) @[AllToAllPE.scala 477:26]
+            node _T_126 = bits(memIndex, 12, 0) @[AllToAllPE.scala 477:26]
             infer mport MPORT_5 = memPE[_T_126], clock @[AllToAllPE.scala 477:26]
             resp_value <= MPORT_5 @[AllToAllPE.scala 477:18]
             w_en <= UInt<1>("h1") @[AllToAllPE.scala 478:12]
@@ -18573,16 +18573,16 @@ circuit AllToAll :
         node _T_152 = and(do_read, _T_151) @[AllToAllPE.scala 605:18]
         when _T_152 : @[AllToAllPE.scala 605:57]
           index_calcualtor.io.enable <= UInt<1>("h1") @[AllToAllPE.scala 607:34]
-          node _T_153 = bits(index_calcualtor.io.index0, 13, 0) @[AllToAllPE.scala 609:30]
+          node _T_153 = bits(index_calcualtor.io.index0, 12, 0) @[AllToAllPE.scala 609:30]
           infer mport MPORT_6 = memPE[_T_153], clock @[AllToAllPE.scala 609:30]
           read_values[0] <= MPORT_6 @[AllToAllPE.scala 609:22]
-          node _T_154 = bits(index_calcualtor.io.index1, 13, 0) @[AllToAllPE.scala 610:30]
+          node _T_154 = bits(index_calcualtor.io.index1, 12, 0) @[AllToAllPE.scala 610:30]
           infer mport MPORT_7 = memPE[_T_154], clock @[AllToAllPE.scala 610:30]
           read_values[1] <= MPORT_7 @[AllToAllPE.scala 610:22]
-          node _T_155 = bits(index_calcualtor.io.index2, 13, 0) @[AllToAllPE.scala 611:30]
+          node _T_155 = bits(index_calcualtor.io.index2, 12, 0) @[AllToAllPE.scala 611:30]
           infer mport MPORT_8 = memPE[_T_155], clock @[AllToAllPE.scala 611:30]
           read_values[2] <= MPORT_8 @[AllToAllPE.scala 611:22]
-          node _T_156 = bits(index_calcualtor.io.index3, 13, 0) @[AllToAllPE.scala 612:30]
+          node _T_156 = bits(index_calcualtor.io.index3, 12, 0) @[AllToAllPE.scala 612:30]
           infer mport MPORT_9 = memPE[_T_156], clock @[AllToAllPE.scala 612:30]
           read_values[3] <= MPORT_9 @[AllToAllPE.scala 612:22]
           read_values_valid[0] <= index_calcualtor.io.valid0 @[AllToAllPE.scala 614:28]
@@ -18666,25 +18666,25 @@ circuit AllToAll :
           when this_PE_generation_0 : @[AllToAllPE.scala 668:33]
             node _T_213 = add(index_write_this_PE, read_pos[0]) @[AllToAllPE.scala 669:35]
             node _T_214 = tail(_T_213, 1) @[AllToAllPE.scala 669:35]
-            node _T_215 = bits(_T_214, 13, 0) @[AllToAllPE.scala 669:14]
+            node _T_215 = bits(_T_214, 12, 0) @[AllToAllPE.scala 669:14]
             infer mport MPORT_10 = memPE[_T_215], clock @[AllToAllPE.scala 669:14]
             MPORT_10 <= read_values[0] @[AllToAllPE.scala 669:50]
           when this_PE_generation_1 : @[AllToAllPE.scala 671:33]
             node _T_216 = add(index_write_this_PE, read_pos[1]) @[AllToAllPE.scala 672:35]
             node _T_217 = tail(_T_216, 1) @[AllToAllPE.scala 672:35]
-            node _T_218 = bits(_T_217, 13, 0) @[AllToAllPE.scala 672:14]
+            node _T_218 = bits(_T_217, 12, 0) @[AllToAllPE.scala 672:14]
             infer mport MPORT_11 = memPE[_T_218], clock @[AllToAllPE.scala 672:14]
             MPORT_11 <= read_values[1] @[AllToAllPE.scala 672:50]
           when this_PE_generation_2 : @[AllToAllPE.scala 674:33]
             node _T_219 = add(index_write_this_PE, read_pos[2]) @[AllToAllPE.scala 675:35]
             node _T_220 = tail(_T_219, 1) @[AllToAllPE.scala 675:35]
-            node _T_221 = bits(_T_220, 13, 0) @[AllToAllPE.scala 675:14]
+            node _T_221 = bits(_T_220, 12, 0) @[AllToAllPE.scala 675:14]
             infer mport MPORT_12 = memPE[_T_221], clock @[AllToAllPE.scala 675:14]
             MPORT_12 <= read_values[2] @[AllToAllPE.scala 675:50]
           when this_PE_generation_3 : @[AllToAllPE.scala 677:33]
             node _T_222 = add(index_write_this_PE, read_pos[3]) @[AllToAllPE.scala 678:35]
             node _T_223 = tail(_T_222, 1) @[AllToAllPE.scala 678:35]
-            node _T_224 = bits(_T_223, 13, 0) @[AllToAllPE.scala 678:14]
+            node _T_224 = bits(_T_223, 12, 0) @[AllToAllPE.scala 678:14]
             infer mport MPORT_13 = memPE[_T_224], clock @[AllToAllPE.scala 678:14]
             MPORT_13 <= read_values[3] @[AllToAllPE.scala 678:50]
         node _T_225 = and(index_calcualtor.io.last_iteration, do_read) @[AllToAllPE.scala 684:45]
@@ -18700,7 +18700,7 @@ circuit AllToAll :
   module IndexCalculatorV1_6 :
     input clock : Clock
     input reset : Reset
-    output io : { flip reset : UInt<1>, flip enable : UInt<1>, flip dim_N : UInt<16>, index0 : UInt<32>, index1 : UInt<32>, index2 : UInt<32>, index3 : UInt<32>, valid0 : UInt<1>, valid1 : UInt<1>, valid2 : UInt<1>, valid3 : UInt<1>, x_dest_0 : UInt<3>, x_dest_1 : UInt<3>, x_dest_2 : UInt<3>, x_dest_3 : UInt<3>, y_dest_0 : UInt<3>, y_dest_1 : UInt<3>, y_dest_2 : UInt<3>, y_dest_3 : UInt<3>, pos_0 : UInt<16>, pos_1 : UInt<16>, pos_2 : UInt<16>, pos_3 : UInt<16>, last_iteration : UInt<1>}
+    output io : { flip reset : UInt<1>, flip enable : UInt<1>, flip dim_N : UInt<16>, index0 : UInt<32>, index1 : UInt<32>, index2 : UInt<32>, index3 : UInt<32>, valid0 : UInt<1>, valid1 : UInt<1>, valid2 : UInt<1>, valid3 : UInt<1>, x_dest_0 : UInt<2>, x_dest_1 : UInt<2>, x_dest_2 : UInt<2>, x_dest_3 : UInt<2>, y_dest_0 : UInt<2>, y_dest_1 : UInt<2>, y_dest_2 : UInt<2>, y_dest_3 : UInt<2>, pos_0 : UInt<16>, pos_1 : UInt<16>, pos_2 : UInt<16>, pos_3 : UInt<16>, last_iteration : UInt<1>}
 
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[IndexCalculator.scala 84:20]
@@ -18802,9 +18802,9 @@ circuit AllToAll :
   module Queue_48 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -18862,9 +18862,9 @@ circuit AllToAll :
   module Queue_49 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -18922,9 +18922,9 @@ circuit AllToAll :
   module Queue_50 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -18982,9 +18982,9 @@ circuit AllToAll :
   module Queue_51 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -19042,7 +19042,7 @@ circuit AllToAll :
   module Dispatcher_24 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -19229,7 +19229,7 @@ circuit AllToAll :
   module Dispatcher_25 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -19416,7 +19416,7 @@ circuit AllToAll :
   module Dispatcher_26 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -19603,7 +19603,7 @@ circuit AllToAll :
   module Dispatcher_27 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -19790,7 +19790,7 @@ circuit AllToAll :
   module GenerationDispatcher_24 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -19852,7 +19852,7 @@ circuit AllToAll :
   module GenerationDispatcher_25 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -19914,7 +19914,7 @@ circuit AllToAll :
   module GenerationDispatcher_26 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -19976,7 +19976,7 @@ circuit AllToAll :
   module GenerationDispatcher_27 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -20038,13 +20038,13 @@ circuit AllToAll :
   module MyPriorityMux_24 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -20104,13 +20104,13 @@ circuit AllToAll :
   module MyPriorityMux_25 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -20170,13 +20170,13 @@ circuit AllToAll :
   module MyPriorityMux_26 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -20236,13 +20236,13 @@ circuit AllToAll :
   module MyPriorityMux_27 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -20302,7 +20302,7 @@ circuit AllToAll :
   module RRArbiter_24 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -20372,7 +20372,7 @@ circuit AllToAll :
   module RRArbiter_25 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -20442,7 +20442,7 @@ circuit AllToAll :
   module RRArbiter_26 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -20512,7 +20512,7 @@ circuit AllToAll :
   module RRArbiter_27 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -20582,9 +20582,9 @@ circuit AllToAll :
   module Queue_52 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -20642,9 +20642,9 @@ circuit AllToAll :
   module Queue_53 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -20702,9 +20702,9 @@ circuit AllToAll :
   module Queue_54 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -20762,9 +20762,9 @@ circuit AllToAll :
   module Queue_55 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -20822,12 +20822,12 @@ circuit AllToAll :
   module AllToAllPEupLeftCorner :
     input clock : Clock
     input reset : Reset
-    output io : { busy : UInt<1>, flip end_AllToAll : UInt<1>, flip cmd : { flip ready : UInt<1>, valid : UInt<1>, bits : { load : UInt<1>, store : UInt<1>, doAllToAll : UInt<1>, rs1 : UInt<64>, rs2 : UInt<64>}}, resp : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, write_enable : UInt<1>}}, left : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, right : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, up : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, bottom : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}}
+    output io : { busy : UInt<1>, flip end_AllToAll : UInt<1>, flip cmd : { flip ready : UInt<1>, valid : UInt<1>, bits : { load : UInt<1>, store : UInt<1>, doAllToAll : UInt<1>, rs1 : UInt<64>, rs2 : UInt<64>}}, resp : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, write_enable : UInt<1>}}, left : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, right : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, up : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, bottom : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}}
 
-    cmem memPE : UInt<64> [10000] @[AllToAllPE.scala 20:18]
-    reg x_coord : UInt<3>, clock with :
+    cmem memPE : UInt<64> [5000] @[AllToAllPE.scala 20:18]
+    reg x_coord : UInt<2>, clock with :
       reset => (reset, UInt<1>("h0")) @[AllToAllPE.scala 23:24]
-    reg y_coord : UInt<3>, clock with :
+    reg y_coord : UInt<2>, clock with :
       reset => (reset, UInt<2>("h2")) @[AllToAllPE.scala 24:24]
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[AllToAllPE.scala 26:18]
@@ -20873,9 +20873,9 @@ circuit AllToAll :
     _WIRE[3] <= UInt<1>("h0") @[AllToAllPE.scala 63:42]
     reg read_values_valid : UInt<1>[4], clock with :
       reset => (reset, _WIRE) @[AllToAllPE.scala 63:34]
-    reg read_x_dest : UInt<3>[4], clock with :
+    reg read_x_dest : UInt<2>[4], clock with :
       reset => (UInt<1>("h0"), read_x_dest) @[AllToAllPE.scala 64:24]
-    reg read_y_dest : UInt<3>[4], clock with :
+    reg read_y_dest : UInt<2>[4], clock with :
       reset => (UInt<1>("h0"), read_y_dest) @[AllToAllPE.scala 65:24]
     reg read_pos : UInt<16>[4], clock with :
       reset => (UInt<1>("h0"), read_pos) @[AllToAllPE.scala 66:21]
@@ -21019,7 +21019,7 @@ circuit AllToAll :
       node _T_22 = tail(_T_21, 1) @[AllToAllPE.scala 160:61]
       node _T_23 = add(_T_22, offset) @[AllToAllPE.scala 160:80]
       node _T_24 = tail(_T_23, 1) @[AllToAllPE.scala 160:80]
-      node _T_25 = bits(_T_24, 13, 0) @[AllToAllPE.scala 160:10]
+      node _T_25 = bits(_T_24, 12, 0) @[AllToAllPE.scala 160:10]
       infer mport MPORT = memPE[_T_25], clock @[AllToAllPE.scala 160:10]
       MPORT <= left_in.io.deq.bits.data @[AllToAllPE.scala 160:90]
     when right_dispatcher.io.this_PE : @[AllToAllPE.scala 163:36]
@@ -21031,7 +21031,7 @@ circuit AllToAll :
       node _T_31 = tail(_T_30, 1) @[AllToAllPE.scala 165:63]
       node _T_32 = add(_T_31, offset) @[AllToAllPE.scala 165:83]
       node _T_33 = tail(_T_32, 1) @[AllToAllPE.scala 165:83]
-      node _T_34 = bits(_T_33, 13, 0) @[AllToAllPE.scala 165:10]
+      node _T_34 = bits(_T_33, 12, 0) @[AllToAllPE.scala 165:10]
       infer mport MPORT_1 = memPE[_T_34], clock @[AllToAllPE.scala 165:10]
       MPORT_1 <= right_in.io.deq.bits.data @[AllToAllPE.scala 165:93]
     when up_dispatcher.io.this_PE : @[AllToAllPE.scala 168:33]
@@ -21043,7 +21043,7 @@ circuit AllToAll :
       node _T_40 = tail(_T_39, 1) @[AllToAllPE.scala 170:57]
       node _T_41 = add(_T_40, offset) @[AllToAllPE.scala 170:74]
       node _T_42 = tail(_T_41, 1) @[AllToAllPE.scala 170:74]
-      node _T_43 = bits(_T_42, 13, 0) @[AllToAllPE.scala 170:10]
+      node _T_43 = bits(_T_42, 12, 0) @[AllToAllPE.scala 170:10]
       infer mport MPORT_2 = memPE[_T_43], clock @[AllToAllPE.scala 170:10]
       MPORT_2 <= up_in.io.deq.bits.data @[AllToAllPE.scala 170:84]
     when bottom_dispatcher.io.this_PE : @[AllToAllPE.scala 173:37]
@@ -21055,7 +21055,7 @@ circuit AllToAll :
       node _T_49 = tail(_T_48, 1) @[AllToAllPE.scala 175:65]
       node _T_50 = add(_T_49, offset) @[AllToAllPE.scala 175:86]
       node _T_51 = tail(_T_50, 1) @[AllToAllPE.scala 175:86]
-      node _T_52 = bits(_T_51, 13, 0) @[AllToAllPE.scala 175:10]
+      node _T_52 = bits(_T_51, 12, 0) @[AllToAllPE.scala 175:10]
       infer mport MPORT_3 = memPE[_T_52], clock @[AllToAllPE.scala 175:10]
       MPORT_3 <= bottom_in.io.deq.bits.data @[AllToAllPE.scala 175:96]
     inst left_mux of MyPriorityMux_24 @[AllToAllPE.scala 182:24]
@@ -21500,7 +21500,7 @@ circuit AllToAll :
         io.resp.bits.data <= UInt<6>("h20") @[AllToAllPE.scala 443:23]
         resp_value <= UInt<6>("h20") @[AllToAllPE.scala 444:16]
         when is_this_PE : @[AllToAllPE.scala 446:21]
-          node _T_117 = bits(memIndex, 13, 0) @[AllToAllPE.scala 447:12]
+          node _T_117 = bits(memIndex, 12, 0) @[AllToAllPE.scala 447:12]
           infer mport MPORT_4 = memPE[_T_117], clock @[AllToAllPE.scala 447:12]
           MPORT_4 <= rs1 @[AllToAllPE.scala 447:23]
           io.resp.bits.write_enable <= UInt<1>("h1") @[AllToAllPE.scala 448:33]
@@ -21537,7 +21537,7 @@ circuit AllToAll :
           io.resp.valid <= UInt<1>("h0") @[AllToAllPE.scala 473:19]
           io.resp.bits.data <= UInt<6>("h21") @[AllToAllPE.scala 474:23]
           when is_this_PE : @[AllToAllPE.scala 476:21]
-            node _T_126 = bits(memIndex, 13, 0) @[AllToAllPE.scala 477:26]
+            node _T_126 = bits(memIndex, 12, 0) @[AllToAllPE.scala 477:26]
             infer mport MPORT_5 = memPE[_T_126], clock @[AllToAllPE.scala 477:26]
             resp_value <= MPORT_5 @[AllToAllPE.scala 477:18]
             w_en <= UInt<1>("h1") @[AllToAllPE.scala 478:12]
@@ -21658,16 +21658,16 @@ circuit AllToAll :
         node _T_152 = and(do_read, _T_151) @[AllToAllPE.scala 605:18]
         when _T_152 : @[AllToAllPE.scala 605:57]
           index_calcualtor.io.enable <= UInt<1>("h1") @[AllToAllPE.scala 607:34]
-          node _T_153 = bits(index_calcualtor.io.index0, 13, 0) @[AllToAllPE.scala 609:30]
+          node _T_153 = bits(index_calcualtor.io.index0, 12, 0) @[AllToAllPE.scala 609:30]
           infer mport MPORT_6 = memPE[_T_153], clock @[AllToAllPE.scala 609:30]
           read_values[0] <= MPORT_6 @[AllToAllPE.scala 609:22]
-          node _T_154 = bits(index_calcualtor.io.index1, 13, 0) @[AllToAllPE.scala 610:30]
+          node _T_154 = bits(index_calcualtor.io.index1, 12, 0) @[AllToAllPE.scala 610:30]
           infer mport MPORT_7 = memPE[_T_154], clock @[AllToAllPE.scala 610:30]
           read_values[1] <= MPORT_7 @[AllToAllPE.scala 610:22]
-          node _T_155 = bits(index_calcualtor.io.index2, 13, 0) @[AllToAllPE.scala 611:30]
+          node _T_155 = bits(index_calcualtor.io.index2, 12, 0) @[AllToAllPE.scala 611:30]
           infer mport MPORT_8 = memPE[_T_155], clock @[AllToAllPE.scala 611:30]
           read_values[2] <= MPORT_8 @[AllToAllPE.scala 611:22]
-          node _T_156 = bits(index_calcualtor.io.index3, 13, 0) @[AllToAllPE.scala 612:30]
+          node _T_156 = bits(index_calcualtor.io.index3, 12, 0) @[AllToAllPE.scala 612:30]
           infer mport MPORT_9 = memPE[_T_156], clock @[AllToAllPE.scala 612:30]
           read_values[3] <= MPORT_9 @[AllToAllPE.scala 612:22]
           read_values_valid[0] <= index_calcualtor.io.valid0 @[AllToAllPE.scala 614:28]
@@ -21751,25 +21751,25 @@ circuit AllToAll :
           when this_PE_generation_0 : @[AllToAllPE.scala 668:33]
             node _T_213 = add(index_write_this_PE, read_pos[0]) @[AllToAllPE.scala 669:35]
             node _T_214 = tail(_T_213, 1) @[AllToAllPE.scala 669:35]
-            node _T_215 = bits(_T_214, 13, 0) @[AllToAllPE.scala 669:14]
+            node _T_215 = bits(_T_214, 12, 0) @[AllToAllPE.scala 669:14]
             infer mport MPORT_10 = memPE[_T_215], clock @[AllToAllPE.scala 669:14]
             MPORT_10 <= read_values[0] @[AllToAllPE.scala 669:50]
           when this_PE_generation_1 : @[AllToAllPE.scala 671:33]
             node _T_216 = add(index_write_this_PE, read_pos[1]) @[AllToAllPE.scala 672:35]
             node _T_217 = tail(_T_216, 1) @[AllToAllPE.scala 672:35]
-            node _T_218 = bits(_T_217, 13, 0) @[AllToAllPE.scala 672:14]
+            node _T_218 = bits(_T_217, 12, 0) @[AllToAllPE.scala 672:14]
             infer mport MPORT_11 = memPE[_T_218], clock @[AllToAllPE.scala 672:14]
             MPORT_11 <= read_values[1] @[AllToAllPE.scala 672:50]
           when this_PE_generation_2 : @[AllToAllPE.scala 674:33]
             node _T_219 = add(index_write_this_PE, read_pos[2]) @[AllToAllPE.scala 675:35]
             node _T_220 = tail(_T_219, 1) @[AllToAllPE.scala 675:35]
-            node _T_221 = bits(_T_220, 13, 0) @[AllToAllPE.scala 675:14]
+            node _T_221 = bits(_T_220, 12, 0) @[AllToAllPE.scala 675:14]
             infer mport MPORT_12 = memPE[_T_221], clock @[AllToAllPE.scala 675:14]
             MPORT_12 <= read_values[2] @[AllToAllPE.scala 675:50]
           when this_PE_generation_3 : @[AllToAllPE.scala 677:33]
             node _T_222 = add(index_write_this_PE, read_pos[3]) @[AllToAllPE.scala 678:35]
             node _T_223 = tail(_T_222, 1) @[AllToAllPE.scala 678:35]
-            node _T_224 = bits(_T_223, 13, 0) @[AllToAllPE.scala 678:14]
+            node _T_224 = bits(_T_223, 12, 0) @[AllToAllPE.scala 678:14]
             infer mport MPORT_13 = memPE[_T_224], clock @[AllToAllPE.scala 678:14]
             MPORT_13 <= read_values[3] @[AllToAllPE.scala 678:50]
         node _T_225 = and(index_calcualtor.io.last_iteration, do_read) @[AllToAllPE.scala 684:45]
@@ -21785,7 +21785,7 @@ circuit AllToAll :
   module IndexCalculatorV1_7 :
     input clock : Clock
     input reset : Reset
-    output io : { flip reset : UInt<1>, flip enable : UInt<1>, flip dim_N : UInt<16>, index0 : UInt<32>, index1 : UInt<32>, index2 : UInt<32>, index3 : UInt<32>, valid0 : UInt<1>, valid1 : UInt<1>, valid2 : UInt<1>, valid3 : UInt<1>, x_dest_0 : UInt<3>, x_dest_1 : UInt<3>, x_dest_2 : UInt<3>, x_dest_3 : UInt<3>, y_dest_0 : UInt<3>, y_dest_1 : UInt<3>, y_dest_2 : UInt<3>, y_dest_3 : UInt<3>, pos_0 : UInt<16>, pos_1 : UInt<16>, pos_2 : UInt<16>, pos_3 : UInt<16>, last_iteration : UInt<1>}
+    output io : { flip reset : UInt<1>, flip enable : UInt<1>, flip dim_N : UInt<16>, index0 : UInt<32>, index1 : UInt<32>, index2 : UInt<32>, index3 : UInt<32>, valid0 : UInt<1>, valid1 : UInt<1>, valid2 : UInt<1>, valid3 : UInt<1>, x_dest_0 : UInt<2>, x_dest_1 : UInt<2>, x_dest_2 : UInt<2>, x_dest_3 : UInt<2>, y_dest_0 : UInt<2>, y_dest_1 : UInt<2>, y_dest_2 : UInt<2>, y_dest_3 : UInt<2>, pos_0 : UInt<16>, pos_1 : UInt<16>, pos_2 : UInt<16>, pos_3 : UInt<16>, last_iteration : UInt<1>}
 
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[IndexCalculator.scala 84:20]
@@ -21887,9 +21887,9 @@ circuit AllToAll :
   module Queue_56 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -21947,9 +21947,9 @@ circuit AllToAll :
   module Queue_57 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -22007,9 +22007,9 @@ circuit AllToAll :
   module Queue_58 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -22067,9 +22067,9 @@ circuit AllToAll :
   module Queue_59 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -22127,7 +22127,7 @@ circuit AllToAll :
   module Dispatcher_28 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -22314,7 +22314,7 @@ circuit AllToAll :
   module Dispatcher_29 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -22501,7 +22501,7 @@ circuit AllToAll :
   module Dispatcher_30 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -22688,7 +22688,7 @@ circuit AllToAll :
   module Dispatcher_31 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -22875,7 +22875,7 @@ circuit AllToAll :
   module GenerationDispatcher_28 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -22937,7 +22937,7 @@ circuit AllToAll :
   module GenerationDispatcher_29 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -22999,7 +22999,7 @@ circuit AllToAll :
   module GenerationDispatcher_30 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -23061,7 +23061,7 @@ circuit AllToAll :
   module GenerationDispatcher_31 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -23123,13 +23123,13 @@ circuit AllToAll :
   module MyPriorityMux_28 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -23189,13 +23189,13 @@ circuit AllToAll :
   module MyPriorityMux_29 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -23255,13 +23255,13 @@ circuit AllToAll :
   module MyPriorityMux_30 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -23321,13 +23321,13 @@ circuit AllToAll :
   module MyPriorityMux_31 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -23387,7 +23387,7 @@ circuit AllToAll :
   module RRArbiter_28 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -23457,7 +23457,7 @@ circuit AllToAll :
   module RRArbiter_29 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -23527,7 +23527,7 @@ circuit AllToAll :
   module RRArbiter_30 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -23597,7 +23597,7 @@ circuit AllToAll :
   module RRArbiter_31 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -23667,9 +23667,9 @@ circuit AllToAll :
   module Queue_60 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -23727,9 +23727,9 @@ circuit AllToAll :
   module Queue_61 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -23787,9 +23787,9 @@ circuit AllToAll :
   module Queue_62 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -23847,9 +23847,9 @@ circuit AllToAll :
   module Queue_63 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -23907,12 +23907,12 @@ circuit AllToAll :
   module AllToAllPEup :
     input clock : Clock
     input reset : Reset
-    output io : { busy : UInt<1>, flip end_AllToAll : UInt<1>, flip cmd : { flip ready : UInt<1>, valid : UInt<1>, bits : { load : UInt<1>, store : UInt<1>, doAllToAll : UInt<1>, rs1 : UInt<64>, rs2 : UInt<64>}}, resp : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, write_enable : UInt<1>}}, left : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, right : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, up : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, bottom : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}}
+    output io : { busy : UInt<1>, flip end_AllToAll : UInt<1>, flip cmd : { flip ready : UInt<1>, valid : UInt<1>, bits : { load : UInt<1>, store : UInt<1>, doAllToAll : UInt<1>, rs1 : UInt<64>, rs2 : UInt<64>}}, resp : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, write_enable : UInt<1>}}, left : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, right : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, up : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, bottom : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}}
 
-    cmem memPE : UInt<64> [10000] @[AllToAllPE.scala 20:18]
-    reg x_coord : UInt<3>, clock with :
+    cmem memPE : UInt<64> [5000] @[AllToAllPE.scala 20:18]
+    reg x_coord : UInt<2>, clock with :
       reset => (reset, UInt<1>("h1")) @[AllToAllPE.scala 23:24]
-    reg y_coord : UInt<3>, clock with :
+    reg y_coord : UInt<2>, clock with :
       reset => (reset, UInt<2>("h2")) @[AllToAllPE.scala 24:24]
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[AllToAllPE.scala 26:18]
@@ -23958,9 +23958,9 @@ circuit AllToAll :
     _WIRE[3] <= UInt<1>("h0") @[AllToAllPE.scala 63:42]
     reg read_values_valid : UInt<1>[4], clock with :
       reset => (reset, _WIRE) @[AllToAllPE.scala 63:34]
-    reg read_x_dest : UInt<3>[4], clock with :
+    reg read_x_dest : UInt<2>[4], clock with :
       reset => (UInt<1>("h0"), read_x_dest) @[AllToAllPE.scala 64:24]
-    reg read_y_dest : UInt<3>[4], clock with :
+    reg read_y_dest : UInt<2>[4], clock with :
       reset => (UInt<1>("h0"), read_y_dest) @[AllToAllPE.scala 65:24]
     reg read_pos : UInt<16>[4], clock with :
       reset => (UInt<1>("h0"), read_pos) @[AllToAllPE.scala 66:21]
@@ -24104,7 +24104,7 @@ circuit AllToAll :
       node _T_22 = tail(_T_21, 1) @[AllToAllPE.scala 160:61]
       node _T_23 = add(_T_22, offset) @[AllToAllPE.scala 160:80]
       node _T_24 = tail(_T_23, 1) @[AllToAllPE.scala 160:80]
-      node _T_25 = bits(_T_24, 13, 0) @[AllToAllPE.scala 160:10]
+      node _T_25 = bits(_T_24, 12, 0) @[AllToAllPE.scala 160:10]
       infer mport MPORT = memPE[_T_25], clock @[AllToAllPE.scala 160:10]
       MPORT <= left_in.io.deq.bits.data @[AllToAllPE.scala 160:90]
     when right_dispatcher.io.this_PE : @[AllToAllPE.scala 163:36]
@@ -24116,7 +24116,7 @@ circuit AllToAll :
       node _T_31 = tail(_T_30, 1) @[AllToAllPE.scala 165:63]
       node _T_32 = add(_T_31, offset) @[AllToAllPE.scala 165:83]
       node _T_33 = tail(_T_32, 1) @[AllToAllPE.scala 165:83]
-      node _T_34 = bits(_T_33, 13, 0) @[AllToAllPE.scala 165:10]
+      node _T_34 = bits(_T_33, 12, 0) @[AllToAllPE.scala 165:10]
       infer mport MPORT_1 = memPE[_T_34], clock @[AllToAllPE.scala 165:10]
       MPORT_1 <= right_in.io.deq.bits.data @[AllToAllPE.scala 165:93]
     when up_dispatcher.io.this_PE : @[AllToAllPE.scala 168:33]
@@ -24128,7 +24128,7 @@ circuit AllToAll :
       node _T_40 = tail(_T_39, 1) @[AllToAllPE.scala 170:57]
       node _T_41 = add(_T_40, offset) @[AllToAllPE.scala 170:74]
       node _T_42 = tail(_T_41, 1) @[AllToAllPE.scala 170:74]
-      node _T_43 = bits(_T_42, 13, 0) @[AllToAllPE.scala 170:10]
+      node _T_43 = bits(_T_42, 12, 0) @[AllToAllPE.scala 170:10]
       infer mport MPORT_2 = memPE[_T_43], clock @[AllToAllPE.scala 170:10]
       MPORT_2 <= up_in.io.deq.bits.data @[AllToAllPE.scala 170:84]
     when bottom_dispatcher.io.this_PE : @[AllToAllPE.scala 173:37]
@@ -24140,7 +24140,7 @@ circuit AllToAll :
       node _T_49 = tail(_T_48, 1) @[AllToAllPE.scala 175:65]
       node _T_50 = add(_T_49, offset) @[AllToAllPE.scala 175:86]
       node _T_51 = tail(_T_50, 1) @[AllToAllPE.scala 175:86]
-      node _T_52 = bits(_T_51, 13, 0) @[AllToAllPE.scala 175:10]
+      node _T_52 = bits(_T_51, 12, 0) @[AllToAllPE.scala 175:10]
       infer mport MPORT_3 = memPE[_T_52], clock @[AllToAllPE.scala 175:10]
       MPORT_3 <= bottom_in.io.deq.bits.data @[AllToAllPE.scala 175:96]
     inst left_mux of MyPriorityMux_28 @[AllToAllPE.scala 182:24]
@@ -24585,7 +24585,7 @@ circuit AllToAll :
         io.resp.bits.data <= UInt<6>("h20") @[AllToAllPE.scala 443:23]
         resp_value <= UInt<6>("h20") @[AllToAllPE.scala 444:16]
         when is_this_PE : @[AllToAllPE.scala 446:21]
-          node _T_117 = bits(memIndex, 13, 0) @[AllToAllPE.scala 447:12]
+          node _T_117 = bits(memIndex, 12, 0) @[AllToAllPE.scala 447:12]
           infer mport MPORT_4 = memPE[_T_117], clock @[AllToAllPE.scala 447:12]
           MPORT_4 <= rs1 @[AllToAllPE.scala 447:23]
           io.resp.bits.write_enable <= UInt<1>("h1") @[AllToAllPE.scala 448:33]
@@ -24622,7 +24622,7 @@ circuit AllToAll :
           io.resp.valid <= UInt<1>("h0") @[AllToAllPE.scala 473:19]
           io.resp.bits.data <= UInt<6>("h21") @[AllToAllPE.scala 474:23]
           when is_this_PE : @[AllToAllPE.scala 476:21]
-            node _T_126 = bits(memIndex, 13, 0) @[AllToAllPE.scala 477:26]
+            node _T_126 = bits(memIndex, 12, 0) @[AllToAllPE.scala 477:26]
             infer mport MPORT_5 = memPE[_T_126], clock @[AllToAllPE.scala 477:26]
             resp_value <= MPORT_5 @[AllToAllPE.scala 477:18]
             w_en <= UInt<1>("h1") @[AllToAllPE.scala 478:12]
@@ -24743,16 +24743,16 @@ circuit AllToAll :
         node _T_152 = and(do_read, _T_151) @[AllToAllPE.scala 605:18]
         when _T_152 : @[AllToAllPE.scala 605:57]
           index_calcualtor.io.enable <= UInt<1>("h1") @[AllToAllPE.scala 607:34]
-          node _T_153 = bits(index_calcualtor.io.index0, 13, 0) @[AllToAllPE.scala 609:30]
+          node _T_153 = bits(index_calcualtor.io.index0, 12, 0) @[AllToAllPE.scala 609:30]
           infer mport MPORT_6 = memPE[_T_153], clock @[AllToAllPE.scala 609:30]
           read_values[0] <= MPORT_6 @[AllToAllPE.scala 609:22]
-          node _T_154 = bits(index_calcualtor.io.index1, 13, 0) @[AllToAllPE.scala 610:30]
+          node _T_154 = bits(index_calcualtor.io.index1, 12, 0) @[AllToAllPE.scala 610:30]
           infer mport MPORT_7 = memPE[_T_154], clock @[AllToAllPE.scala 610:30]
           read_values[1] <= MPORT_7 @[AllToAllPE.scala 610:22]
-          node _T_155 = bits(index_calcualtor.io.index2, 13, 0) @[AllToAllPE.scala 611:30]
+          node _T_155 = bits(index_calcualtor.io.index2, 12, 0) @[AllToAllPE.scala 611:30]
           infer mport MPORT_8 = memPE[_T_155], clock @[AllToAllPE.scala 611:30]
           read_values[2] <= MPORT_8 @[AllToAllPE.scala 611:22]
-          node _T_156 = bits(index_calcualtor.io.index3, 13, 0) @[AllToAllPE.scala 612:30]
+          node _T_156 = bits(index_calcualtor.io.index3, 12, 0) @[AllToAllPE.scala 612:30]
           infer mport MPORT_9 = memPE[_T_156], clock @[AllToAllPE.scala 612:30]
           read_values[3] <= MPORT_9 @[AllToAllPE.scala 612:22]
           read_values_valid[0] <= index_calcualtor.io.valid0 @[AllToAllPE.scala 614:28]
@@ -24836,25 +24836,25 @@ circuit AllToAll :
           when this_PE_generation_0 : @[AllToAllPE.scala 668:33]
             node _T_213 = add(index_write_this_PE, read_pos[0]) @[AllToAllPE.scala 669:35]
             node _T_214 = tail(_T_213, 1) @[AllToAllPE.scala 669:35]
-            node _T_215 = bits(_T_214, 13, 0) @[AllToAllPE.scala 669:14]
+            node _T_215 = bits(_T_214, 12, 0) @[AllToAllPE.scala 669:14]
             infer mport MPORT_10 = memPE[_T_215], clock @[AllToAllPE.scala 669:14]
             MPORT_10 <= read_values[0] @[AllToAllPE.scala 669:50]
           when this_PE_generation_1 : @[AllToAllPE.scala 671:33]
             node _T_216 = add(index_write_this_PE, read_pos[1]) @[AllToAllPE.scala 672:35]
             node _T_217 = tail(_T_216, 1) @[AllToAllPE.scala 672:35]
-            node _T_218 = bits(_T_217, 13, 0) @[AllToAllPE.scala 672:14]
+            node _T_218 = bits(_T_217, 12, 0) @[AllToAllPE.scala 672:14]
             infer mport MPORT_11 = memPE[_T_218], clock @[AllToAllPE.scala 672:14]
             MPORT_11 <= read_values[1] @[AllToAllPE.scala 672:50]
           when this_PE_generation_2 : @[AllToAllPE.scala 674:33]
             node _T_219 = add(index_write_this_PE, read_pos[2]) @[AllToAllPE.scala 675:35]
             node _T_220 = tail(_T_219, 1) @[AllToAllPE.scala 675:35]
-            node _T_221 = bits(_T_220, 13, 0) @[AllToAllPE.scala 675:14]
+            node _T_221 = bits(_T_220, 12, 0) @[AllToAllPE.scala 675:14]
             infer mport MPORT_12 = memPE[_T_221], clock @[AllToAllPE.scala 675:14]
             MPORT_12 <= read_values[2] @[AllToAllPE.scala 675:50]
           when this_PE_generation_3 : @[AllToAllPE.scala 677:33]
             node _T_222 = add(index_write_this_PE, read_pos[3]) @[AllToAllPE.scala 678:35]
             node _T_223 = tail(_T_222, 1) @[AllToAllPE.scala 678:35]
-            node _T_224 = bits(_T_223, 13, 0) @[AllToAllPE.scala 678:14]
+            node _T_224 = bits(_T_223, 12, 0) @[AllToAllPE.scala 678:14]
             infer mport MPORT_13 = memPE[_T_224], clock @[AllToAllPE.scala 678:14]
             MPORT_13 <= read_values[3] @[AllToAllPE.scala 678:50]
         node _T_225 = and(index_calcualtor.io.last_iteration, do_read) @[AllToAllPE.scala 684:45]
@@ -24870,7 +24870,7 @@ circuit AllToAll :
   module IndexCalculatorV1_8 :
     input clock : Clock
     input reset : Reset
-    output io : { flip reset : UInt<1>, flip enable : UInt<1>, flip dim_N : UInt<16>, index0 : UInt<32>, index1 : UInt<32>, index2 : UInt<32>, index3 : UInt<32>, valid0 : UInt<1>, valid1 : UInt<1>, valid2 : UInt<1>, valid3 : UInt<1>, x_dest_0 : UInt<3>, x_dest_1 : UInt<3>, x_dest_2 : UInt<3>, x_dest_3 : UInt<3>, y_dest_0 : UInt<3>, y_dest_1 : UInt<3>, y_dest_2 : UInt<3>, y_dest_3 : UInt<3>, pos_0 : UInt<16>, pos_1 : UInt<16>, pos_2 : UInt<16>, pos_3 : UInt<16>, last_iteration : UInt<1>}
+    output io : { flip reset : UInt<1>, flip enable : UInt<1>, flip dim_N : UInt<16>, index0 : UInt<32>, index1 : UInt<32>, index2 : UInt<32>, index3 : UInt<32>, valid0 : UInt<1>, valid1 : UInt<1>, valid2 : UInt<1>, valid3 : UInt<1>, x_dest_0 : UInt<2>, x_dest_1 : UInt<2>, x_dest_2 : UInt<2>, x_dest_3 : UInt<2>, y_dest_0 : UInt<2>, y_dest_1 : UInt<2>, y_dest_2 : UInt<2>, y_dest_3 : UInt<2>, pos_0 : UInt<16>, pos_1 : UInt<16>, pos_2 : UInt<16>, pos_3 : UInt<16>, last_iteration : UInt<1>}
 
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[IndexCalculator.scala 84:20]
@@ -24972,9 +24972,9 @@ circuit AllToAll :
   module Queue_64 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -25032,9 +25032,9 @@ circuit AllToAll :
   module Queue_65 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -25092,9 +25092,9 @@ circuit AllToAll :
   module Queue_66 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -25152,9 +25152,9 @@ circuit AllToAll :
   module Queue_67 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -25212,7 +25212,7 @@ circuit AllToAll :
   module Dispatcher_32 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -25399,7 +25399,7 @@ circuit AllToAll :
   module Dispatcher_33 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -25586,7 +25586,7 @@ circuit AllToAll :
   module Dispatcher_34 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -25773,7 +25773,7 @@ circuit AllToAll :
   module Dispatcher_35 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_0 : UInt<3>, flip y_0 : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_0 : UInt<2>, flip y_0 : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>, this_PE : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 34:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 36:29]
@@ -25960,7 +25960,7 @@ circuit AllToAll :
   module GenerationDispatcher_32 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -26022,7 +26022,7 @@ circuit AllToAll :
   module GenerationDispatcher_33 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -26084,7 +26084,7 @@ circuit AllToAll :
   module GenerationDispatcher_34 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -26146,7 +26146,7 @@ circuit AllToAll :
   module GenerationDispatcher_35 :
     input clock : Clock
     input reset : Reset
-    output io : { flip x_PE : UInt<3>, flip y_PE : UInt<3>, flip x_dest : UInt<3>, flip y_dest : UInt<3>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
+    output io : { flip x_PE : UInt<2>, flip y_PE : UInt<2>, flip x_dest : UInt<2>, flip y_dest : UInt<2>, left : UInt<1>, right : UInt<1>, up : UInt<1>, bottom : UInt<1>}
 
     wire out_selector : UInt<4> @[Dispatcher.scala 201:28]
     node _T = eq(out_selector, UInt<1>("h1")) @[Dispatcher.scala 205:29]
@@ -26208,13 +26208,13 @@ circuit AllToAll :
   module MyPriorityMux_32 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -26274,13 +26274,13 @@ circuit AllToAll :
   module MyPriorityMux_33 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -26340,13 +26340,13 @@ circuit AllToAll :
   module MyPriorityMux_34 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -26406,13 +26406,13 @@ circuit AllToAll :
   module MyPriorityMux_35 :
     input clock : Clock
     input reset : Reset
-    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>}}
+    output io : { flip valid : UInt<1>[4], flip in_bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}[4], out_valid : UInt<1>, out_val : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>}}
 
-    wire first : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
-    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
-    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
-    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
-    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
+    wire first : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 44:19]
+    wire myseq2_1 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 45:20]
+    wire myseq2_2 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 46:19]
+    wire fourth : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 47:20]
+    wire myseq2_4 : { bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}, selected : UInt<4>} @[Utility.scala 48:28]
     first.bits.pos <= io.in_bits[0].pos @[Utility.scala 50:14]
     first.bits.y_dest <= io.in_bits[0].y_dest @[Utility.scala 50:14]
     first.bits.x_dest <= io.in_bits[0].x_dest @[Utility.scala 50:14]
@@ -26472,7 +26472,7 @@ circuit AllToAll :
   module RRArbiter_32 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -26542,7 +26542,7 @@ circuit AllToAll :
   module RRArbiter_33 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -26612,7 +26612,7 @@ circuit AllToAll :
   module RRArbiter_34 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -26682,7 +26682,7 @@ circuit AllToAll :
   module RRArbiter_35 :
     input clock : Clock
     input reset : Reset
-    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, chosen : UInt<2>}
+    output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}[4], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, chosen : UInt<2>}
 
     wire choice : UInt
     choice <= UInt<2>("h3")
@@ -26752,9 +26752,9 @@ circuit AllToAll :
   module Queue_68 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -26812,9 +26812,9 @@ circuit AllToAll :
   module Queue_69 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -26872,9 +26872,9 @@ circuit AllToAll :
   module Queue_70 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -26932,9 +26932,9 @@ circuit AllToAll :
   module Queue_71 :
     input clock : Clock
     input reset : Reset
-    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, count : UInt<6>}
+    output io : { flip enq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, deq : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, count : UInt<6>}
 
-    cmem ram : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
+    cmem ram : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>} [32] @[Decoupled.scala 218:16]
     reg value : UInt<5>, clock with :
       reset => (reset, UInt<5>("h0")) @[Counter.scala 60:40]
     reg value_1 : UInt<5>, clock with :
@@ -26992,12 +26992,12 @@ circuit AllToAll :
   module AllToAllPEupRightCorner :
     input clock : Clock
     input reset : Reset
-    output io : { busy : UInt<1>, flip end_AllToAll : UInt<1>, flip cmd : { flip ready : UInt<1>, valid : UInt<1>, bits : { load : UInt<1>, store : UInt<1>, doAllToAll : UInt<1>, rs1 : UInt<64>, rs2 : UInt<64>}}, resp : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, write_enable : UInt<1>}}, left : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, right : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, up : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}, bottom : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<3>, y_0 : UInt<3>, x_dest : UInt<3>, y_dest : UInt<3>, pos : UInt<16>}}}}
+    output io : { busy : UInt<1>, flip end_AllToAll : UInt<1>, flip cmd : { flip ready : UInt<1>, valid : UInt<1>, bits : { load : UInt<1>, store : UInt<1>, doAllToAll : UInt<1>, rs1 : UInt<64>, rs2 : UInt<64>}}, resp : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, write_enable : UInt<1>}}, left : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, right : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, up : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}, bottom : { out : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}, flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { data : UInt<64>, x_0 : UInt<2>, y_0 : UInt<2>, x_dest : UInt<2>, y_dest : UInt<2>, pos : UInt<16>}}}}
 
-    cmem memPE : UInt<64> [10000] @[AllToAllPE.scala 20:18]
-    reg x_coord : UInt<3>, clock with :
+    cmem memPE : UInt<64> [5000] @[AllToAllPE.scala 20:18]
+    reg x_coord : UInt<2>, clock with :
       reset => (reset, UInt<2>("h2")) @[AllToAllPE.scala 23:24]
-    reg y_coord : UInt<3>, clock with :
+    reg y_coord : UInt<2>, clock with :
       reset => (reset, UInt<2>("h2")) @[AllToAllPE.scala 24:24]
     reg dim_N : UInt<16>, clock with :
       reset => (UInt<1>("h0"), dim_N) @[AllToAllPE.scala 26:18]
@@ -27043,9 +27043,9 @@ circuit AllToAll :
     _WIRE[3] <= UInt<1>("h0") @[AllToAllPE.scala 63:42]
     reg read_values_valid : UInt<1>[4], clock with :
       reset => (reset, _WIRE) @[AllToAllPE.scala 63:34]
-    reg read_x_dest : UInt<3>[4], clock with :
+    reg read_x_dest : UInt<2>[4], clock with :
       reset => (UInt<1>("h0"), read_x_dest) @[AllToAllPE.scala 64:24]
-    reg read_y_dest : UInt<3>[4], clock with :
+    reg read_y_dest : UInt<2>[4], clock with :
       reset => (UInt<1>("h0"), read_y_dest) @[AllToAllPE.scala 65:24]
     reg read_pos : UInt<16>[4], clock with :
       reset => (UInt<1>("h0"), read_pos) @[AllToAllPE.scala 66:21]
@@ -27189,7 +27189,7 @@ circuit AllToAll :
       node _T_22 = tail(_T_21, 1) @[AllToAllPE.scala 160:61]
       node _T_23 = add(_T_22, offset) @[AllToAllPE.scala 160:80]
       node _T_24 = tail(_T_23, 1) @[AllToAllPE.scala 160:80]
-      node _T_25 = bits(_T_24, 13, 0) @[AllToAllPE.scala 160:10]
+      node _T_25 = bits(_T_24, 12, 0) @[AllToAllPE.scala 160:10]
       infer mport MPORT = memPE[_T_25], clock @[AllToAllPE.scala 160:10]
       MPORT <= left_in.io.deq.bits.data @[AllToAllPE.scala 160:90]
     when right_dispatcher.io.this_PE : @[AllToAllPE.scala 163:36]
@@ -27201,7 +27201,7 @@ circuit AllToAll :
       node _T_31 = tail(_T_30, 1) @[AllToAllPE.scala 165:63]
       node _T_32 = add(_T_31, offset) @[AllToAllPE.scala 165:83]
       node _T_33 = tail(_T_32, 1) @[AllToAllPE.scala 165:83]
-      node _T_34 = bits(_T_33, 13, 0) @[AllToAllPE.scala 165:10]
+      node _T_34 = bits(_T_33, 12, 0) @[AllToAllPE.scala 165:10]
       infer mport MPORT_1 = memPE[_T_34], clock @[AllToAllPE.scala 165:10]
       MPORT_1 <= right_in.io.deq.bits.data @[AllToAllPE.scala 165:93]
     when up_dispatcher.io.this_PE : @[AllToAllPE.scala 168:33]
@@ -27213,7 +27213,7 @@ circuit AllToAll :
       node _T_40 = tail(_T_39, 1) @[AllToAllPE.scala 170:57]
       node _T_41 = add(_T_40, offset) @[AllToAllPE.scala 170:74]
       node _T_42 = tail(_T_41, 1) @[AllToAllPE.scala 170:74]
-      node _T_43 = bits(_T_42, 13, 0) @[AllToAllPE.scala 170:10]
+      node _T_43 = bits(_T_42, 12, 0) @[AllToAllPE.scala 170:10]
       infer mport MPORT_2 = memPE[_T_43], clock @[AllToAllPE.scala 170:10]
       MPORT_2 <= up_in.io.deq.bits.data @[AllToAllPE.scala 170:84]
     when bottom_dispatcher.io.this_PE : @[AllToAllPE.scala 173:37]
@@ -27225,7 +27225,7 @@ circuit AllToAll :
       node _T_49 = tail(_T_48, 1) @[AllToAllPE.scala 175:65]
       node _T_50 = add(_T_49, offset) @[AllToAllPE.scala 175:86]
       node _T_51 = tail(_T_50, 1) @[AllToAllPE.scala 175:86]
-      node _T_52 = bits(_T_51, 13, 0) @[AllToAllPE.scala 175:10]
+      node _T_52 = bits(_T_51, 12, 0) @[AllToAllPE.scala 175:10]
       infer mport MPORT_3 = memPE[_T_52], clock @[AllToAllPE.scala 175:10]
       MPORT_3 <= bottom_in.io.deq.bits.data @[AllToAllPE.scala 175:96]
     inst left_mux of MyPriorityMux_32 @[AllToAllPE.scala 182:24]
@@ -27670,7 +27670,7 @@ circuit AllToAll :
         io.resp.bits.data <= UInt<6>("h20") @[AllToAllPE.scala 443:23]
         resp_value <= UInt<6>("h20") @[AllToAllPE.scala 444:16]
         when is_this_PE : @[AllToAllPE.scala 446:21]
-          node _T_117 = bits(memIndex, 13, 0) @[AllToAllPE.scala 447:12]
+          node _T_117 = bits(memIndex, 12, 0) @[AllToAllPE.scala 447:12]
           infer mport MPORT_4 = memPE[_T_117], clock @[AllToAllPE.scala 447:12]
           MPORT_4 <= rs1 @[AllToAllPE.scala 447:23]
           io.resp.bits.write_enable <= UInt<1>("h1") @[AllToAllPE.scala 448:33]
@@ -27707,7 +27707,7 @@ circuit AllToAll :
           io.resp.valid <= UInt<1>("h0") @[AllToAllPE.scala 473:19]
           io.resp.bits.data <= UInt<6>("h21") @[AllToAllPE.scala 474:23]
           when is_this_PE : @[AllToAllPE.scala 476:21]
-            node _T_126 = bits(memIndex, 13, 0) @[AllToAllPE.scala 477:26]
+            node _T_126 = bits(memIndex, 12, 0) @[AllToAllPE.scala 477:26]
             infer mport MPORT_5 = memPE[_T_126], clock @[AllToAllPE.scala 477:26]
             resp_value <= MPORT_5 @[AllToAllPE.scala 477:18]
             w_en <= UInt<1>("h1") @[AllToAllPE.scala 478:12]
@@ -27828,16 +27828,16 @@ circuit AllToAll :
         node _T_152 = and(do_read, _T_151) @[AllToAllPE.scala 605:18]
         when _T_152 : @[AllToAllPE.scala 605:57]
           index_calcualtor.io.enable <= UInt<1>("h1") @[AllToAllPE.scala 607:34]
-          node _T_153 = bits(index_calcualtor.io.index0, 13, 0) @[AllToAllPE.scala 609:30]
+          node _T_153 = bits(index_calcualtor.io.index0, 12, 0) @[AllToAllPE.scala 609:30]
           infer mport MPORT_6 = memPE[_T_153], clock @[AllToAllPE.scala 609:30]
           read_values[0] <= MPORT_6 @[AllToAllPE.scala 609:22]
-          node _T_154 = bits(index_calcualtor.io.index1, 13, 0) @[AllToAllPE.scala 610:30]
+          node _T_154 = bits(index_calcualtor.io.index1, 12, 0) @[AllToAllPE.scala 610:30]
           infer mport MPORT_7 = memPE[_T_154], clock @[AllToAllPE.scala 610:30]
           read_values[1] <= MPORT_7 @[AllToAllPE.scala 610:22]
-          node _T_155 = bits(index_calcualtor.io.index2, 13, 0) @[AllToAllPE.scala 611:30]
+          node _T_155 = bits(index_calcualtor.io.index2, 12, 0) @[AllToAllPE.scala 611:30]
           infer mport MPORT_8 = memPE[_T_155], clock @[AllToAllPE.scala 611:30]
           read_values[2] <= MPORT_8 @[AllToAllPE.scala 611:22]
-          node _T_156 = bits(index_calcualtor.io.index3, 13, 0) @[AllToAllPE.scala 612:30]
+          node _T_156 = bits(index_calcualtor.io.index3, 12, 0) @[AllToAllPE.scala 612:30]
           infer mport MPORT_9 = memPE[_T_156], clock @[AllToAllPE.scala 612:30]
           read_values[3] <= MPORT_9 @[AllToAllPE.scala 612:22]
           read_values_valid[0] <= index_calcualtor.io.valid0 @[AllToAllPE.scala 614:28]
@@ -27921,25 +27921,25 @@ circuit AllToAll :
           when this_PE_generation_0 : @[AllToAllPE.scala 668:33]
             node _T_213 = add(index_write_this_PE, read_pos[0]) @[AllToAllPE.scala 669:35]
             node _T_214 = tail(_T_213, 1) @[AllToAllPE.scala 669:35]
-            node _T_215 = bits(_T_214, 13, 0) @[AllToAllPE.scala 669:14]
+            node _T_215 = bits(_T_214, 12, 0) @[AllToAllPE.scala 669:14]
             infer mport MPORT_10 = memPE[_T_215], clock @[AllToAllPE.scala 669:14]
             MPORT_10 <= read_values[0] @[AllToAllPE.scala 669:50]
           when this_PE_generation_1 : @[AllToAllPE.scala 671:33]
             node _T_216 = add(index_write_this_PE, read_pos[1]) @[AllToAllPE.scala 672:35]
             node _T_217 = tail(_T_216, 1) @[AllToAllPE.scala 672:35]
-            node _T_218 = bits(_T_217, 13, 0) @[AllToAllPE.scala 672:14]
+            node _T_218 = bits(_T_217, 12, 0) @[AllToAllPE.scala 672:14]
             infer mport MPORT_11 = memPE[_T_218], clock @[AllToAllPE.scala 672:14]
             MPORT_11 <= read_values[1] @[AllToAllPE.scala 672:50]
           when this_PE_generation_2 : @[AllToAllPE.scala 674:33]
             node _T_219 = add(index_write_this_PE, read_pos[2]) @[AllToAllPE.scala 675:35]
             node _T_220 = tail(_T_219, 1) @[AllToAllPE.scala 675:35]
-            node _T_221 = bits(_T_220, 13, 0) @[AllToAllPE.scala 675:14]
+            node _T_221 = bits(_T_220, 12, 0) @[AllToAllPE.scala 675:14]
             infer mport MPORT_12 = memPE[_T_221], clock @[AllToAllPE.scala 675:14]
             MPORT_12 <= read_values[2] @[AllToAllPE.scala 675:50]
           when this_PE_generation_3 : @[AllToAllPE.scala 677:33]
             node _T_222 = add(index_write_this_PE, read_pos[3]) @[AllToAllPE.scala 678:35]
             node _T_223 = tail(_T_222, 1) @[AllToAllPE.scala 678:35]
-            node _T_224 = bits(_T_223, 13, 0) @[AllToAllPE.scala 678:14]
+            node _T_224 = bits(_T_223, 12, 0) @[AllToAllPE.scala 678:14]
             infer mport MPORT_13 = memPE[_T_224], clock @[AllToAllPE.scala 678:14]
             MPORT_13 <= read_values[3] @[AllToAllPE.scala 678:50]
         node _T_225 = and(index_calcualtor.io.last_iteration, do_read) @[AllToAllPE.scala 684:45]
@@ -28437,26 +28437,26 @@ circuit AllToAll :
     input reset : UInt<1>
     output io : { flip cmd : { flip ready : UInt<1>, valid : UInt<1>, bits : { inst : { funct : UInt<7>, rs2 : UInt<5>, rs1 : UInt<5>, xd : UInt<1>, xs1 : UInt<1>, xs2 : UInt<1>, rd : UInt<5>, opcode : UInt<7>}, rs1 : UInt<64>, rs2 : UInt<64>}}, resp : { flip ready : UInt<1>, valid : UInt<1>, bits : { rd : UInt<5>, data : UInt<64>}}, busy : UInt<1>, interrupt : UInt<1>, flip exception : UInt<1>}
 
-    inst aTaModule of AllToAllModule @[AllToAllTest.scala 13:25]
+    inst aTaModule of AllToAllModule @[AllToAllTest.scala 14:25]
     aTaModule.clock <= clock
     aTaModule.reset <= reset
-    aTaModule.io.cmd.valid <= io.cmd.valid @[AllToAllTest.scala 16:26]
-    aTaModule.io.cmd.bits.inst.funct <= io.cmd.bits.inst.funct @[AllToAllTest.scala 17:36]
-    aTaModule.io.cmd.bits.inst.rs2 <= io.cmd.bits.inst.rs2 @[AllToAllTest.scala 18:34]
-    aTaModule.io.cmd.bits.inst.rs1 <= io.cmd.bits.inst.rs1 @[AllToAllTest.scala 19:34]
-    aTaModule.io.cmd.bits.inst.xd <= io.cmd.bits.inst.xd @[AllToAllTest.scala 20:33]
-    aTaModule.io.cmd.bits.inst.xs1 <= io.cmd.bits.inst.xs1 @[AllToAllTest.scala 21:34]
-    aTaModule.io.cmd.bits.inst.xs2 <= io.cmd.bits.inst.xs2 @[AllToAllTest.scala 22:34]
-    aTaModule.io.cmd.bits.inst.rd <= io.cmd.bits.inst.rd @[AllToAllTest.scala 23:33]
-    aTaModule.io.cmd.bits.inst.opcode <= io.cmd.bits.inst.opcode @[AllToAllTest.scala 24:37]
-    aTaModule.io.cmd.bits.rs1 <= io.cmd.bits.rs1 @[AllToAllTest.scala 25:29]
-    aTaModule.io.cmd.bits.rs2 <= io.cmd.bits.rs2 @[AllToAllTest.scala 26:29]
-    aTaModule.io.resp.ready <= io.resp.ready @[AllToAllTest.scala 27:27]
-    io.cmd.ready <= aTaModule.io.cmd.ready @[AllToAllTest.scala 31:16]
-    io.resp.valid <= aTaModule.io.resp.valid @[AllToAllTest.scala 32:17]
-    io.resp.bits.rd <= aTaModule.io.resp.bits.rd @[AllToAllTest.scala 33:19]
-    io.resp.bits.data <= aTaModule.io.resp.bits.data @[AllToAllTest.scala 34:21]
-    io.interrupt <= aTaModule.io.interrupt @[AllToAllTest.scala 37:16]
-    io.busy <= aTaModule.io.busy @[AllToAllTest.scala 38:11]
-    aTaModule.io.exception <= io.exception @[AllToAllTest.scala 41:26]
+    aTaModule.io.cmd.valid <= io.cmd.valid @[AllToAllTest.scala 17:26]
+    aTaModule.io.cmd.bits.inst.funct <= io.cmd.bits.inst.funct @[AllToAllTest.scala 18:36]
+    aTaModule.io.cmd.bits.inst.rs2 <= io.cmd.bits.inst.rs2 @[AllToAllTest.scala 19:34]
+    aTaModule.io.cmd.bits.inst.rs1 <= io.cmd.bits.inst.rs1 @[AllToAllTest.scala 20:34]
+    aTaModule.io.cmd.bits.inst.xd <= io.cmd.bits.inst.xd @[AllToAllTest.scala 21:33]
+    aTaModule.io.cmd.bits.inst.xs1 <= io.cmd.bits.inst.xs1 @[AllToAllTest.scala 22:34]
+    aTaModule.io.cmd.bits.inst.xs2 <= io.cmd.bits.inst.xs2 @[AllToAllTest.scala 23:34]
+    aTaModule.io.cmd.bits.inst.rd <= io.cmd.bits.inst.rd @[AllToAllTest.scala 24:33]
+    aTaModule.io.cmd.bits.inst.opcode <= io.cmd.bits.inst.opcode @[AllToAllTest.scala 25:37]
+    aTaModule.io.cmd.bits.rs1 <= io.cmd.bits.rs1 @[AllToAllTest.scala 26:29]
+    aTaModule.io.cmd.bits.rs2 <= io.cmd.bits.rs2 @[AllToAllTest.scala 27:29]
+    aTaModule.io.resp.ready <= io.resp.ready @[AllToAllTest.scala 28:27]
+    io.cmd.ready <= aTaModule.io.cmd.ready @[AllToAllTest.scala 32:16]
+    io.resp.valid <= aTaModule.io.resp.valid @[AllToAllTest.scala 33:17]
+    io.resp.bits.rd <= aTaModule.io.resp.bits.rd @[AllToAllTest.scala 34:19]
+    io.resp.bits.data <= aTaModule.io.resp.bits.data @[AllToAllTest.scala 35:21]
+    io.interrupt <= aTaModule.io.interrupt @[AllToAllTest.scala 38:16]
+    io.busy <= aTaModule.io.busy @[AllToAllTest.scala 39:11]
+    aTaModule.io.exception <= io.exception @[AllToAllTest.scala 42:26]
 
