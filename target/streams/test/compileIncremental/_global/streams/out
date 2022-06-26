@@ -1,7 +1,7 @@
 [0m[[0m[0mdebug[0m] [0m[0m[zinc] IncrementalCompile -----------[0m
 [0m[[0m[0mdebug[0m] [0m[0mIncrementalCompile.incrementalCompile[0m
-[0m[[0m[0mdebug[0m] [0m[0mprevious = Stamps for: 57 products, 12 sources, 6 libraries[0m
-[0m[[0m[0mdebug[0m] [0m[0mcurrent source = Set(${BASE}/src/test/scala/testController.scala, ${BASE}/src/test/scala/testDispatcher.scala, ${BASE}/src/test/scala/testUtility.scala, ${BASE}/src/test/scala/testMesh.scala, ${BASE}/src/test/scala/AllToAllN_4.scala, ${BASE}/src/test/scala/testIndexCaluclator.scala, ${BASE}/src/test/scala/LazyROCCWrapper.scala, ${BASE}/src/test/scala/AllToAllN_6.scala, ${BASE}/src/test/scala/testPE.scala, ${BASE}/src/test/scala/AllToAllTest.scala, ${BASE}/src/test/scala/AllToAllN_5.scala)[0m
+[0m[[0m[0mdebug[0m] [0m[0mprevious = Stamps for: 56 products, 12 sources, 6 libraries[0m
+[0m[[0m[0mdebug[0m] [0m[0mcurrent source = Set(${BASE}/src/test/scala/testController.scala, ${BASE}/src/test/scala/testPEMux.scala, ${BASE}/src/test/scala/testDispatcher.scala, ${BASE}/src/test/scala/testMesh.scala, ${BASE}/src/test/scala/AllToAllN_4.scala, ${BASE}/src/test/scala/testIndexCaluclator.scala, ${BASE}/src/test/scala/LazyROCCWrapper.scala, ${BASE}/src/test/scala/AllToAllN_6.scala, ${BASE}/src/test/scala/testPE.scala, ${BASE}/src/test/scala/AllToAllTest.scala, ${BASE}/src/test/scala/AllToAllN_5.scala)[0m
 [0m[[0m[0mdebug[0m] [0m[0m> initialChanges = InitialChanges(Changes(added = Set(), removed = Set(${BASE}/src/test/scala/Utilities.scala), changed = Set(${BASE}/src/test/scala/AllToAllN_4.scala), unmodified = ...),Set(),Set(),API Changes: Set())[0m
 [0m[[0m[0mdebug[0m] [0m[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0mInitial source changes:[0m
@@ -22,7 +22,7 @@
 [0m[[0m[0mdebug[0m] [0m[0mcompilation cycle 1[0m
 [0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to /root/chipyard/generators/hppsProject/target/scala-2.12/test-classes ...[0m
 [0m[[0m[0mdebug[0m] [0m[0mGetting org.scala-sbt:compiler-bridge_2.12:1.4.4:compile for Scala 2.12.4[0m
-[0m[[0m[0mdebug[0m] [0m[0m[zinc] Running cached compiler 5a24b0fe for Scala compiler version 2.12.4[0m
+[0m[[0m[0mdebug[0m] [0m[0m[zinc] Running cached compiler 3162d5f8 for Scala compiler version 2.12.4[0m
 [0m[[0m[0mdebug[0m] [0m[0m[zinc] The Scala compiler is invoked with:[0m
 [0m[[0m[0mdebug[0m] [0m[0m	-deprecation[0m
 [0m[[0m[0mdebug[0m] [0m[0m	-unchecked[0m
@@ -37,5 +37,5 @@
 [0m[[0m[0mdebug[0m] [0m[0mFinal step, transitive dependencies:[0m
 [0m[[0m[0mdebug[0m] [0m[0m	Set()[0m
 [0m[[0m[0mdebug[0m] [0m[0mNo classes were invalidated.[0m
-[0m[[0m[0mdebug[0m] [0m[0mScala compilation took 8.6507264 s[0m
+[0m[[0m[0mdebug[0m] [0m[0mScala compilation took 9.2819888 s[0m
 [0m[[0m[0mdebug[0m] [0m[0mdone compiling[0m

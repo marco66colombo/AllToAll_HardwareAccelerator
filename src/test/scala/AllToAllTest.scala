@@ -285,7 +285,7 @@ class testATAStallResp(c: AllToAll) extends PeekPokeTester(c) {
  
 }
 
-class testATAnew(c: AllToAll) extends PeekPokeTester(c) {
+class AllToAll3(c: AllToAll) extends PeekPokeTester(c) {
 
   def x_coord(i: Int, n: Int): Int = (i%n)
   def y_coord(i: Int, n:Int): Int = (i/n)
@@ -452,7 +452,7 @@ class AllToAllTest extends ChiselFlatSpec {
   behavior of "test_n_3"
   it should "test_n_3" in {
     chisel3.iotesters.Driver.execute( testerArgs, () => new AllToAll(3,5000,32)) {
-      c => new testATAnew(c)
+      c => new AllToAll3(c)
     } should be (true)
   }
 

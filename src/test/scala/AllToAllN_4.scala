@@ -169,9 +169,7 @@ class testN4(c: AllToAll4) extends PeekPokeTester(c) {
   testNumberCycles(4,16)
   testNumberCycles(4,32)
   testNumberCycles(4,64)
-  //testNumberCycles(4,128)
-
-
+  
 }
 
 

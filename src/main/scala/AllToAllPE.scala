@@ -60,7 +60,6 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
 
   val end_push_data = Reg(Bool())
   val read_values = Reg(Vec(4, Bits(64.W)))
-  //val read_values_valid = Reg(Vec(4,Bool()))
   val read_values_valid = RegInit(VecInit(Seq.fill(4)(false.B)))
   val read_x_dest = Reg(Vec(4,UInt(bitsWidth.W)))
   val read_y_dest = Reg(Vec(4,UInt(bitsWidth.W)))
@@ -330,22 +329,22 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
 
   //manage ready bits of input queues (queue.io.deq.ready)
   //ready if: the message has to be written in memory or one output queue accepts it
-  left_in.ready := (left_dispatcher.io.this_PE && left_in.valid) || 
+  left_in.ready := (left_dispatcher.io.this_PE) || 
                   (left_dispatcher.io.right && right_out_arbiter.io.in(1).ready) ||
                   (left_dispatcher.io.up && up_out_arbiter.io.in(1).ready) ||
                   (left_dispatcher.io.bottom && bottom_out_arbiter.io.in(1).ready)
   
-  right_in.ready := (right_dispatcher.io.this_PE && right_in.valid) || 
+  right_in.ready := (right_dispatcher.io.this_PE) || 
                   (right_dispatcher.io.left && left_out_arbiter.io.in(1).ready) ||
                   (right_dispatcher.io.up && up_out_arbiter.io.in(2).ready) ||
                   (right_dispatcher.io.bottom && bottom_out_arbiter.io.in(2).ready)
   
-  up_in.ready := (up_dispatcher.io.this_PE && up_in.valid) || 
+  up_in.ready := (up_dispatcher.io.this_PE) || 
                   (up_dispatcher.io.left && left_out_arbiter.io.in(2).ready) ||
                   (up_dispatcher.io.right && right_out_arbiter.io.in(2).ready) ||
                   (up_dispatcher.io.bottom && bottom_out_arbiter.io.in(3).ready)
 
-  bottom_in.ready := (bottom_dispatcher.io.this_PE && bottom_in.valid) || 
+  bottom_in.ready := (bottom_dispatcher.io.this_PE) || 
                   (bottom_dispatcher.io.left && left_out_arbiter.io.in(3).ready) ||
                   (bottom_dispatcher.io.right && right_out_arbiter.io.in(3).ready) ||
                   (bottom_dispatcher.io.up && up_out_arbiter.io.in(3).ready)
@@ -391,7 +390,7 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     }
    
     dim_N := io.cmd.bits.rs1(15,0)
-    //offset := (n*n).U * io.cmd.bits.rs1(15,0)
+
 
     when(load_signal && !stall_resp){
       state := do_load
@@ -432,7 +431,7 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     io.resp.bits.write_enable := w_en
 
     dim_N := io.cmd.bits.rs1(15,0)
-    //offset := (n*n).U * io.cmd.bits.rs1(15,0)
+  
   
     when(load_signal && !stall_resp){
       state := do_load
@@ -471,7 +470,6 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     io.resp.bits.write_enable := false.B
 
     offset := (n*n).U * dim_N
-    //index_write_this_PE := ((x+y*n).U * dim_N + offset)
 
     end_push_data := false.B
 
@@ -502,7 +500,6 @@ class AllToAllPE(n : Int, cacheSize: Int, queueSize: Int, x : Int, y : Int) exte
     io.resp.bits.data := 35.U
     //priority mux will take the first PE, not a problem since data of response are not used
     io.resp.bits.write_enable := true.B
-    //end_push_data := false.B
 
     state := idle
 
