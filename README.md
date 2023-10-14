@@ -1,5 +1,5 @@
 # HPPS Project - NECST lab Polimi
-Advanced Computer Architectures and High Performance and Processors and Systems project. <br>
+Advanced Computer Architectures and High Performance Processors and Systems project. <br>
 
 
 ## Abstract
